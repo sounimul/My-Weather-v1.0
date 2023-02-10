@@ -62,11 +62,20 @@ function getLoc(){
     });
 }
 
-/*
+/* 위도,경도 -> X,Y 좌표로 바꾸기 */
+function getXY(){
+
+}
+
+/* 위도, 경도를 이용하여 주소 받아오기 */
+function getAddress(){
+
+}
+
+/* X,Y좌표를 이용하여 날씨정보 받아오기 */
 function getWeather(){ //날씨 역시 API
 
 }
-*/
 
 function putIcon(){
     //const icon_arr = ['sun', 'cloud']; //변수일 때만 따옴표 없이 집어넣고, 문자열이라면 "" '' 꼭 집어넣기
