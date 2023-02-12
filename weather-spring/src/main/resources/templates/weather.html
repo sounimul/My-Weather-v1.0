@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="../static/grid.css">
+    <link rel="stylesheet" href="../static/basic.css"> <!-- 영어버전 / 한글버전 따로 만들어서 글꼴 적용하기-->
+    <link rel="stylesheet" href="../static/weather_style.css">
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <div class="title"> <h1><a href="weather.html">How's the Weather?</a></h1> </div>
+        <nav> 
+            <div class='menu'><a href="weather.html"> Main </a></div>  
+            <div class='menu'><a href="https://www.weather.go.kr/w/index.do"> Search </a></div>
+            <div class='menu'><a href="myPage.html"> My page </a></div>
+        </nav>
+    </header>
+    <main>
+        <section class="weather_main">
+            <div class="time" id="calendar"></div>
+            <div class="time" id="clock"></div>
+            <div class="time" id="loc">locate</div>
+            <div class="temperature"> <div id="circle"></div> </div>    
+
+        </section>
+        <section class="weather_info">
+            <div class="info">체감온도</div>
+            <div class="info">미세먼지 농도</div>
+            <div class="info">자외선 지수</div>
+            <div class="info">습도</div>
+            <div class="info">예상 강수량</div>
+            <div class="info">최저/최고기온</div>
+            <div class="info" id="info_text">오늘은 어제보다 추울 예정이니 따뜻하게 입고 외출하세요!</div>
+        </section>
+        <section class="week_weather">
+            <div id="week_title">Weekly</div>
+            <div class="week">
+                <div class="week_day" id="today"></div>
+                <div class="week_info">
+                    <div class="low">low</div>
+                    <div class="high">high</div>
+                    <div class="icon" id="icon1">icon</div>
+                </div>
+            </div>
+            <div class="week">
+                <div class="week_day" id="tomorrow"></div>
+                <div class="week_info">
+                    <div class="low">low</div>
+                    <div class="high">high</div>
+                    <div class="icon" id="icon1">icon</div>
+                </div>
+            </div>
+            <div class="week">
+                <div class="week_day" id="tomorrow2"></div>
+                <div class="week_info">
+                    <div class="low">low</div>
+                    <div class="high">high</div>
+                    <div class="icon" id="icon1">icon</div>
+                </div>
+            </div><div class="week">
+                <div class="week_day" id="tomorrow3"></div>
+                <div class="week_info">
+                    <div class="low">low</div>
+                    <div class="high">high</div>
+                    <div class="icon" id="icon1">icon</div>
+                </div>
+            </div><div class="week">
+                <div class="week_day" id="tomorrow4"></div>
+                <div class="week_info">
+                    <div class="low">low</div>
+                    <div class="high">high</div>
+                    <div class="icon" id="icon1">icon</div>
+                </div>
+            </div><div class="week">
+                <div class="week_day" id="tomorrow5"></div>
+                <div class="week_info">
+                    <div class="low">low</div>
+                    <div class="high">high</div>
+                    <div class="icon" id="icon1">icon</div>
+                </div>
+            </div><div class="week">
+                <div class="week_day" id="tomorrow6"></div>
+                <div class="week_info">
+                    <div class="low">low</div>
+                    <div class="high">high</div>
+                    <div class="icon" id="icon1">icon</div>
+                </div>
+            </div>
+        </section>
+        <img src="../static/cloud.png" title="created by COHO 2023 first project">
+    </main>
+    <aside></div>
+    <div class="project_list">
+    <ul>
+        <h2>Next Project</h2>
+        <li><a href="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%84%A4%EC%9D%B4%EB%B2%84+%EA%B3%84%EC%82%B0%EA%B8%B0">Calculator</a></li>
+        <li><a href="https://shopping.naver.com/home">Online Shopping</a></li>
+    </ul>
+    </div>
+    </aside>
+    <footer> </footer>
+    <script src="../static/script.js" defer></script>
+</body>
+</html>
