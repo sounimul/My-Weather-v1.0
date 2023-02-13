@@ -88,7 +88,7 @@ function putIcon(){
     */
 
     const w = (today_weather=='맑음') ? 'sun' : 'cloudy';
-    Array.from(icons).forEach(item => item.innerHTML = `<img class="icon" src="../static/${w}.png" title="${w}">`);
+    Array.from(icons).forEach(item => item.innerHTML = `<img class="icon" src="${w}.png" title="${w}">`);
 
     
 }
