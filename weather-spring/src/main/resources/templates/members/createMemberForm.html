@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <h1>회원가입</h1>
+    <form action="/" method="post">
+        <div class="form-group">
+            <label for="userid">아이디 </label>
+            <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요">
+            <button>중복확인</button><br>       <!-- 중복확인은 추후 구현 -->
+
+            <label for="pw">비밀번호 </label>
+            <input type="text" id="pw" name="pw" placeholder="비밀번호를 입력하세요"><br>
+
+            <label for="nickname">닉네임 </label>
+            <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요"><br>
+
+            <label for="intro">소개글 </label>
+            <input type="text" id="intro" name="intro" placeholder="소개글을 작성해주세요"><br>
+        </div><br>
+        <button type="submit">회원가입</button><br><br>
+    </form>
+    <button type="button" onclick="location.href='/'">home</button>
+</div> <!-- /container -->
+</body>
+</html>
