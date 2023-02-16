@@ -11,4 +11,5 @@ public class WeatherController {
     public String weather() {
         return "weather";
     }
+
 }

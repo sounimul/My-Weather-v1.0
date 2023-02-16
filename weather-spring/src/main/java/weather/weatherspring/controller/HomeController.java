@@ -12,7 +12,7 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/join")
+    @GetMapping("/joinForm")
     public String joinPage(){
         return "/members/createMemberForm";
     }
