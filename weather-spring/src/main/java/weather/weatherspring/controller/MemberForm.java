@@ -1,7 +1,7 @@
 package weather.weatherspring.controller;
 
 /* createMemberForm.html의 input 데이터를 전달 받을 폼 객체 */
-public class JoinForm {
+public class MemberForm {
 
     // createMemberForm.html의 input name과 매칭되어 들어옴
     private String userid;
