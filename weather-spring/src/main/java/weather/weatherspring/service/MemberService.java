@@ -1,7 +1,6 @@
 package weather.weatherspring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.repository.MemberRepository;
