@@ -1,17 +1,19 @@
 package weather.weatherspring.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.service.MemberService;
+
+import java.util.Optional;
 
 @Controller
 public class MemberController {
 
     private final MemberService memberService;
-    private static long sequence=0L;
 
     @Autowired
     public MemberController(MemberService memberService) {
@@ -30,17 +32,21 @@ public class MemberController {
 
         memberService.join(member);
 
-        return "redirect:/weather";
+        return "redirect:/";
     }
 
     @PostMapping("/login")
-    public String login(MemberForm form){
+    public String login(MemberForm form, HttpServletRequest request) throws Exception{
         Member member = new Member();
 
         member.setId(form.getUserid());
         member.setPw(form.getPw());
 
-        memberService.findOne(member);
+        Optional<Member> member2 = memberService.findOne(member);
+
+        // 로그인에 성공한 Member 객체를 세션에 저장
+        HttpSession session = request.getSession();
+        session.setAttribute("uid",member2.get().getUid());
 
         return "redirect:/weather";
     }
