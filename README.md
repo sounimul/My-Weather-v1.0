@@ -2,6 +2,9 @@
 
 <br></br>
 ### 역할
+**UI** : sounimul
+  - Figma
+ 
 **Front-end** : sounimul
   - HTML, CSS, JavaScript
 
