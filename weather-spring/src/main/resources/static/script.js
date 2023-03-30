@@ -59,6 +59,22 @@ function getLoc(){
         const latitude = pos.coords.latitude;
         const longitude =pos.coords.longitude;
         loc.innerText = `위도 ${latitude} 경도 ${longitude}`; //주소 정보는 API 사용해야함 구글이나 카카오
+
+        // Ajax 요청 생성하여 서버로 위치 정보를 전송
+        $.ajax({
+            url:"/weather",
+            type:"POST",
+            data:{
+                latitude:latitude,
+                longitude:longitude
+            },
+            success: function(response){
+                console.log("서버로 위치 정보를 전송했습니다.");
+            },
+            error: function(xhr, status, error){
+                console.error("서버로 위치 정보 전송하지 못하였습니다.");
+            }
+        });
     });
 }
 
