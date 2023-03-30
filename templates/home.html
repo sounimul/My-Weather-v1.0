@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/home.css">
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <main>
+        <div class="backgroudn"></div>
+        <h1>Welcome to Weather Page</h1>
+        <form action="/login" method="POST">
+          <div class="id">
+          <div class="id_label"><label for="userid">ID</label></div>
+          <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요">
+          </div>
+          
+          <div class="password">
+          <div class="password_label"><label for="pw">PW </label></div>
+          <input type="text" id="pw" name="pw" placeholder="비밀번호를 입력하세요">
+          </div> 
+          <button type="submit">로그인</button>
+        </form>
+        <article id="move">
+        <p><a href="/joinForm">회원가입</a></p><br> <!-- 회원가입 -->
+        <p><a href="/weather">날씨페이지 미리보기</a></p>
+        </article>
+      </main>
+      <aside><img src="/static/main.png" style="width: 65%;"></aside>
+    
+    <!-- 로그인,회원가입 구현 전 페이지 이동 (구현 후 삭제) -->
+    
+
+</body>
+</html>
