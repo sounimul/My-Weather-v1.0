@@ -1,0 +1,122 @@
+body {
+    width:100vw;
+    height:100vh;
+    
+    display:flex;
+    justify-content: left;
+    align-items: center;
+    margin: 0px;
+    margin-left: 220px;
+    padding: 0px;
+}
+
+main {
+/*background-color: rgba(255,255,255,.5);*/
+padding: 20px;
+display: grid;
+border-radius: 20px;
+display: flex;
+flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Courgette', cursive;
+}
+
+form {
+    display: grid;
+    grid-template-areas: 'a c'
+                         'b c';
+    padding: 20px;
+}
+
+article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#hello {
+    background-color: white;
+    border-radius: 10px;
+}
+
+input {
+    margin: 10px;
+    border: none;
+    border-bottom: 1px solid gainsboro;
+    background-color: transparent;
+}
+
+label {
+    width: 100px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    margin: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+#move {
+ display: flex;
+ padding: 10px;
+ margin-top: 20px;
+ border-top: 1px solid gainsboro;
+ padding-top: 20px;
+}
+
+#move p{
+    margin: auto;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+.id{
+    grid-area: a;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+.password{
+    grid-area: b;
+    padding-left: 30px;
+    padding-right: 30px;
+    
+}
+
+button{
+    grid-area: c;
+    margin: auto;
+}
+
+.id, .password {
+    display: flex;
+}
+
+
+.id_label, .password_label {
+    display: flex;
+    align-items: center;
+    width: 20px;
+}
+
+img {
+    object-fit: fill;
+    border-radius: 10px;
+    margin-left: 100px;
+}
+
