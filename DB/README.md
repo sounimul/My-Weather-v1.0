@@ -58,7 +58,8 @@
 - 식별관계
 
 ## 3. Relational diagram - CHOSSE, INFO_LIST 삭제
-- 수정된 Relational diagram 추가하기!
+![image](https://user-images.githubusercontent.com/75112062/230015434-380830f3-d359-48ec-989c-732c6a0dc732.png)
+
 
 
 #### REGION
