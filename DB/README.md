@@ -15,7 +15,8 @@
 - 사용자는 날씨 기록을 가짐
 
 ## 2. ER diagram - INFO_LIST, CHOSSE 삭제
-![Weather_ER drawio (1)](https://user-images.githubusercontent.com/75112062/221160619-0d5c31fa-2786-4968-b468-8e97eed0c4dc.png)
+![Weather_ER drawio (1)](https://user-images.githubusercontent.com/75112062/229999390-d5dd71bb-4b7e-4d95-9dc6-72636b08ab0d.png)
+
 
 ### Entity & Attribute
 #### (1) USER : 사용자(회원) 정보
@@ -57,7 +58,7 @@
 - 식별관계
 
 ## 3. Relational diagram - CHOSSE, INFO_LIST 삭제
-![Weather_Relational drawio (1)](https://user-images.githubusercontent.com/75112062/221161540-abc4f4b8-0baa-46ca-814b-42686bad4c72.png)
+- 수정된 Relational diagram 추가하기!
 
 
 #### REGION
