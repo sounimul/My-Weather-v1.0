@@ -1,12 +1,12 @@
 # WEATHER : 날씨를 알려주는 웹사이트
 
 <br></br>
-## 역할
-### sounimul
-- **UI** : Figma
+### 역할
+**UI** : sounimul
+  - Figma
+ 
+**Front-end** : sounimul
+  - HTML, CSS, JavaScript
 
-- **Front-end** : HTML, CSS, JavaScript
-### songu1
-- **Database Design**
-
-- **Back-end** : Java, Spring, JPA, Thymeleaf, MySQL, REST API
+**Back-end** : songu1
+  - Java, Spring, JPA, Thymeleaf, MySQL
