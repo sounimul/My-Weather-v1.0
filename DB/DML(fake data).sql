@@ -22,9 +22,6 @@ INSERT INTO WTYPE VALUES ('PTY_4','소나기');
 -- INSERT INTO WEATHER_RECORD VALUES ('9995_eawifoj58','2023-02-09','서울특별시 송파구 한가람로 65','쌀쌀하다',9.9,-2.8);
 -- INSERT INTO WEATHER_RECORD VALUES ('9997_happygirl','2023-02-19','부산광역시 수영구 광안해변로 361','시원하다',14.8,4.5);
 -- INSERT INTO WEATHER_RECORD VALUES ('9998_rltkdcjd22','2023-02-02','서울특별시 서초구 신반포로 270','춥다',1.4,-5.1);
+
 COMMIT;
-
-
-
-
 

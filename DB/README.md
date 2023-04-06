@@ -42,7 +42,7 @@
 - Feeling : 체감 날씨 의견
     - ex) 추움, 더움, 따뜻함 등
 - Address : 해당 날씨의 위치
-- TTemp : 기온
+- Temp : 기온
 - Wea : 날씨 상태(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
 
 ### (4) WTYPE : 날씨 종류

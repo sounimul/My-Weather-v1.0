@@ -64,11 +64,13 @@ function getLoc(){
         $.ajax({
             url:"/weather",
             type:"POST",
-            data:{
+            data:JSON.stringify({
                 latitude:latitude,
                 longitude:longitude
-            },
-            success: function(response){
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
                 console.log("서버로 위치 정보를 전송했습니다.");
             },
             error: function(xhr, status, error){
