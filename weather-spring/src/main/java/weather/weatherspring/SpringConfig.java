@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import weather.weatherspring.repository.*;
+import weather.weatherspring.service.LocationService;
 import weather.weatherspring.service.MemberService;
 
 import javax.sql.DataSource;
@@ -27,5 +28,8 @@ public class SpringConfig {
     public MemberRepository memberRepository(){
         return new JpaMemberRepository(em);
     }
+    @Bean
+    public LocationService locationService(){ return new LocationService();}
+
 
 }

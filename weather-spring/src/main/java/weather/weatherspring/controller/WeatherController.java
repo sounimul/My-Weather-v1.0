@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.Coordinate;
 import weather.weatherspring.domain.Location;
+import weather.weatherspring.service.LocationService;
 
 import java.io.IOException;
 
@@ -15,6 +16,13 @@ import java.io.IOException;
 public class WeatherController {
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private final LocationService locationService;
+
+    @Autowired
+    public WeatherController(LocationService locationService) {
+        this.locationService = locationService;
+    }
 
     /* weather view */
     @GetMapping("")
@@ -40,11 +48,18 @@ public class WeatherController {
         location.setUid(uid);
         location.setLatitude(coordinate.getLatitude());
         location.setLongitude(coordinate.getLongitude());
+//        location.setAd(locationService.getAddress(coordinate).block());
+        coordinate=locationService.getXY(coordinate);
+        location.setXcoor(coordinate.getXcoor());
+        location.setYcoor(coordinate.getYcoor());
 
         // 확인용
         System.out.println("session2 "+uid);
         System.out.println("latitude :"+location.getLatitude());
         System.out.println("longitude :"+location.getLongitude());
+//        System.out.println("Address :"+location.getAd());
+        System.out.println("X좌표 :"+location.getXcoor());
+        System.out.println("Y좌표 :"+location.getYcoor());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("weather");
