@@ -6,7 +6,6 @@ import weather.weatherspring.repository.WeatherRepository;
 
 @Transactional
 public class WeatherService {
-
     private final WeatherRepository weatherRepository;
 
     @Autowired

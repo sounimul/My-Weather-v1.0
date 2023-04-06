@@ -1,13 +1,13 @@
 package weather.weatherspring.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.domain.Coordinate;
+import weather.weatherspring.controller.ElementForm;
 
 
 @Transactional
 public class LocationService {
 
-    public Coordinate getXY(Coordinate coordinate){
+    public ElementForm getXY(ElementForm elementForm){
         /* 단기예보 지도 정보 */
 //        double RE = 6371.00877; // 지도반경
         double GRID = 5.0; // 격자간격 (km)
@@ -34,18 +34,18 @@ public class LocationService {
         ro = re * sf / Math.pow(ro,sn);
 
         /* 위경도 -> (X,Y) */
-        double ra = Math.tan(Math.PI * 0.25 + coordinate.getLatitude() * DEGRAD *0.5);
+        double ra = Math.tan(Math.PI * 0.25 + elementForm.getLatitude() * DEGRAD *0.5);
         ra = re * sf / Math.pow(ra,sn);
-        double theta = coordinate.getLongitude() * DEGRAD - olon;
+        double theta = elementForm.getLongitude() * DEGRAD - olon;
         if(theta > Math.PI) theta -= 2.0 * Math.PI;
         if(theta < -Math.PI) theta += 2.0 * Math.PI;
         theta *= sn;
         double x = (int)(ra * Math.sin(theta) + XO)+1.5;
         double y = (int)(ro - ra*Math.cos(theta) + YO)+1.5;
-        coordinate.setXcoor((long)x);
-        coordinate.setYcoor((long)y);
+        elementForm.setXcoor((long)x);
+        elementForm.setYcoor((long)y);
 
-        return coordinate;
+        return elementForm;
     }
 
 }
