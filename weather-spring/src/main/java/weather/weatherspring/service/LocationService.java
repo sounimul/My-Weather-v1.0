@@ -1,11 +1,42 @@
 package weather.weatherspring.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import weather.weatherspring.controller.ElementForm;
 
 
-@Transactional
+//@Transactional
+@Service
 public class LocationService {
+    private final WebClient.Builder webClientBuilder;
+    private static final String KAKAO_API_BASE_URL="https://dapi.kakao.com";
+    private static final String KAKAO_API_KEY="018a2a8e391ab5140cb2641061a56e11";
+
+    public LocationService(WebClient.Builder webClientBuilder) {
+        this.webClientBuilder = webClientBuilder;
+    }
+
+    public Mono<JsonNode> getAddress(ElementForm elementForm){
+        WebClient webClient = webClientBuilder
+                .baseUrl(KAKAO_API_BASE_URL)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, "KakaoAK "+KAKAO_API_KEY)
+                .build();
+
+        String apiUrl = String.format("/v2/local/geo/coord2regioncode.json?x=%s&y=%s",elementForm.getLongitude(),elementForm.getLatitude());
+
+        return webClient.get()
+                .uri(apiUrl)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(JsonNode.class);
+
+    }
 
     public ElementForm getXY(ElementForm elementForm){
         /* 단기예보 지도 정보 */

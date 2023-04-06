@@ -1,5 +1,6 @@
 package weather.weatherspring.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,25 +39,30 @@ public class WeatherController {
 
     /* 현재 위치의 위도, 경도를 주소와 x,y좌표로 바꾸기 */
     @PostMapping("")
-    public ModelAndView getWeather(@RequestBody ElementForm elementForm){
+    public ModelAndView createWeather(@RequestBody ElementForm elementForm){
         Location location = new Location();
 
         HttpSession session = request.getSession();
         Long uid=(Long) session.getAttribute("uid");
-
         location.setUid(uid);
         location.setLatitude(elementForm.getLatitude());
         location.setLongitude(elementForm.getLongitude());
-//        location.setAd(locationService.getAddress(coordinate).block());
+
+        // 위도,경도 -> 주소
+        JsonNode address=locationService.getAddress(elementForm).block();
+        location.setAd(address.get("documents").get(1).get("address_name").asText());
+
+        // 위도, 경도 -> 기상청 x,y좌표
         elementForm=locationService.getXY(elementForm);
         location.setXcoor(elementForm.getXcoor());
         location.setYcoor(elementForm.getYcoor());
+
 
         // 디버깅용
         System.out.println("session2 "+uid);
         System.out.println("latitude :"+location.getLatitude());
         System.out.println("longitude :"+location.getLongitude());
-//        System.out.println("Address :"+location.getAd());
+        System.out.println("Address :"+location.getAd());
         System.out.println("X좌표 :"+location.getXcoor());
         System.out.println("Y좌표 :"+location.getYcoor());
         System.out.println(elementForm.getYear()+"년 "+elementForm.getMonth()+"일 "+elementForm.getDate()+"일");
