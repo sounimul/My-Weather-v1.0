@@ -5,72 +5,52 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import weather.weatherspring.domain.Coordinate;
+import weather.weatherspring.domain.Location;
 
 import java.io.IOException;
-//import weather.weatherspring.repository.LocationRepository;
 
-//@Controller
 @RestController
 @RequestMapping("/weather")
 public class WeatherController {
-//    @Autowired
-//    private LocationRepository locationRepository;
-
-//    @Autowired
-//    private final WeatherService weatherService;
-//    public WeatherController(WeatherService weatherService) {
-//        this.weatherService = weatherService;
-//    }
-//    private final LocationService locationService;
-//
-//    @Autowired
-//    public WeatherController(LocationService locationService) {
-//        this.locationService = locationService;
-//    }
-
     @Autowired
     private HttpServletRequest request;
 
     /* weather view */
     @GetMapping("")
     public ModelAndView weather() throws IOException{
-        ModelAndView modelAndView = new ModelAndView();
-        HttpSession session = request.getSession();
 
+        HttpSession session = request.getSession();
+        Long uid=(Long) session.getAttribute("uid");
+        System.out.println("session "+uid);     // 체크용
+
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("weather");
+        return modelAndView;
+    }
+
+    /* 현재 위치의 위도, 경도를 주소와 x,y좌표로 바꾸기 */
+    @PostMapping("")
+    public ModelAndView createLocation(@RequestBody Coordinate coordinate){
+        Location location = new Location();
+
+        HttpSession session = request.getSession();
         Long uid=(Long) session.getAttribute("uid");
 
-        System.out.println("session "+uid);
+        location.setUid(uid);
+        location.setLatitude(coordinate.getLatitude());
+        location.setLongitude(coordinate.getLongitude());
+
+        // 확인용
+        System.out.println("session2 "+uid);
+        System.out.println("latitude :"+location.getLatitude());
+        System.out.println("longitude :"+location.getLongitude());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("weather");
 
         return modelAndView;
     }
 
-    // location service를 호출
-//    @GetMapping("/current-location")
-//    public Mono<Location> getCurrentLocation(){
-//        return locationService.getCurrentLocation();
-//    }
-
-//    @PostMapping("")
-//    public void createLocation(@RequestParam Long latitude, @RequestParam Long longitude){
-////    public Location createLocation(@RequestParam Long latitude, @RequestParam Long longitude){
-////        Location location = new Location();
-//        HttpSession session = request.getSession();
-//        Long uid=(Long) session.getAttribute("uid");
-//
-//        System.out.println(uid);
-//        System.out.println(latitude);
-//        System.out.println(longitude);
-//
-////        location.setUid(uid);
-////        location.setLatitude(latitude);
-////        location.setLongitude(longitude);
-//
-////
-////        Location savedLocation = locationRepository.save(location);
-////        System.out.println(savedLocation);
-////        return savedLocation;
-//
-//    }
 
 }
