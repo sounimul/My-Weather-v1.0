@@ -15,7 +15,9 @@
 - 사용자는 날씨 기록을 가짐
 
 ## 2. ER diagram - INFO_LIST, CHOSSE 삭제
-![Weather_ER drawio (1)](https://user-images.githubusercontent.com/75112062/221160619-0d5c31fa-2786-4968-b468-8e97eed0c4dc.png)
+![image](https://user-images.githubusercontent.com/75112062/230017376-90a84bc7-1887-45c0-80ae-8b780f2800d9.png)
+
+
 
 ### Entity & Attribute
 #### (1) USER : 사용자(회원) 정보
@@ -23,7 +25,7 @@
 - User_id : 회원가입 시 아이디
 - pw : 회원가입 시 비밀번호
 - Nickname : 사용자 닉네임
-- Introduction : 사용자의 소개글귀
+- Introduction : 사용자가 좋아하는 날씨
 - Available : 사용자 계정 사용 유무 (Y/N)
     - Y : 사용 가능
     - N : 사용 불가능 (사용자가 계정 삭제시)
@@ -40,8 +42,12 @@
 - Feeling : 체감 날씨 의견
     - ex) 추움, 더움, 따뜻함 등
 - Address : 해당 날씨의 위치
-- Temp_max: 최대 기온
-- Temp_min : 최소 기온
+- TTemp : 기온
+- Wea : 날씨 상태(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
+
+### (4) WTYPE : 날씨 종류
+- Wcode : 날씨 코드(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
+- Description : 날씨 설명 (맑음, 구름 많음, 흐림, 비, 비 또는 눈, 눈, 소나기)
 
 ### Relationship
 #### (1) SAVE
@@ -56,9 +62,20 @@
 - 1:N
 - 식별관계
 
-## 3. Relational diagram - CHOSSE, INFO_LIST 삭제
-![Weather_Relational drawio (1)](https://user-images.githubusercontent.com/75112062/221161540-abc4f4b8-0baa-46ca-814b-42686bad4c72.png)
+#### (3) HAS1
+- REGION는 WEATHER_RECORD를 꼭 가져야함(Total participation)
+- WEATHER_RECORD는 REGION를 꼭 가져야함 (Total particicpation)
+- 1:N
 
+#### (4) HAS2
+- WEATHER_TYPE은 WEATHER_RECORD를 꼭 가지지 않아도 됨(Partial participation)
+- WEATHER_RECORD응 WEATHER_TYPE을 꼭 가져야함(Total participation)
+- 1:N
+
+
+
+## 3. Relational diagram - CHOSSE, INFO_LIST 삭제
+![image](https://user-images.githubusercontent.com/75112062/230015434-380830f3-d359-48ec-989c-732c6a0dc732.png)
 
 #### REGION
 - Uuid, Address : primary key
@@ -71,3 +88,7 @@
 #### WEATHER_RECORD
 - Uuid, Rdate : primary
 - Uuid : USERLIST의 Uniq_id를 참조
+- Wea : WTYPE의 Wcode를 참조
+
+#### WTYPE
+- Wcode : primary key
