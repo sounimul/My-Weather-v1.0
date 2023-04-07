@@ -1,4 +1,4 @@
-package weather.weatherspring.controller;
+package weather.weatherspring.entity;
 
 public class ElementForm {
     private Double latitude;

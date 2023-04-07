@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import weather.weatherspring.domain.Member;
+import weather.weatherspring.entity.MemberForm;
 import weather.weatherspring.service.MemberService;
 
 import java.util.Optional;

@@ -34,7 +34,12 @@ public class SpringConfig {
 //    public LocationService locationService(){ return new LocationService();}
 
     @Bean
-    public WebClient.Builder webClientBuilder(){
+    public WebClient.Builder kakaoWebClientBuilder(){
+        return WebClient.builder();
+    }
+
+    @Bean
+    public WebClient.Builder kmaWebClientBuilder(){
         return WebClient.builder();
     }
 

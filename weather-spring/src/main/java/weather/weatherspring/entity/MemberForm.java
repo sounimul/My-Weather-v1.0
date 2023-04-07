@@ -1,4 +1,4 @@
-package weather.weatherspring.controller;
+package weather.weatherspring.entity;
 
 /* createMemberForm.html의 input 데이터를 전달 받을 폼 객체 */
 public class MemberForm {
