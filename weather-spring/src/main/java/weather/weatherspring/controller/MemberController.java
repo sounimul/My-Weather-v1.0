@@ -27,7 +27,7 @@ public class MemberController {
         member.setId(form.getUserid());
         member.setPw(form.getPw());
         member.setNickname(form.getNickname());
-        member.setIntro(form.getIntro());
+        member.setFvweather(form.getFvweather());
         member.setAvail("Y");
 
         memberService.join(member);

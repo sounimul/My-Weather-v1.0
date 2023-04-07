@@ -21,6 +21,7 @@ public class LocationService {
         this.webClientBuilder = webClientBuilder;
     }
 
+    /* 위도와 경도를 통해 행정구역 정보를 가져옴 */
     public Mono<JsonNode> getAddress(ElementForm elementForm){
         WebClient webClient = webClientBuilder
                 .baseUrl(KAKAO_API_BASE_URL)
@@ -38,6 +39,7 @@ public class LocationService {
 
     }
 
+    /* 위도와 경도를 기상청 x,y좌표로 변환 */
     public ElementForm getXY(ElementForm elementForm){
         /* 단기예보 지도 정보 */
 //        double RE = 6371.00877; // 지도반경

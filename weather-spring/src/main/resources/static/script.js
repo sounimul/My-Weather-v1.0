@@ -126,18 +126,6 @@ function changeBackground(){
         background.style.backgroundColor = 'gray';
     }
 }
-function callAjax(data1,data2){
-    const data=JSON.stringify({
-        latitude : data2[0],
-        longitude : data2[1],
-        year : data1[0],
-        month : data1[1],
-        date : data1[2],
-        hour : data1[3],
-        min : data1[4]
-    });
-    loc.innerText = `${data}`;
-}
 
 /*함수를 꼭 호출하기!! 그래야 실행됨*/
 

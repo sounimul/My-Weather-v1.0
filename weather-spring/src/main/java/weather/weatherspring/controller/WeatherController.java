@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.Location;
 import weather.weatherspring.service.LocationService;
+import weather.weatherspring.service.WeatherService;
 
 import java.io.IOException;
 
@@ -18,11 +19,14 @@ public class WeatherController {
     private HttpServletRequest request;
     @Autowired
     private final LocationService locationService;
-
     @Autowired
-    public WeatherController(LocationService locationService) {
+    private final WeatherService weatherService;
+
+    public WeatherController(LocationService locationService, WeatherService weatherService) {
         this.locationService = locationService;
+        this.weatherService = weatherService;
     }
+
 
     /* weather view */
     @GetMapping("")
@@ -37,7 +41,7 @@ public class WeatherController {
         return modelAndView;
     }
 
-    /* 현재 위치의 위도, 경도를 주소와 x,y좌표로 바꾸기 */
+    /* 현재 위치의 날씨 구하기 */
     @PostMapping("")
     public ModelAndView createWeather(@RequestBody ElementForm elementForm){
         Location location = new Location();
@@ -50,13 +54,12 @@ public class WeatherController {
 
         // 위도,경도 -> 주소
         JsonNode address=locationService.getAddress(elementForm).block();
-        location.setAd(address.get("documents").get(1).get("address_name").asText());
+        location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
 
         // 위도, 경도 -> 기상청 x,y좌표
         elementForm=locationService.getXY(elementForm);
         location.setXcoor(elementForm.getXcoor());
         location.setYcoor(elementForm.getYcoor());
-
 
         // 디버깅용
         System.out.println("session2 "+uid);
@@ -68,6 +71,13 @@ public class WeatherController {
         System.out.println(elementForm.getYear()+"년 "+elementForm.getMonth()+"일 "+elementForm.getDate()+"일");
         System.out.println(elementForm.getHour()+"시 "+elementForm.getMin()+"분");
 
+        // 단기예보 구하기
+        String forecast=weatherService.getForecast(elementForm).block();
+        System.out.println(forecast);
+
+        // 과거 날씨 구하기
+
+        // weather view
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("weather");
 

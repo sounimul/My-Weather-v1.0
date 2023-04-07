@@ -1,26 +1,67 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="ko">
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="../../CMFstyle.css">
+</head>
 <body>
-<div class="container">
+<main>
+
     <h1>회원가입</h1>
+
     <form action="/join" method="post">
-        <div class="form-group">
-            <label for="userid">아이디 </label>
-            <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요">
-            <button>중복확인</button><br>       <!-- 중복확인은 추후 구현 -->
+        <div class="formGroup">
+            <div class="container">
+                <label for="userid">아이디 </label>
+                <div class="idInput">
+                    <input type="id" id="userid" name="userid" placeholder="아이디를 입력하세요">
+                    <button type="button" onclick="checkID()">중복확인</button> <!--button의 type 3가지 값 submit, reset, button-->       <!-- 중복확인은 추후 구현 -->
+                </div>
+            </div>
 
-            <label for="pw">비밀번호 </label>
-            <input type="text" id="pw" name="pw" placeholder="비밀번호를 입력하세요"><br>
+            <div class="container">
+                <label for="pw">비밀번호 </label>
+                <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요" oninput="checkPW(this.value)" onchange="confirmPW()">
+            </div>
 
-            <label for="nickname">닉네임 </label>
-            <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요"><br>
+            <div class="container">
+                <label for="pwCheck">비밀번호 확인</label>
+                <input type="password" id="pwCheck" name="pwCheck" placeholder="비밀번호를 입력하세요" oninput="doublecheckPW(this.value)" onchange="confirmPWC()">
+            </div>
 
-            <label for="intro">소개글 </label>
-            <input type="text" id="intro" name="intro" placeholder="소개글을 작성해주세요"><br>
-        </div><br>
-        <button type="submit">회원가입</button><br><br>
+            <div class="container">
+                <label for="nickname">닉네임 </label>
+                <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요">
+            </div>
+
+            <div class="container">
+                <label for="fvweather"> 좋아하는 날씨 </label>
+                <div class="select" id="fvweather">
+                    <input type="radio" name="fvweather" value="맑음"> 맑음
+                    <input type="radio" name="fvweather" value="구름많음"> 구름많음
+                    <input type="radio" name="fvweather" value="흐림"> 흐림
+                    <input type="radio" name="fvweather" value="비"> 비
+                    <input type="radio" name="fvweather" value="비/눈"> 비/눈
+                    <input type="radio" name="fvweather" value="눈"> 눈
+                    <input type="radio" name="fvweather" value="소나기"> 소나기
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <button type="submit">회원가입</button>
+        </div>
     </form>
+</main>
+
+<aside>
     <button type="button" onclick="location.href='/'">home</button>
-</div> <!-- /container -->
+</aside>
+
+
+<script src="CMFscript.js"></script>
 </body>
 </html>
