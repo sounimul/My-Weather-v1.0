@@ -1,0 +1,71 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 40%;
+    height: 50%;
+    padding: 10px;
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.formGroup div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup input {
+    width: 200px;
+}
+
+.formGroup label {
+    width: 150px;
+    margin-left: 10px;
+}
+
+.formGroup button {
+    width: 80px;
+}
+
+.container input {
+    border: none;
+    border-bottom: 1px solid gray;
+    margin: 10px;
+}
+
+.container input:focus {
+    outline: none;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    padding: 5px;
+}
+
+.fvWeather {
+    display: flex;
+    flex-direction: row;
+}
+
+.idInput input {
+    margin-left: 0;
+}
+
+.fvWeather div {
+    display: flex;
+}

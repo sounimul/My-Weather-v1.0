@@ -12,8 +12,8 @@ public class Member {
     private String id;
     private String pw;
     private String nickname;
-    @Column(name="Introduction")
-    private String intro;
+    @Column(name="Fvweather")
+    private String fvweather;
     @Column(name="Available")
     private String avail;
 
@@ -49,12 +49,12 @@ public class Member {
         this.nickname = nickname;
     }
 
-    public String getIntro() {
-        return intro;
+    public String getFvweather() {
+        return fvweather;
     }
 
-    public void setIntro(String intro) {
-        this.intro = intro;
+    public void setFvweather(String fvweather) {
+        this.fvweather = fvweather;
     }
 
     public String getAvail() {

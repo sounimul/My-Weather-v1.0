@@ -15,33 +15,26 @@ const tomorrow6 = document.getElementById("tomorrow6");
 
 const today_weather = prompt("오늘의 날씨는? 맑음 OR 흐림");
 
+
 function getClock(){
    
     const day_arr = ['일','월','화','수','목','금','토'];
     const day_en_arr = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const now = new Date(); //날짜, 시간 객체
     const year = now.getFullYear();
-    const month = now.getMonth();
+    const month = now.getMonth()+1;
     const date = now.getDate();
     const day = now.getDay();
     let hour = now.getHours(); //24시간제
-
-    /*12시간제*/
-    if(hour==0) hour=12;
-    else hour = (hour>12) ? hour%12 : hour ;
-    /* */
-
     const min = now.getMinutes();
-    const second = now.getSeconds();
-    
     //console.log(day, day+1, day+2, day+3, day+4, day+5, day+6);
     
 
     /*clock.innerText = `${year}년 ${month+1}월 ${date}일 ${day_arr[day]}요일 
     ${hour}시 ${min}분 ${second}초`; 
     */
-    calendar.innerText = `${year}년 ${month+1}월 ${date}일 ${day_arr[day]}요일`; 
-    clock.innerText = `${hour}시 ${min}분 ${second}초`;
+    calendar.innerText = `${year}년 ${month}월 ${date}일 ${day_arr[day]}요일`;
+    clock.innerText = `${hour}시 ${min}분`;
     today.innerText = `${day_en_arr[day]}`;
     tomorrow.innerText = `${day_en_arr[(day+1)>=7 ? (day+1)-7 : day+1]}`;
     tomorrow2.innerText = `${day_en_arr[(day+2)>=7 ? (day+2)-7 : day+2]}`;
@@ -52,21 +45,28 @@ function getClock(){
 
     //innerText class로 할 땐 안되더니, id로 하니 됨
 
+    // 1개의 $ajax로 날짜,시간,위도,경도를 서버로 전송하기 위해
+    getLoc(year,month,date,hour,min);
 }
 
-function getLoc(){
+function getLoc(year,month,date,hour,min){
     navigator.geolocation.getCurrentPosition(function(pos) {
         const latitude = pos.coords.latitude;
         const longitude =pos.coords.longitude;
         loc.innerText = `위도 ${latitude} 경도 ${longitude}`; //주소 정보는 API 사용해야함 구글이나 카카오
 
-        // Ajax 요청 생성하여 서버로 위치 정보를 전송
+        // // Ajax 요청 생성하여 서버로 위치 정보를 전송
         $.ajax({
             url:"/weather",
             type:"POST",
             data:JSON.stringify({
                 latitude:latitude,
-                longitude:longitude
+                longitude:longitude,
+                year:year,
+                month:month,
+                date:date,
+                hour:hour,
+                min:min
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -78,6 +78,7 @@ function getLoc(){
             }
         });
     });
+
 }
 
 /* 위도,경도 -> X,Y 좌표로 바꾸기 */
@@ -129,11 +130,11 @@ function changeBackground(){
 /*함수를 꼭 호출하기!! 그래야 실행됨*/
 
 getClock();
-getLoc();
+// getLoc();
 putIcon();
 changeBackground();
 
-setInterval(getClock,1000); //초마다 시간 새로고침
+setInterval(getClock,60000); //초마다 시간 새로고침
 
  
 //새로고침은 동기적이니깐, 비동기적으로 데이터 업데이트 하는 ajax 사용해볼것!           

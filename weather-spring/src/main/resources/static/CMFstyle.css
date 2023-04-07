@@ -1,0 +1,64 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+main {
+    width: 40%;
+    height: 60%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.container input, label {
+    margin: 5px;
+}
+
+.container input[type="text"], input[type="id"], input[type="password"]{
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 200px;
+}
+
+.container input:focus {
+    outline: none;
+}
+
+form button {
+    margin: auto;
+}
+
+aside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 60%;
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}

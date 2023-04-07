@@ -7,7 +7,7 @@ public class MemberForm {
     private String userid;
     private String pw;
     private String nickname;
-    private String intro;
+    private String fvweather;
 
     public String getUserid() {
         return userid;
@@ -33,11 +33,11 @@ public class MemberForm {
         this.nickname = nickname;
     }
 
-    public String getIntro() {
-        return intro;
+    public String getFvweather() {
+        return fvweather;
     }
 
-    public void setIntro(String intro) {
-        this.intro = intro;
+    public void setFvweather(String fvweather) {
+        this.fvweather = fvweather;
     }
 }
