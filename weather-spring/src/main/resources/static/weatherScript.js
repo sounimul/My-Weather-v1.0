@@ -1,7 +1,7 @@
 let weather = prompt('날씨를 입력하세요','sunny')
 const wicon = document.getElementById("wicon");
 const clock = document.getElementById("clock");
-const loc = document.getElementById("location");
+// const loc = document.getElementById("location");
 
 const today = document.getElementById("today");
 const tomorrow = document.getElementById("tomorrow");
@@ -24,7 +24,7 @@ function getLoc(){
             const longitude = position.coords.longitude;
 
             console.log(latitude,longitude);
-            loc.innerText = `${latitude} ${longitude}`
+            // loc.innerText = `${latitude} ${longitude}`
 
             const day_arr = ['일','월','화','수','목','금','토'];
             const now = new Date(); //날짜, 시간 객체

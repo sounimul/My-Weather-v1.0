@@ -15,8 +15,6 @@ public class WeatherService {
     private static final String KMA_SRT_NCST_URL="/VilageFcstInfoService_2.0/getUltraSrtNcst";        // 초단기실황
     private static final String KMA_SRT_FCST_URL="/VilageFcstInfoService_2.0/getVilageFcst";          // 초단기예보
     private static final String KMA_VGE_FCST_URL="/VilageFcstInfoService_2.0/getVilageFcst";          // 단기예보
-
-
     private static final String DATA_API_KEY="gyaHQw8o7B6FzRy3woK7FUM4bVAm%2FSplTe8Rf8%2FQ%2BJSMJtOKUWKqFrVmz9uTwN9xIy%2BJJ7ryeRHFbI1LrKVQQQ%3D%3D";
     private final WebClient.Builder kmaWebClientBuilder;
 

@@ -19,11 +19,11 @@
         <div class="userInfo">
             <div class="user">
                 <div class="profile">
-                    <div id="name">username</div>
+                    <div id="name" th:text="${username}"></div>
                     <br>
                     <div id="clock">현재시각</div>
                     <br>
-                    <div id="location">현재위치</div>
+                    <div id="location" th:text="${ad}">현재위치</div>
                     <br>    
                     <button> 마이페이지 </button>
                 </div>
@@ -35,8 +35,8 @@
                 <div class="infoContainer">
                     <div id="low">최저기온</div>
                     <div id="high">최고기온</div>
-                    <div id="humidity">습도</div>
-                    <div id="rain">강수</div>
+                    <div id="humidity" th:text="|${current.reh} %|">습도</div>
+                    <div id="rain" th:text="|${current.rn1} mm|">강수</div>
                 </div>
             </div>
             
@@ -74,17 +74,17 @@
                         <p id="pastHour">1시간 전</p>
                         <!--<hr style="border: solid 1px #F3ECAE; width: 60px;">-->
                         <p id="pastTemp">
-                            비  22도
+                            비 0도
                         </p>
                     </div>
                     <div class="future">
                         <p id="futureHour">1시간 후</p>
-                        <p id="futureTemp">흐림 24도</p>
+                        <p id="futureTemp" >흐림 24도</p>
                     </div>
             </div>
             <div class="now">
                 <span id="todayExp">비</span>
-                <span id="todayTemp">24도</span>
+                <span id="todayTemp" th:text="|${current.t1h} ℃|">24도</span>
             </div>
             <img id="wicon" src="../cloud.png" alt="wicon">
         </div>
