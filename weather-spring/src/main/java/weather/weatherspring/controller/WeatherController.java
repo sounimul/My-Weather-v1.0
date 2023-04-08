@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.Location;
+import weather.weatherspring.entity.ElementForm;
 import weather.weatherspring.service.LocationService;
 import weather.weatherspring.service.WeatherService;
 
@@ -21,6 +22,7 @@ public class WeatherController {
     private final LocationService locationService;
     @Autowired
     private final WeatherService weatherService;
+
 
     public WeatherController(LocationService locationService, WeatherService weatherService) {
         this.locationService = locationService;
@@ -61,6 +63,16 @@ public class WeatherController {
         location.setXcoor(elementForm.getXcoor());
         location.setYcoor(elementForm.getYcoor());
 
+        // 단기예보(3일치 예보)
+        JsonNode vilageFcst=weatherService.getForecast(elementForm).block();
+
+        // 초단기실황
+        JsonNode srtFcst=weatherService.getForecast2(elementForm).block();
+
+        System.out.println(vilageFcst);
+        System.out.println(srtFcst);
+
+
         // 디버깅용
         System.out.println("session2 "+uid);
         System.out.println("latitude :"+location.getLatitude());
@@ -71,15 +83,14 @@ public class WeatherController {
         System.out.println(elementForm.getYear()+"년 "+elementForm.getMonth()+"일 "+elementForm.getDate()+"일");
         System.out.println(elementForm.getHour()+"시 "+elementForm.getMin()+"분");
 
-        // 단기예보 구하기
-        String forecast=weatherService.getForecast(elementForm).block();
-        System.out.println(forecast);
+
 
         // 과거 날씨 구하기
 
         // weather view
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("weather");
+
 
         return modelAndView;
     }
