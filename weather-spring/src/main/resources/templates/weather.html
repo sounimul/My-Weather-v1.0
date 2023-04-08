@@ -1,115 +1,97 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="kor">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather</title>
-    <link rel="stylesheet" href="../grid.css">
-    <link rel="stylesheet" href="../basic.css"> <!-- 영어버전 / 한글버전 따로 만들어서 글꼴 적용하기-->
-    <link rel="stylesheet" href="../weather_style.css">
+    <title>메인페이지</title>
+    <link rel="stylesheet" href="../weatherStyle.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <!-- 폰트 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
-
 </head>
 <body>
-    <header>
-        <div class="title"> <h1><a href="weather.html">How's the Weather?</a></h1> </div>
-        <nav>
-            <div class='menu'><a href="weather.html"> Main </a></div>
-            <div class='menu'><a href="https://www.weather.go.kr/w/index.do"> Search </a></div>
-            <div class='menu'><a href="myPage.html"> My page </a></div>
-        </nav>
+    <header> <hr> 
+    <button><img src="../handle.png"><br>날씨 저장하기</button>
+    <button><img src="../handle.png"><br>로그아웃</button>
     </header>
+    
     <main>
-        <section class="weather_main">
-            <div class="time" id="calendar"></div>
-            <div class="time" id="clock"></div>
-            <div class="time" id="loc">locate</div>
-            <div class="temperature"> <div id="circle"></div> </div>
-
-        </section>
-        <section class="weather_info">
-            <div class="info">체감온도</div>
-            <div class="info">미세먼지 농도</div>
-            <div class="info">자외선 지수</div>
-            <div class="info">습도</div>
-            <div class="info">예상 강수량</div>
-            <div class="info">최저/최고기온</div>
-            <div class="info" id="info_text">오늘은 어제보다 추울 예정이니 따뜻하게 입고 외출하세요!</div>
-        </section>
-        <section class="week_weather">
-            <div id="week_title">Weekly</div>
-            <div class="week">
-                <div class="week_day" id="today"></div>
-                <div class="week_info">
-                    <div class="low">low</div>
-                    <div class="high">high</div>
-                    <div class="icon" id="icon1">icon</div>
+        <div class="userInfo">
+            <div class="user">
+                <div class="profile">
+                    <div id="name">username</div>
+                    <br>
+                    <div id="clock">현재시각</div>
+                    <br>
+                    <div id="location">현재위치</div>
+                    <br>    
+                    <button> 마이페이지 </button>
                 </div>
             </div>
-            <div class="week">
-                <div class="week_day" id="tomorrow"></div>
-                <div class="week_info">
-                    <div class="low">low</div>
-                    <div class="high">high</div>
-                    <div class="icon" id="icon1">icon</div>
+        </div>
+        <div class="forecast">
+            <div class="info">
+                <h2>오늘의 날씨 정보</h2>
+                <div class="infoContainer">
+                    <div id="low">최저기온</div>
+                    <div id="high">최고기온</div>
+                    <div id="humidity">습도</div>
+                    <div id="rain">강수</div>
                 </div>
             </div>
-            <div class="week">
-                <div class="week_day" id="tomorrow2"></div>
-                <div class="week_info">
-                    <div class="low">low</div>
-                    <div class="high">high</div>
-                    <div class="icon" id="icon1">icon</div>
+            
+            <div class="threeDays">
+                <h2>3일 날씨</h2>
+                <div id="plusOne">
+                    <h3>토</h3>
+                    <div class="temp">최저기온<br>최고기온</div>
+                    <div class="wimg">날씨 이미지</div>
                 </div>
-            </div><div class="week">
-                <div class="week_day" id="tomorrow3"></div>
-                <div class="week_info">
-                    <div class="low">low</div>
-                    <div class="high">high</div>
-                    <div class="icon" id="icon1">icon</div>
+                <div id="plusTwo">
+                    <h3>일</h3>
+                    <div class="temp">최저기온<br>최고기온</div>
+                    <div class="wimg">날씨 이미지</div>
                 </div>
-            </div><div class="week">
-                <div class="week_day" id="tomorrow4"></div>
-                <div class="week_info">
-                    <div class="low">low</div>
-                    <div class="high">high</div>
-                    <div class="icon" id="icon1">icon</div>
-                </div>
-            </div><div class="week">
-                <div class="week_day" id="tomorrow5"></div>
-                <div class="week_info">
-                    <div class="low">low</div>
-                    <div class="high">high</div>
-                    <div class="icon" id="icon1">icon</div>
-                </div>
-            </div><div class="week">
-                <div class="week_day" id="tomorrow6"></div>
-                <div class="week_info">
-                    <div class="low">low</div>
-                    <div class="high">high</div>
-                    <div class="icon" id="icon1">icon</div>
+                <div id="plusThree">
+                    <h3>월</h3>
+                    <div class="temp">최저기온<br>최고기온</div>
+                    <div class="wimg">날씨 이미지</div>
                 </div>
             </div>
-        </section>
-        <img src="../img/cloud.png" title="created by COHO 2023 first project">
+        </div>
+        <div class="explain">
+            <div id="expText">
+                좋아하는 날씨를 저장해 보세요<br>
+                현재 날씨를 저장할 수 있어요.<br>
+                손잡이를 당기면 저장할 수 있어요.
+            </div>
+        </div>
+        <div class="todayWeather">
+            <div id="windowBorder"></div>
+            <div id="window"></div>
+            <div class="temperature">
+                    <div class="past">
+                        <p id="pastHour">1시간 전</p>
+                        <!--<hr style="border: solid 1px #F3ECAE; width: 60px;">-->
+                        <p id="pastTemp">
+                            비  22도
+                        </p>
+                    </div>
+                    <div class="future">
+                        <p id="futureHour">1시간 후</p>
+                        <p id="futureTemp">흐림 24도</p>
+                    </div>
+            </div>
+            <div class="now">
+                <span id="todayExp">비</span>
+                <span id="todayTemp">24도</span>
+            </div>
+            <img id="wicon" src="../cloud.png" alt="wicon">
+        </div>
     </main>
-    <aside></div>
-    <div class="project_list">
-    <ul>
-        <h2>Next Project</h2>
-        <li><a href="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%84%A4%EC%9D%B4%EB%B2%84+%EA%B3%84%EC%82%B0%EA%B8%B0">Calculator</a></li>
-        <li><a href="https://shopping.naver.com/home">Online Shopping</a></li>
-    </ul>
-    </div>
-    </aside>
-    <footer> </footer>
-    <script src="../script.js" defer></script>
+    
+    <footer></footer>
+    
+    <script src="../weatherScript.js"></script>
 </body>
 </html>

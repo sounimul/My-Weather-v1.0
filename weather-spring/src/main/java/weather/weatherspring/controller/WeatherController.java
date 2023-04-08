@@ -23,6 +23,7 @@ public class WeatherController {
     @Autowired
     private final WeatherService weatherService;
 
+
     public WeatherController(LocationService locationService, WeatherService weatherService) {
         this.locationService = locationService;
         this.weatherService = weatherService;
@@ -63,11 +64,14 @@ public class WeatherController {
         location.setYcoor(elementForm.getYcoor());
 
         // 단기예보(3일치 예보)
-        JsonNode forecast=weatherService.getForecast(elementForm).block();
+        JsonNode vilageFcst=weatherService.getForecast(elementForm).block();
 
-        //초단기 실황(현재날씨) -> 기온(T1H),
+        // 초단기실황
+        JsonNode srtFcst=weatherService.getForecast2(elementForm).block();
 
-        System.out.println(forecast);
+        System.out.println(vilageFcst);
+        System.out.println(srtFcst);
+
 
         // 디버깅용
         System.out.println("session2 "+uid);
@@ -86,6 +90,7 @@ public class WeatherController {
         // weather view
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("weather");
+
 
         return modelAndView;
     }
