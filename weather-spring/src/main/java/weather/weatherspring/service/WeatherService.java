@@ -13,10 +13,8 @@ import weather.weatherspring.entity.ElementForm;
 public class WeatherService {
     private static final String KMA_API_BASE_URL="http://apis.data.go.kr/1360000";
     private static final String KMA_SRT_NCST_URL="/VilageFcstInfoService_2.0/getUltraSrtNcst";        // 초단기실황
-    private static final String KMA_SRT_FCST_URL="/VilageFcstInfoService_2.0/getVilageFcst";          // 초단기예보
+    private static final String KMA_SRT_FCST_URL="/VilageFcstInfoService_2.0/getUltraSrtFcst";          // 초단기예보
     private static final String KMA_VGE_FCST_URL="/VilageFcstInfoService_2.0/getVilageFcst";          // 단기예보
-
-
     private static final String DATA_API_KEY="gyaHQw8o7B6FzRy3woK7FUM4bVAm%2FSplTe8Rf8%2FQ%2BJSMJtOKUWKqFrVmz9uTwN9xIy%2BJJ7ryeRHFbI1LrKVQQQ%3D%3D";
     private final WebClient.Builder kmaWebClientBuilder;
 
@@ -91,8 +89,12 @@ public class WeatherService {
                 .build();
 
         String date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
-        String time=String.format("%02d",elementForm.getHour())+"00";
+//        String time=String.format("%02d",elementForm.getHour())+"00"; //0300
+        String time="";
+        if(elementForm.getMin()<40) time=String.format("%02d",elementForm.getHour()-1)+"00";
+        else time=String.format("%02d",elementForm.getHour())+"00";
 
+        String finalTime = time;
         return kmaWebClient2.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("serviceKey",DATA_API_KEY)
@@ -100,7 +102,44 @@ public class WeatherService {
                         .queryParam("pageNo","1")
                         .queryParam("dataType","JSON")
                         .queryParam("base_date",date)
-                        .queryParam("base_time",time)
+                        .queryParam("base_time", finalTime)
+                        .queryParam("nx",elementForm.getXcoor()+"")
+                        .queryParam("ny",elementForm.getYcoor()+"")
+                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(JsonNode.class);
+    }
+
+    /* 초단기예보 */
+    public Mono<JsonNode> getForecast3(ElementForm elementForm,Integer num){
+        String base_url3=KMA_API_BASE_URL+KMA_SRT_FCST_URL;    // 단기예보
+
+        // UriBuild 설정을 해주는 DefaultUriBuilderFactory class의 인스턴스 생성
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(base_url3);
+        // 인코딩 mode 설정
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
+
+        WebClient kmaWebClient3 = kmaWebClientBuilder
+                .uriBuilderFactory(factory)
+                .baseUrl(base_url3)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        String date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
+        String time="";
+        if(num==0) time=String.format("%02d",elementForm.getHour()-1)+"30";
+        else time=String.format("%02d",elementForm.getHour()-2)+"30";
+
+        String finalTime = time;
+        return kmaWebClient3.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("serviceKey",DATA_API_KEY)
+                        .queryParam("numOfRows","60")
+                        .queryParam("pageNo","1")
+                        .queryParam("dataType","JSON")
+                        .queryParam("base_date",date)
+                        .queryParam("base_time", finalTime)
                         .queryParam("nx",elementForm.getXcoor()+"")
                         .queryParam("ny",elementForm.getYcoor()+"")
                         .build())

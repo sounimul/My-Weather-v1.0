@@ -1,13 +1,37 @@
 let weather = prompt('날씨를 입력하세요','sunny')
+// let weather;
+const current=document.getElementById("todayWeather");
 const wicon = document.getElementById("wicon");
 const clock = document.getElementById("clock");
-const loc = document.getElementById("location");
+// const loc = document.getElementById("location");
 
 const today = document.getElementById("today");
 const tomorrow = document.getElementById("tomorrow");
 const tomorrow2 = document.getElementById("tomorrow2");
 
 function Icon(){
+    // switch (current){
+    //     case '맑음':
+    //         weather="sun";
+    //     case '구름 많음':
+    //         weather="cloudAndSun";
+    //     case '흐림':
+    //         weather="cloud";
+    //     case '비':
+    //         weather="shower";
+    //     case '비 또는 눈':
+    //         weather="snow";
+    //     case '눈':
+    //         weather="snow";
+    //     case '빗방울':
+    //         weather="rain";
+    //     case '빗방울눈날림':
+    //         weather="rain";
+    //     case '눈날림':
+    //         weather="snow";
+    //     default:
+    //         weather="cloud";
+    // }
     wicon.setAttribute('src',`${weather}.png`);
     console.log(wicon);
 }
@@ -24,7 +48,7 @@ function getLoc(){
             const longitude = position.coords.longitude;
 
             console.log(latitude,longitude);
-            loc.innerText = `${latitude} ${longitude}`
+            // loc.innerText = `${latitude} ${longitude}`
 
             const day_arr = ['일','월','화','수','목','금','토'];
             const now = new Date(); //날짜, 시간 객체
