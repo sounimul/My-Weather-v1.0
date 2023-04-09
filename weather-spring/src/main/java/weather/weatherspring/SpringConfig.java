@@ -30,6 +30,8 @@ public class SpringConfig {
         return new JpaMemberRepository(em);
     }
 
+    @Bean WeatherRepository weatherRepository(){ return new JpaWeatherRepository(em);}
+
 //    @Bean
 //    public LocationService locationService(){ return new LocationService();}
 

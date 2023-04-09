@@ -6,6 +6,7 @@ public class CurrentWeather {
     private String reh="";     // 습도
     private String pty="";     // 강수형태
     private String sky="";     // 하늘 상태
+    private String status="";
 
     public String getT1h() {
         return t1h;
@@ -45,5 +46,13 @@ public class CurrentWeather {
 
     public void setSky(String sky) {
         this.sky = sky;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

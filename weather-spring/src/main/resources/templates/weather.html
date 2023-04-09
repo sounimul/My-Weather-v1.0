@@ -33,29 +33,29 @@
             <div class="info">
                 <h2>오늘의 날씨 정보</h2>
                 <div class="infoContainer">
-                    <div id="low">최저기온</div>
-                    <div id="high">최고기온</div>
-                    <div id="humidity" th:text="|${current.reh} %|">습도</div>
-                    <div id="rain" th:text="|${current.rn1} mm|">강수</div>
+                    <div id="low" class="temp">최저 5℃</div>
+                    <div id="high" class="temp">최고 22℃</div>
+                    <div id="humidity" class="temp" th:text="|${current.reh} %|">습도</div>
+                    <div id="rain" class="temp" th:text="|${current.rn1} mm|">강수</div>
                 </div>
             </div>
             
             <div class="threeDays">
                 <h2>3일 날씨</h2>
                 <div id="plusOne">
-                    <h3>토</h3>
-                    <div class="temp">최저기온<br>최고기온</div>
-                    <div class="wimg">날씨 이미지</div>
+                    <h3>월</h3>
+                    <div class="temp">최저 7℃<br>최고 21℃</div>
+                    <div class="wimg"></div>
                 </div>
                 <div id="plusTwo">
-                    <h3>일</h3>
-                    <div class="temp">최저기온<br>최고기온</div>
-                    <div class="wimg">날씨 이미지</div>
+                    <h3>화</h3>
+                    <div class="temp">최저 12℃<br>최고 22℃</div>
+                    <div class="wimg"></div>
                 </div>
                 <div id="plusThree">
-                    <h3>월</h3>
-                    <div class="temp">최저기온<br>최고기온</div>
-                    <div class="wimg">날씨 이미지</div>
+                    <h3>수</h3>
+                    <div class="temp">최저 6℃<br>최고 19℃</div>
+                    <div class="wimg"></div>
                 </div>
             </div>
         </div>
@@ -73,21 +73,21 @@
                     <div class="past">
                         <p id="pastHour">1시간 전</p>
                         <!--<hr style="border: solid 1px #F3ECAE; width: 60px;">-->
-                        <p id="pastTemp">
-                            비 0도
-                        </p>
+                        <p id="pastTemp" th:text="|${past.status} ${past.t1h}℃|"></p>
                     </div>
                     <div class="future">
                         <p id="futureHour">1시간 후</p>
-                        <p id="futureTemp" >흐림 24도</p>
+                        <p id="futureTemp" th:text="|${future.status} ${future.t1h}℃|"></p>
                     </div>
             </div>
             <div class="now">
-                <span id="todayExp">비</span>
-                <span id="todayTemp" th:text="|${current.t1h} ℃|">24도</span>
+                <span id="todayExp" th:text="${current.status}"></span>
+                <span id="todayTemp" th:text="|${current.t1h}℃|"></span>
+
             </div>
             <img id="wicon" src="../cloud.png" alt="wicon">
         </div>
+<!--        <div id="todayWeather" style="display:none" th:value="${current.status}"></div>-->
     </main>
     
     <footer></footer>
