@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
-    <link rel="stylesheet" href="../weatherStyle.css">
+    <link rel="stylesheet" href="../weatherStyle1.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!--Refresh icon-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
@@ -23,6 +24,7 @@
                     <br>
                     <div id="clock">현재시각</div>
                     <br>
+                    <button id="refresh" onclick="getLoc()"><span class="material-symbols-outlined">refresh</span></button>
                     <div id="location" th:text="${ad}">현재위치</div>
                     <br>    
                     <button> 마이페이지 </button>
@@ -30,35 +32,73 @@
             </div>
         </div>
         <div class="forecast">
-            <div class="info">
-                <h2>오늘의 날씨 정보</h2>
-                <div class="infoContainer">
-                    <div id="low" class="temp">최저 5℃</div>
-                    <div id="high" class="temp">최고 22℃</div>
-                    <div id="humidity" class="temp" th:text="|${current.reh} %|">습도</div>
-                    <div id="rain" class="temp" th:text="|${current.rn1} mm|">강수</div>
-                </div>
-            </div>
-            
-            <div class="threeDays">
-                <h2>3일 날씨</h2>
-                <div id="plusOne">
-                    <h3>월</h3>
-                    <div class="temp">최저 7℃<br>최고 21℃</div>
-                    <div class="wimg"></div>
-                </div>
-                <div id="plusTwo">
-                    <h3>화</h3>
-                    <div class="temp">최저 12℃<br>최고 22℃</div>
-                    <div class="wimg"></div>
-                </div>
-                <div id="plusThree">
-                    <h3>수</h3>
-                    <div class="temp">최저 6℃<br>최고 19℃</div>
-                    <div class="wimg"></div>
-                </div>
-            </div>
+            <table class="info">
+                <th colspan="2"><h2>오늘의 날씨 정보</h2></th>
+                <tr>
+                    <td class="tdh">최저기온</td>
+                    <td class="tdh">최고기온</td>
+                </tr>
+                <tr>
+                    <td id="infoLow">3℃</td>
+                    <td id="infoHigh">13℃</td>
+                </tr>
+                <tr>
+                    <td class="tdh">습도</td>
+                    <td class="tdh">강수</td>
+                </tr>
+                <tr>
+                    <td id="infoHumidity" th:text="|${current.reh} %|">67%</td>
+                    <td id="infoRain" th:text="|${current.rn1} mm|">50%</td>
+                </tr>
+            </table>
+
+
+<!--            <div class="info">-->
+<!--                <div class="infoContainer">-->
+<!--                    <div id="low" class="temp">최저 5℃</div>-->
+<!--                    <div id="high" class="temp">최고 22℃</div>-->
+<!--                    <div id="humidity" class="temp" th:text="|${current.reh} %|">습도</div>-->
+<!--                    <div id="rain" class="temp" th:text="|${current.rn1} mm|">강수</div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+
+            <table class="threeDays">
+                <th colspan="4"><h2>3일 날씨</h2></th>
+                <tr>
+                    <td class="futureDay" rowspan="2"></td>
+                    <td class="tdh">최고</td>
+                    <td class="high">13℃</td>
+                    <td rowspan="2">이미지</td>
+                </tr>
+                <tr>
+                    <td class="tdh">최저</td>
+                    <td class="high">3℃</td>
+                </tr>
+                <tr>
+                    <td class="futureDay" rowspan="2"></td>
+                    <td class="tdh">최고</td>
+                    <td class="high">13℃</td>
+                    <td rowspan="2">이미지</td>
+                </tr>
+                <tr>
+                    <td class="tdh">최저</td>
+                    <td class="low">3℃</td>
+                </tr>
+                <tr>
+                    <td class="futureDay" rowspan="2"></td>
+                    <td class="tdh">최고</td>
+                    <td class="high">13℃</td>
+                    <td rowspan="2">이미지</td>
+                </tr>
+                <tr>
+                    <td class="tdh">최저</td>
+                    <td class="low">3℃</td>
+                </tr>
+            </table>
         </div>
+
         <div class="explain">
             <div id="expText">
                 좋아하는 날씨를 저장해 보세요<br>
@@ -71,12 +111,12 @@
             <div id="window"></div>
             <div class="temperature">
                     <div class="past">
-                        <p id="pastHour">1시간 전</p>
+                        <p id="pastHour"></p>
                         <!--<hr style="border: solid 1px #F3ECAE; width: 60px;">-->
                         <p id="pastTemp" th:text="|${past.status} ${past.t1h}℃|"></p>
                     </div>
                     <div class="future">
-                        <p id="futureHour">1시간 후</p>
+                        <p id="futureHour"></p>
                         <p id="futureTemp" th:text="|${future.status} ${future.t1h}℃|"></p>
                     </div>
             </div>
@@ -92,6 +132,6 @@
     
     <footer></footer>
     
-    <script src="../weatherScript.js"></script>
+    <script src="../weatherScript1.js"></script>
 </body>
 </html>
