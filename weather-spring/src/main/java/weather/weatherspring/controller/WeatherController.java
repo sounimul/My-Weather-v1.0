@@ -143,6 +143,7 @@ public class WeatherController {
 
         // 과거 날씨 구하기
 
+
         // 디버깅용
 //        System.out.println("session2 "+uid);
 //        System.out.println("latitude :"+location.getLatitude());
