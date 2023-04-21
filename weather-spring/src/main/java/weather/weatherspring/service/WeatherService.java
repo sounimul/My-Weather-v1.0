@@ -88,20 +88,36 @@ public class WeatherService {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-        String date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
-//        String time=String.format("%02d",elementForm.getHour())+"00"; //0300
+
+        /* 날짜,시간 계산
+        * 40분을 기준으로 실황 API가 발표됨 */
+        String date="";
         String time="";
-        if(elementForm.getMin()<40) time=String.format("%02d",elementForm.getHour()-1)+"00";
-        else time=String.format("%02d",elementForm.getHour())+"00";
+        // 40분이후 -> 연월일시간 모두 그대로
+        if(elementForm.getMin()>=40){
+            date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
+            time=String.format("%02d",elementForm.getHour())+"00";
+        }
+        // 40분 이전 + 날짜가 바뀔 때(0시)
+        else if(elementForm.getHour()==0) {
+            date=calDate(elementForm,0);
+            time="2300";
+        }
+        // 40분 이전 + 날짜가 바뀌지 않을 때(1~23시)
+        else {
+            date = elementForm.getYear() + String.format("%02d", elementForm.getMonth()) + String.format("%02d", elementForm.getDate());
+            time = String.format("%02d", elementForm.getHour() - 1) + "00";
+        }
 
         String finalTime = time;
+        String finalDate = date;
         return kmaWebClient2.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("serviceKey",DATA_API_KEY)
                         .queryParam("numOfRows","8")
                         .queryParam("pageNo","1")
                         .queryParam("dataType","JSON")
-                        .queryParam("base_date",date)
+                        .queryParam("base_date", finalDate)
                         .queryParam("base_time", finalTime)
                         .queryParam("nx",elementForm.getXcoor()+"")
                         .queryParam("ny",elementForm.getYcoor()+"")
@@ -126,11 +142,38 @@ public class WeatherService {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-        String date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
+        /* 날짜, 시간 계산 */
+        String date="";
         String time="";
-        if(num==0) time=String.format("%02d",elementForm.getHour()-1)+"30";
-        else time=String.format("%02d",elementForm.getHour()-2)+"30";
 
+        // 현재 날씨 + 1시간 뒤 날씨
+        if(num==0){
+            // 날짜가 바뀔 때 (0시)
+            if(elementForm.getHour()==0){
+                date=calDate(elementForm,0);
+                time="2330";
+            }
+            // 날짜가 바뀌지 않을 때(1~23시)
+            else{
+                date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
+                time=String.format("%02d",elementForm.getHour()-1)+"30";
+            }
+        }
+        // 1시간 전 날씨
+        else {
+            // 날짜가 바뀔 때 (0~1시)
+            if(elementForm.getHour()<=1){
+                date=calDate(elementForm,1);
+                time = (22 + elementForm.getHour()) + "30";
+            }
+            // 날짜가 바뀌지 않을 때 (2~23시)
+            else{
+                date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
+                time=String.format("%02d",elementForm.getHour()-2)+"30";
+            }
+        }
+
+        String finalDate = date;
         String finalTime = time;
         return kmaWebClient3.get()
                 .uri(uriBuilder -> uriBuilder
@@ -138,7 +181,7 @@ public class WeatherService {
                         .queryParam("numOfRows","60")
                         .queryParam("pageNo","1")
                         .queryParam("dataType","JSON")
-                        .queryParam("base_date",date)
+                        .queryParam("base_date", finalDate)
                         .queryParam("base_time", finalTime)
                         .queryParam("nx",elementForm.getXcoor()+"")
                         .queryParam("ny",elementForm.getYcoor()+"")
@@ -148,6 +191,27 @@ public class WeatherService {
                 .bodyToMono(JsonNode.class);
     }
 
-    /* 과거 관측 */
+    public String calDate(ElementForm ef, int h){   // h : 날짜가 바뀌는 시간
+        int[] enddate={31,28,31,30,31,30,31,31,30,31,30,31};    // 월의 마지막 날
+        if(ef.getYear()%4==0) enddate[1]=29;           // 윤년인 경우 2월 29일까지
+
+        String date="";
+
+        // 년이 바뀔 때 - 1월 1일 h(0~1)시
+        if(ef.getMonth()==1 & ef.getDate()==1 & ef.getHour()<=h)
+            date = (ef.getYear() - 1) + "1231";
+        // 월이 바뀔 때 - 1일 h(0~1)시
+        else if(ef.getDate()==1 & ef.getHour()<=h)
+            date = ef.getYear() + String.format("%02d", ef.getMonth() - 1) + enddate[ef.getMonth() - 2];
+        // 일이 바뀔 때 - h(0~1)시
+        else if(ef.getHour()<=h)
+            date = ef.getYear() + String.format("%02d", ef.getMonth()) + String.format("%02d", ef.getDate() - 1);
+        // 날짜가 바뀌지 않을 때
+        else
+            date = ef.getYear() + String.format("%02d", ef.getMonth()) + String.format("%02d", ef.getDate());
+
+        return date;
+    }
+
 
 }

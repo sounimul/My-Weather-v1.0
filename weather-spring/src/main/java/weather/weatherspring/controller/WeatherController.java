@@ -105,7 +105,7 @@ public class WeatherController {
         location.setXcoor(elementForm.getXcoor());
         location.setYcoor(elementForm.getYcoor());
 
-        // 단기예보(3일치 예보)
+        // 단기예보 - 3일치 예보
         JsonNode vilageFcst=weatherService.getForecast(elementForm).block();
         // 초단기실황 - 현재 날씨
         JsonNode srtNcst=weatherService.getForecast2(elementForm).block();
@@ -114,7 +114,7 @@ public class WeatherController {
         // 초단기예보 - 1시간 전 날씨
         JsonNode srtFcst2=weatherService.getForecast3(elementForm,-1).block();
 
-        //현재 시간 날씨
+        //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
         currentWeather.setPty(srtNcst.get("response").get("body").get("items").get("item").get(0).get("obsrValue").asText());   // 현재 강수상태
         currentWeather.setReh(srtNcst.get("response").get("body").get("items").get("item").get(1).get("obsrValue").asText());   // 현재 습도
         currentWeather.setRn1(srtNcst.get("response").get("body").get("items").get("item").get(2).get("obsrValue").asText());   // 현재 강수량
@@ -124,7 +124,7 @@ public class WeatherController {
         else wtype.setWcode("PTY_"+currentWeather.getPty());
         currentWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
 
-        // 1시간 후 기온,날씨
+        // 1시간 후 기온,날씨 - 초단기예보
         futureWeather.setPty(srtFcst.get("response").get("body").get("items").get("item").get(7).get("fcstValue").asText());
         futureWeather.setSky(srtFcst.get("response").get("body").get("items").get("item").get(19).get("fcstValue").asText());
         futureWeather.setT1h(srtFcst.get("response").get("body").get("items").get("item").get(25).get("fcstValue").asText());
@@ -132,7 +132,7 @@ public class WeatherController {
         else wtype1.setWcode("PTY_"+futureWeather.getPty());
         futureWeather.setStatus(weatherRepository.findByWcode(wtype1.getWcode()).get().getMessage());
 
-        // 1시간 전 기온, 날씨
+        // 1시간 전 기온, 날씨 - 초단기예보
         pastWeather.setPty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
         pastWeather.setSky(srtFcst2.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
         pastWeather.setT1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
@@ -141,7 +141,9 @@ public class WeatherController {
         pastWeather.setStatus(weatherRepository.findByWcode(wtype2.getWcode()).get().getMessage());
 
 
-        // 과거 날씨 구하기
+        // 오늘의 최고, 최저기온
+
+        // 3일치 최고, 최저기온, 날씨
 
 
         // 디버깅용
