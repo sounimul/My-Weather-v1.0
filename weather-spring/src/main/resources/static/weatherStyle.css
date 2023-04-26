@@ -374,22 +374,29 @@ tr {
     padding: 10px;
 }
 
-.threeDays td {
+/* .threeDays td {
     padding: 10px;
-}
+} */
 
 .futureDay, .threeDaysIcon {
     text-align: center;
+    padding-bottom: 20px;
+}
+
+.threeDaysIcon {
+    padding-top: 10px;
 }
 
 .threeDaysLow {
     text-align: right;
     color: blue;
+    text-align: center;
 }
 
 .threeDaysHigh {
     text-align: right;
     color: red;
+    text-align: center;
 }
 
 table {
