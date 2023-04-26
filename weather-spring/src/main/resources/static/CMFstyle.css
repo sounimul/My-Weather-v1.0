@@ -1,26 +1,29 @@
 body {
-    width: 100vw;
-    height: 100vh;
-    
+    margin: 0;
     overflow: hidden;
+    padding-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    background-image: url("floor.png");     /* 경로 변경하기 */
 }
 
 main {
-    width: 40%;
-    height: 60%;
+    width: 500px;
+    height: 680px;
+    padding: 10px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 500px;
+    padding-right: 20px;
 }
 
 h1 {
     text-align: center;
+    margin-top: 0;
 }
 
 .container {
@@ -29,15 +32,55 @@ h1 {
     padding: 10px;
 }
 
-.container input, label {
-    margin: 5px;
+.btnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
 }
 
-.container input[type="text"], input[type="id"], input[type="password"]{
+#done{
+    background-color: #4C623B;
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 30px;
+    color: #F3ECAE;
+    font-weight: 900;
+}
+
+label {
+    margin: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+label .material-symbols-outlined {
+    font-size: 20px; 
+    padding-right: 5px;
+}
+
+#userid, .container input:nth-child(2){
+    margin: 5px;
+    padding-bottom: 10px;
+}
+
+/* media */
+.container input[type="text"], input[type="password"]{
     border: none;
     border-bottom: 1px solid gray;
-    width: 200px;
+    width: 400px;
 }
+
+input[type='id'] {
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 310px;
+}
+/* */
 
 .container input:focus {
     outline: none;
@@ -51,14 +94,159 @@ aside {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20%;
-    height: 60%;
-    padding: 10px;
-    border: 1px solid gray;
+    /* width: 20%;
+    height: 60%; */
+    width: 340px;
+    height: 680px;
+    padding: 80px 10px 10px 10px;
+    /* border: 1px solid gray; */
+}
+.profile {
+    /* border: 1px solid blue; */
+    width: 340px;
+    display: flex;
+    justify-content: center;
+    height: 680px;
+    padding-top: 150px;
+}
+
+/* 좋아하는 날씨 캐릭터 */
+#windowBorder {
+    background-color: #D9D9D9;
+    border-radius: 70px;
+    width: 300px;
+    height: 340px;
+}
+
+#window {
+    border: 10px solid #F0F0F0;
+    border-radius: 60px;
+    width: 260px;
+    height: 300px;
+
+    position: relative;
+    top: 10px;
+    left: 10px;
+
+    background-image: url("tile.png");          /* 경로변경 */
+    background-repeat: repeat;
+    background-position-y: 10px;
+}
+
+.favoriteWeatherIcon {
+    /* border: 1px solid yellow; */
+    transform: translateY(-50px);
 }
 
 button {
     border: none;
+}
+
+#idCheck {
+    border: 2px solid #4C623B;
+    text-align: center;
+    width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    color: #4C623B;
+    font-weight: 900;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#pwCondition {
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    background-color: #4C623B;
+    color: #F3ECAE;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#pwConditionText {
+    font-size: 0.8rem;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    width: 200px;
+    height: 120px;
+    background-color: #4C623B;
+    padding: 10px 0 10px 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
     border-radius: 10px;
-    padding: 10px;
+    position: absolute;
+    transform: translate(-120px,-50px);
+    display: none;
+}
+
+#pwConditionText span{
+    padding-bottom: 4px;
+    width: 180px;
+}
+
+#pwConditionText span:nth-child(1){
+    text-align: center;
+    padding-bottom: 10px;
+    font-weight: 700;
+    border-bottom: 1px solid white;
+}
+
+#pwConditionText span:nth-child(2){
+    padding-top: 10px;
+}
+
+#home{
+    background-color: #F3ECAE;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 30px;
+    color: #4C623B;
+    font-weight: 900;
+    margin-top: 20px;
+    margin-left: 165px;
+    
+    position: fixed; /* 하단 버튼 고정 */
+    bottom: 32px;
+    right: 25px;
+}
+
+/* footer */
+
+/* footer {
+    width: 100vw;
+    height: 180px;
+    background-color: #959999;
+    position: absolute;
+    top: calc(80%);
+    bottom: 0;
+    z-index: -1;
+} */
+
+@media screen and (max-width:900px) {
+    main {
+        width: 370px;
+        min-width: 370px;
+
+    }
+    .container input[type="text"], input[type="password"]{
+        width: 310px;
+    }
+    
+    input[type='id'] {
+        width: 240px;
+    }
+
+    #done{
+        width: 150px;
+    }
 }

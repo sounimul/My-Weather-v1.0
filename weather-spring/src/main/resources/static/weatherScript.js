@@ -1,4 +1,6 @@
-let weather = prompt('날씨를 입력하세요','sunny');
+// let weather = prompt('날씨를 입력하세요','sunny');
+let weather = document.querySelector('#currentExp').innerText;
+let fileName = '';
 
 const wicon = document.getElementById("wicon");
 const clock = document.getElementById("clock");
@@ -16,33 +18,44 @@ const futureDay3 = document.getElementsByClassName('futureDay')[2];
 const weather_arr = ['맑음','구름 많음','흐림','비','비 또는 눈','눈','소나기','빗방울','빗방울눈날림','눈날림'];
 
 function Icon(){
-    // switch (current){
-    //     case '맑음':
-    //         weather="sun";
-    //     case '구름 많음':
-    //         weather="cloudAndSun";
-    //     case '흐림':
-    //         weather="cloud";
-    //     case '비':
-    //         weather="shower";
-    //     case '비 또는 눈':
-    //         weather="snow";
-    //     case '눈':
-    //         weather="snow";
-    //     case '빗방울':
-    //         weather="rain";
-    //     case '빗방울눈날림':
-    //         weather="rain";
-    //     case '눈날림':
-    //         weather="snow";
-    //     default:
-    //         weather="cloud";
-    // }
-    wicon.setAttribute('src',`${weather}.png`);
+
+    console.log('전역 변수 함수안', weather);
+    switch (weather){
+        case '맑음':
+            fileName="sun";
+            break;
+        case '구름 많음':
+            fileName="cloudAndSun";
+            break;
+        case '흐림':
+            fileName="cloud";
+            break;
+        case '비':
+            fileName="shower";
+            break;
+        case '비 또는 눈':
+            fileName="snow";
+            break;
+        case '눈':
+            fileName="snow";
+            break;
+        case '빗방울':
+            fileName="rain";
+            break;
+        case '빗방울눈날림':
+            fileName="rain";
+            break;
+        case '눈날림':
+            fileName="snow";
+            break;
+        default:
+            fileName="cloud";
+    }
+    wicon.setAttribute('src',`${fileName}.png`);
     console.log(wicon);
 }
 
-Icon();
+// Icon(document.querySelector('#currentExp').value);
 // setInterval(getClock,60000); //초마다 시간 새로고침
 
 function getLoc(){
@@ -130,5 +143,7 @@ function getLoc(){
 }
 
 getLoc();
-setInterval(getClock,1000);
+setInterval(getLoc,60000);
 //새로고침은 동기적이니깐, 비동기적으로 데이터 업데이트 하는 ajax 사용해볼것!
+console.log('전역 변수 함수밖', weather);
+Icon();

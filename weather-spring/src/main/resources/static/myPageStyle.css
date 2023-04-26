@@ -1,0 +1,427 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+
+    background-image: url("floor.png");         /* 경로 변경 */
+}
+
+a {
+    text-decoration: none;
+}
+
+/* basic style */
+button {
+    border: none;
+    background-color: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.GNB {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: transparent;
+    min-width: 850px;
+    position: fixed;
+    top: 0;
+    background-color: #4C623B;
+    padding-right: 12px;
+}
+
+#home, #logOut{
+    background-color: #F3ECAE;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 30px;
+    color: #4C623B;
+    font-weight: 900;
+    margin: 10px;
+}
+
+/* contents */
+.wrapper {
+    /* border: 1px solid red; */
+    height: 800px;
+    width: 80%;
+    min-width: 850px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile {
+    /* border: 1px solid blue; */
+    width: 340px;
+    display: flex;
+    justify-content: center;
+    height: 630px;
+}
+
+/* 좋아하는 날씨 캐릭터 */
+#windowBorder {
+    background-color: #D9D9D9;
+    border-radius: 70px;
+    width: 300px;
+    height: 380px;
+}
+
+#window {
+    border: 10px solid #F0F0F0;
+    border-radius: 60px;
+    width: 260px;
+    height: 340px;
+
+    position: relative;
+    top: 10px;
+    left: 10px;
+
+    background-image: url("tile.png");         /* 경로 변경 */
+    background-repeat: repeat;
+    background-position-y: 10px;
+}
+
+.favoriteWeatherIcon {
+    /* border: 1px solid yellow; */
+    transform: translateY(-20px);
+}
+
+.userInfo {
+    margin-top: 30px;
+    width: 220px;
+    height: 200px;
+    padding: 20px;
+}
+
+.userInfo p {
+    color: #4C623B;
+    padding-bottom: 5px;
+}
+
+#userId, #userNickname {
+    color: #4C623B;
+    font-weight: 900;
+}
+
+#userFavorite {
+    color: #4C623B;
+    font-weight: 700;
+}
+
+.infoTitle {
+    font-weight: 900;
+    /* background-color: #4C623B;
+    color: #F3ECAE;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px; */
+}
+
+.btnWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.btnWrapper button {
+    font-weight: 900;
+    background-color: #4C623B;
+    color: #F3ECAE;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+}
+
+/* 저장한 날씨 */
+.favoriteWeather {
+    /* border: 5px solid pink; */
+    margin-left: 40px;
+    width: 60%;
+    height: 660px;
+    padding-top: 10px;
+    min-width: 550px;
+}
+
+.favoriteWeather h3 {
+    text-align: center;
+    background-color: #4C623B;
+    line-height: 50px;
+    border-radius: 5px;
+    color: #F3ECAE;
+    margin-bottom: 10px;
+}
+
+.searchBar {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    min-width: 550px;
+    align-items: center;
+    padding: 10px;
+}
+
+.searchCondition {
+    /* border: 1px solid black; */
+    background-color: #F3ECAE;
+    padding: 15px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4C623B;
+}
+
+.favoriteWeather select {
+    border: none;
+    border-radius: 20px;
+    margin: 5px;
+}
+
+.board {
+    height: 460px;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("tile.png");          /* 경로 변경 */
+    background-repeat: repeat;
+    border: 10px solid #F0F0F0;
+}
+
+#sIcon {
+    background-color: #4C623B;
+    margin-left: 20px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 30px;
+    color: #F3ECAE;
+}
+
+/* List */
+.fwList {
+    width: 80%;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    overflow: auto;
+    padding: 10px;
+    max-width: 600px;
+}
+
+select {
+    background-color: #4C623B;
+    color: #F3ECAE;
+    padding: 2px;
+}
+
+/* Item Style */
+.fwItem {
+    background-color: #4C623B;
+    color: #F3ECAE;
+    border-radius: 20px;
+    width: 150px;
+    height: 140px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.fwHeader {
+    border: none;
+    border-bottom: 2px solid #F3ECAE;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.fwDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fwDetails p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 임시 추가 삭제 */
+
+.tempFunction {
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+}
+#add, #remove{
+    background-color: #F3ECAE;
+    margin-left: 20px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 30px;
+    color: #4C623B;
+}
+
+/* 프로필 수정 */
+.changePFbackground {
+    display: none;
+    /* display: flex; */
+    position: absolute;
+    background-color: transparent;
+    width: 100%;
+    height: 740px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.changePF {
+    background-color: #F3ECAE;
+    width: 500px;
+    height: 300px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.changePF h3 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #4C623B;
+}
+
+.profileInfo {
+    width: 90%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.profileInfo div span:nth-child(1){
+    display: inline-block;
+    width: 130px;
+    text-align: center;
+    line-height: 40px;
+    margin: 10px;
+    background-color: #4C623B;
+    color: #F3ECAE;
+    font-weight: 900;
+    border-radius: 30px;
+}
+
+.profileInfo div span:nth-child(2){
+    font-weight: 600;
+    width: 200px;
+    color: #4C623B;
+    display: inline-block;
+    text-align: left;
+    line-height: 40px;
+    margin: 5px;
+}
+
+#closeChangePF {
+    position: absolute;
+    transform: translate(230px);
+}
+
+#changeNN, #changeFW {
+    border-radius: 20px;
+    border: 2px solid #4C623B;
+}
+
+/* 비밀번호 변경 */
+.changePWbackground {
+    display: none;
+    /* display: flex; */
+    position: absolute;
+    background-color: transparent;
+    width: 100%;
+    height: 740px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.changePW {
+    background-color: #F3ECAE;
+    width: 300px;
+    height: 400px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.changePW h3 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+form {
+    width: 80%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.changePW input {
+    background-color: transparent;
+    border: none;
+    border-bottom: #4C623B 1px solid;
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+.changePW input:focus {
+    outline: none;
+}
+
+.changPW label {
+    color: #4C623B;
+}
+
+input[type="submit"]{
+    margin-top: 20px;
+    margin: auto;
+    width: 100px;
+    height: 40px;
+    background-color: #4C623B;
+    border: none;
+    color: #F3ECAE;
+    border-radius: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#closeChangePW {
+    position: absolute;
+    transform: translate(130px);
+}

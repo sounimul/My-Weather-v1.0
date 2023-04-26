@@ -6,34 +6,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
-    <link rel="stylesheet" href="../weatherStyle1.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!--Refresh icon-->
+    <link rel="stylesheet" href="../weatherStyle.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../weatherScript.js" defer></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
-    <header> <hr> 
-    <button><img src="../handle.png"><br>날씨 저장하기</button>
-    <button><img src="../handle.png"><br>로그아웃</button>
+    <header>
+        <div class="userName">
+            <p>좋은 하루 보내세요,</p>
+            <span id="huserNickname" th:text="${username}"></span>
+            <span>님</span>
+        </div>
+        <div class="hbtnWrapper">
+            <button id="hsaveWeather"><span class="material-symbols-rounded">favorite</span></button>
+            <a href="/myPage"><button id="hmyPage"><span class="material-symbols-rounded">account_circle</span></button></a>
+            <button id="hfeedback"><span class="material-symbols-rounded">chat</span></button>
+        </div>
     </header>
-    
+
     <main>
         <div class="userInfo">
-            <div class="user">
-                <div class="profile">
-                    <div id="name" th:text="${username}"></div>
-                    <br>
-                    <div id="clock">현재시각</div>
-                    <br>
-                    <button id="refresh" onclick="getLoc()"><span class="material-symbols-outlined">refresh</span></button>
-                    <div id="location" th:text="${ad}">현재위치</div>
-                    <br>    
-                    <button> 마이페이지 </button>
+            <div class="userWrapper">
+                <div class="user">
+                    <div class="userName">
+                        <p>좋은 하루 보내세요,</p>
+                        <span id="userNickname" th:text="${username}"></span>
+                        <span>님</span>
+                    </div>
+                    <div class="btnWrapper">
+                        <button id="saveWeather"><span class="material-symbols-rounded">favorite</span>날씨 저장</button>
+                        <a href="/myPage"><button id="myPage"><span class="material-symbols-rounded">account_circle</span>마이페이지</button></a>
+                        <button id="pfeedback"><span class="material-symbols-rounded">chat</span>피드백</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="todayWeather">
+
+            <div id="windowBorder">
+
+                <div id="window">
+                    <div class="nowInfo">
+                        <div id="clock"></div>
+                        <!-- <button id="refresh" onclick="getLoc()"><span class="material-symbols-outlined">refresh</span></button> -->
+                        <span id="location" th:text="${ad}"></span>
+                    </div>
+                    <div class="temperature">
+                        <div class="past">
+                            <p id="pastHour"></p>
+                            <p class="pastInfo">
+                                <span class="material-symbols-outlined" id="pastWeatherIcon" th:text="${past.status}"></span>
+                                <span id="pastTemp" th:text="|${past.t1h}℃|"></span>
+                            </p>
+                        </div>
+                        <div class="now">
+                            <span id="currentExp" th:text="${current.status}"></span>
+                            <span id="currentTemp" th:text="|${current.t1h}℃|"></span>
+                        </div>
+                        <div class="future">
+                            <p id="futureHour"></p>
+                            <p class="futureInfo">
+                                <span class="material-symbols-outlined" id="futureWeatherIcon" th:text="${future.status}"></span>
+                                <span id="futureTemp" th:text="|${future.t1h}℃|"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="todayWeatherIcon">
+                <img id="wicon" src="../sun.png" alt="wicon" style="width:890px">
+            </div>
+        </div>
+
+
         <div class="forecast">
             <table class="info">
-                <th colspan="2"><h2>오늘의 날씨 정보</h2></th>
+                <th colspan="2"><h2>오늘의 날씨</h2></th>
                 <tr>
                     <td class="tdh">최저기온</td>
                     <td class="tdh">최고기온</td>
@@ -48,90 +101,108 @@
                 </tr>
                 <tr>
                     <td id="infoHumidity" th:text="|${current.reh} %|">67%</td>
-                    <td id="infoRain" th:text="|${current.rn1} mm|">50%</td>
+                    <td id="infoRain" th:text="|${current.rn1} mm|">50%
+                    </td>
                 </tr>
             </table>
-
-
-<!--            <div class="info">-->
-<!--                <div class="infoContainer">-->
-<!--                    <div id="low" class="temp">최저 5℃</div>-->
-<!--                    <div id="high" class="temp">최고 22℃</div>-->
-<!--                    <div id="humidity" class="temp" th:text="|${current.reh} %|">습도</div>-->
-<!--                    <div id="rain" class="temp" th:text="|${current.rn1} mm|">강수</div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-
 
             <table class="threeDays">
-                <th colspan="4"><h2>3일 날씨</h2></th>
+                <th colspan="4"><h2>3일 날씨</h2></th>         <!-- 3일날씨 출력하기 -->
                 <tr>
-                    <td class="futureDay" rowspan="2"></td>
-                    <td class="tdh">최고</td>
-                    <td class="high">13℃</td>
-                    <td rowspan="2">이미지</td>
+                    <td class="futureDay"></td>
+                    <td class="threeDaysLow">3℃</td>
+                    <td class="threeDaysHigh">13℃</td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusOneIcon"></span></td>
                 </tr>
+
                 <tr>
-                    <td class="tdh">최저</td>
-                    <td class="high">3℃</td>
+                    <td class="futureDay"></td>
+                    <td class="threeDaysLow">3℃</td>
+                    <td class="threeDaysHigh">13℃</td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusTwoIcon"></span></td>
                 </tr>
+
                 <tr>
-                    <td class="futureDay" rowspan="2"></td>
-                    <td class="tdh">최고</td>
-                    <td class="high">13℃</td>
-                    <td rowspan="2">이미지</td>
+                    <td class="futureDay"></td>
+                    <td class="threeDaysLow">3℃</td>
+                    <td class="threeDaysHigh">13℃</td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusThreeIcon"></span></td>
                 </tr>
-                <tr>
-                    <td class="tdh">최저</td>
-                    <td class="low">3℃</td>
-                </tr>
-                <tr>
-                    <td class="futureDay" rowspan="2"></td>
-                    <td class="tdh">최고</td>
-                    <td class="high">13℃</td>
-                    <td rowspan="2">이미지</td>
-                </tr>
-                <tr>
-                    <td class="tdh">최저</td>
-                    <td class="low">3℃</td>
-                </tr>
+
             </table>
         </div>
+        <div class="fvSaveWrapper">
+            <div class="fvSave">
+                <h3>날씨 저장</h3>
+                <div class="saveInfo">
+                    <form action="" class="saveForm">
+                        <article class="fwItem">
+                            <header class="fwHeader">
+                                <span>4월 24일 월요일</span>
+                                <span>달서구</span>
+                                <span class="material-symbols-outlined">sunny</span>
+                            </header>
+                            <div class="fwDetails">
+                                <div class="fwTemp">
+                                    <div class="saveTempInfo">
+                                        <span class="material-symbols-outlined">device_thermostat</span>
+                                        <span>25°C</span>
+                                    </div>
+                                    <select name="saveTempComment" id="">
+                                        <option value="none">기온 어때요?</option>
+                                        <option value="hot">더워요</option>
+                                        <option value="warm">따뜻해요</option>
+                                    </select>
+                                </div>
 
-        <div class="explain">
-            <div id="expText">
-                좋아하는 날씨를 저장해 보세요<br>
-                현재 날씨를 저장할 수 있어요.<br>
-                손잡이를 당기면 저장할 수 있어요.
+                                <div class="fwHumid">
+                                    <div class="saveHumidInfo">
+                                        <span class="material-symbols-outlined">water_drop</span>
+                                        <span>60%</span>
+                                    </div>
+                                    <select name="saveHumidComment" id="">
+                                        <option value="none">습도 어때요?</option>
+                                        <option value="humid">습해요</option>
+                                        <option value="dry">건조해요</option>
+                                    </select>
+                                </div>
+
+                                <div class="fwRain">
+                                    <div class="saveRainInfo">
+                                        <span class="material-symbols-outlined">rainy</span>
+                                        <span>2.5mm</span>
+                                    </div>
+                                    <select name="saveRainComment" id="">
+                                        <option value="none">비는 어떻게 와요?</option>
+                                        <option value="heavy">많이 와요</option>
+                                        <option value="no">안와요</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </article>
+                        <input type="button" value="저장" id="save">
+                    </form>
+                </div>
+
+                <button id="close"><span class="material-symbols-outlined">close</span></button>
             </div>
         </div>
-        <div class="todayWeather">
-            <div id="windowBorder"></div>
-            <div id="window"></div>
-            <div class="temperature">
-                    <div class="past">
-                        <p id="pastHour"></p>
-                        <!--<hr style="border: solid 1px #F3ECAE; width: 60px;">-->
-                        <p id="pastTemp" th:text="|${past.status} ${past.t1h}℃|"></p>
+        <div class="feedbackWrapper">
+            <div class="feedback">
+                <h3>리뷰 남기기</h3>
+                <form action="GET" class="feedbackForm">
+                    <div class="starWrapper">
+                        <input type="radio" name="reviewStar" value="s1" id="rate1"><label for="rate1"><span class="material-symbols-outlined" id="grade1">grade</span></label>
+                        <input type="radio" name="reviewStar" value="s2" id="rate2"><label for="rate2"><span class="material-symbols-outlined" id="grade2">grade</span></label>
+                        <input type="radio" name="reviewStar" value="s3" id="rate3"><label for="rate3"><span class="material-symbols-outlined" id="grade3">grade</span></label>
+                        <input type="radio" name="reviewStar" value="s4" id="rate4"><label for="rate4"><span class="material-symbols-outlined" id="grade4">grade</span></label>
+                        <input type="radio" name="reviewStar" value="s5" id="rate5"><label for="rate5"><span class="material-symbols-outlined" id="grade5">grade</span></label>
                     </div>
-                    <div class="future">
-                        <p id="futureHour"></p>
-                        <p id="futureTemp" th:text="|${future.status} ${future.t1h}℃|"></p>
-                    </div>
+                    <input type="submit" value="평가 남기기" id="sendFeedback">
+                </form>
+                <button id="feedbackClose"><span class="material-symbols-outlined">close</span></button>
             </div>
-            <div class="now">
-                <span id="todayExp" th:text="${current.status}"></span>
-                <span id="todayTemp" th:text="|${current.t1h}℃|"></span>
-
-            </div>
-            <img id="wicon" src="../cloud.png" alt="wicon">
         </div>
-<!--        <div id="todayWeather" style="display:none" th:value="${current.status}"></div>-->
     </main>
-    
-    <footer></footer>
-    
-    <script src="../weatherScript1.js"></script>
 </body>
 </html>

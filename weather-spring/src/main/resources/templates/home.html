@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko">
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>로그인</title>
 
-    <link rel="stylesheet" href="../homeGrid.css">
+    <link rel="stylesheet" href="../homeStyle.css"> <!-- 자바 수정 -->
 </head>
 <body>
+<h1>Welcome to Weather Page</h1>
+<div class="doorBorder">
+</div>
 <main>
-    <h1>Welcome to Weather Page</h1>
+    <div class="wrapper">
+        <div class="loginInput">
+            <form action="/login" method="POST">
+                <!-- <form> -->
+                <div class="inputAccount">
+                    <div class="id">
+                        <div class="idLabel"><label for="userid">ID</label></div>
+                        <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요">
+                    </div>
 
-    <div class="loginInput">
-        <form action="/login" method="POST">
-            <div class="id">
-                <div class="idLabel"><label for="userid">ID</label></div>
-                <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요">
-            </div>
+                    <div class="password">
+                        <div class="passwordLabel"><label for="pw">PW </label></div>
+                        <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요">
+                    </div>
+                </div>
 
-            <div class="password">
-                <div class="passwordLabel"><label for="pw">PW </label></div>
-                <input type="text" id="pw" name="pw" placeholder="비밀번호를 입력하세요">
-            </div>
-
-            <div class="submit">
-                <button type="submit">로그인</button>
-            </div>
-        </form>
-    </div>
-    <div class="move">
-        <p><a href="">아이디/비밀번호 찾기</a></p>
-        <p><a href="/joinForm">회원가입</a></p>
+                <div class="submit">
+                    <button type="submit" id="logIn"><span class="material-symbols-outlined">login</span></button>
+                </div>
+            </form>
+        </div>
     </div>
 </main>
-
-<aside class="onBoarding">
-    <div class="intro">온보딩</div>
-</aside>
-
-<!-- 로그인,회원가입 구현 전 페이지 이동 (구현 후 삭제) -->
+<div class="move">
+    <!-- <p><a href="weather.html">홈</a></p> -->
+    <p><a href="">아이디/비밀번호 찾기</a></p>
+    <!-- <p><a href="createMemberForm.html">회원가입</a></p> -->
+    <p><a href="/joinForm">회원가입</a></p>
+</div>
 </body>
 </html>

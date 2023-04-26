@@ -16,7 +16,7 @@ function checkID(){
 
         return false;
     }
-    
+
     else {
         alert('등록 가능한 아이디입니다.');
         /*자바스크립트 내 확인용 저장*/
@@ -38,13 +38,13 @@ function checkPW(){
     //아래의 특수문자
 
     let regexPw =  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
-    
+
     if(!regexPw.test(pw.value)) {
         pw.style.color = "red";
         pw.style.borderBottom = "1px solid red"
         return false;
     }
-    
+
     else {
         pw.style.color = "green";
         pw.style.borderBottom = "1px solid green"
@@ -58,7 +58,7 @@ function doublecheckPW(){
     //영문 대소문자
     //숫자
     //아래의 특수문자
-    
+
     if(pw.value!==pwc.value) {
         pwc.style.color = "red";
         pwc.style.borderBottom = "1px solid red"
@@ -74,13 +74,13 @@ function doublecheckPW(){
 
 function confirmPW(){
     let regexPw =  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
-    
+
     if(!regexPw.test(pw.value)) {
         pw.value = '';
         pw.style.borderBottom = "1px solid gray"
         return false;
     }
-    
+
     else {
         pw.style.borderBottom = 'none';
         return true;
@@ -89,15 +89,28 @@ function confirmPW(){
 
 function confirmPWC(){
     let regexPw =  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
-    
+
     if(!regexPw.test(pw.value) && pw.value!==pwc.value) {
         pwc.value = '';
         pwc.style.borderBottom = "1px solid gray"
         return false;
     }
-    
+
     else {
         pwc.style.borderBottom = 'none';
         return true;
     }
 }
+
+function changeImg(weather){
+    document.querySelector('#wicon').setAttribute('src',`${weather}.png`);
+}
+
+/* pwCondition */
+document.querySelector('#pwCondition').addEventListener('mouseover',()=>{
+    document.querySelector('#pwConditionText').style.display = "flex";
+})
+
+document.querySelector('#pwCondition').addEventListener('mouseout',()=>{
+    document.querySelector('#pwConditionText').style.display = "none";
+})
