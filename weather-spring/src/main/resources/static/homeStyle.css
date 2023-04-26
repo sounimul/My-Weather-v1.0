@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-image: url("tile.png");      /* 경로수정정 */
+    background-repeat: repeat;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid #4C623B;
+    padding-bottom: 10px;
+    background-color: transparent;
+}
+
+input:focus {
+    outline: none;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.id, .password {
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    margin-right: 50px;
+}
+
+.id {
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #4C623B;
+    padding-bottom: 50px;
+    position: absolute;
+    transform: translateY(-225px);
+    
+}
+
+#logIn {
+    background-color: #4C623B;
+    border: none;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    color: #F3ECAE;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+#logIn span {
+    font-size: 36px;
+}
+
+.doorBorder {
+    width: 100vw;
+    height: 150px;
+    background-color: #4C623B;
+    position: absolute;
+
+    display: flex;
+    justify-content: right;
+}
+
+.move {
+    padding: 30px;
+    position: absolute;
+    transform: translateY(200px);
+    display: flex;
+}
+
+.move p {
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #4C623B;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+main {
+    width: 400px;
+    height: 160px;
+    background-color: #F3ECAE;
+    border-radius: 200px;
+    border: 30px solid #4C623B;
+    display: flex;
+    z-index: 1;
+    padding: 50px;
+    justify-content: center;
+}
+
+.wrapper {
+    padding: 20px;
+}
+
+@media screen and (max-width:800px) {
+    main {
+        border: 20px solid #4C623B;
+        width: 380px;
+        height: 100px;
+    }
+    .doorBorder {
+        height: 100px;
+    }
+    .id, .password {
+        margin-right: 20px;
+    }
+}
