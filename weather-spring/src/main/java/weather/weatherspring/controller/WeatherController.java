@@ -10,6 +10,7 @@ import weather.weatherspring.domain.Location;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.CurrentWeather;
 import weather.weatherspring.entity.ElementForm;
+import weather.weatherspring.entity.Temperature;
 import weather.weatherspring.repository.JpaWeatherRepository;
 import weather.weatherspring.repository.MemberRepository;
 import weather.weatherspring.repository.WeatherRepository;
@@ -80,15 +81,15 @@ public class WeatherController {
 
     /* 현재 위치의 날씨 구하기 */
     @PostMapping("/weather")
-    public ModelAndView createWeather(@RequestBody ElementForm elementForm){
+    public String createWeather(@RequestBody ElementForm elementForm){
         Location location = new Location();
         HttpSession session = request.getSession();
-        CurrentWeather currentWeather = new CurrentWeather();
-        CurrentWeather futureWeather = new CurrentWeather();
-        CurrentWeather pastWeather = new CurrentWeather();
-        Wtype wtype = new Wtype();
-        Wtype wtype1 = new Wtype();
-        Wtype wtype2 = new Wtype();
+        CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
+        CurrentWeather futureWeather = new CurrentWeather();    // 1시간 후 날씨
+        CurrentWeather pastWeather = new CurrentWeather();      // 1시간 전 날씨
+        Wtype wtype = new Wtype();      // 하늘상태 + 강수형태
+        Temperature temp = new Temperature();   // 최고, 최저기온
+//        Temperature fcstTemp = new Temperature();
 
         //session에서 id 가져오기
         Long uid=(Long) session.getAttribute("uid");
@@ -105,8 +106,10 @@ public class WeatherController {
         location.setXcoor(elementForm.getXcoor());
         location.setYcoor(elementForm.getYcoor());
 
+        // 단기예보 - 오늘 최고, 최저기온
+        JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
         // 단기예보 - 3일치 예보
-        JsonNode vilageFcst=weatherService.getForecast(elementForm).block();
+        JsonNode vilFcst2=weatherService.getForecast(elementForm,1).block();
         // 초단기실황 - 현재 날씨
         JsonNode srtNcst=weatherService.getForecast2(elementForm).block();
         // 초단기예보 - 현재 날씨 + 1시간 뒤 날씨
@@ -128,20 +131,20 @@ public class WeatherController {
         futureWeather.setPty(srtFcst.get("response").get("body").get("items").get("item").get(7).get("fcstValue").asText());
         futureWeather.setSky(srtFcst.get("response").get("body").get("items").get("item").get(19).get("fcstValue").asText());
         futureWeather.setT1h(srtFcst.get("response").get("body").get("items").get("item").get(25).get("fcstValue").asText());
-        if (futureWeather.getPty().equals("0")) wtype1.setWcode("SKY_"+futureWeather.getSky());
-        else wtype1.setWcode("PTY_"+futureWeather.getPty());
-        futureWeather.setStatus(weatherRepository.findByWcode(wtype1.getWcode()).get().getMessage());
+        if (futureWeather.getPty().equals("0")) wtype.setWcode("SKY_"+futureWeather.getSky());
+        else wtype.setWcode("PTY_"+futureWeather.getPty());
+        futureWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
 
         // 1시간 전 기온, 날씨 - 초단기예보
         pastWeather.setPty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
         pastWeather.setSky(srtFcst2.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
         pastWeather.setT1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
-        if (pastWeather.getPty().equals("0")) wtype2.setWcode("SKY_"+pastWeather.getSky());
-        else wtype2.setWcode("PTY_"+pastWeather.getPty());
-        pastWeather.setStatus(weatherRepository.findByWcode(wtype2.getWcode()).get().getMessage());
-
+        if (pastWeather.getPty().equals("0")) wtype.setWcode("SKY_"+pastWeather.getSky());
+        else wtype.setWcode("PTY_"+pastWeather.getPty());
+        pastWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
 
         // 오늘의 최고, 최저기온
+
 
         // 3일치 최고, 최저기온, 날씨
 
@@ -162,9 +165,7 @@ public class WeatherController {
         session.setAttribute("future-weather",futureWeather);
         session.setAttribute("past-weather",pastWeather);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/weather");
-
-        return modelAndView;
+        return "redirect:/weather";
     }
 
 

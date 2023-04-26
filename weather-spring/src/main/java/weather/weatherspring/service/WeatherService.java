@@ -22,8 +22,8 @@ public class WeatherService {
         this.kmaWebClientBuilder = kmaWebClientBuilder;
     }
 
-    /* 단기예보 */
-    public Mono<JsonNode> getForecast(ElementForm elementForm){
+    /* 단기예보 API 호출 */
+    public Mono<JsonNode> getForecast(ElementForm elementForm, int num){
         String base_url = KMA_API_BASE_URL+KMA_VGE_FCST_URL;    // 단기예보
 
         // UriBuild 설정을 해주는 DefaultUriBuilderFactory class의 인스턴스 생성
@@ -37,30 +37,58 @@ public class WeatherService {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-        String date=elementForm.getYear()+String.format("%02d",elementForm.getMonth());
+        /* 날짜, 시간 계산 */
+        int[] enddate={31,28,31,30,31,30,31,31,30,31,30,31};    // 월의 마지막 날
+        if(elementForm.getYear()%4==0) enddate[1]=29;           // 윤년인 경우 2월 29일까지
+        String date="";
         String time="";
-        if(elementForm.getHour()>=0 & elementForm.getHour()<2){
-            date = date + String.format("%02d",elementForm.getDate()-1);
-            time = "2300";
-        }else{
-            date = date + String.format("%02d",elementForm.getDate());
-            if(elementForm.getHour()>=2 & elementForm.getHour()<5) time="0200";
-            else if(elementForm.getHour()>=5 & elementForm.getHour()<8) time="0500";
-            else if(elementForm.getHour()>=8 & elementForm.getHour()<11) time="0800";
-            else if(elementForm.getHour()>=11 & elementForm.getHour()<14) time="1100";
-            else if(elementForm.getHour()>=14 & elementForm.getHour()<17) time="1400";
-            else if(elementForm.getHour()>=17 & elementForm.getHour()<20) time="1700";
-            else if(elementForm.getHour()>=20 & elementForm.getHour()<23) time="2000";
-            else time="2300";
+        String row="0";
+        // 오늘 최고, 최저 기온
+        if(num==0){
+            row="290";
+            // 년이 바뀔 때 - 1월 1일
+            if(elementForm.getMonth()==1 & elementForm.getDate()==1)
+                date = (elementForm.getYear() - 1) + "1231";
+            // 월이 바뀔 때 - 1일
+            else if(elementForm.getDate()==1)
+                date = elementForm.getYear() + String.format("%02d", elementForm.getMonth() - 1) + enddate[elementForm.getMonth() - 2];
+            // 년,월이 바뀌지 않을 때
+            else
+                date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate()-1);
+            time="2300";
         }
+        // 3일치 최고, 최저 기온 및 날씨
+        else{
+            row="870";
+            date=elementForm.getYear()+String.format("%02d",elementForm.getMonth());
+            // 0~1시
+            if(elementForm.getHour()>=0 & elementForm.getHour()<2){
+                date = date + String.format("%02d",elementForm.getDate()-1);
+                time = "2300";
+            }
+            // 2~23시
+            else{
+                date = date + String.format("%02d",elementForm.getDate());
+                if(elementForm.getHour()>=2 & elementForm.getHour()<5) time="0200";
+                else if(elementForm.getHour()>=5 & elementForm.getHour()<8) time="0500";
+                else if(elementForm.getHour()>=8 & elementForm.getHour()<11) time="0800";
+                else if(elementForm.getHour()>=11 & elementForm.getHour()<14) time="1100";
+                else if(elementForm.getHour()>=14 & elementForm.getHour()<17) time="1400";
+                else if(elementForm.getHour()>=17 & elementForm.getHour()<20) time="1700";
+                else if(elementForm.getHour()>=20 & elementForm.getHour()<23) time="2000";
+                else time="2300";
+            }
+        }
+
+
 
         String finalDate = date;
         String finalTime = time;
-
+        String finalRow = row;
         return kmaWebClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("serviceKey",DATA_API_KEY)
-                        .queryParam("numOfRows","60")
+                        .queryParam("numOfRows", finalRow)
                         .queryParam("pageNo","1")
                         .queryParam("dataType","JSON")
                         .queryParam("base_date", finalDate)
@@ -73,7 +101,7 @@ public class WeatherService {
                 .bodyToMono(JsonNode.class);
     }
 
-    /* 초단기실황 */
+    /* 초단기실황 API 호출 */
     public Mono<JsonNode> getForecast2(ElementForm elementForm){
         String base_url2=KMA_API_BASE_URL+KMA_SRT_NCST_URL;    // 단기예보
 
@@ -127,8 +155,8 @@ public class WeatherService {
                 .bodyToMono(JsonNode.class);
     }
 
-    /* 초단기예보 */
-    public Mono<JsonNode> getForecast3(ElementForm elementForm,Integer num){
+    /* 초단기예보 API 호출 */
+    public Mono<JsonNode> getForecast3(ElementForm elementForm,int num){
         String base_url3=KMA_API_BASE_URL+KMA_SRT_FCST_URL;    // 단기예보
 
         // UriBuild 설정을 해주는 DefaultUriBuilderFactory class의 인스턴스 생성

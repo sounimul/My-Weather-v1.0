@@ -130,5 +130,6 @@ function getLoc(){
 }
 
 getLoc();
-setInterval(getClock,1000);
+setInterval(getLoc,1000);
 //새로고침은 동기적이니깐, 비동기적으로 데이터 업데이트 하는 ajax 사용해볼것!
+console.log('출력')
