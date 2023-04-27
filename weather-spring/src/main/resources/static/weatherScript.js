@@ -62,7 +62,7 @@ function getLoc(){
     console.log('위치 시작');
     navigator.geolocation.getCurrentPosition(Sucess, Error);
     year = now.getFullYear();
-    month = now.getMonth()+1;
+    month = now.getMonth();
     date = now.getDate();
     day = now.getDay();
     hour = now.getHours(); //24시간제
@@ -107,7 +107,7 @@ function getLoc(){
                     latitude:latitude,
                     longitude:longitude,
                     year:year,
-                    month:month,
+                    month:month+1,
                     date:date,
                     hour:hour,
                     min:min,

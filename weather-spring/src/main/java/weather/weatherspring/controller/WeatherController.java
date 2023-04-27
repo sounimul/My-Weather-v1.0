@@ -138,7 +138,7 @@ public class WeatherController {
         futureWeather.setT1h(srtFcst.get("response").get("body").get("items").get("item").get(25).get("fcstValue").asText());
         if (futureWeather.getPty().equals("0")) wtype.setWcode("SKY_"+futureWeather.getSky());
         else wtype.setWcode("PTY_"+futureWeather.getPty());
-        futureWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
+        futureWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
 
         // 1시간 전 기온, 날씨 - 초단기예보
         pastWeather.setPty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
@@ -146,7 +146,7 @@ public class WeatherController {
         pastWeather.setT1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
         if (pastWeather.getPty().equals("0")) wtype.setWcode("SKY_"+pastWeather.getSky());
         else wtype.setWcode("PTY_"+pastWeather.getPty());
-        pastWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
+        pastWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
 
         // 오늘의 최고, 최저기온
         for(int i=0;i<290;i++){
@@ -197,8 +197,6 @@ public class WeatherController {
         temp.setFcstTmn(fcstTmn);
         temp.setMaxName(maxName);
         temp.setMinName(minName);
-        System.out.println(temp.getFcstTmx());
-        System.out.println(temp.getMaxName());
 
         // 디버깅용
 //        System.out.println("session2 "+uid);
