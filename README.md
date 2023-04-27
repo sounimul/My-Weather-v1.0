@@ -28,10 +28,10 @@
 ## 프로젝트 수행
 ### 데이터베이스 설계 (데이터모델링)
 #### (1) 개념 데이터 모델링 : ER 다이어그램
-<img src="https://user-images.githubusercontent.com/75112062/230017376-90a84bc7-1887-45c0-80ae-8b780f2800d9.png" width="70%" height="70%"/>
+<img src="https://user-images.githubusercontent.com/75112062/234794778-16e38b56-d81a-4399-b689-49fd8877b26b.jpg" width="70%" height="70%"/>
 
 #### (2) 논리 데이터 모델링 : Relational 다이어그램
-<img src="https://user-images.githubusercontent.com/75112062/230767082-8ad516d3-b51b-4d5f-b482-a5a4098c6bf9.png" width="70%" height="70%"/>
+<img src="https://user-images.githubusercontent.com/75112062/234794634-7df1357b-a134-4547-884c-c4e38cc85a2c.jpg" width="70%" height="70%"/>
 
 #### (3) 물리 데이터 모델링 : DDL
 

@@ -15,7 +15,7 @@
 - 사용자는 날씨 기록을 가짐
 
 ## 2. ER diagram - INFO_LIST, CHOSSE 삭제
-![image](https://user-images.githubusercontent.com/75112062/230017376-90a84bc7-1887-45c0-80ae-8b780f2800d9.png)
+![Weather_ER](https://user-images.githubusercontent.com/75112062/234793295-caddb51a-e51e-4dce-b4b9-364a9d5876bf.jpg)
 
 
 
@@ -42,12 +42,18 @@
 - Feeling : 체감 날씨 의견
     - ex) 추움, 더움, 따뜻함 등
 - Address : 해당 날씨의 위치
+- Weather_code : 날씨 상태(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
 - Temp : 기온
-- Wea : 날씨 상태(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
+- Temp_feeling : 체감한 기온
+- Humidity : 습도
+- Humidity_feeling : 체감한 습도
+- Precipitation : 강수
+- Prep_feeling : 체감한 강수 정
 
 ### (4) WTYPE : 날씨 종류
-- Wcode : 날씨 코드(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
+- Weather_code : 날씨 코드(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
 - Description : 날씨 설명 (맑음, 구름 많음, 흐림, 비, 비 또는 눈, 눈, 소나기)
+- Icon_name : 날씨 아이콘 파일명
 
 ### Relationship
 #### (1) SAVE
@@ -75,7 +81,8 @@
 
 
 ## 3. Relational diagram - CHOSSE, INFO_LIST 삭제
-![image](https://user-images.githubusercontent.com/75112062/230015434-380830f3-d359-48ec-989c-732c6a0dc732.png)
+![Weather_Relational](https://user-images.githubusercontent.com/75112062/234793815-966814d7-1bda-44f5-9ca1-08b925d4516a.jpg)
+
 
 #### REGION
 - Uuid, Address : primary key
@@ -88,7 +95,7 @@
 #### WEATHER_RECORD
 - Uuid, Rdate : primary
 - Uuid : USERLIST의 Uniq_id를 참조
-- Wea : WTYPE의 Wcode를 참조
+- Wcode : WTYPE의 Wcode를 참조
 
 #### WTYPE
 - Wcode : primary key
