@@ -60,15 +60,22 @@ public class WeatherService {
         // 3일치 최고, 최저 기온 및 날씨
         else{
             row="870";
-            date=elementForm.getYear()+String.format("%02d",elementForm.getMonth());
             // 0~1시
             if(elementForm.getHour()>=0 & elementForm.getHour()<2){
-                date = date + String.format("%02d",elementForm.getDate()-1);
+                // 년이 바뀔 때 - 1월 1일
+                if(elementForm.getMonth()==1 & elementForm.getDate()==1)
+                    date = (elementForm.getYear() - 1) + "1231";
+                // 월이 바뀔 때 - 1일
+                else if(elementForm.getDate()==1)
+                    date = elementForm.getYear() + String.format("%02d", elementForm.getMonth() - 1) + enddate[elementForm.getMonth() - 2];
+                // 년,월이 바뀌지 않을 때
+                else
+                    date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate()-1);
                 time = "2300";
             }
             // 2~23시
             else{
-                date = date + String.format("%02d",elementForm.getDate());
+                date = elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
                 if(elementForm.getHour()>=2 & elementForm.getHour()<5) time="0200";
                 else if(elementForm.getHour()>=5 & elementForm.getHour()<8) time="0500";
                 else if(elementForm.getHour()>=8 & elementForm.getHour()<11) time="0800";

@@ -56,6 +56,7 @@ let date = 0;
 let day = 0;
 let hour = 0; //24시간제
 let min = 0;
+let sec = 0;
 
 function getLoc(){
     console.log('위치 시작');
@@ -66,6 +67,7 @@ function getLoc(){
     day = now.getDay();
     hour = now.getHours(); //24시간제
     min = now.getMinutes();
+    sec = now.getSeconds();
 
     /* 3일 요일 */
     if(day===4) {
@@ -108,7 +110,8 @@ function getLoc(){
                     month:month,
                     date:date,
                     hour:hour,
-                    min:min
+                    min:min,
+                    sec:sec
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

@@ -11,6 +11,8 @@ public class Wtype {
 
     private String message;
 
+    private String wname;
+
     public String getWcode() {
         return wcode;
     }
@@ -25,5 +27,13 @@ public class Wtype {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getWname() {
+        return wname;
+    }
+
+    public void setWname(String wname) {
+        this.wname = wname;
     }
 }

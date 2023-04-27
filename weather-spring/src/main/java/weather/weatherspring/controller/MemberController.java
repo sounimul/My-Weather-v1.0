@@ -57,8 +57,8 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
         // setAttribute: Session [F7F0ED65551C81744635EB00CF4CB7D0] has already been invalidated 해결하기
-//        HttpSession session = request.getSession();
-//        session.invalidate();
+        HttpSession session = request.getSession();
+        session.invalidate();
 
         return "redirect:/";
     }

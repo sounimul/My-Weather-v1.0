@@ -3,6 +3,7 @@ package weather.weatherspring.domain;
 import jakarta.persistence.*;
 
 @Entity     // JPA가 관리하는 entity
+//@Table(name="region")
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Uuid")
