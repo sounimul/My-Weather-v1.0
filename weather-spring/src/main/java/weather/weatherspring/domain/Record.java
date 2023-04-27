@@ -10,13 +10,19 @@ public class Record {
     private Long uid;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Rdate")
-    private String Rdate;
+    private String rdate;
     @Column(name="Address")
     private String ad;
-    @Column(name="Feeling")
-    private String feel;
-    private double Tmax;
-    private double Tmin;
+    private String wcode;
+    private Double temp;
+    private String tfeel;
+    @Column(name="Humidity")
+    private int humid;
+    private String hfeel;
+    @Column(name="Precipitaion")
+    private Double precip;
+    private String pfeel;
+
 
     public Long getUid() {
         return uid;
@@ -27,11 +33,11 @@ public class Record {
     }
 
     public String getRdate() {
-        return Rdate;
+        return rdate;
     }
 
     public void setRdate(String rdate) {
-        Rdate = rdate;
+        this.rdate = rdate;
     }
 
     public String getAd() {
@@ -42,27 +48,59 @@ public class Record {
         this.ad = ad;
     }
 
-    public String getFeel() {
-        return feel;
+    public String getWcode() {
+        return wcode;
     }
 
-    public void setFeel(String feel) {
-        this.feel = feel;
+    public void setWcode(String wcode) {
+        this.wcode = wcode;
     }
 
-    public double getTmax() {
-        return Tmax;
+    public Double getTemp() {
+        return temp;
     }
 
-    public void setTmax(double tmax) {
-        Tmax = tmax;
+    public void setTemp(Double temp) {
+        this.temp = temp;
     }
 
-    public double getTmin() {
-        return Tmin;
+    public String getTfeel() {
+        return tfeel;
     }
 
-    public void setTmin(double tmin) {
-        Tmin = tmin;
+    public void setTfeel(String tfeel) {
+        this.tfeel = tfeel;
+    }
+
+    public int getHumid() {
+        return humid;
+    }
+
+    public void setHumid(int humid) {
+        this.humid = humid;
+    }
+
+    public String getHfeel() {
+        return hfeel;
+    }
+
+    public void setHfeel(String hfeel) {
+        this.hfeel = hfeel;
+    }
+
+    public Double getPrecip() {
+        return precip;
+    }
+
+    public void setPrecip(Double precip) {
+        this.precip = precip;
+    }
+
+    public String getPfeel() {
+        return pfeel;
+    }
+
+    public void setPfeel(String pfeel) {
+        this.pfeel = pfeel;
     }
 }

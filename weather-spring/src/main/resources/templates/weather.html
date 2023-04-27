@@ -92,8 +92,8 @@
                     <td class="tdh">최고기온</td>
                 </tr>
                 <tr>
-                    <td id="infoLow">3℃</td>
-                    <td id="infoHigh">13℃</td>
+                    <td id="infoLow" th:text="|${minmax.tmn}℃|">3℃</td>
+                    <td id="infoHigh" th:text="|${minmax.tmx}℃|">13℃</td>
                 </tr>
                 <tr>
                     <td class="tdh">습도</td>
@@ -110,16 +110,18 @@
                 <th colspan="4"><h2>3일 날씨</h2></th>         <!-- 3일날씨 출력하기 -->
                 <tr>
                     <td class="futureDay"></td>
-                    <td class="threeDaysLow">3℃</td>
-                    <td class="threeDaysHigh">13℃</td>
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusOneIcon"></span></td>
+                    <td class="threeDaysLow" th:text="|${minmax.fcstTmn[0]}℃|">3℃</td>
+                    <td class="threeDaysHigh" th:text="|${minmax.fcstTmx[0]}℃|">13℃</td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusOneIcon" th:text="${minmax.minName[0]}"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusOne2Icon" th:text="${minmax.maxName[0]}"></span></td>
                 </tr>
 
                 <tr>
                     <td class="futureDay"></td>
-                    <td class="threeDaysLow">3℃</td>
-                    <td class="threeDaysHigh">13℃</td>
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusTwoIcon"></span></td>
+                    <td class="threeDaysLow" th:text="|${minmax.fcstTmn[1]}℃|">3℃</td>
+                    <td class="threeDaysHigh" th:text="|${minmax.fcstTmx[1]}℃|">13℃</td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusTwoIcon" th:text="${minmax.minName[1]}"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" id="plusTwo2Icon" th:text="${minmax.maxName[1]}"></span></td>
                 </tr>
 
                 <tr>

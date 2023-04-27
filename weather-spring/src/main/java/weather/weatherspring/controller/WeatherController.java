@@ -48,6 +48,7 @@ public class WeatherController {
         CurrentWeather cw=new CurrentWeather();
         CurrentWeather fw=new CurrentWeather();
         CurrentWeather pw=new CurrentWeather();
+        Temperature t = new Temperature();
 
         // session으로부터 uid 가져와 modelAndView에 저장
         Long uid=(Long) session.getAttribute("uid");
@@ -74,6 +75,11 @@ public class WeatherController {
         if (pastWeather==null) modelAndView.addObject("past",pw);
         else modelAndView.addObject("past",pastWeather);
 
+        // session으로부터 최고, 최저 기온 가져와 modelAndView에 저장
+        Temperature temp = (Temperature) session.getAttribute("minmax-temp");
+        if (temp==null) modelAndView.addObject("minmax",t);
+        else modelAndView.addObject("minmax",temp);
+
         modelAndView.setViewName("weather");
 
         return modelAndView;
@@ -81,7 +87,7 @@ public class WeatherController {
 
     /* 현재 위치의 날씨 구하기 */
     @PostMapping("/weather")
-    public String createWeather(@RequestBody ElementForm elementForm){
+    public ModelAndView createWeather(@RequestBody ElementForm elementForm){
         Location location = new Location();
         HttpSession session = request.getSession();
         CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
@@ -89,7 +95,6 @@ public class WeatherController {
         CurrentWeather pastWeather = new CurrentWeather();      // 1시간 전 날씨
         Wtype wtype = new Wtype();      // 하늘상태 + 강수형태
         Temperature temp = new Temperature();   // 최고, 최저기온
-//        Temperature fcstTemp = new Temperature();
 
         //session에서 id 가져오기
         Long uid=(Long) session.getAttribute("uid");
@@ -97,14 +102,14 @@ public class WeatherController {
         location.setLatitude(elementForm.getLatitude());
         location.setLongitude(elementForm.getLongitude());
 
-        // 위도,경도 -> 주소
-        JsonNode address=locationService.getAddress(elementForm).block();
-        location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
-
         // 위도, 경도 -> 기상청 x,y좌표
         elementForm=locationService.getXY(elementForm);
         location.setXcoor(elementForm.getXcoor());
         location.setYcoor(elementForm.getYcoor());
+
+        // 위도,경도 -> 주소
+        JsonNode address=locationService.getAddress(elementForm).block();
+        location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
 
         // 단기예보 - 오늘 최고, 최저기온
         JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
@@ -144,10 +149,56 @@ public class WeatherController {
         pastWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
 
         // 오늘의 최고, 최저기온
+        for(int i=0;i<290;i++){
+            String cate=vilFcst.get("response").get("body").get("items").get("item").get(i).get("category").asText();
+            if(cate.equals("TMN")) temp.setTmn(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
+            else if(cate.equals("TMX")) temp.setTmx(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
+        }
 
-
-        // 3일치 최고, 최저기온, 날씨
-
+        // 2일치 최고, 최저기온, 날씨
+        String[] fcstTmx={"",""};
+        String[] fcstTmn={"",""};
+        String[] minName={"",""};
+        String[] maxName={"",""};
+        String p="";
+        String s="";
+        String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
+        String date3=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate()+3);
+        int j=0,k=0;
+        for(int i=0;i<870;i++){
+            String date=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstDate").asText();
+            // 1,2일 후 날짜만 동작
+            if(date.equals(todaydate)) continue;    // 오늘 날짜면 pass
+            else if(date.equals(date3)) break;      // 3일 후 날짜면 break
+            // 카테고리 확인
+            String cate=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("category").asText();
+            // 카테고리가 pty, sky -> 일단 저장
+            if(cate.equals("PTY")) p=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+            else if(cate.equals("SKY")) s=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+            //최저, 최고 기온 찾기
+            if(cate.equals("TMN")){
+                fcstTmn[j]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+                if (p.equals("0")) wtype.setWcode("SKY_"+s);
+                else wtype.setWcode("PTY_"+p);
+                minName[j] = weatherRepository.findByWcode(wtype.getWcode()).get().getWname();
+                System.out.println(fcstTmn[j]+" "+minName[j]);
+                j++;
+            }
+            else if(cate.equals("TMX")){
+                fcstTmx[k]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+                if (p.equals("0")) wtype.setWcode("SKY_"+s);
+                else wtype.setWcode("PTY_"+p);
+                maxName[k] = weatherRepository.findByWcode(wtype.getWcode()).get().getWname();
+                System.out.println(fcstTmx[k]+" "+maxName[k]);
+                k++;
+            }
+        }
+        temp.setFcstTmx(fcstTmx);
+        temp.setFcstTmn(fcstTmn);
+        temp.setMaxName(maxName);
+        temp.setMinName(minName);
+        System.out.println(temp.getFcstTmx());
+        System.out.println(temp.getMaxName());
 
         // 디버깅용
 //        System.out.println("session2 "+uid);
@@ -164,8 +215,11 @@ public class WeatherController {
         session.setAttribute("current-weather",currentWeather);
         session.setAttribute("future-weather",futureWeather);
         session.setAttribute("past-weather",pastWeather);
+        session.setAttribute("minmax-temp",temp);
 
-        return "redirect:/weather";
+        ModelAndView modelAndView = new ModelAndView("redirect:/weather");
+
+        return modelAndView;
     }
 
 

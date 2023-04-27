@@ -10,6 +10,7 @@ public class ElementForm {
     private int date;
     private int hour;
     private int min;
+    private int sec;
 
     public Double getLatitude() {
         return latitude;
@@ -81,5 +82,13 @@ public class ElementForm {
 
     public void setMin(int min) {
         this.min = min;
+    }
+
+    public int getSec() {
+        return sec;
+    }
+
+    public void setSec(int sec) {
+        this.sec = sec;
     }
 }

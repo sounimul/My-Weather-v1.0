@@ -77,6 +77,7 @@ function getLoc(){
             const day = now.getDay();
             let hour = now.getHours(); //24시간제
             const min = now.getMinutes();
+            const sec = now.getSeconds();
 
             clock.innerText = `${month}월 ${date}일 ${day_arr[day]}요일 \n ${hour}시 ${min}분`
 
@@ -123,7 +124,8 @@ function getLoc(){
                     month:month,
                     date:date,
                     hour:hour,
-                    min:min
+                    min:min,
+                    sec:sec
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
