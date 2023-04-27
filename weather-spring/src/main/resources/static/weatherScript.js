@@ -10,6 +10,8 @@ const loc = document.getElementById("location");
 const futureDay1 = document.getElementsByClassName('futureDay')[0];
 const futureDay2 = document.getElementsByClassName('futureDay')[1];
 const futureDay3 = document.getElementsByClassName('futureDay')[2];
+const futureDay4 = document.getElementsByClassName('futureDay')[3];
+const futureDay5 = document.getElementsByClassName('futureDay')[4];
 
 const weather_arr = ['맑음','구름 많음','흐림','비','비 또는 눈','눈','소나기','빗방울','빗방울눈날림','눈날림'];
 
@@ -69,26 +71,48 @@ function getLoc(){
     min = now.getMinutes();
     sec = now.getSeconds();
 
-    /* 3일 요일 */
-    if(day===4) {
+    /* 5일 요일 */
+    if(day===2) { //화
+        futureDay1.innerText = day_arr[3];
+        futureDay2.innerText = day_arr[4];
+        futureDay3.innerText = day_arr[5];
+        futureDay4.innerText = day_arr[6];
+        futureDay5.innerText = day_arr[1];
+    }
+    else if(day===3) { //수
+        futureDay1.innerText = day_arr[4];
+        futureDay2.innerText = day_arr[5];
+        futureDay3.innerText = day_arr[6];
+        futureDay4.innerText = day_arr[0];
+        futureDay5.innerText = day_arr[1];
+    }
+    else if(day===4) { //목
         futureDay1.innerText = day_arr[5];
         futureDay2.innerText = day_arr[6];
         futureDay3.innerText = day_arr[0];
+        futureDay4.innerText = day_arr[1];
+        futureDay5.innerText = day_arr[2];
     }
-    else if(day===5) {
+    else if(day===5) { //금
         futureDay1.innerText = day_arr[6];
         futureDay2.innerText = day_arr[0];
         futureDay3.innerText = day_arr[1];
+        futureDay4.innerText = day_arr[2];
+        futureDay5.innerText = day_arr[3];
     }
-    else if(day===6) {
+    else if(day===6) { //토
         futureDay1.innerText = day_arr[0];
         futureDay2.innerText = day_arr[1];
         futureDay3.innerText = day_arr[2];
+        futureDay4.innerText = day_arr[3];
+        futureDay5.innerText = day_arr[4];
     }
-    else {
+    else { //나머지
         futureDay1.innerText = day_arr[day+1];
         futureDay2.innerText = day_arr[day+2];
         futureDay3.innerText = day_arr[day+3];
+        futureDay4.innerText = day_arr[day+4];
+        futureDay5.innerText = day_arr[day+5];
     }
 
         function Sucess(position){
@@ -154,28 +178,6 @@ function getClock(){
     const future = hour+1;
     if(future==24) futureHour.innerText = `0시`
     else futureHour.innerText = `${future}시`
-
-    // /* 3일 요일 */
-    // if(day===4) {
-    //     futureDay1.innerText = day_arr[5];
-    //     futureDay2.innerText = day_arr[6];
-    //     futureDay3.innerText = day_arr[0];
-    // }
-    // else if(day===5) {
-    //     futureDay1.innerText = day_arr[6];
-    //     futureDay2.innerText = day_arr[0];
-    //     futureDay3.innerText = day_arr[1];
-    // }
-    // else if(day===6) {
-    //     futureDay1.innerText = day_arr[0];
-    //     futureDay2.innerText = day_arr[1];
-    //     futureDay3.innerText = day_arr[2];
-    // }
-    // else {
-    //     futureDay1.innerText = day_arr[day+1];
-    //     futureDay2.innerText = day_arr[day+2];
-    //     futureDay3.innerText = day_arr[day+3];
-    // }  
 }
 
 getClock();

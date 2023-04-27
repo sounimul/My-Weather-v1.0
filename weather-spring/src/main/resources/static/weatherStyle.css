@@ -371,16 +371,25 @@ tr {
 /* table(.threeDays) -> th -> tr -> td
    td: .futueDay .threeDaysLow .threeDaysHigh .threeDaysIcon */
 .threeDays {
-    padding: 10px;
+    padding: 0 10px 10px 10px;
+    border-collapse : collapse;
 }
 
-/* .threeDays td {
-    padding: 10px;
-} */
+.futureDay {
+    border-radius: 20px;
+}
+
+.tableTopLine {
+    border-top: 1px solid #4C623B;
+}
+
+.tableBottomLine {
+    border-bottom: 1px solid #4C623B;
+}
 
 .futureDay, .threeDaysIcon {
     text-align: center;
-    padding-bottom: 20px;
+    /* padding-bottom: 10px; */
 }
 
 .threeDaysIcon {
