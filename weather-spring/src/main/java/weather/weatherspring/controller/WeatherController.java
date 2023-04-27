@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.Location;
 import weather.weatherspring.domain.Wtype;
+import weather.weatherspring.entity.BasicWeather;
 import weather.weatherspring.entity.CurrentWeather;
 import weather.weatherspring.entity.ElementForm;
 import weather.weatherspring.entity.Temperature;
@@ -46,14 +47,12 @@ public class WeatherController {
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession();
         CurrentWeather cw=new CurrentWeather();
-        CurrentWeather fw=new CurrentWeather();
-        CurrentWeather pw=new CurrentWeather();
+        BasicWeather pfw = new BasicWeather();
         Temperature t = new Temperature();
 
         // session으로부터 uid 가져와 modelAndView에 저장
         Long uid=(Long) session.getAttribute("uid");
         modelAndView.addObject("username",memberRepository.findByUid(uid).get().getNickname());
-        System.out.println("session "+uid);     // 체크용
 
         // session으로부터 주소 가져와 modelAndView에 저장
         String ad = (String) session.getAttribute("address");
@@ -65,15 +64,10 @@ public class WeatherController {
         if(currentWeather==null) modelAndView.addObject("current",cw);
         else modelAndView.addObject("current",currentWeather);
 
-        // session으로부터 1시간 후 날씨 가져와 modelAndView에 저장
-        CurrentWeather futureWeather = (CurrentWeather) session.getAttribute("future-weather");
-        if (futureWeather==null) modelAndView.addObject("future",fw);
-        else modelAndView.addObject("future",futureWeather);
-
-        // session으로부터 1시간 전 날씨 가져와 modelAndView에 저장
-        CurrentWeather pastWeather = (CurrentWeather) session.getAttribute("past-weather");
-        if (pastWeather==null) modelAndView.addObject("past",pw);
-        else modelAndView.addObject("past",pastWeather);
+        // session으로부터 1시간 전후 날씨 가져와 modelAndView에 저장
+        BasicWeather pfWeather = (BasicWeather) session.getAttribute("pf-weather");
+        if (pfWeather==null) modelAndView.addObject("pastfuture",pfw);
+        else modelAndView.addObject("pastfuture",pfWeather);
 
         // session으로부터 최고, 최저 기온 가져와 modelAndView에 저장
         Temperature temp = (Temperature) session.getAttribute("minmax-temp");
@@ -91,8 +85,7 @@ public class WeatherController {
         Location location = new Location();
         HttpSession session = request.getSession();
         CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
-        CurrentWeather futureWeather = new CurrentWeather();    // 1시간 후 날씨
-        CurrentWeather pastWeather = new CurrentWeather();      // 1시간 전 날씨
+        BasicWeather pfWeather = new BasicWeather();            // 1시간 전후 날씨
         Wtype wtype = new Wtype();      // 하늘상태 + 강수형태
         Temperature temp = new Temperature();   // 최고, 최저기온
 
@@ -101,7 +94,6 @@ public class WeatherController {
         location.setUid(uid);
         location.setLatitude(elementForm.getLatitude());
         location.setLongitude(elementForm.getLongitude());
-
         // 위도, 경도 -> 기상청 x,y좌표
         elementForm=locationService.getXY(elementForm);
         location.setXcoor(elementForm.getXcoor());
@@ -113,7 +105,7 @@ public class WeatherController {
 
         // 단기예보 - 오늘 최고, 최저기온
         JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
-        // 단기예보 - 3일치 예보
+        // 단기예보 - 2일치 예보
         JsonNode vilFcst2=weatherService.getForecast(elementForm,1).block();
         // 초단기실황 - 현재 날씨
         JsonNode srtNcst=weatherService.getForecast2(elementForm).block();
@@ -121,6 +113,7 @@ public class WeatherController {
         JsonNode srtFcst=weatherService.getForecast3(elementForm,0).block();
         // 초단기예보 - 1시간 전 날씨
         JsonNode srtFcst2=weatherService.getForecast3(elementForm,-1).block();
+        // 중기예보 - 3~5일 최고, 최저기온 및 날씨
 
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
         currentWeather.setPty(srtNcst.get("response").get("body").get("items").get("item").get(0).get("obsrValue").asText());   // 현재 강수상태
@@ -133,20 +126,20 @@ public class WeatherController {
         currentWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
 
         // 1시간 후 기온,날씨 - 초단기예보
-        futureWeather.setPty(srtFcst.get("response").get("body").get("items").get("item").get(7).get("fcstValue").asText());
-        futureWeather.setSky(srtFcst.get("response").get("body").get("items").get("item").get(19).get("fcstValue").asText());
-        futureWeather.setT1h(srtFcst.get("response").get("body").get("items").get("item").get(25).get("fcstValue").asText());
-        if (futureWeather.getPty().equals("0")) wtype.setWcode("SKY_"+futureWeather.getSky());
-        else wtype.setWcode("PTY_"+futureWeather.getPty());
-        futureWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
+        pfWeather.setFpty(srtFcst.get("response").get("body").get("items").get("item").get(7).get("fcstValue").asText());
+        pfWeather.setFsky(srtFcst.get("response").get("body").get("items").get("item").get(19).get("fcstValue").asText());
+        pfWeather.setFt1h(srtFcst.get("response").get("body").get("items").get("item").get(25).get("fcstValue").asText());
+        if (pfWeather.getFpty().equals("0")) wtype.setWcode("SKY_"+pfWeather.getFsky());
+        else wtype.setWcode("PTY_"+pfWeather.getFpty());
+        pfWeather.setFicon(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
 
         // 1시간 전 기온, 날씨 - 초단기예보
-        pastWeather.setPty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
-        pastWeather.setSky(srtFcst2.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
-        pastWeather.setT1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
-        if (pastWeather.getPty().equals("0")) wtype.setWcode("SKY_"+pastWeather.getSky());
-        else wtype.setWcode("PTY_"+pastWeather.getPty());
-        pastWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
+        pfWeather.setPpty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
+        pfWeather.setPsky(srtFcst2.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
+        pfWeather.setPt1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
+        if (pfWeather.getPpty().equals("0")) wtype.setWcode("SKY_"+pfWeather.getPsky());
+        else wtype.setWcode("PTY_"+pfWeather.getPpty());
+        pfWeather.setPicon(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
 
         // 오늘의 최고, 최저기온
         for(int i=0;i<290;i++){
@@ -156,12 +149,9 @@ public class WeatherController {
         }
 
         // 2일치 최고, 최저기온, 날씨
-        String[] fcstTmx={"",""};
-        String[] fcstTmn={"",""};
-        String[] minName={"",""};
-        String[] maxName={"",""};
-        String p="";
-        String s="";
+        String[] fcstTmx={"",""}; String[] fcstTmn={"",""};
+        String[] minName={"",""}; String[] maxName={"",""};
+        String p=""; String s="";
         String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
         String date3=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate()+3);
         int j=0,k=0;
@@ -193,16 +183,13 @@ public class WeatherController {
                 k++;
             }
         }
-        temp.setFcstTmx(fcstTmx);
-        temp.setFcstTmn(fcstTmn);
-        temp.setMaxName(maxName);
-        temp.setMinName(minName);
+        temp.setFcstTmx(fcstTmx); temp.setFcstTmn(fcstTmn);
+        temp.setMaxName(maxName); temp.setMinName(minName);
 
         // 위치정보, 날씨 정보 session에 저장
         session.setAttribute("address",location.getAd());
         session.setAttribute("current-weather",currentWeather);
-        session.setAttribute("future-weather",futureWeather);
-        session.setAttribute("past-weather",pastWeather);
+        session.setAttribute("pf-weather",pfWeather);
         session.setAttribute("minmax-temp",temp);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/weather");

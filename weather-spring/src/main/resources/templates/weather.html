@@ -67,8 +67,8 @@
                         <div class="past">
                             <p id="pastHour"></p>
                             <p class="pastInfo">
-                                <span class="material-symbols-outlined" id="pastWeatherIcon" th:text="${past.status}"></span>
-                                <span id="pastTemp" th:text="|${past.t1h}℃|"></span>
+                                <span class="material-symbols-outlined" id="pastWeatherIcon" th:text="${pastfuture.picon}"></span>
+                                <span id="pastTemp" th:text="|${pastfuture.pt1h}℃|"></span>
                             </p>
                         </div>
                         <div class="now">
@@ -78,8 +78,8 @@
                         <div class="future">
                             <p id="futureHour"></p>
                             <p class="futureInfo">
-                                <span class="material-symbols-outlined" id="futureWeatherIcon" th:text="${future.status}"></span>
-                                <span id="futureTemp" th:text="|${future.t1h}℃|"></span>
+                                <span class="material-symbols-outlined" id="futureWeatherIcon" th:text="${pastfuture.ficon}"></span>
+                                <span id="futureTemp" th:text="|${pastfuture.ft1h}℃|"></span>
                             </p>
                         </div>
                     </div>
