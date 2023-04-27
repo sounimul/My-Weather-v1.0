@@ -198,16 +198,6 @@ public class WeatherController {
         temp.setMaxName(maxName);
         temp.setMinName(minName);
 
-        // 디버깅용
-//        System.out.println("session2 "+uid);
-//        System.out.println("latitude :"+location.getLatitude());
-//        System.out.println("longitude :"+location.getLongitude());
-//        System.out.println("Address :"+location.getAd());
-//        System.out.println("X좌표 :"+location.getXcoor());
-//        System.out.println("Y좌표 :"+location.getYcoor());
-//        System.out.println(elementForm.getYear()+"년 "+elementForm.getMonth()+"일 "+elementForm.getDate()+"일");
-//        System.out.println(elementForm.getHour()+"시 "+elementForm.getMin()+"분");
-
         // 위치정보, 날씨 정보 session에 저장
         session.setAttribute("address",location.getAd());
         session.setAttribute("current-weather",currentWeather);
