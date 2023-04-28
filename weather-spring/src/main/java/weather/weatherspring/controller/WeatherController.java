@@ -12,7 +12,6 @@ import weather.weatherspring.entity.BasicWeather;
 import weather.weatherspring.entity.CurrentWeather;
 import weather.weatherspring.entity.ElementForm;
 import weather.weatherspring.entity.Temperature;
-import weather.weatherspring.repository.JpaWeatherRepository;
 import weather.weatherspring.repository.MemberRepository;
 import weather.weatherspring.repository.WeatherRepository;
 import weather.weatherspring.service.LocationService;
@@ -155,7 +154,8 @@ public class WeatherController {
         String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
         String date3=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate()+3);
         int j=0,k=0;
-        for(int i=0;i<870;i++){
+        int total=vilFcst2.get("response").get("body").get("totalCount").asInt();
+        for(int i=0;i<total;i++){
             String date=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstDate").asText();
             // 1,2일 후 날짜만 동작
             if(date.equals(todaydate)) continue;    // 오늘 날짜면 pass
