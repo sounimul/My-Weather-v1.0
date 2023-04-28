@@ -14,7 +14,7 @@ public class JpaRecordRepository implements RecordRepository{
 
 
     public List<Record> findAll(Long uid){
-        return em.createQuery("select r from Record r where r.uid = :uid", Record.class)
+        return em.createQuery("select r from Record r where r.uid = :uid order by r.rdate desc", Record.class)
                 .setParameter("uid",uid)
                 .getResultList();
     }
