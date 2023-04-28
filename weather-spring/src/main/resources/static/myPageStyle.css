@@ -297,7 +297,7 @@ select {
 .changePF {
     background-color: #F3ECAE;
     width: 500px;
-    height: 300px;
+    height: 440px;
     padding: 20px;
 
     display: flex;
@@ -348,9 +348,45 @@ select {
     transform: translate(230px);
 }
 
-#changeNN, #changeFW {
+/* #changeNN, #changeFW {
     border-radius: 20px;
     border: 2px solid #4C623B;
+} */
+
+#changeNN, #changeFW {
+    border: none;
+    width: 200px;
+    border-bottom: 2px solid #4C623B;
+    background-color: transparent;
+    padding-bottom: 10px;
+    margin-left: 160px;
+}
+
+#changeNN, #changeFW:focus {
+    outline: none;
+}
+
+#profileInfoChange {
+    margin-top: 40px;
+    width: 50px;
+    line-height: 45px;
+    padding: 0 5px 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #4C623B;
+    background-color: transparent;
+    color: #4C623B;
+    border-radius: 40px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-left: 400px;
+}
+
+#profileInfoChange:hover {
+    background-color: #4C623B;
+    color: #F3ECAE;
 }
 
 /* 비밀번호 변경 */
@@ -408,7 +444,7 @@ form {
     color: #4C623B;
 }
 
-input[type="submit"]{
+#changePF ,#changePW{
     margin-top: 20px;
     margin: auto;
     width: 100px;

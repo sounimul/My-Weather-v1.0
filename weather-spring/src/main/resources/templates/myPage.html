@@ -6,9 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My page</title>
-    <link rel="stylesheet" href="../myPageStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="../myPage.js" defer></script>
+    <!-- 백엔드 CSS/스크립트 확인 -->
+    <!-- <link rel="stylesheet" href="../myPageStyle.css"> -->
+    <!-- <script src="../myPage.js" defer></script> -->
+    <!-- 프론트 CSS/스크립트 -->
+    <link rel="stylesheet" href="../static/myPageStyle.css">
+    <script src="../static/myPage.js" defer></script>
+    <script></script>
 </head>
 <body>
     <header class="GNB">
@@ -131,7 +136,7 @@
         <div class="changePF">
             <button id="closeChangePF"><span class="material-symbols-outlined">close</span></button>
             <h3>프로필</h3>
-            <div class="profileInfo">
+            <form class="profileInfo">
                 <div class="idWrapper">
                     <span>id</span>
                     <span id="userId" th:text="${user.id}">user</span>
@@ -139,14 +144,17 @@
                 <div class="nicknameWrapper">
                     <span>nickname</span>
                     <span id="userNickname" th:text="${user.nickname}">날씨요정</span>
-                    <button id="changeNN">수정</button>
+                    <!-- <button id="changeNN">수정</button> -->
+                    <input type="text" placeholder="변경할 닉네임을 입력하세요" id="changeNN">
                 </div>
                 <div class="fwWrapper">
                     <span>좋아하는 계절</span>
                     <span id="fw" th:text="${user.fvweather}">맑음</span>
-                    <button id="changeFW">수정</button>
+                    <!-- <button id="changeFW">수정</button> -->
+                    <input type="text" placeholder="변경할 계절을 입력하세요" id="changeFW">
                 </div>
-            </div>
+                <input type="submit" id="profileInfoChange" value="✓"> 
+            </form>
         </div>
     </div>
     <div class="changePWbackground">
@@ -160,7 +168,7 @@
                 <input id="newPW" name="pw" type="password" placeholder="비밀번호를 입력하세요" oninput="checkNewPW(this.value)" onchange="confirmNewPW()">
                 <label for="confirmPW">새로운 비밀번호 확인</label>
                 <input id="confirmPW" type="password" placeholder="비밀번호를 입력하세요" oninput="checkConfirmPW(this.value)" onchange="completePWC()">
-                <input type="submit" value="변경하기">
+                <input type="submit" value="변경하기" id="changePW">
             </form>
         </div>
     </div>

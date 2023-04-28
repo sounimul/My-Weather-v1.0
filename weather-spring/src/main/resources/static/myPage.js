@@ -128,18 +128,18 @@ document.querySelector('#closeChangePF').addEventListener('click',()=>{
 })
 
 /* 닉네임 변경 */
-document.querySelector('#changeNN').addEventListener('click',()=>{
-    const newNick = prompt('변경할 닉네임을 입력하세요','nickname');
-    document.querySelector('#userNickname').innerText = newNick;
-    document.querySelector('#pUserNickname').innerText = newNick;
-})
+// document.querySelector('#changeNN').addEventListener('click',()=>{
+//     const newNick = prompt('변경할 닉네임을 입력하세요','nickname');
+//     document.querySelector('#userNickname').innerText = newNick;
+//     document.querySelector('#pUserNickname').innerText = newNick;
+// })
 
 /* 좋아하는 계절 변경 */
-document.querySelector('#changeFW').addEventListener('click',()=>{
-    const newFW = prompt('좋아하는 날씨를 입력하세요','흐림');
-    document.querySelector('#userFavorite').innerText = `${newFW}을/를 좋아합니다.`;
-    document.querySelector('#fw').innerText = newFW;
-})
+// document.querySelector('#changeFW').addEventListener('click',()=>{
+//     const newFW = prompt('좋아하는 날씨를 입력하세요','흐림');
+//     document.querySelector('#userFavorite').innerText = `${newFW}을/를 좋아합니다.`;
+//     document.querySelector('#fw').innerText = newFW;
+// })
 
 
 /* 비밀번호 변경 */
