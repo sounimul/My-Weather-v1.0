@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import weather.weatherspring.repository.*;
 import weather.weatherspring.service.LocationService;
 import weather.weatherspring.service.MemberService;
+import weather.weatherspring.service.RecordService;
 
 import javax.sql.DataSource;
 
@@ -30,7 +31,17 @@ public class SpringConfig {
         return new JpaMemberRepository(em);
     }
 
-    @Bean WeatherRepository weatherRepository(){ return new JpaWeatherRepository(em);}
+    @Bean
+    public WeatherRepository weatherRepository(){ return new JpaWeatherRepository(em);}
+
+    @Bean
+    public RecordService recordService(){return new RecordService(recordRepository());}
+
+    @Bean
+    public RecordRepository recordRepository(){
+        return new JpaRecordRepository(em);
+    }
+
 
 //    @Bean
 //    public LocationService locationService(){ return new LocationService();}

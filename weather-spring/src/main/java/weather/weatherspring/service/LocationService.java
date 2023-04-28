@@ -80,4 +80,10 @@ public class LocationService {
         return elementForm;
     }
 
+    /* 위치를 중기육상예보 구역으로 변환 */
+
+
+    /* 위치를 중기기온예보 구역으로 변환 */
+
+
 }

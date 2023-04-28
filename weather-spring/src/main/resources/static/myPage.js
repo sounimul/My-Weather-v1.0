@@ -2,10 +2,10 @@
 
 //[userId, userNickname, fvWeather] = prompt('아이디/닉네임/좋아하는 날씨', 'id nickname sunny').split(' ');
 
-[userId, userNickname, fvWeather] = ['id', 'nick', 'sunny'];
-document.querySelector('#userId').innerText = userId;
-document.querySelector('#userNickname').innerText = userNickname;
-document.querySelector('#userFavorite').innerText = `${fvWeather}를 좋아합니다.`;
+// [userId, userNickname, fvWeather] = ['id', 'nick', 'sunny'];
+// document.querySelector('#userId').innerText = userId;
+// document.querySelector('#userNickname').innerText = userNickname;
+// document.querySelector('#userFavorite').innerText = `${fvWeather}를 좋아합니다.`;
 
 /* 저장한 날씨 */
 document.querySelector('#sIcon').addEventListener('click',()=>{
@@ -96,14 +96,14 @@ function createArticleItem(month, date, weather, temp, humidity, rain){
 
     return article;
 }
-
-document.querySelector('#add').addEventListener('click',()=>{
-    //createArticleItem(month, date, weather, temp, humidity, rain)
-    const arr = (prompt('month, date, weather, temp, humidity, rain', '1 1 sunny 35 60 3').split(' '));
-    [m, d, w, t, h, r]= [arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],];
-    
-    fwList.appendChild(createArticleItem(m, d, w, t, h, r));
-})
+// 임의로 주석처리(백엔드 구현)
+// document.querySelector('#add').addEventListener('click',()=>{
+//     //createArticleItem(month, date, weather, temp, humidity, rain)
+//     const arr = (prompt('month, date, weather, temp, humidity, rain', '1 1 sunny 35 60 3').split(' '));
+//     [m, d, w, t, h, r]= [arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],];
+//
+//     fwList.appendChild(createArticleItem(m, d, w, t, h, r));
+// })
 document.querySelector('#remove').addEventListener('click',()=>{
     console.log('삭제');
     const dArticle = document.querySelectorAll('.fwItem');

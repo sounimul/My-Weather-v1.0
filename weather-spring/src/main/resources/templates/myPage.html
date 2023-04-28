@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -22,14 +23,14 @@
                             <div class="userInfo">
                                 <p>
                                     <span class="infoTitle">ID</span>
-                                    <span id="userId"></span>
+                                    <span id="userId" th:text="${user.id}"></span>
                                 </p>
                                 <p>
                                     <span class="infoTitle">Nick Name</span>
-                                    <span id="pUuserNickname">weatherFairy</span>
+                                    <span id="pUuserNickname" th:text="${user.nickname}">weatherFairy</span>
                                 </p>
                                 <p>
-                                    <span id="userFavorite"></span>
+                                    <span id="userFavorite" th:text="|${user.fvweather} 를 좋아합니다|"></span>
                                 </p>
                                 <div class="btnWrapper">
                                     <button id="changePF">프로필 수정</button>
@@ -89,26 +90,31 @@
                     </button>
                 </div>
                 <div class="fwList">
-                    <!-- <article class="fwItem">
+
+                    <article class="fwItem" th:each="record : ${records}">
                         <header class="fwHeader">
-                            <h4>3월 4일</h4>
-                            <span class="material-symbols-outlined">sunny</span>
+                            <h4 th:text="${record.rmd}">3월 4일</h4>
+                            <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
                         </header>
                         <div class="fwDetails">
                             <p class="fwTemp">
                                 <span class="material-symbols-outlined">device_thermostat</span>
-                                <span>25°C</span>
+                                <span th:text="|${record.temp}°C|">25°C</span>
+                                <span th:text="${record.tfeel}"></span>
                             </p>
                             <p class="fwHumidity">
                                 <span class="material-symbols-outlined">water_drop</span>
-                                <span>60%</span>
+                                <span th:text="|${record.humid}%|">60%</span>
+                                <span th:text="${record.hfeel}"></span>
                             </p>
                             <p class="fwRain">
                                 <span class="material-symbols-outlined">rainy</span>
-                                <span>0mm</span>
+                                <span th:text="|${record.precip}mm|">0mm</span>
+                                <span th:text="${record.pfeel}"></span>
                             </p>
                         </div>
-                    </article> -->
+                    </article>
+
                 </div>
             </div>
             <div class="tempFunction">
@@ -128,16 +134,16 @@
             <div class="profileInfo">
                 <div class="idWrapper">
                     <span>id</span>
-                    <span id="userId">user</span>
+                    <span id="userId" th:text="${user.id}">user</span>
                 </div>
                 <div class="nicknameWrapper">
                     <span>nickname</span>
-                    <span id="userNickname">날씨요정</span>
+                    <span id="userNickname" th:text="${user.nickname}">날씨요정</span>
                     <button id="changeNN">수정</button>
                 </div>
                 <div class="fwWrapper">
                     <span>좋아하는 계절</span>
-                    <span id="fw">맑음</span>
+                    <span id="fw" th:text="${user.fvweather}">맑음</span>
                     <button id="changeFW">수정</button>
                 </div>
             </div>
