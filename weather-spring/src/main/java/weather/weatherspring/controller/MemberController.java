@@ -1,6 +1,7 @@
 package weather.weatherspring.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import weather.weatherspring.entity.MemberForm;
 import weather.weatherspring.service.MemberService;
 
 import javax.net.ssl.HandshakeCompletedEvent;
+import java.io.PrintWriter;
 import java.util.Optional;
 
 @Controller
@@ -63,6 +65,34 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PostMapping("/update-pw")
+    public void changePassword(HttpServletRequest request, MemberForm pwForm, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        Long uid=(Long) session.getAttribute("uid");
+        response.setContentType("text/html; charset=utf-8");
 
+        if(memberService.updatePw(uid,pwForm)) {
+            try {
+                PrintWriter w = response.getWriter();
+                w.write("<script>alert('비밀번호가 변경되었습니다.');history.go(-1);</script>");
+                w.flush();
+                w.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            return "redirect:/myPage";
+        }
+        else {
+            try {
+                PrintWriter w = response.getWriter();
+                w.write("<script>alert('기존 비밀번호가 일치하지 않습니다.');history.go(-1);</script>");
+                w.flush();
+                w.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+//            return "redirect:/myPage";
+        }
+    }
 
 }

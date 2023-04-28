@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import weather.weatherspring.domain.Member;
+import weather.weatherspring.entity.MemberForm;
 import weather.weatherspring.repository.MemberRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +24,7 @@ public class MemberServiceIntegrationTest {
     public void 회원가입() throws Exception{
         // Given
         Member member = new Member();
-        member.setId("hello");
+        member.setId("Hello");
         member.setPw("Hello12345!");
         member.setNickname("hi");
         member.setAvail("Y");
@@ -41,13 +42,13 @@ public class MemberServiceIntegrationTest {
     public void 중복회원_예외() throws Exception {
         // Given
         Member member1 = new Member();
-        member1.setId("hello");
+        member1.setId("Hello");
         member1.setPw("Hello12345!");
         member1.setNickname("hi");
         member1.setAvail("Y");
 
         Member member2 = new Member();
-        member2.setId("hello");
+        member2.setId("Hello");
         member2.setPw("Hello12345!");
         member2.setNickname("hi");
         member2.setAvail("Y");
@@ -60,4 +61,38 @@ public class MemberServiceIntegrationTest {
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
 
     }
+
+//    public void 비밀번호변경() throws Exception{
+//        // Given
+//        Member member = new Member();
+//        MemberForm pwForm = new MemberForm();
+//        member.setId("Hello");
+//        member.setPw("Hello12345!");
+//        member.setNickname("hi");
+//        member.setFvweather("맑음");
+//        member.setAvail("Y");
+//        pwForm.setCurPw("Hello1234!");
+//        pwForm.setPw("Hi12345!");
+//
+//        // When
+//        memberService.join(member);
+//        memberService.updatePw(member.getUid(),pwForm);
+//
+//        // Then
+//        Member findMember = memberService.findOne(member).get();
+//        assertThat(member.getId()).isEqualTo(findMember.getId());
+//    }
+//
+//    public void 기존비밀번호일치_예외(){
+//        // Given
+//        Member member = new Member();
+//        MemberForm pwForm = new MemberForm();
+//        member.setId("Hello");
+//        member.setPw("Hello12345!");
+//        member.setNickname("hi");
+//        member.setFvweather("맑음");
+//        member.setAvail("Y");
+//        pwForm.setCurPw("Hello1234!");
+//
+//    }
 }

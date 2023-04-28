@@ -8,6 +8,7 @@ public class MemberForm {
     private String pw;
     private String nickname;
     private String fvweather;
+    private String curPw;
 
     public String getUserid() {
         return userid;
@@ -39,5 +40,13 @@ public class MemberForm {
 
     public void setFvweather(String fvweather) {
         this.fvweather = fvweather;
+    }
+
+    public String getCurPw() {
+        return curPw;
+    }
+
+    public void setCurPw(String curPw) {
+        this.curPw = curPw;
     }
 }
