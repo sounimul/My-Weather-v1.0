@@ -33,4 +33,5 @@ public class JpaMemberRepository implements MemberRepository{
     public Optional<Member> findByName(String nickname) {
         return Optional.empty();
     }
+
 }

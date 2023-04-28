@@ -152,14 +152,15 @@ public class WeatherController {
         String[] minName={"",""}; String[] maxName={"",""};
         String p=""; String s="";
         String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
-        String date3=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate()+3);
+//        String date3=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate()+3);
         int j=0,k=0;
         int total=vilFcst2.get("response").get("body").get("totalCount").asInt();
-        for(int i=0;i<total;i++){
+        for(int i=0;i<870;i++){
+            if (i>=total) break;
             String date=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstDate").asText();
-            // 1,2일 후 날짜만 동작
-            if(date.equals(todaydate)) continue;    // 오늘 날짜면 pass
-            else if(date.equals(date3)) break;      // 3일 후 날짜면 break
+            // 오늘 날짜 pass
+            if(date.equals(todaydate)) continue;
+//            else if(date.equals(date3)) break;      // 3일 후 날짜면 break
             // 카테고리 확인
             String cate=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("category").asText();
             // 카테고리가 pty, sky -> 일단 저장
@@ -171,7 +172,6 @@ public class WeatherController {
                 if (p.equals("0")) wtype.setWcode("SKY_"+s);
                 else wtype.setWcode("PTY_"+p);
                 minName[j] = weatherRepository.findByWcode(wtype.getWcode()).get().getWname();
-                System.out.println(fcstTmn[j]+" "+minName[j]);
                 j++;
             }
             else if(cate.equals("TMX")){
@@ -179,9 +179,9 @@ public class WeatherController {
                 if (p.equals("0")) wtype.setWcode("SKY_"+s);
                 else wtype.setWcode("PTY_"+p);
                 maxName[k] = weatherRepository.findByWcode(wtype.getWcode()).get().getWname();
-                System.out.println(fcstTmx[k]+" "+maxName[k]);
                 k++;
             }
+            if(j==2&k==2) break;
         }
         temp.setFcstTmx(fcstTmx); temp.setFcstTmn(fcstTmn);
         temp.setMaxName(maxName); temp.setMinName(minName);
