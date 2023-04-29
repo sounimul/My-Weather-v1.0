@@ -38,7 +38,7 @@
                                 </p>
                                 <div class="btnWrapper">
                                     <button id="changePF">프로필 수정</button>
-                                    <a href="#" onclick="window.open('passwordChange.html', '비밀번호 변경', 'width=500px, height=700px'); return false"><button id="changePW">비밀번호 변경</button></a>
+                                    <a href="#" onclick="window.open('/changePwform', '비밀번호 변경', 'width=500px, height=700px'); return false"><button id="changePW">비밀번호 변경</button></a>
                                 </div>
                             </div>
                     </div>
@@ -135,7 +135,7 @@
         <div class="changePF">
             <button id="closeChangePF"><span class="material-symbols-outlined">close</span></button>
             <h3>프로필</h3>
-            <form class="profileInfo">
+            <form class="profileInfo" action="/updateProfile" method="post">
                 <div class="idWrapper">
                     <span>id</span>
                     <span id="userId" th:text="${user.id}">user</span>
@@ -144,13 +144,13 @@
                     <span>nickname</span>
                     <span id="userNickname" th:text="${user.nickname}">날씨요정</span>
                     <!-- <button id="changeNN">수정</button> -->
-                    <input type="text" placeholder="변경할 닉네임을 입력하세요" id="changeNN">
+                    <input type="text" name="nickname" th:value="${user.nickname}" placeholder="변경할 닉네임을 입력하세요" id="changeNN">
                 </div>
                 <div class="fwWrapper">
                     <span>좋아하는 계절</span>
                     <span id="fw" th:text="${user.fvweather}">맑음</span>
                     <!-- <button id="changeFW">수정</button> -->
-                    <input type="text" placeholder="변경할 계절을 입력하세요" id="changeFW">
+                    <input type="text" name="fvweather" th:value="${user.fvweather}" placeholder="변경할 계절을 입력하세요" id="changeFW">
                 </div>
                 <input type="submit" id="profileInfoChange" value="✓"> 
             </form>

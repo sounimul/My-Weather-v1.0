@@ -60,4 +60,14 @@ public class MemberService {
         }else return false;
     }
 
+    /* 프로필 변경 */
+    public Optional<Member> updateProfile(Long uid, MemberForm profileForm){
+        // 현재 uid의 객체 가지고 오기
+        Member member=memberRepository.findByUid(uid).get();
+        member.setNickname(profileForm.getNickname());
+        member.setFvweather(profileForm.getFvweather());
+        memberRepository.save(member);
+        return Optional.ofNullable(member);
+    }
+
 }

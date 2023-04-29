@@ -17,7 +17,9 @@ import java.util.Optional;
 
 @Controller
 public class MemberController {
-
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
     private final MemberService memberService;
 
     @Autowired
@@ -41,7 +43,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(MemberForm form, HttpServletRequest request) throws Exception{
+    public String login(MemberForm form) throws Exception{
         Member member = new Member();
 
         member.setId(form.getUserid());
@@ -57,42 +59,12 @@ public class MemberController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(){
         // setAttribute: Session [F7F0ED65551C81744635EB00CF4CB7D0] has already been invalidated 해결하기
         HttpSession session = request.getSession();
         session.invalidate();
 
         return "redirect:/";
-    }
-
-    @PostMapping("/update-pw")
-    public void changePassword(HttpServletRequest request, MemberForm pwForm, HttpServletResponse response){
-        HttpSession session = request.getSession();
-        Long uid=(Long) session.getAttribute("uid");
-        response.setContentType("text/html; charset=utf-8");
-
-        if(memberService.updatePw(uid,pwForm)) {
-            try {
-                PrintWriter w = response.getWriter();
-                w.write("<script>alert('비밀번호가 변경되었습니다.');history.go(-1);</script>");
-                w.flush();
-                w.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-//            return "redirect:/myPage";
-        }
-        else {
-            try {
-                PrintWriter w = response.getWriter();
-                w.write("<script>alert('기존 비밀번호가 일치하지 않습니다.');history.go(-1);</script>");
-                w.flush();
-                w.close();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-//            return "redirect:/myPage";
-        }
     }
 
 }
