@@ -34,15 +34,19 @@ form {
     align-items: center;
 }
 
-.id, .password {
+.id {
     display: flex;
     justify-content: space-around;
-    width: 250px;
+    width: 300px;
     margin-right: 50px;
+    margin-bottom: 20px;
 }
 
-.id {
-    margin-bottom: 20px;
+.password {
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+    margin-right: 50px;
 }
 
 h1 {

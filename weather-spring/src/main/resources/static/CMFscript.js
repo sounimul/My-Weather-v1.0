@@ -106,6 +106,10 @@ function changeImg(weather){
     document.querySelector('#wicon').setAttribute('src',`${weather}.png`);
 }
 
+// function changeImg(weather){
+//     document.querySelector('#wicon').setAttribute('src',`../../static/${weather}.png`);
+// }
+
 /* pwCondition */
 document.querySelector('#pwCondition').addEventListener('mouseover',()=>{
     document.querySelector('#pwConditionText').style.display = "flex";
@@ -114,3 +118,19 @@ document.querySelector('#pwCondition').addEventListener('mouseover',()=>{
 document.querySelector('#pwCondition').addEventListener('mouseout',()=>{
     document.querySelector('#pwConditionText').style.display = "none";
 })
+
+function emailChange(){
+    const select = document.getElementById('idEmail');
+    //select.options[select.selectedIndex].value
+    if(select.options[select.selectedIndex].value==='self'){
+        document.getElementById('useridEmail').style.borderBottom = '1px solid gray';
+        document.getElementById('useridEmail').disabled = false;
+        document.getElementById('useridEmail').focus();
+        document.getElementById('useridEmail').style.backgroundColor = 'transparent';
+    }
+    else {
+        document.getElementById('useridEmail').value = select.options[select.selectedIndex].value;
+        document.getElementById('useridEmail').style.backgroundColor = 'transparent';
+        document.getElementById('useridEmail').style.border = 'none';
+    }
+}

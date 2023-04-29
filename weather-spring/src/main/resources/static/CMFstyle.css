@@ -63,9 +63,32 @@ label .material-symbols-outlined {
     padding-right: 5px;
 }
 
+.idLabel {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+#idCheck {
+    border: 2px solid #4C623B;
+    text-align: center;
+    width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    color: #4C623B;
+    font-weight: 900;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 #userid, .container input:nth-child(2){
     margin: 5px;
     padding-bottom: 10px;
+}
+
+#useridEmail {
+    padding-bottom: 10px;
+    background-color: rgb(219, 219, 219);
 }
 
 /* media */
@@ -78,9 +101,19 @@ label .material-symbols-outlined {
 input[type='id'] {
     border: none;
     border-bottom: 1px solid gray;
-    width: 310px;
+    width: 160px;
 }
-/* */
+
+#idEmail {
+    padding-bottom: 10px;
+    border: none;
+    border-bottom: gray 1px solid;
+    padding-right: 20px;;
+}
+
+#idEmail:focus{
+    outline: none;
+}
 
 .container input:focus {
     outline: none;
@@ -142,18 +175,6 @@ button {
     border: none;
 }
 
-#idCheck {
-    border: 2px solid #4C623B;
-    text-align: center;
-    width: 80px;
-    height: 40px;
-    border-radius: 30px;
-    color: #4C623B;
-    font-weight: 900;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 #pwCondition {
     display: inline-block;
     text-align: center;
@@ -182,7 +203,7 @@ button {
     align-items: start;
     border-radius: 10px;
     position: absolute;
-    transform: translate(-120px,-50px);
+    transform: translate(140px);
     display: none;
 }
 
