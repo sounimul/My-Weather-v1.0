@@ -10,10 +10,9 @@
     <!-- 백엔드 CSS/스크립트 확인 -->
     <link rel="stylesheet" href="../myPageStyle.css">
     <script src="../myPage.js" defer></script>
-    프론트 CSS/스크립트
-    <link rel="stylesheet" href="../static/myPageStyle.css">
-    <script src="../static/myPage.js" defer></script>
-    <script></script>
+    <!-- 프론트 CSS/스크립트 -->
+    <!-- <link rel="stylesheet" href="../static/myPageStyle.css">
+    <script src="../static/myPage.js" defer></script> -->
 </head>
 <body>
     <header class="GNB">
@@ -39,7 +38,7 @@
                                 </p>
                                 <div class="btnWrapper">
                                     <button id="changePF">프로필 수정</button>
-                                    <button id="changePW">비밀번호 변경</button>
+                                    <a href="#" onclick="window.open('passwordChange.html', '비밀번호 변경', 'width=500px, height=700px'); return false"><button id="changePW">비밀번호 변경</button></a>
                                 </div>
                             </div>
                     </div>
@@ -157,7 +156,7 @@
             </form>
         </div>
     </div>
-    <div class="changePWbackground">
+    <!-- <div class="changePWbackground">
         <div class="changePW">
             <button id="closeChangePW"><span class="material-symbols-outlined">close</span></button>
             <h3>비밀번호 변경</h3>
@@ -171,6 +170,6 @@
                 <input type="submit" value="변경하기" id="changePW">
             </form>
         </div>
-    </div>
+    </div> -->
 </body>
 </html>

@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+}
+
+.changePW {
+    background-color: #F3ECAE;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.changePW h3 {
+    padding-top: 15px;
+    padding-bottom: 70px;
+}
+
+form {
+    width: 80%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.changePW input {
+    background-color: transparent;
+    border: none;
+    border-bottom: #4C623B 1px solid;
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+.changePW input:focus {
+    outline: none;
+}
+
+.changPW label {
+    color: #4C623B;
+}
+
+#changePF ,#changePW{
+    margin-top: 20px;
+    margin: auto;
+    width: 100px;
+    height: 40px;
+    background-color: #4C623B;
+    border: none;
+    color: #F3ECAE;
+    border-radius: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
