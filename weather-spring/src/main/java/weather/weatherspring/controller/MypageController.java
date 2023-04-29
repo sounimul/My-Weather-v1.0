@@ -74,25 +74,20 @@ public class MypageController {
         Long uid=(Long) session.getAttribute("uid");
         response.setContentType("text/html; charset=utf-8");
 
-        if(memberService.updatePw(uid,pwForm)) {
-            try {
-                PrintWriter w = response.getWriter();
+        try{
+            PrintWriter w = response.getWriter();
+            if(memberService.updatePw(uid,pwForm)){
                 w.write("<script>alert('비밀번호가 변경되었습니다.');window.close();</script>");
                 w.flush();
                 w.close();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        }
-        else {
-            try {
-                PrintWriter w = response.getWriter();
+            else{
                 w.write("<script>alert('기존 비밀번호가 일치하지 않습니다.');history.go(-1);</script>");
                 w.flush();
                 w.close();
-            } catch(Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
