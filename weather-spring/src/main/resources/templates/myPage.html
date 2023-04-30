@@ -34,7 +34,8 @@
                                     <span id="pUuserNickname" th:text="${user.nickname}">weatherFairy</span>
                                 </p>
                                 <p>
-                                    <span id="userFavorite" th:text="|${user.fvweather} 를 좋아합니다|"></span>
+                                    <span id="userFavorite" th:text="${user.fvweather}"></span>
+                                    <span>를 좋아합니다.</span>
                                 </p>
                                 <div class="btnWrapper">
                                     <button id="changePF">프로필 수정</button>
@@ -44,7 +45,7 @@
                     </div>
 
                     <div class="favoriteWeatherIcon">
-                        <img id="wicon" src="../fvRain.png" alt="wicon">
+                        <img id="wicon" src="../seat.png" alt="wicon">
                     </div>
                 </div>
         </section>
