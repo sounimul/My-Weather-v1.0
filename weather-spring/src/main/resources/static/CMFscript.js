@@ -122,7 +122,7 @@ document.querySelector('#pwCondition').addEventListener('mouseout',()=>{
 function emailChange(){
     const select = document.getElementById('idEmail');
     //select.options[select.selectedIndex].value
-    if(select.options[select.selectedIndex].value==='self'){
+    if(select.options[select.selectedIndex].value===''){
         document.getElementById('useridEmail').style.borderBottom = '1px solid gray';
         document.getElementById('useridEmail').disabled = false;
         document.getElementById('useridEmail').focus();
