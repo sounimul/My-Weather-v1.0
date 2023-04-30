@@ -12,8 +12,8 @@
     <script src="../weatherScript.js" defer></script>
     
     <!-- 프론트 CSS/스크립트 -->
-    <!-- <link rel="stylesheet" href="../static/weatherStyle.css"> -->
-    <!-- <script src="../static/weatherScript.js" defer> </script>  -->
+    <!-- <link rel="stylesheet" href="../static/weatherStyle.css">
+    <script src="../static/weatherScript.js" defer> </script>  -->
     
     <!-- 날씨 아이콘 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -185,9 +185,16 @@
                                         <span>25°C</span>
                                     </div>
                                     <select name="saveTempComment" id="">
-                                        <option value="none">기온 어때요?</option>
+                                        <option value="">기온 어때요?</option>
+                                        <option value="melting">무더워요</option>
                                         <option value="hot">더워요</option>
                                         <option value="warm">따뜻해요</option>
+                                        <option value="mild">포근해요</option>
+                                        <option value="cool">시원해요</option>
+                                        <option value="pleasantly cool">선선해요</option>
+                                        <option value="chilly">쌀쌀해요</option>
+                                        <option value="cold">추워요</option>
+                                        <option value="feezing cold">매우 추워요</option>
                                     </select>
                                 </div>
 
@@ -197,8 +204,9 @@
                                         <span>60%</span>
                                     </div>
                                     <select name="saveHumidComment" id="">
-                                        <option value="none">습도 어때요?</option>
+                                        <option value="">습도 어때요?</option>
                                         <option value="humid">습해요</option>
+                                        <option value="fresh">쾌적해요</option>
                                         <option value="dry">건조해요</option>
                                     </select>
                                 </div>
@@ -209,9 +217,13 @@
                                         <span>2.5mm</span>
                                     </div>
                                     <select name="saveRainComment" id="">
-                                        <option value="none">비는 어떻게 와요?</option>
-                                        <option value="heavy">많이 와요</option>
+                                        <option value="">비는 어떻게 와요?</option>
                                         <option value="no">안와요</option>
+                                        <option value="light">약한 비</option>
+                                        <option value="rain">보통 비</option>
+                                        <option value="heavy">강한 비</option>
+                                        <option value="shower">쏟아져요</option>
+                                        
                                     </select>
                                 </div>
                             </div>
