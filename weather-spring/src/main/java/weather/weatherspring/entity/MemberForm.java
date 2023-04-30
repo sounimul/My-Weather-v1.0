@@ -4,11 +4,29 @@ package weather.weatherspring.entity;
 public class MemberForm {
 
     // createMemberForm.html의 input name과 매칭되어 들어옴
+    private String emailLocal;
+    private String emailDomain;
     private String userid;
     private String pw;
     private String nickname;
     private String fvweather;
     private String curPw;
+
+    public String getEmailLocal() {
+        return emailLocal;
+    }
+
+    public void setEmailLocal(String emailLocal) {
+        this.emailLocal = emailLocal;
+    }
+
+    public String getEmailDomain() {
+        return emailDomain;
+    }
+
+    public void setEmailDomain(String emailDomain) {
+        this.emailDomain = emailDomain;
+    }
 
     public String getUserid() {
         return userid;

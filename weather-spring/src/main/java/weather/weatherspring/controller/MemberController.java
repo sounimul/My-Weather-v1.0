@@ -30,6 +30,9 @@ public class MemberController {
     @PostMapping("/join")
     public String create(MemberForm form){
         Member member = new Member();
+        String[] emailDomain=form.getEmailDomain().split(",");
+        form.setEmailDomain(String.join("",emailDomain));
+        form.setUserid(form.getEmailLocal()+"@"+form.getEmailDomain());
 
         member.setId(form.getUserid());
         member.setPw(form.getPw());

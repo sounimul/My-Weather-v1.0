@@ -28,22 +28,22 @@
                     <button type="button" onclick="checkID()" id="idCheck">중복확인</button> <!--button의 type 3가지 값 submit, reset, button-->       <!-- 중복확인은 추후 구현 -->
                 </div>
                 <div class="idInput">
-                    <input type="id" id="userid" name="userid" placeholder="메일 주소를 입력하세요" required>
+                    <input type="id" id="userid" name="emailLocal" placeholder="메일 주소를 입력하세요" required>
                     <span>@</span>
-                    <input type="id" id="useridEmail" name="useridEmail" disabled>
-                    <select name="email" id="idEmail" onchange="emailChange()">
-                        <option value="">주소 선택</option>
+                    <input type="id" id="useridEmail" name="emailDomain" disabled required>
+                    <select name="emailDomain" id="idEmail" onchange="emailChange()">
+                        <option>주소 선택</option>
                         <option value="gmail.com">gmail.com</option>
                         <option value="naver.com">naver.com</option>
                         <option value="kakao.com">kakao.com</option>
-                        <option value="self">직접입력</option>
+                        <option value="">직접입력</option>
                     </select>
                 </div>
             </div>
 
             <div class="container">
                 <label for="pw"><span class="material-symbols-outlined">lock</span>비밀번호<span id="pwCondition">i</span></label>
-                <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요" oninput="checkPW(this.value)" onchange="confirmPW()">
+                <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요" oninput="checkPW(this.value)" onchange="confirmPW()" required>
                 <div id="pwConditionText">
                     <span>비밀번호 조건</span>
                     <span>- 영문 대소문자 각각 1개 이상</span>
@@ -54,12 +54,12 @@
 
             <div class="container">
                 <label for="pwCheck"><span class="material-symbols-outlined">lock</span>비밀번호 확인</label>
-                <input type="password" id="pwCheck" name="pwCheck" placeholder="비밀번호를 입력하세요" oninput="doublecheckPW(this.value)" onchange="confirmPWC()">
+                <input type="password" id="pwCheck" name="pwCheck" placeholder="비밀번호를 입력하세요" oninput="doublecheckPW(this.value)" onchange="confirmPWC()" required>
             </div>
 
             <div class="container">
                 <label for="nickname"><span class="material-symbols-outlined">face</span>닉네임 </label>
-                <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요">
+                <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" required>
             </div>
 
             <div class="container">
