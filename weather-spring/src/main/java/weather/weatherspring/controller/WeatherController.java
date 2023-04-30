@@ -152,7 +152,6 @@ public class WeatherController {
         String[] minName={"",""}; String[] maxName={"",""};
         String p=""; String s="";
         String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
-//        String date3=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate()+3);
         int j=0,k=0;
         int total=vilFcst2.get("response").get("body").get("totalCount").asInt();
         for(int i=0;i<870;i++){
@@ -160,7 +159,6 @@ public class WeatherController {
             String date=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstDate").asText();
             // 오늘 날짜 pass
             if(date.equals(todaydate)) continue;
-//            else if(date.equals(date3)) break;      // 3일 후 날짜면 break
             // 카테고리 확인
             String cate=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("category").asText();
             // 카테고리가 pty, sky -> 일단 저장

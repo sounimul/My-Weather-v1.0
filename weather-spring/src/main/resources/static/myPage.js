@@ -1,5 +1,6 @@
 /* 사용자가 좋아하는 날씨 */
-
+let weather = document.querySelector('#userFavorite').innerText;
+const wicon = document.getElementById("wicon");
 //[userId, userNickname, fvWeather] = prompt('아이디/닉네임/좋아하는 날씨', 'id nickname sunny').split(' ');
 
 // [userId, userNickname, fvWeather] = ['id', 'nick', 'sunny'];
@@ -7,6 +8,30 @@
 // document.querySelector('#userNickname').innerText = userNickname;
 // document.querySelector('#userFavorite').innerText = `${fvWeather}를 좋아합니다.`;
 
+function Icon(){
+    switch (weather){
+        case '맑음':
+            fileName="fvSun";
+            break;
+        case '구름 많음':
+            fileName="fvSunAndCloud";
+            break;
+        case '흐림':
+            fileName="fvCloud";
+            break;
+        case '비':
+            fileName="fvRain";
+            break;
+        case '눈':
+            fileName="fvSnow";
+            break;
+        default:
+            fileName="seat";
+    }
+    wicon.setAttribute('src',`${fileName}.png`);
+    // console.log(wicon);
+}
+Icon();
 /* 저장한 날씨 */
 document.querySelector('#sIcon').addEventListener('click',()=>{
     alert('검색');
