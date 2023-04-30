@@ -167,7 +167,7 @@ button:hover {
     width: 80%;
     min-width: 550px;
     align-items: center;
-    padding: 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .searchCondition {
@@ -213,14 +213,13 @@ button:hover {
 
 /* List */
 .fwList {
-    width: 80%;
     height: 400px;
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
     overflow: auto;
     padding: 10px;
-    max-width: 600px;
+    max-width: 900px;
 }
 
 select {
@@ -234,21 +233,27 @@ select {
     background-color: #4C623B;
     color: #F3ECAE;
     border-radius: 20px;
-    width: 150px;
-    height: 140px;
+    width: 240px;
+    height: 150px;
     padding: 10px;
-    margin: 10px;
+    margin: 5px 10px 10px 10px;
+    cursor: pointer;
 }
 
 .fwHeader {
     border: none;
     border-bottom: 2px solid #F3ECAE;
-    width: 100%;
+    width: 90%;
     height: 40px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding : 0 10px 0 10px;
     align-items: center;
     margin-bottom: 5px;
+}
+
+.fwHeader h4{
+    margin-right: 15px;
 }
 
 .fwDetails {
@@ -460,4 +465,62 @@ form {
 #closeChangePW {
     position: absolute;
     transform: translate(130px);
+}
+
+/* 저장 데이터 상세 정보 */
+.saveDetailWrapper {
+    /* display: flex; */
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: start;
+    padding-top: 350px;
+    backdrop-filter: blur(10px);
+}
+
+.saveDetail {
+    background-color: #F3ECAE;
+    color: black;
+    width: 300px;
+    height: 200px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.saveDetailInfo {
+    width: 250px;
+}
+
+.saveDetail h4 {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: #4C623B 1px solid;
+}
+
+.saveDetailInfo span:nth-child(1), .saveDetailInfo span:nth-child(4){
+    margin-right: 20px;
+}
+
+#saveDetailClose, #saveDetailDelete{
+    width: 60px;
+    height: 40px;
+    margin: 10px;
+    display: inline-block;
+    background-color: #4C623B;
+    border-radius: 30px;
+    color: #F3ECAE;   
+}
+
+.saveDetailBtn {
+    margin-top: 20px;
 }

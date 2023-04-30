@@ -95,41 +95,56 @@
                     </button>
                 </div>
                 <div class="fwList">
-
+                    <!-- 리스트로 구현하기 -->
                     <article class="fwItem" th:each="record : ${records}">
                         <header class="fwHeader">
-                            <h4 th:text="${record.rmd}">3월 4일</h4>
-                            <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
+                            <h4 th:text="${record.rmd}"></h4>
+                            <span class="material-symbols-outlined" th:text="${record.wmsg}"></span>
                         </header>
                         <div class="fwDetails">
                             <p class="fwTemp">
                                 <span class="material-symbols-outlined">device_thermostat</span>
-                                <span th:text="|${record.temp}°C|">25°C</span>
+                                <span th:text="|${record.temp}°C|"></span>
                                 <span th:text="${record.tfeel}"></span>
                             </p>
                             <p class="fwHumidity">
                                 <span class="material-symbols-outlined">water_drop</span>
-                                <span th:text="|${record.humid}%|">60%</span>
+                                <span th:text="|${record.humid}%|"></span>
                                 <span th:text="${record.hfeel}"></span>
                             </p>
                             <p class="fwRain">
                                 <span class="material-symbols-outlined">rainy</span>
-                                <span th:text="|${record.precip}mm|">0mm</span>
+                                <span th:text="|${record.precip}mm|"></span>
                                 <span th:text="${record.pfeel}"></span>
                             </p>
                         </div>
                     </article>
 
+                    <div class="saveDetailWrapper">
+                        <div class="saveDetail">
+                            <h4>상세정보</h4>
+                            <div class="saveDetailInfo">
+                                <span><b>날짜</b></span> <span>2023.04.30</span>
+                                <br>
+                                <span><b>지역</b></span> <span>대구 달서구</span>
+                            </div>
+                            <div class="saveDetailBtn">
+                                <button id="saveDetailClose">닫기</button>
+                                <button id="saveDetailDelete">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="tempFunction">
+            <!-- <div class="tempFunction">
                 <button id="add">
                     <span class="material-symbols-outlined">add</span>
                 </button>
                 <button id="remove">
                     <span class="material-symbols-outlined">remove</span>
                 </button>
-            </div>
+            </div> -->
         </section>
     </div>
     <div class="changePFbackground">

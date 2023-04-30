@@ -129,17 +129,17 @@ function createArticleItem(month, date, weather, temp, humidity, rain){
 //
 //     fwList.appendChild(createArticleItem(m, d, w, t, h, r));
 // })
-document.querySelector('#remove').addEventListener('click',()=>{
-    console.log('삭제');
-    const dArticle = document.querySelectorAll('.fwItem');
+// document.querySelector('#remove').addEventListener('click',()=>{
+//     console.log('삭제');
+//     const dArticle = document.querySelectorAll('.fwItem');
 
-    if(dArticle.length<1){
-        console.log('리스트 없음');
-    }
-    else {
-    dArticle[dArticle.length-1].remove();
-    }
-})
+//     if(dArticle.length<1){
+//         console.log('리스트 없음');
+//     }
+//     else {
+//     dArticle[dArticle.length-1].remove();
+//     }
+// })
 
 /* 프로필 버튼(2) */
 
@@ -292,3 +292,14 @@ document.querySelector('#closeChangePF').addEventListener('click',()=>{
 //         return true;
 //     }
 // }
+
+/* 저장 데이터 상세 정보 */
+document.querySelector('.fwItem').addEventListener('click',()=>{
+    document.querySelector('.saveDetailWrapper').style.display = 'flex';
+})
+
+console.log(document.querySelector('#saveDetailClose').innerText);
+
+document.querySelector('#saveDetailClose').addEventListener('click',()=>{
+    document.querySelector('.saveDetailWrapper').style.display = 'none';
+})
