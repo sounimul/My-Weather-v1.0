@@ -218,7 +218,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ACA9A9;
+    background-color: #C3C3C3;
     padding-top: 30px;
     margin-left: 30px;
     margin-right: 20px;
@@ -633,6 +633,45 @@ table {
     'FILL' 0;
     font-size: 3rem;
     cursor: pointer;
+}
+
+.afterThree {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.oneContainer {
+    width: 75px;
+    height: 120px;
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #F3ECAE;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.oneContainer .futureDay {
+    padding-bottom: 10px;
+    width: 60px;
+    border-radius: 0;
+    border-bottom: 1px solid #4C623B;
+}
+
+.afterThreeIcons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.afterThreeIcons td{
+    font-size: 14px;
 }
 
 /* 반응형 */

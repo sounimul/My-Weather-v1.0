@@ -136,7 +136,7 @@
                     <td class="threeDaysIcon"><span class="material-symbols-outlined" th:text="${minmax.maxName[1]}"></span></td>
                 </tr>
                 
-                <tr>
+                <!-- <tr>
                     <td class="futureDay" rowspan="2"></td>
                     <td class="threeDaysLow">3℃</td>
                     <td class="threeDaysHigh">13℃</td>
@@ -164,8 +164,51 @@
                 <tr class="tableBottomLine">
                     <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
                     <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
-                </tr>
+                </tr> -->
             </table>
+            <div class="afterThree">
+                <div class="oneContainer">
+                    <span class="futureDay"></span>
+                    <table class="afterThreeIcons">
+                        <tr>
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 3일 후 오전 -->
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 3일 후 오후 -->
+                        </tr>
+                        <tr class="tableBottomLine">
+                            <td>오전</td>
+                            <td>오후</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="oneContainer">
+                    <span class="futureDay"></span>
+                    <table class="afterThreeIcons">
+                        <tr>
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 4일 후 오전 -->
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 4일 후 오후 -->
+                        </tr>
+                        <tr class="tableBottomLine">
+                            <td>오전</td>
+                            <td>오후</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="oneContainer">
+                    <span class="futureDay"></span>
+                    <table class="afterThreeIcons">
+                        <tr>
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 5일 후 오전 -->
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 5일 후 오후 -->
+                        </tr>
+                        <tr class="tableBottomLine">
+                            <td>오전</td>
+                            <td>오후</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="fvSaveWrapper">
             <div class="fvSave">
