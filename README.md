@@ -1,6 +1,7 @@
 # WEATHER : 날씨를 알려주는 웹사이트
 💡현재위치의 날씨를 알려주고 기온별 체감 날씨를 기록할 수 있는 웹사이트
-![날씨페이지_깃허브용](https://user-images.githubusercontent.com/75112062/230766688-4740b581-abb2-4dba-93ba-11550e046a41.jpg)
+![날씨페이지](https://user-images.githubusercontent.com/75112062/235446380-b2866a32-81b6-4ac8-ae35-327c94f78143.jpg)
+![마이페이지](https://user-images.githubusercontent.com/75112062/235446417-31fe3bd5-8280-43e7-b8bc-2da6abef25ea.jpg)
 
 
 <br></br>
