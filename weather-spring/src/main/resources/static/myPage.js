@@ -33,7 +33,7 @@ function Icon(){
 }
 Icon();
 /* 저장한 날씨 */
-document.querySelector('#sIcon').addEventListener('click',()=>{
+document.querySelector('.sIcon').addEventListener('click',()=>{
     alert('검색');
     location.reload();
 })
@@ -298,8 +298,20 @@ document.querySelector('.fwItem').addEventListener('click',()=>{
     document.querySelector('.saveDetailWrapper').style.display = 'flex';
 })
 
-console.log(document.querySelector('#saveDetailClose').innerText);
+// console.log(document.querySelector('#saveDetailClose').innerText);
 
 document.querySelector('#saveDetailClose').addEventListener('click',()=>{
     document.querySelector('.saveDetailWrapper').style.display = 'none';
+})
+
+/* 좋아하는 날씨 변경 */
+document.querySelector('#fw').addEventListener('change',()=>{
+    document.querySelector('#currentFw').innerText = document.querySelector('#fw').value;
+})
+
+/* 조건 새로고침 */
+document.querySelector('.rIcon').addEventListener('click',()=>{
+    document.querySelector('#sTemp').value = -1;
+    document.querySelector('#sHumid').value = -1;
+    document.querySelector('#sRain').value = -1;
 })
