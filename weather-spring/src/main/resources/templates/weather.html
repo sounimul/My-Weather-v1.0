@@ -8,12 +8,12 @@
     <title>메인페이지</title>
 
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <link rel="stylesheet" href="../weatherStyle.css">
-    <script src="../weatherScript.js" defer></script>
+    <!-- <link rel="stylesheet" href="../weatherStyle.css">
+    <script src="../weatherScript.js" defer></script> -->
     
     <!-- 프론트 CSS/스크립트 -->
-    <!-- <link rel="stylesheet" href="../static/weatherStyle.css">
-    <script src="../static/weatherScript.js" defer> </script>  -->
+    <link rel="stylesheet" href="../static/weatherStyle.css">
+    <script src="../static/weatherScript.js" defer> </script> 
     
     <!-- 날씨 아이콘 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -116,14 +116,16 @@
 
             <table class="threeDays">
                 <th colspan="4"><h2>주간 예보</h2></th>         <!-- 5일 날씨 출력하기 -->
+               <tbody>
                 <tr class="tableTopLine">
                     <td class="futureDay" rowspan="2"></td>
                     <td class="threeDaysLow" th:text="|${minmax.fcstTmn[0]}℃|">3℃</td>
                     <td class="threeDaysHigh" th:text="|${minmax.fcstTmx[0]}℃|">13℃</td>
                 </tr>
                 <tr class="tableBottomLine">
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined" th:text="${minmax.minName[0]}"></span></td>
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined" th:text="${minmax.maxName[0]}"></span></td>
+                    <td></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" th:text="${minmax.minName[0]}">sunny</span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined" th:text="${minmax.maxName[0]}">rainy</span></td>
                 </tr>
 
                 <tr>
@@ -132,47 +134,62 @@
                     <td class="threeDaysHigh" th:text="|${minmax.fcstTmx[1]}℃|">13℃</td>
                 </tr>
                 <tr class="tableBottomLine">
+                    <td></td>
                     <td class="threeDaysIcon"><span class="material-symbols-outlined" th:text="${minmax.minName[1]}"></span></td>
                     <td class="threeDaysIcon"><span class="material-symbols-outlined" th:text="${minmax.maxName[1]}"></span></td>
                 </tr>
-                
-                <!-- <tr>
+                <tr>
                     <td class="futureDay" rowspan="2"></td>
-                    <td class="threeDaysLow">3℃</td>
-                    <td class="threeDaysHigh">13℃</td>
+                    <!-- <td class="threeDaysLow">3℃</td>
+                    <td class="threeDaysHigh">13℃</td> -->
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
                 </tr>
                 <tr class="tableBottomLine">
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td></td>
+                    <td class="threeDaysLow">오전</td>
+                    <td class="threeDaysHigh">오후</td>
+                    <!-- <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> -->
                 </tr>
 
                 <tr>
                     <td class="futureDay" rowspan="2"></td>
-                    <td class="threeDaysLow">3℃</td>
-                    <td class="threeDaysHigh">13℃</td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>                    
+                    <!-- <td class="threeDaysLow">3℃</td>
+                    <td class="threeDaysHigh">13℃</td> -->
                 </tr>
                 <tr class="tableBottomLine">
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td></td>
+                    <td class="threeDaysLow">오전</td>
+                    <td class="threeDaysHigh">오후</td>
+                    <!-- <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> -->
                 </tr>
 
                 <tr>
                     <td class="futureDay" rowspan="2"></td>
-                    <td class="threeDaysLow">3℃</td>
-                    <td class="threeDaysHigh">13℃</td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> 
+                    <!-- <td class="threeDaysLow">3℃</td>
+                    <td class="threeDaysHigh">13℃</td> -->
                 </tr>
                 <tr class="tableBottomLine">
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
-                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
-                </tr> -->
-            </table>
-            <div class="afterThree">
+                    <td></td>
+                    <td class="threeDaysLow">오전</td>
+                    <td class="threeDaysHigh">오후</td>
+                    <!-- <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                    <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> -->
+                </tr>
+               </tbody>
+            <!-- <div class="afterThree">
                 <div class="oneContainer">
                     <span class="futureDay"></span>
                     <table class="afterThreeIcons">
                         <tr>
-                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 3일 후 오전 -->
-                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 3일 후 오후 -->
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> 
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
                         </tr>
                         <tr class="tableBottomLine">
                             <td>오전</td>
@@ -185,8 +202,8 @@
                     <span class="futureDay"></span>
                     <table class="afterThreeIcons">
                         <tr>
-                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 4일 후 오전 -->
-                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 4일 후 오후 -->
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
                         </tr>
                         <tr class="tableBottomLine">
                             <td>오전</td>
@@ -199,8 +216,8 @@
                     <span class="futureDay"></span>
                     <table class="afterThreeIcons">
                         <tr>
-                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 5일 후 오전 -->
-                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td> <!-- 5일 후 오후 -->
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
+                            <td class="threeDaysIcon"><span class="material-symbols-outlined"></span></td>
                         </tr>
                         <tr class="tableBottomLine">
                             <td>오전</td>
@@ -208,7 +225,7 @@
                         </tr>
                     </table>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="fvSaveWrapper">
             <div class="fvSave">

@@ -1,9 +1,16 @@
+:root {
+    /* --background-color: #EFF4E7; */
+    --background-color: white;
+}
 /* 전체 */
 body {
     margin: 0;
     overflow: hidden;
-    background-image: url("floor.png");     /* 경로변경 */
+    /* background-image: url("floor.png");     경로변경 */
     background-position: 0 50px;
+    /* background-color: rgb(228, 225, 223); */
+    background-color: var(--background-color);
+
 }
 
 a {
@@ -16,26 +23,29 @@ button:hover {
 
 /* header */
 header {
-    height: 80px;
+    height: 72px;
     position: sticky;
     top: 0;
-    background-color: #ACA9A9;
+    background-color: #4C623B;
+    /* background-color: rgb(228, 225, 223); */
+    /* background-color: var(--background-color); */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-right: 12px;
+    /* border-bottom: 20px solid #4C623B; */
 }
 
 /* header user */
 header .userName {
-    color: #4C623B;
+    color: #F3ECAE;
     padding-left: 12px;
     display: none;
 }
 
 header .userName p {
     margin: 0;
-    color: #4C623B;
+    color: #F3ECAE;
     font-weight: 600;
 }
 
@@ -55,14 +65,19 @@ header .userName p {
 
 .hbtnWrapper button {
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 44px;
     width: 44px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     color: #F3ECAE;
-    background-color: #4C623B;
-    border: 0;
+    background-color: transparent;
+    border: #F3ECAE 1.5px solid;
+    /* color: #F3ECAE; */
+    /* background-color: #4C623B; */
+    /* border: 0; */
     border-radius: 60px;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .hbtnWrapper button:hover {
@@ -71,11 +86,12 @@ header .userName p {
 }
 
 .hbtnWrapper button span {
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 /* main */
 main {
+    background-color: rgb(228, 225, 223);
     padding-right: 90px;
     height: 750px;
     display: grid;
@@ -216,12 +232,16 @@ main {
 .forecast {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    background-color: #C3C3C3;
+    /* background-color: rgb(228, 225, 223); */
+    /* background-color: var(--background-color); */
+    background-color: transparent;
     padding-top: 30px;
     margin-left: 30px;
     margin-right: 20px;
+
+    /* border: 1px solid black; */
 }
 
 .todayWeatherIcon {
@@ -346,18 +366,41 @@ main {
     padding: 10px;
 }
 
+tbody {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 tr {
-    width: 100%;
     font-size: 18px;
     color: #4C623B;
 }
 
-.tdh {
+.info td {
+    width: 120px;
+    /* border: 1px solid #4C623B; */
+}
+
+.threeDays td {
+    width: 70px;
+    /* padding: 10px; */
+    /* border: 1px solid #4C623B; */
+}
+
+th {
+    width: 220px;
+}
+
+.info .tdh {
     font-weight: 700;
     font-size: 18px;
     color: #4C623B;
     text-align: center;
     /* padding: 10px 20px 0 20px; */
+    width: 200px;
 }
 
 #infoLow, #infoHigh, #infoHumidity, #infoRain {
@@ -374,17 +417,17 @@ tr {
     border-collapse : collapse;
 }
 
-.futureDay {
+/* .futureDay {
     border-radius: 20px;
-}
+} */
 
-.tableTopLine {
+/* .tableTopLine {
     border-top: 1px solid #4C623B;
-}
+} */
 
-.tableBottomLine {
+/* .tableBottomLine {
     border-bottom: 1px solid #4C623B;
-}
+} */
 
 .futureDay, .threeDaysIcon {
     text-align: center;
@@ -392,7 +435,7 @@ tr {
 }
 
 .threeDaysIcon {
-    padding-top: 10px;
+    /* padding-top: 10px; */
 }
 
 .threeDaysLow {
@@ -407,22 +450,26 @@ tr {
     text-align: center;
 }
 
-table {
-    width: 90%;
+/* table {
+    width: 70%;
+    margin-bottom: 20px;
+} */
+
+.info h2, .threeDays h2 {
+    color: #4C623B;
+    font-weight: 700;
+    text-align: center;
+    /* margin: auto; */
+    margin-bottom: 10px;
+    font-size: 20px;
+    border-bottom: 1px solid #4C623B;
+    padding-bottom: 15px;
+}
+
+.info{
     margin-bottom: 20px;
 }
 
-.info h2, .threeDays h2 {
-    color: #F3ECAE;
-    background-color: #4C623B;
-    border-radius: 30px;
-    padding: 5px;
-    width: 180px;
-    font-weight: 700;
-    text-align: center;
-    margin: auto;
-    margin-bottom: 20px;
-}
 
 /* Save pop-up */
 .fvSaveWrapper {
