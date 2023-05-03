@@ -8,11 +8,11 @@
     <title>My page</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <link rel="stylesheet" href="../myPageStyle.css">
-    <script src="../myPage.js" defer></script>
+    <!-- <link rel="stylesheet" href="../myPageStyle.css">
+    <script src="../myPage.js" defer></script> -->
     <!-- 프론트 CSS/스크립트 -->
-    <!-- <link rel="stylesheet" href="../static/myPageStyle.css">
-    <script src="../static/myPage.js" defer></script> -->
+    <link rel="stylesheet" href="../static/myPageStyle.css">
+    <script src="../static/myPage.js" defer></script>
 </head>
 <body>
     <header class="GNB">
@@ -89,8 +89,11 @@
                             <option value="r3">15mm ~</option>
                             <option value="r4">30mm ~ </option>
                         </select>
+                        <button class="rIcon">
+                            <span class="material-symbols-outlined">refresh</span>
+                        </button>
                     </div>
-                    <button id="sIcon">
+                    <button class="sIcon">
                         <span class="material-symbols-outlined">search</span>
                     </button>
                 </div>
@@ -166,9 +169,17 @@
                 </div>
                 <div class="fwWrapper">
                     <span>좋아하는 계절</span>
-                    <span id="fw" th:text="${user.fvweather}">맑음</span>
+                    <span id="currentFw" th:text="${user.fvweather}">맑음</span>
+                    <select name="" id="fw">
+                        <option value="">변경할 계절을 선택하세요.</option>
+                        <option value="맑음">맑음</option>
+                        <option value="구름 많음">구름 많음</option>
+                        <option value="흐림">흐림</option>
+                        <option value="비">비</option>
+                        <option value="눈">눈</option>
+                    </select>
                     <!-- <button id="changeFW">수정</button> -->
-                    <input type="text" name="fvweather" th:value="${user.fvweather}" placeholder="변경할 계절을 입력하세요" id="changeFW">
+                    <!-- <input type="text" name="fvweather" th:value="${user.fvweather}" placeholder="변경할 계절을 입력하세요" id="changeFW"> -->
                 </div>
                 <input type="submit" id="profileInfoChange" value="✓"> 
             </form>
