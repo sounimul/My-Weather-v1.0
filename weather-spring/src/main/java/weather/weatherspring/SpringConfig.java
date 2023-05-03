@@ -34,13 +34,13 @@ public class SpringConfig {
     @Bean
     public WeatherRepository weatherRepository(){ return new JpaWeatherRepository(em);}
 
-    @Bean
-    public RecordService recordService(){return new RecordService(recordRepository());}
+//    @Bean
+//    public RecordService recordService(){return new RecordService(recordRepository());}
 
-    @Bean
-    public RecordRepository recordRepository(){
-        return new JpaRecordRepository(em);
-    }
+//    @Bean
+//    public RecordRepository recordRepository(){
+//        return new JpaRecordRepository(em);
+//    }
 
 
 //    @Bean

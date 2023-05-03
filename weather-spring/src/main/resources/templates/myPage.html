@@ -98,7 +98,7 @@
                     <!-- 리스트로 구현하기 -->
                     <article class="fwItem" th:each="record : ${records}">
                         <header class="fwHeader">
-                            <h4 th:text="${record.rmd}"></h4>
+                            <h4 th:text="${record.rmd}">4월 26일</h4>
                             <span class="material-symbols-outlined" th:text="${record.wmsg}"></span>
                         </header>
                         <div class="fwDetails">
@@ -117,6 +117,8 @@
                                 <span th:text="|${record.precip}mm|"></span>
                                 <span th:text="${record.pfeel}"></span>
                             </p>
+                            <span style="display: none" th:text="${record.rdate}"></span>
+                            <span style="display: none" th:text="${record.ad}"></span>
                         </div>
                     </article>
 

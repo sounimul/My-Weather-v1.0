@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.entity.MemberForm;
+import weather.weatherspring.entity.Search;
 import weather.weatherspring.repository.MemberRepository;
 import weather.weatherspring.repository.RecordRepository;
 import weather.weatherspring.service.MemberService;
@@ -40,10 +41,12 @@ public class MypageController {
     public String myPage(Model model){
         HttpSession session = request.getSession();
         Long uid=(Long) session.getAttribute("uid");
+        Search search=new Search();
+
         System.out.println(uid);
-        Member member = new Member();
-        List<Record> records = recordService.findRecords(uid);
-        member= memberRepository.findByUid(uid).get();
+
+        List<Record> records = recordService.findRecordList(uid,search);
+        Member member= memberRepository.findByUid(uid).get();
 
         model.addAttribute("user",member);
         model.addAttribute("records",records);
