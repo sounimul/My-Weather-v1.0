@@ -57,37 +57,38 @@
                         <span class="material-symbols-outlined">device_thermostat</span>
                         <select name="기온" id="sTemp">
                             <!-- value가 -1이면 검색 불가 -->
-                            <option value="-1" selected>기온</option> 
-                            <option value="t1">~5℃</option>
-                            <option value="t2">6℃ ~9℃</option>
-                            <option value="t3">10℃ ~ 11℃</option>
-                            <option value="t4">12℃ ~ 16℃</option>
-                            <option value="t5">17℃ ~ 19℃</option>
-                            <option value="t6">20℃ ~ 22℃</option>
-                            <option value="t7">23℃ ~ 26℃</option>
-                            <option value="t8">27℃ ~</option>
+                            <option value="-1" selected>기온</option>
+                            <option value="-999,-1">~ -1℃</option>
+                            <option value="0,4">0℃ ~ 4℃</option>
+                            <option value="5,8">5℃ ~ 8℃</option>
+                            <option value="9,11">9℃ ~ 11℃</option>
+                            <option value="12,16">12℃ ~ 16℃</option>
+                            <option value="17,19">17℃ ~ 19℃</option>
+                            <option value="20,22">20℃ ~ 22℃</option>
+                            <option value="23,27">23℃ ~ 27℃</option>
+                            <option value="28,999">28℃ ~</option>
                         </select>
                         <span class="material-symbols-outlined">water_drop</span>
                         <select name="습도" id="sHumid">
                             <option value="-1" selected>습도</option> 
-                            <option value="h1">0 ~ 10%</option>
-                            <option value="h2">10 ~ 20%</option>
-                            <option value="h3">20 ~ 30%</option>
-                            <option value="h4">30 ~ 40%</option>
-                            <option value="h5">40 ~ 50%</option>
-                            <option value="h6">50 ~ 60%</option>
-                            <option value="h7">60 ~ 70%</option>
-                            <option value="h8">70 ~ 80%</option>
-                            <option value="h9">80 ~ 90%</option>
-                            <option value="h10">90 ~ 100%</option>
+                            <option value="0,10">0 ~ 10%</option>
+                            <option value="10,20">10 ~ 20%</option>
+                            <option value="20,30">20 ~ 30%</option>
+                            <option value="30,40">30 ~ 40%</option>
+                            <option value="40,50">40 ~ 50%</option>
+                            <option value="50,60">50 ~ 60%</option>
+                            <option value="60,70">60 ~ 70%</option>
+                            <option value="70,80">70 ~ 80%</option>
+                            <option value="80,90">80 ~ 90%</option>
+                            <option value="90,100">90 ~ 100%</option>
                         </select>
                         <span class="material-symbols-outlined">rainy</span>
                         <select name="강수량" id="sRain">
                             <option value="-1" selected>강수량</option> 
-                            <option value="r1">~ 3mm</option>
-                            <option value="r2">3 ~ 15mm</option>
-                            <option value="r3">15mm ~</option>
-                            <option value="r4">30mm ~ </option>
+                            <option value="0,3">~ 3mm</option>
+                            <option value="3,15">3 ~ 15mm</option>
+                            <option value="15,30">15mm ~ 30mm</option>
+                            <option value="30,999">30mm ~ </option>
                         </select>
                         <button class="rIcon">
                             <span class="material-symbols-outlined">refresh</span>
