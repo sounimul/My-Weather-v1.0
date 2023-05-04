@@ -5,7 +5,9 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public class RecordSpecification{
     // uid=?
     public static Specification<Record> equalUid(Long uid){

@@ -1,5 +1,5 @@
 /* 사용자가 좋아하는 날씨 */
-let weather = document.querySelector('#userFavoriter').innerText;
+let weather = document.querySelector('#userFavorite').innerText;
 const wicon = document.getElementById("wicon");
 //[userId, userNickname, fvWeather] = prompt('아이디/닉네임/좋아하는 날씨', 'id nickname sunny').split(' ');
 
