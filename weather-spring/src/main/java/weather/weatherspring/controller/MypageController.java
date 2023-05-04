@@ -69,23 +69,6 @@ public class MypageController {
         return "myPage";
     }
 
-//    @GetMapping("/myPage")
-//    public String myPage(Model model){
-//        HttpSession session = request.getSession();
-//        Long uid=(Long) session.getAttribute("uid");
-//
-//        List<Record> records = recordService.findRecordList(uid);
-////        List<Record> records = recordService.findRecordList(uid,search);
-//        Member member= memberService.findMember(uid).get();
-//
-//        model.addAttribute("user",member);
-//        model.addAttribute("records",records);
-//
-//        return "myPage";
-//    }
-
-
-
     @GetMapping ("/changePwform")
     public String pwForm(){
         return "passwordChange.html";
