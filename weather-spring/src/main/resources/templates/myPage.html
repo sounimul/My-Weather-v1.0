@@ -8,11 +8,11 @@
     <title>My page</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <link rel="stylesheet" href="../myPageStyle.css">
-    <script src="../myPage.js" defer></script>
+    <!-- <link rel="stylesheet" href="../myPageStyle.css"> -->
+    <!-- <script src="../myPage.js" defer></script> -->
     <!-- 프론트 CSS/스크립트 -->
-<!--    <link rel="stylesheet" href="../static/myPageStyle.css">-->
-<!--    <script src="../static/myPage.js" defer></script>-->
+   <link rel="stylesheet" href="../static/myPageStyle.css">
+   <script src="../static/myPage.js" defer></script>
 </head>
 <body>
     <header class="GNB">
@@ -53,7 +53,7 @@
             <h3>Weather Archiving </h3>
             <div class="board">
                 <div class="searchBar">
-                    <form method="get" action="/myPage">
+                    <form method="get" action="/myPage" class="searchForm">
                         <div class="searchCondition">
                             <span class="material-symbols-outlined">device_thermostat</span>
                             <select name="temp" id="sTemp">
@@ -108,26 +108,26 @@
                     <article class="fwItem" th:each="record : ${records}">
                         <header class="fwHeader">
                             <h4 th:text="${record.rmd}">4월 26일</h4>
-                            <span class="material-symbols-outlined" th:text="${record.wmsg}"></span>
+                            <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
                         </header>
                         <div class="fwDetails">
                             <p class="fwTemp">
                                 <span class="material-symbols-outlined">device_thermostat</span>
-                                <span th:text="|${record.temp}°C|"></span>
-                                <span th:text="${record.tfeel}"></span>
+                                <span th:text="|${record.temp}°C|">20°C</span>
+                                <span th:text="${record.tfeel}">네글자용</span>
                             </p>
                             <p class="fwHumidity">
                                 <span class="material-symbols-outlined">water_drop</span>
-                                <span th:text="|${record.humid}%|"></span>
-                                <span th:text="${record.hfeel}"></span>
+                                <span th:text="|${record.humid}%|">20%</span>
+                                <span th:text="${record.hfeel}">네글자용</span>
                             </p>
                             <p class="fwRain">
                                 <span class="material-symbols-outlined">rainy</span>
-                                <span th:text="|${record.precip}mm|"></span>
-                                <span th:text="${record.pfeel}"></span>
+                                <span th:text="|${record.precip}mm|">5mm</span>
+                                <span th:text="${record.pfeel}">네글자용</span>
                             </p>
                         </div>
-                        <div class="saveDetailWrapper">
+                        <div class="saveDetailWrapper" id="SDW1">
                             <div class="saveDetail">
                                 <h4>상세정보</h4>
                                 <div class="saveDetailInfo">
@@ -142,9 +142,6 @@
                             </div>
                         </div>
                     </article>
-
-
-
                 </div>
             </div>
             <!-- <div class="tempFunction">
@@ -161,7 +158,7 @@
         <div class="changePF">
             <button id="closeChangePF"><span class="material-symbols-outlined">close</span></button>
             <h3>프로필</h3>
-            <form class="profileInfo" action="/updateProfile" method="post">
+            <form class="profileInfo" action="/updateProfile" method="post" class="profileForm">
                 <div class="idWrapper">
                     <span>id</span>
                     <span id="userId" th:text="${user.id}">user</span>

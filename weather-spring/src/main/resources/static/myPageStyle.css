@@ -145,11 +145,11 @@ button:hover {
 /* 저장한 날씨 */
 .favoriteWeather {
     /* border: 5px solid pink; */
-    margin-left: 40px;
-    width: 60%;
+    margin-left: 30px;
+    width: 620px;
     height: 660px;
     padding-top: 10px;
-    min-width: 550px;
+    /* min-width: 620px; */
 }
 
 .favoriteWeather h3 {
@@ -164,10 +164,11 @@ button:hover {
 .searchBar {
     display: flex;
     justify-content: center;
-    width: 80%;
+    width: 550px;
     min-width: 550px;
     align-items: center;
-    padding: 10px 10px 0 10px;
+    /* padding: 5px 5px 0 5px; */
+    /* background-color: #F3ECAE; */
 }
 
 .searchCondition {
@@ -200,11 +201,7 @@ button:hover {
     border: 10px solid #F0F0F0;
 }
 
-.rIcon {
-    color: #4C623B;
-}
-
-.sIcon {
+.sIcon, .rIcon {
     background-color: #4C623B;
     margin-left: 10px;
     width: 50px;
@@ -223,7 +220,7 @@ button:hover {
     margin-top: 10px;
     overflow: auto;
     padding: 10px;
-    max-width: 900px;
+    width: 580px;
 }
 
 select {
@@ -445,7 +442,14 @@ select {
     padding-bottom: 15px;
 }
 
-form {
+.searchForm {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileForm {
     width: 80%;
     height: 300px;
     display: flex;
