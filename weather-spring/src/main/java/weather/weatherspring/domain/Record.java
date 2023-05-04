@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 
 @Entity     // JPA가 관리하는 entity
 @Table(name="weather_record")
+@IdClass(RecordId.class)
 public class Record {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Uuid")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Uuid")
     private Long uid;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Rdate")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Rdate")
     private String rdate;
     private String rmd;
     @Column(name="Address")

@@ -48,6 +48,10 @@ public class MemberService {
         return memberRepository.findById(member.getId());
     }
 
+    public Optional<Member> findMember(Long uid){
+        return memberRepository.findByUid(uid);
+    }
+
     /* 비밀번호 변경 */
     public Boolean updatePw(Long uid, MemberForm pwForm){
         // 현재 uid의 객체 가져오기

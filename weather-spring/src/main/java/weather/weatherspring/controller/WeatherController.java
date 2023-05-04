@@ -12,9 +12,8 @@ import weather.weatherspring.entity.BasicWeather;
 import weather.weatherspring.entity.CurrentWeather;
 import weather.weatherspring.entity.ElementForm;
 import weather.weatherspring.entity.Temperature;
-import weather.weatherspring.repository.MemberRepository;
-import weather.weatherspring.repository.WeatherRepository;
 import weather.weatherspring.service.LocationService;
+import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.WeatherService;
 
 import java.io.IOException;
@@ -28,15 +27,12 @@ public class WeatherController {
     @Autowired
     private final WeatherService weatherService;
     @Autowired
-    private final MemberRepository memberRepository;
-    @Autowired
-    private final WeatherRepository weatherRepository;
+    private final MemberService memberService;
 
-    public WeatherController(LocationService locationService, WeatherService weatherService, MemberRepository memberRepository, WeatherRepository weatherRepository) {
+    public WeatherController(LocationService locationService, WeatherService weatherService, MemberService memberService) {
         this.locationService = locationService;
         this.weatherService = weatherService;
-        this.memberRepository = memberRepository;
-        this.weatherRepository = weatherRepository;
+        this.memberService = memberService;
     }
 
     /* weather view */
@@ -51,7 +47,7 @@ public class WeatherController {
 
         // session으로부터 uid 가져와 modelAndView에 저장
         Long uid=(Long) session.getAttribute("uid");
-        modelAndView.addObject("username",memberRepository.findByUid(uid).get().getNickname());
+        modelAndView.addObject("username",memberService.findMember(uid).get().getNickname());
 
         // session으로부터 주소 가져와 modelAndView에 저장
         String ad = (String) session.getAttribute("address");
@@ -122,7 +118,7 @@ public class WeatherController {
         currentWeather.setSky(srtFcst.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());   // 현재 하늘상태
         if(currentWeather.getPty().equals("0")) wtype.setWcode("SKY_"+currentWeather.getSky());
         else wtype.setWcode("PTY_"+currentWeather.getPty());
-        currentWeather.setStatus(weatherRepository.findByWcode(wtype.getWcode()).get().getMessage());
+        currentWeather.setStatus(weatherService.findWtype(wtype.getWcode()).get().getMessage());
 
         // 1시간 후 기온,날씨 - 초단기예보
         pfWeather.setFpty(srtFcst.get("response").get("body").get("items").get("item").get(7).get("fcstValue").asText());
@@ -130,7 +126,7 @@ public class WeatherController {
         pfWeather.setFt1h(srtFcst.get("response").get("body").get("items").get("item").get(25).get("fcstValue").asText());
         if (pfWeather.getFpty().equals("0")) wtype.setWcode("SKY_"+pfWeather.getFsky());
         else wtype.setWcode("PTY_"+pfWeather.getFpty());
-        pfWeather.setFicon(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
+        pfWeather.setFicon(weatherService.findWtype(wtype.getWcode()).get().getWname());
 
         // 1시간 전 기온, 날씨 - 초단기예보
         pfWeather.setPpty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
@@ -138,7 +134,7 @@ public class WeatherController {
         pfWeather.setPt1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
         if (pfWeather.getPpty().equals("0")) wtype.setWcode("SKY_"+pfWeather.getPsky());
         else wtype.setWcode("PTY_"+pfWeather.getPpty());
-        pfWeather.setPicon(weatherRepository.findByWcode(wtype.getWcode()).get().getWname());
+        pfWeather.setPicon(weatherService.findWtype(wtype.getWcode()).get().getWname());
 
         // 오늘의 최고, 최저기온
         for(int i=0;i<290;i++){
@@ -169,14 +165,14 @@ public class WeatherController {
                 fcstTmn[j]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
                 if (p.equals("0")) wtype.setWcode("SKY_"+s);
                 else wtype.setWcode("PTY_"+p);
-                minName[j] = weatherRepository.findByWcode(wtype.getWcode()).get().getWname();
+                minName[j] = weatherService.findWtype(wtype.getWcode()).get().getWname();
                 j++;
             }
             else if(cate.equals("TMX")){
                 fcstTmx[k]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
                 if (p.equals("0")) wtype.setWcode("SKY_"+s);
                 else wtype.setWcode("PTY_"+p);
-                maxName[k] = weatherRepository.findByWcode(wtype.getWcode()).get().getWname();
+                maxName[k] = weatherService.findWtype(wtype.getWcode()).get().getWname();
                 k++;
             }
             if(j==2&k==2) break;
