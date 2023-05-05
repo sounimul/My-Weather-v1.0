@@ -306,12 +306,6 @@ document.querySelector('#saveDetailDelete').addEventListener('click',()=>{
     console.log('삭제');
 })
 
-// function Close(){
-//     document.querySelector('.saveDetailWrapper').style.opacity = '0';
-//     // document.querySelector('#SDW1').style.display = 'none'; //작동X
-// }
-
-
 /* 좋아하는 날씨 변경 */
 document.querySelector('#fw').addEventListener('change',()=>{
     document.querySelector('#currentFw').innerText = document.querySelector('#fw').value;

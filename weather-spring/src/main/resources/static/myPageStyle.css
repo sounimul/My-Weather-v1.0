@@ -213,6 +213,10 @@ button:hover {
 }
 
 /* List */
+ul, li{
+    list-style: none;
+}
+
 .fwList {
     height: 400px;
     display: flex;
