@@ -1,16 +1,25 @@
+/* 전체 */
 :root {
     /* --background-color: #EFF4E7; */
     --background-color: white;
+
+    --element-background-color: #4C623B;
+    --element-color: #F3ECAE;
+
+    --point-color: #4C623B;
+    --point-color-reverse: #F3ECAE;
 }
-/* 전체 */
+
 body {
     margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: space-between; */
     overflow: hidden;
-    /* background-image: url("floor.png");     경로변경 */
-    background-position: 0 50px;
-    /* background-color: rgb(228, 225, 223); */
     background-color: var(--background-color);
-
 }
 
 a {
@@ -21,193 +30,132 @@ button:hover {
     cursor: pointer;
 }
 
-/* header */
-header {
-    height: 72px;
-    position: sticky;
-    top: 0;
-    background-color: #4C623B;
-    /* background-color: rgb(228, 225, 223); */
-    /* background-color: var(--background-color); */
+ul, li{
+    list-style: none;
+    padding: 0;
+}
+
+button {
+    padding: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* main > .menuWrapper(200px), .todayWeatherWrapper(auto), .forecast(350px)
+
+/* main */
+.mainWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1280px; /*640*/
+}
+
+.main {
+    background-color: var(--background-color);
+    padding-right: 90px;
+    width: 100%;
+    height: 800px;
+    display: flex;
+    /* justify-content: center; */
+    justify-content: space-evenly;
+    /* display: grid; */
+    /* grid-template-columns: 200px 600px 350px; */
+    margin: auto;
+    background: linear-gradient(transparent 81%, var(--point-color) 19%);
+}
+
+/* main left(Menu) */
+/* .menuWrapper > .menu > .menuBtn > button, a */
+.menuWrapper {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    /* align-items:end; */
+    align-items: center;
+    /* border: 1px solid black; */
+}
+
+#openMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 60px;
+    color: var(--point-color-reverse);
+    background-color: var(--point-color);
+    border: var(--element-color) 1.5px solid;
+    border-radius: 60px;
+    z-index: 2;
+}
+
+.menu {
+    margin-top: 20px;
+    width: 60px;
+    height: 400px;
+    background-color: var(--element-background-color);
+    border-radius: 60px;
+
+    display: none;
+    /* display: flex; */
+    justify-content: center;
+    align-items: start;
+
+    padding-top: 100px;
+
+    position: relative;
+    top: -80px;
+    z-index: 1;
+}
+
+.menuBtn {
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding-right: 12px;
-    /* border-bottom: 20px solid #4C623B; */
+    height: 200px;
 }
 
-/* header user */
-header .userName {
-    color: #F3ECAE;
-    padding-left: 12px;
-    display: none;
-}
-
-header .userName p {
-    margin: 0;
-    color: #F3ECAE;
-    font-weight: 600;
-}
-
-#huserNickname {
-    font-weight: 900;
-    font-size: 24px;
-}
-
-/* header button */
-.hbtnWrapper {
-    width: 200px;
-    padding: 12px;
-    justify-content: space-around;
-    align-items: center;
-    display: none
-}
-
-.hbtnWrapper button {
+/* 메뉴 버튼 */
+.menuBtn button {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 44px;
     width: 44px;
-    /* justify-content: space-between; */
-    color: #F3ECAE;
+    color: var(--element-color);
     background-color: transparent;
-    border: #F3ECAE 1.5px solid;
-    /* color: #F3ECAE; */
-    /* background-color: #4C623B; */
-    /* border: 0; */
+    border: var(--element-color) 1.5px solid;
     border-radius: 60px;
-    /* padding: 10px; */
-}
-
-.hbtnWrapper button:hover {
-    background-color: #F3ECAE;
-    color: #4C623B;
-}
-
-.hbtnWrapper button span {
-    /* margin-right: 10px; */
-}
-
-/* main */
-main {
-    background-color: rgb(228, 225, 223);
-    padding-right: 90px;
-    height: 750px;
-    display: grid;
-    grid-template-columns: 350px auto 350px;
-}
-
-/* main left */
-.userInfo {
-    padding-top: 83px;
-    width: 300px;
-    height: 550px;
-}
-
-.userWrapper {
-    background-color: #D9D9D9;
-    border-top: 10px solid #D9D9D9;
-    border-right: 10px solid #D9D9D9;
-    border-bottom: 10px solid #D9D9D9;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    width: 290px;
-    height: 550px;
-}
-
-.userInfo .user {
-    width: 250px;
-    height: 300px;
-    margin-left: 15px;
-    border-radius: 30px;
-    border: 10px solid #F0F0F0;
-    background-color: #F0F0F0;
-
-    background-image: url("tile.png");      /* 경로 변경 */
-    background-repeat: repeat;
-    background-position: 30px 30px;
-}
-
-.userName {
-    padding: 10px;
-}
-
-/* 메뉴(창문 버전) */
-.user .userName p {
-    margin-bottom: 8px;
-    color: #4C623B;
-    font-weight: 600;
-}
-
-.user .userName span {
-    color: #4C623B;
-    font-weight: 600;
-}
-
-#userNickname { /* user name */
-    font-weight: 900;
-    font-size: 24px;
-}
-
-.user .btnWrapper {
-    margin: auto;
-    height: 180px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-.user button {
-    width: 140px;
-    display: flex;
-    justify-content: space-between;
-    color: #F3ECAE;
-    background-color: #4C623B;
-    border: 0;
-    border-radius: 30px;
-    padding: 8px 10px 8px 10px;
-}
-
-.user button span {
-    margin-right: 10px;
 }
 
 /* main center(Today Weather) */
-.todayWeather {
-    padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 600px;
-}
-
-.nowInfo {
-    height: 130px;
+/* .todayWeatherWrapper > .todayWeatherBorder > .todayWeather > .nowInfo > /#clock, #location / .temperature > .past, .now, .future */
+.todayWeatherWrapper {
+    width: 700px;
+    /* padding-top: 30px; */
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    padding-top: 20px;
 }
 
-#windowBorder {
+.todayWeatherBorder {
     background-color: #D9D9D9;
     border-radius: 70px;
-    width: 800px;
-    height: 500px;
+    width: 650px;
+    height: 400px;
 }
 
-#window {
+.todayWeather {
     background: #C3C3C3;
     border: 10px solid #F0F0F0;
     border-radius: 60px;
-    width: 760px;
-    height: 460px;
+    width: 610px;
+    height: 360px;
 
     position: relative;
     top: 10px;
@@ -218,285 +166,266 @@ main {
     background-position: 30px 30px;
 }
 
-#clock {
-    font-size: 28px;
-    color: #4C623B;
-    font-weight: 700;
-}
-
-#refresh {
-    background-color: transparent;
-    border: none;
-}
-
-.forecast {
+.nowInfo {
+    height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    /* background-color: rgb(228, 225, 223); */
-    /* background-color: var(--background-color); */
-    background-color: transparent;
     padding-top: 30px;
-    margin-left: 30px;
-    margin-right: 20px;
-
-    /* border: 1px solid black; */
 }
 
-.todayWeatherIcon {
-    z-index: 1;
-    position: absolute;
-    top: 400px;
+.locationWrapper {
+    width: 200px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 8px;
 }
 
-/* 현재 날씨 */
+#clock {
+    font-size: 28px;
+    color: var(--point-color);
+    font-weight: 700;
+}
+
+#refresh {
+    color: var(--point-color);
+    background-color: transparent;
+    border: none;
+}
+
 .temperature {
-    width: 760px;
+    width: 610px;
+    height: 80px;
     height: 100px;
-    background-color: #4C623B;
+    background-color: var(--point-color);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
-.temperature div {
-    display: inline-block;
-    margin: 0;
-}
-
-.past {
-    width: 190px;
-    height: 100px;
-}
-
-.future {
-    width: 190px;
-    height: 100px;
-}
-
-.now {
-    width: 400px;
-    background-color: #F3ECAE;
-    border-radius: 100px;
-    border: 10px solid #4C623B;;
-}
-
-#currentExp{
-    display: inline-block;
-    width: 160px;
-    line-height: 140px;
-    text-align: left;
-    font-size: 36px;
-    padding-left: 20px;
-    color: #4C623B;
-    font-weight: 900;
-}
-
-#currentTemp{
-    display: inline-block;
-    width: 160px;
-    text-align: right;
-    line-height: 140px;
-    font-size: 40px;
-    font-weight: 900;
-    padding-right: 10px;
-    color: #4C623B;
-}
-
+/* 날씨 정보 */
 .past, .future {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #F3ECAE;
-}
-
-.past {
-    padding-left: 10px;
-}
-
-.future {
-    padding-right: 10px;
-}
-
-#pastHour, #futureHour {
-    text-align: center;
-    margin-bottom: 0;
-    margin-top: 20px;
+    color: var(--point-color-reverse);
 }
 
 .pastInfo, .futureInfo {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 0;
+    width: 110px;
 }
 
-.pastInfo span, .futureInfo span{
-    padding: 0 10px 0 10px;
+#pastHour, #futureHour {
+    margin-bottom: 5px;
+}
+
+#pastWeatherIcon, #futureWeatherIcon {
+    font-size: 24px;
 }
 
 #pastTemp, #futureTemp {
-    font-size: 28px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
 }
 
-.explain {
+/* 1시간 전 날씨 */
+.past {
+    width: 190px;
+    height: 100px;
+    padding-left: 10px;
+}
+
+/* 현재 날씨 */
+.now {
+    width: 350px;
+    height: 110px;
+    background-color: var(--point-color-reverse);
+    border-radius: 100px;
+    border: 8px solid var(--point-color);
+    /* text-align: center; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#currentExp{
+    font-size: 30px;
+    color: var(--point-color);
+    font-weight: 900;
+}
+
+#currentTemp{
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--point-color);
+}
+
+/* 1시간 후 날씨 */
+.future {
+    width: 190px;
+    height: 100px;
+    padding-right: 10px;
+}
+
+/* 현재 날씨 캐릭터 */
+.todayWeatherIcon {
+    z-index: 1;
+    position: relative;
+    top: -65px;
     display: flex;
     justify-content: center;
 }
 
-#expText {
-    margin-top: 170px;
-    height: 150px;
+#wicon {
+    width: 700px;
 }
 
-/* main right(forecast) */
-/* div(.forecast) -> table(.info, .threeDays) */
+/* main right(forecast) 350px */
+.forecast {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    /* padding-top: 10px; */
+    margin-right: 20px;
+    /* border: 1px solid black; */
+}
+
+.forecast .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding: 10px; */
+}
+
+.forecastSubTitle {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--point-color);
+    margin: 0;
+    margin-bottom: 12px;
+}
+
 /* table(.info) -> th -> tr -> td
    td: .tdh, #infoLow, #infoHigh, #infoHumidity, #infoRain */
-   .forecast .info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-}
-
 tbody {
-    width: 250px;
+    width: 230px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #F0F0F0;
+    border-radius: 20px;
+    padding-top: 20px;
+    margin-bottom: 23px;
 }
 
-tr {
+.info tr {
+    width: 220px;
     font-size: 18px;
     color: #4C623B;
 }
 
 .info td {
-    width: 120px;
-    /* border: 1px solid #4C623B; */
+    width: 110px;
 }
 
-.threeDays td {
-    width: 70px;
-    /* padding: 10px; */
-    /* border: 1px solid #4C623B; */
-}
-
-th {
-    width: 220px;
-}
-
-.info .tdh {
-    font-weight: 700;
-    font-size: 18px;
-    color: #4C623B;
+.tdh {
     text-align: center;
-    /* padding: 10px 20px 0 20px; */
-    width: 200px;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--point-color);   
 }
 
 #infoLow, #infoHigh, #infoHumidity, #infoRain {
-    padding-bottom: 15px;
-    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-top: 5px;
     text-align: center;
+    font-weight: 600;
 }
 
-/* threeDays */
-/* table(.threeDays) -> th -> tr -> td
-   td: .futueDay .threeDaysLow .threeDaysHigh .threeDaysIcon */
-.threeDays {
-    padding: 0 10px 10px 10px;
-    border-collapse : collapse;
+/* 주간예보 */
+.futureDays {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    /* border: #4C623B 1px solid; */
+    border-radius: 10px;
+    /* padding: 10px; */
 }
 
-/* .futureDay {
-    border-radius: 20px;
-} */
+.futureDayInfo {
+    width: 220px;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    /* border-bottom: 1px solid var(--point-color); */
+    /* border: 1px solid var(--point-color); */
+    background-color: #F0F0F0;
+    margin: 5px;
+    border-radius: 10px;
 
-/* .tableTopLine {
-    border-top: 1px solid #4C623B;
-} */
-
-/* .tableBottomLine {
-    border-bottom: 1px solid #4C623B;
-} */
-
-.futureDay, .threeDaysIcon {
-    text-align: center;
-    /* padding-bottom: 10px; */
 }
 
-.threeDaysIcon {
-    /* padding-top: 10px; */
+.futureDay {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: var(--point-color);
 }
 
-.threeDaysLow {
-    text-align: right;
-    color: blue;
-    text-align: center;
+.low, .high {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.threeDaysHigh {
-    text-align: right;
-    color: red;
-    text-align: center;
+.lowTemp, .highTemp {
+    padding-bottom: 5px;
 }
-
-/* table {
-    width: 70%;
-    margin-bottom: 20px;
-} */
-
-.info h2, .threeDays h2 {
-    color: #4C623B;
-    font-weight: 700;
-    text-align: center;
-    /* margin: auto; */
-    margin-bottom: 10px;
-    font-size: 20px;
-    border-bottom: 1px solid #4C623B;
-    padding-bottom: 15px;
-}
-
-.info{
-    margin-bottom: 20px;
-}
-
 
 /* Save pop-up */
 .fvSaveWrapper {
     position: absolute;
     width: 100%;
-    /* height: 800px; */
-    height: 80%;
+    height: 800px;
     background-color: transparent;
     backdrop-filter: blur(3px);
-    justify-content: center;
-    padding-top: 80px ;
     z-index: 2;
-    /* display: flex; */
     display: none;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
 }
 
 .fvSave {
     width: 400px;
     height: 550px;
-    background-color: #4C623B;
+    background-color: #F0F0F0;
     border-radius: 20px;
+    padding: 20px;
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px 10px 10px 10px;
-    border: 10px solid #F3ECAE;
 }
 
 .saveInfo {
@@ -507,23 +436,30 @@ th {
 }
 
 .fwHeader {
-    border-radius: 30px;
-    height: 20px;
-    padding: 15px 30px;
-    color: #4C623B;
-    background-color: #F3ECAE;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    /* border: 1px solid var(--point-color); */
+    margin-top: 20px;
+    padding: 10px 15px;
     margin-bottom: 20px;
 }
-.fvSave h3 {
-    color: #F3ECAE;
-    padding-bottom: 20px;
-    padding-top: 25px;
+
+.fwHeader span {
+    padding: 2.5px 10px 2.5px 10px;
+    /* border: #4C623B 1px solid; */
+}
+
+.fwHeader span:nth-child(-n+2) {
+    border-right: 1px solid var(--point-color);
 }
 
 .fwItem {
     display: flex;
     width: 100%;
     flex-direction: column;
+    /* border: 1px solid skyblue; */
 }
 
 .fwDetails {
@@ -532,39 +468,44 @@ th {
     width: 100%;
     justify-content: center;
     align-items: center;
+    /* border: 1px solid pink; */
 }
 
 /* 기온 정보 */
 .fwTemp, .fwHumid, .fwRain {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid #F3ECAE;
+    justify-content: space-between;
+    align-items:center;
+    border: 1px solid var(--point-color);
     width: 250px;
     height: 50px;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 0;
     border-radius: 5px;
     margin: 10px;
 }
 
 .saveTempInfo, .saveHumidInfo, .saveRainInfo {
-    color: #F3ECAE;
+    /* color: #F3ECAE; */
+    width: 60px;
+    height: 50px;
+    /* border-radius: 10px; */
+    border-right: 1px solid var(--point-color);
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .fwDetails select {
     width: 150px;
     height: 30px;
-    background-color: #F3ECAE;
-    color: #4C623B;
+    /* background-color: #F3ECAE; */
+    /* color: #4C623B; */
+    border: 1px solid var(--point-color);
     border-radius: 30px;
     padding: 5px;
-    border: none;
     font-weight: 700;
-}
-
-.fwTemp select:focus{
-    outline: none;
 }
 
 .saveForm {
@@ -577,11 +518,12 @@ th {
 .saveForm input[type="button"]{
     width: 100px;
     height: 40px;
-    background-color: #F3ECAE;
+    background-color: transparent;
     border: none;
+    border: 1px solid var(--point-color);
     border-radius: 30px;
     margin-top: 20px;
-    color: #4C623B;
+    /* color: #4C623B; */
     font-weight: 900;
     cursor: pointer;
 }
@@ -594,9 +536,9 @@ th {
 
 #close {
     position: relative;
-    transform: translate(170px,-515px);
+    transform: translate(170px,-500px);
     background-color: transparent;
-    color: #F3ECAE;
+    color: var(--point-color);
     font-size: 2rem;
     border: none;
     cursor: pointer;
@@ -606,43 +548,36 @@ th {
 .feedbackWrapper {
     position: absolute;
     width: 100%;
-    /* height: 800px; */
-    /* padding-top: 100px; */
-    height: 80%;
+    height: 800px;
     background-color: transparent;
     backdrop-filter: blur(5px);
+    display: none;
     /* display: flex; */
     justify-content: center;
-    padding-top: 250px;
+    align-items: center;
     z-index: 2;
-    display: none;
 }
 
 .feedback {
     width: 400px;
     height: 200px;
-    background-color: #4C623B;
+    background-color: #F0F0F0;
     border-radius: 20px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 10px 10px 10px;
-    border: 10px solid #F3ECAE;
 }
 
 #feedbackClose {
     position: relative;
-    transform: translate(180px, -185px);
+    transform: translate(175px, -170px);
     background-color: transparent;
-    color: #F3ECAE;
+    /* color: #F3ECAE; */
     font-size: 2rem;
     border: none;
     cursor: pointer;
-}
-
-.feedback h3 {
-    color: #F3ECAE;
 }
 
 .feedbackForm {
@@ -655,11 +590,11 @@ th {
 .feedbackForm input[type="submit"]{
     width: 100px;
     height: 40px;
-    background-color: #F3ECAE;
+    background-color: transparent;
     border: none;
+    border: 1px solid var(--point-color);
     border-radius: 30px;
     margin-top: 20px;
-    color: #4C623B;
     font-weight: 900;
     cursor: pointer;
 }
@@ -669,14 +604,11 @@ th {
 }
 
 .feedbackForm label {
-    color: #F3ECAE;
-
+    color: rgb(255, 208, 0);
 }
 
 .feedbackForm label span{
-    color: #F3ECAE;
-    font-variation-settings:
-    'FILL' 0;
+    font-variation-settings: 'FILL' 0;
     font-size: 3rem;
     cursor: pointer;
 }
@@ -688,57 +620,7 @@ th {
     text-align: center;
 }
 
-.oneContainer {
-    width: 75px;
-    height: 120px;
-    padding: 1px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #F3ECAE;
-    margin: 5px;
-    border-radius: 10px;
-}
-
-.oneContainer .futureDay {
-    padding-bottom: 10px;
-    width: 60px;
-    border-radius: 0;
-    border-bottom: 1px solid #4C623B;
-}
-
-.afterThreeIcons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0;
-}
-
-.afterThreeIcons td{
-    font-size: 14px;
-}
-
 /* 반응형 */
-@media screen and (max-width:1650px){
-    main {
-        grid-template-columns: auto 350px;
-    }
+/* @media screen and (max-width:1512px){
 
-    .userInfo {
-        display: none;
-    }
-
-    header .userName {
-        display: block;
-    }
-
-    .todayWeather {
-        margin-left: 50px;
-    }
-
-    .hbtnWrapper {
-        display: flex;
-    }
-}
+} */

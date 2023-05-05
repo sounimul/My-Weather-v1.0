@@ -48,6 +48,7 @@ function Icon(){
             fileName="cloud";
     }
     wicon.setAttribute('src',`${fileName}.png`);
+    // wicon.setAttribute('src',`../static/${fileName}.png`);
     // console.log(wicon);
 }
 const day_arr = ['일','월','화','수','목','금','토'];
@@ -183,9 +184,20 @@ function getClock(){
 getClock();
 setInterval(getClock,1000); // 1분마다 시간 새로고침
 
-/* 날씨 기록 */
+/* 메뉴 */
+document.querySelector('#openMenu').addEventListener('click',()=>{
+    if(document.querySelector('.menu').style.display==='none'){
+    document.querySelector('.menu').style.display = 'flex';
+    document.querySelector('#openMenu').style.border = 'none';
+    }
+    else {
+        document.querySelector('.menu').style.display = 'none';
+        document.querySelector('#openMenu').style.border = 'var(--element-color) 1.5px solid';
+    }
+})
 
-document.querySelector('#hsaveWeather').addEventListener('click',()=>{
+/* 날씨 기록 */
+document.querySelector('#saveWeather').addEventListener('click',()=>{
     document.querySelector('.fvSaveWrapper').style.display = 'flex';
 })
 
@@ -198,11 +210,11 @@ document.querySelector('#close').addEventListener('click',()=>{
 })
 
 /* 피드백 */
-document.querySelector('#hfeedback').addEventListener('click',()=>{
+document.querySelector('#feedback').addEventListener('click',()=>{
     document.querySelector('.feedbackWrapper').style.display = 'flex';
 })
 
-document.querySelector('#pfeedback').addEventListener('click',()=>{
+document.querySelector('#feedback').addEventListener('click',()=>{
     document.querySelector('.feedbackWrapper').style.display = 'flex';
 })
 
@@ -211,7 +223,6 @@ document.querySelector('#feedbackClose').addEventListener('click',()=>{
 })
 
 /* 별점 */
-
 document.querySelector('#grade1').addEventListener('click',()=>{
     //font-variation-settings: 'FILL' 0;
     const fill = document.defaultView.getComputedStyle(document.querySelector('#grade1')).getPropertyValue('font-variation-settings').split(' ')[0];
@@ -261,4 +272,3 @@ document.querySelector('#grade5').addEventListener('click',()=>{
     document.querySelector('#grade4').style['font-variation-settings'] = `${fill} ${1}`;
     document.querySelector('#grade5').style['font-variation-settings'] = `${fill} ${1}`;
 })
-
