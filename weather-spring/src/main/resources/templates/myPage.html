@@ -8,11 +8,11 @@
     <title>My page</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <!-- <link rel="stylesheet" href="../myPageStyle.css"> -->
-    <!-- <script src="../myPage.js" defer></script> -->
+    <link rel="stylesheet" href="../myPageStyle.css">
+    <script src="../myPageScript.js" defer></script>
     <!-- 프론트 CSS/스크립트 -->
-   <link rel="stylesheet" href="../static/myPageStyle.css">
-   <script src="../static/myPage.js" defer></script>
+   <!-- <link rel="stylesheet" href="../static/myPageStyle.css">
+   <script src="../static/myPageScript.js" defer></script> -->
 </head>
 <body>
     <header class="GNB">
@@ -106,7 +106,7 @@
                 <ul class="fwList">
                     <!-- 리스트로 구현하기 -->
                     
-                    <li class="fwItemWrapper">
+                    <li class="fwItemWrapper" onclick="popUp()">
                         <article class="fwItem" th:each="record : ${records}">
                             <header class="fwHeader">
                                 <h4 th:text="${record.rmd}">4월 26일</h4>

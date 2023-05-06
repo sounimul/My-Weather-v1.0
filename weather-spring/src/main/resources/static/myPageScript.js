@@ -294,9 +294,9 @@ document.querySelector('#closeChangePF').addEventListener('click',()=>{
 // }
 
 /* 저장 데이터 상세 정보 */
-document.querySelector('.fwItem').addEventListener('click',()=>{
-    document.querySelector('.saveDetailWrapper').style.display = 'flex';
-})
+// document.querySelector('.fwItem').addEventListener('click',()=>{
+//     document.querySelector('.saveDetailWrapper').style.display = 'flex';
+// })
 
 document.querySelector('#saveDetailClose').addEventListener('click',()=>{
     document.querySelector('.saveDetailWrapper').style.display = 'none';
@@ -317,3 +317,23 @@ document.querySelector('.rIcon').addEventListener('click',()=>{
     document.querySelector('#sHumid').value = -1;
     document.querySelector('#sRain').value = -1;
 })
+
+function popUp(){
+    console.log(document.querySelector('.fwItem'));
+    // document.querySelector('.saveDetailWrapper').style.display = 'flex';
+}
+
+{/* <div class="saveDetailWrapper">
+<div class="saveDetail">
+    <h4>상세정보</h4>
+    <div class="saveDetailInfo">
+        <span><b>날짜</b></span> <span>2023.04.30</span>
+        <br>
+        <span><b>지역</b></span> <span>대구 달서구</span>
+    </div>
+    <div class="saveDetailBtn">
+        <button id="saveDetailClose">닫기</button>
+        <button id="saveDetailDelete">삭제</button>
+    </div>
+</div>
+</div> */}
