@@ -189,10 +189,12 @@ document.querySelector('#openMenu').addEventListener('click',()=>{
     if(document.querySelector('.menu').style.display==='none'){
     document.querySelector('.menu').style.display = 'flex';
     document.querySelector('#openMenu').style.border = 'none';
+    document.querySelector('#openMenuIcon').innerText = 'minimize';
     }
     else {
         document.querySelector('.menu').style.display = 'none';
         document.querySelector('#openMenu').style.border = 'var(--element-color) 1.5px solid';
+        document.querySelector('#openMenuIcon').innerText = 'menu';
     }
 })
 
