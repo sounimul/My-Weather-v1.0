@@ -106,11 +106,12 @@
                 <ul class="fwList">
                     <!-- 리스트로 구현하기 -->
                     
-                    <li class="fwItemWrapper" onclick="popUp()">
+                    <li class="fwItemWrapper">
                         <article class="fwItem" th:each="record : ${records}">
                             <header class="fwHeader">
                                 <h4 th:text="${record.rmd}">4월 26일</h4>
                                 <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
+                                <span class="material-symbols-outlined" onclick="pop(this)">more_horiz</span>
                             </header>
                             <div class="fwDetails">
                                 <p class="fwTemp">
@@ -140,7 +141,7 @@
                                     <span><b>지역</b></span> <span>대구 달서구</span>
                                 </div>
                                 <div class="saveDetailBtn">
-                                    <button id="saveDetailClose">닫기</button>
+                                    <button id="saveDetailClose" onclick="closeDetails(this)">닫기</button>
                                     <button id="saveDetailDelete">삭제</button>
                                 </div>
                             </div>

@@ -318,9 +318,15 @@ document.querySelector('.rIcon').addEventListener('click',()=>{
     document.querySelector('#sRain').value = -1;
 })
 
-function popUp(){
-    console.log(document.querySelector('.fwItem'));
-    // document.querySelector('.saveDetailWrapper').style.display = 'flex';
+function pop(a){
+    console.log(a.parentElement.parentElement.parentElement);
+    const ele= a.parentElement.parentElement.parentElement;
+    ele.childNodes[3].style.display = 'flex';
+}
+
+function closeDetails(b){
+    // console.log(b.parentElement.parentElement.parentElement.style.display);
+    b.parentElement.parentElement.parentElement.style.display = 'none';
 }
 
 {/* <div class="saveDetailWrapper">
