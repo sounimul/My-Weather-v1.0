@@ -7,6 +7,7 @@ public class CurrentWeather {
     private String pty="";     // 강수형태
     private String sky="";     // 하늘 상태
     private String status="";
+    private String icon="";
 
     public String getT1h() {
         return t1h;
@@ -54,5 +55,13 @@ public class CurrentWeather {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

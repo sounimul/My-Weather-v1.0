@@ -324,7 +324,7 @@ select {
 }
 
 .profileInfo {
-    width: 90%;
+    width: 80%;
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -451,14 +451,6 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.profileForm {
-    width: 80%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
 }
 
 .changePW input {

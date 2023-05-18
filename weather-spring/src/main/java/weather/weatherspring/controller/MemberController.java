@@ -103,7 +103,9 @@ public class MemberController {
         currentWeather.setSky(srtFcst.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());   // 현재 하늘상태
         if(currentWeather.getPty().equals("0")) wtype.setWcode("SKY_"+currentWeather.getSky());
         else wtype.setWcode("PTY_"+currentWeather.getPty());
-        currentWeather.setStatus(weatherService.findWtype(wtype.getWcode()).get().getMessage());
+        wtype=weatherService.findWtype(wtype.getWcode()).get();
+        currentWeather.setStatus(wtype.getMessage());
+        currentWeather.setIcon(wtype.getWname());
 
         // 1시간 후 기온,날씨 - 초단기예보
         pfWeather.setFpty(srtFcst.get("response").get("body").get("items").get("item").get(7).get("fcstValue").asText());
