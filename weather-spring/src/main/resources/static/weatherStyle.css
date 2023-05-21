@@ -417,7 +417,7 @@ tbody {
 
 .fvSave {
     width: 400px;
-    height: 550px;
+    height: 600px;
     background-color: #F0F0F0;
     border-radius: 20px;
     padding: 20px;
@@ -437,6 +437,7 @@ tbody {
 
 .fwHeader {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     border-radius: 10px;
@@ -446,9 +447,8 @@ tbody {
     margin-bottom: 20px;
 }
 
-.fwHeader span {
-    padding: 2.5px 10px 2.5px 10px;
-    /* border: #4C623B 1px solid; */
+.fwHeader div {
+    padding: 5px;
 }
 
 .fwHeader span:nth-child(-n+2) {
@@ -536,7 +536,7 @@ tbody {
 
 #close {
     position: relative;
-    transform: translate(170px,-500px);
+    transform: translate(170px,-560px);
     background-color: transparent;
     color: var(--point-color);
     font-size: 2rem;
