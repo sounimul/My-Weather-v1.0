@@ -195,9 +195,11 @@
                 <form action="/saveWeather" class="saveForm">
                     <article class="fwItem">
                         <header class="fwHeader">
-                            <div>4월 24일 월요일</div>
-                            <div th:text="${ad}">대구광역시 달서구 월성 1동</div>
                             <div class="material-symbols-outlined" th:text="${current.icon}">sunny</div>
+                            <div class="fwHeaderInfo">
+                                <div>4월 24일 월요일</div>
+                                <div th:text="${ad}">대구광역시 달서구 월성 1동</div>
+                            </div>
                         </header>
                         <div class="fwDetails">
                             <div class="fwTemp">
