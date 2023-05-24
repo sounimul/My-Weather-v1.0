@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.Location;
 import weather.weatherspring.domain.Wtype;
-import weather.weatherspring.entity.BasicWeather;
-import weather.weatherspring.entity.CurrentWeather;
-import weather.weatherspring.entity.ElementForm;
-import weather.weatherspring.entity.Temperature;
+import weather.weatherspring.entity.*;
 import weather.weatherspring.service.LocationService;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.WeatherService;
@@ -194,7 +191,10 @@ public class WeatherController {
     }
 
     @PostMapping("/saveWeather")
-    public String saveWeather(){
+    public String saveWeather(@RequestBody RecordForm recordForm){
+        HttpSession session = request.getSession();
+        Record record = new Record();
+
 
         return "redirect:/weather";
     }
