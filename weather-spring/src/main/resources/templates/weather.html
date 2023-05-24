@@ -8,12 +8,12 @@
     <title>메인페이지</title>
 
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <link rel="stylesheet" href="../weatherStyle.css">
-    <script src="../weatherScript.js" defer></script>
+    <!-- <link rel="stylesheet" href="../weatherStyle.css">
+    <script src="../weatherScript.js" defer></script> -->
     
     <!-- 프론트 CSS/스크립트 -->
-<!--    <link rel="stylesheet" href="../static/weatherStyle.css">-->
-<!--    <script src="../static/weatherScript.js" defer> </script>-->
+   <link rel="stylesheet" href="../static/weatherStyle.css">
+   <script src="../static/weatherScript.js" defer> </script>
     
     <!-- 날씨 아이콘 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -195,11 +195,13 @@
                 <form action="/saveWeather" method="post" class="saveForm">
                     <article class="fwItem">
                         <header class="fwHeader">
-                            <span>4월 24일 월요일</span>
-                            <span th:text="${ad}">달서구</span>
-                            <span class="material-symbols-outlined" th:text="${current.icon}">sunny</span>
-                            <input type="hidden" name="address" th:value="${ad}">
-                            <input type="hidden" name="wmsg" th:value="${current.icon}">
+                            <div class="material-symbols-outlined" th:text="${current.icon}">sunny</div>
+                            <div class="fwHeaderInfo">
+                                <div>4월 24일 월요일</div>
+                                <div th:text="${ad}">대구광역시 달서구 월성 1동</div>
+                                <input type="hidden" name="address" th:value="${ad}">
+                                <input type="hidden" name="wmsg" th:value="${current.icon}">
+                            </div>
                         </header>
                         <div class="fwDetails">
                             <div class="fwTemp">
