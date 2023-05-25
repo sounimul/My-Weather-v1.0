@@ -62,6 +62,7 @@ let min = 0;
 let sec = 0;
 
 function getLoc(){
+    now = new Date();
     console.log('위치 시작');
     navigator.geolocation.getCurrentPosition(Sucess, Error);
     year = now.getFullYear();
@@ -141,7 +142,7 @@ function getLoc(){
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data){
-                    // location.href="/weather";
+                    location.href="/weather";
                     console.log("서버로 위치 정보를 전송했습니다.");
                 },
                 error: function(xhr, status, error){
@@ -156,11 +157,12 @@ function getLoc(){
         }
 }
 
-getLoc();
+// getLoc();
 //새로고침은 동기적이니깐, 비동기적으로 데이터 업데이트 하는 ajax 사용해볼것!
 Icon();
 
 function getClock(){
+    now = new Date();
 
     month = now.getMonth();
     date = now.getDate();

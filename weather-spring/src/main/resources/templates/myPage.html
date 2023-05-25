@@ -13,11 +13,13 @@
     <!-- 프론트 CSS/스크립트 -->
    <!-- <link rel="stylesheet" href="../static/myPageStyle.css">
    <script src="../static/myPageScript.js" defer></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <header class="GNB">
         <a href="/logout"><button id="logOut"><span class="material-symbols-outlined">logout</span></button></a>
-        <a href="/weather"><button id="home"><span class="material-symbols-outlined">home</span></button></a>
+        <button id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></button>
+<!--        <a href="/weather"><button id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></button></a>-->
     </header>
 
     <div class="wrapper">
@@ -177,7 +179,7 @@
                 <div class="fwWrapper">
                     <span>좋아하는 계절</span>
                     <span id="currentFw" th:text="${user.fvweather}">맑음</span>
-                    <select name="" id="fw">
+                    <select name="fvweather" id="fw">
                         <option value="">변경할 계절을 선택하세요.</option>
                         <option value="맑음">맑음</option>
                         <option value="구름 많음">구름 많음</option>
@@ -192,20 +194,5 @@
             </form>
         </div>
     </div>
-    <!-- <div class="changePWbackground">
-        <div class="changePW">
-            <button id="closeChangePW"><span class="material-symbols-outlined">close</span></button>
-            <h3>비밀번호 변경</h3>
-            <form action="/update-pw" method="post">
-                <label for="currentPW">현재 비밀번호</label>
-                <input id="currentPW" name="curPw" type="password" placeholder="비밀번호를 입력하세요" oninput="checkCurrentPW(this.value)" onchange="confirmCurrentPW()">
-                <label for="newPW">새로운 비밀번호</label>
-                <input id="newPW" name="pw" type="password" placeholder="비밀번호를 입력하세요" oninput="checkNewPW(this.value)" onchange="confirmNewPW()">
-                <label for="confirmPW">새로운 비밀번호 확인</label>
-                <input id="confirmPW" type="password" placeholder="비밀번호를 입력하세요" oninput="checkConfirmPW(this.value)" onchange="completePWC()">
-                <input type="submit" value="변경하기" id="changePW">
-            </form>
-        </div>
-    </div> -->
 </body>
 </html>
