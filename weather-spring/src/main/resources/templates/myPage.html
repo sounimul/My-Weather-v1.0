@@ -13,24 +13,13 @@
     <!-- 프론트 CSS/스크립트 -->
    <!-- <link rel="stylesheet" href="../static/myPageStyle.css">
    <script src="../static/myPageScript.js" defer></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <header class="GNB">
         <a href="/logout"><button id="logOut"><span class="material-symbols-outlined">logout</span></button></a>
-        <form action="/weather" method="POST">
-            <input name="year" style="display: none" value="" class="time">
-            <input name="month" style="display: none" value="" class="time">
-            <input name="date" style="display: none" value="" class="time">
-            <input name="hour" style="display: none" value="" class="time">
-            <input name="min" style="display: none" value="" class="time">
-            <input name="sec" style="display: none" value="" class="time">
-
-            <input name="latitude" style="display: none" value="" class="loc">
-            <input name="longitude" style="display: none" value="" class="loc">
-
-            <button type="submit" id="home"><span class="material-symbols-outlined">home</span></button>
-        </form>
-<!--        <a href="/weather"><button id="home"><span class="material-symbols-outlined">home</span></button></a>-->
+        <button id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></button>
+<!--        <a href="/weather"><button id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></button></a>-->
     </header>
 
     <div class="wrapper">
@@ -205,39 +194,5 @@
             </form>
         </div>
     </div>
-
-    <script>
-        let now = new Date(); //날짜, 시간 객체
-        let year = now.getFullYear();
-        let month = now.getMonth()+1;
-        let date = now.getDate();
-        let hour = now.getHours(); //24시간제
-        let min = now.getMinutes();
-        let sec = now.getSeconds();
-
-        navigator.geolocation.getCurrentPosition(Sucess, Error);
-        function Sucess(position){
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-
-            document.getElementsByClassName('loc')[0].setAttribute('value',latitude);
-            document.getElementsByClassName('loc')[1].setAttribute('value',longitude);
-        }
-
-        function Error(position){
-            document.getElementsByClassName('loc')[0].setAttribute('value','nodata');
-            document.getElementsByClassName('loc')[1].setAttribute('value','nodata');
-        }
-
-
-        document.getElementsByClassName('time')[0].setAttribute('value',year);
-        document.getElementsByClassName('time')[1].setAttribute('value',month);
-        document.getElementsByClassName('time')[2].setAttribute('value',date);
-        document.getElementsByClassName('time')[3].setAttribute('value',hour);
-        document.getElementsByClassName('time')[4].setAttribute('value',min);
-        document.getElementsByClassName('time')[5].setAttribute('value',sec);
-
-    </script>
-
 </body>
 </html>
