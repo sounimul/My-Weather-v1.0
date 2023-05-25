@@ -197,12 +197,12 @@
                         <header class="fwHeader">
                             <div class="material-symbols-outlined" th:text="${current.icon}">sunny</div>
                             <div class="fwHeaderInfo">
-                                <div th:text="|${element.month}월 ${element.date}일|">4월 24일 월요일</div>
+                                <div th:text="|${element.month}월 ${element.date}일 ${element.hour}시 ${element.min}분|">4월 24일 월요일</div>
                                 <div th:text="${ad}">대구광역시 달서구 월성 1동</div>
                             </div>
                             <input type="hidden" name="uid" th:value="${uid}">
-                            <input type="hidden" name="rdate" th:value="">
-                            <input type="hidden" name="rmd" th:value="|${element.month}월 ${element.date}일|">
+<!--                            <input type="hidden" name="rdate" th:value="">-->
+<!--                            <input type="hidden" name="rmd" th:value="|${element.month}월 ${element.date}일|">-->
                             <input type="hidden" name="address" th:value="${ad}">
                             <input type="hidden" name="wmsg" th:value="${current.icon}">
                         </header>

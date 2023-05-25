@@ -17,7 +17,20 @@
 <body>
     <header class="GNB">
         <a href="/logout"><button id="logOut"><span class="material-symbols-outlined">logout</span></button></a>
-        <a href="/weather"><button id="home"><span class="material-symbols-outlined">home</span></button></a>
+        <form action="/weather" method="POST">
+            <input name="year" style="display: none" value="" class="time">
+            <input name="month" style="display: none" value="" class="time">
+            <input name="date" style="display: none" value="" class="time">
+            <input name="hour" style="display: none" value="" class="time">
+            <input name="min" style="display: none" value="" class="time">
+            <input name="sec" style="display: none" value="" class="time">
+
+            <input name="latitude" style="display: none" value="" class="loc">
+            <input name="longitude" style="display: none" value="" class="loc">
+
+            <button type="submit" id="home"><span class="material-symbols-outlined">home</span></button>
+        </form>
+<!--        <a href="/weather"><button id="home"><span class="material-symbols-outlined">home</span></button></a>-->
     </header>
 
     <div class="wrapper">
@@ -177,7 +190,7 @@
                 <div class="fwWrapper">
                     <span>좋아하는 계절</span>
                     <span id="currentFw" th:text="${user.fvweather}">맑음</span>
-                    <select name="" id="fw">
+                    <select name="fvweather" id="fw">
                         <option value="">변경할 계절을 선택하세요.</option>
                         <option value="맑음">맑음</option>
                         <option value="구름 많음">구름 많음</option>
@@ -192,20 +205,39 @@
             </form>
         </div>
     </div>
-    <!-- <div class="changePWbackground">
-        <div class="changePW">
-            <button id="closeChangePW"><span class="material-symbols-outlined">close</span></button>
-            <h3>비밀번호 변경</h3>
-            <form action="/update-pw" method="post">
-                <label for="currentPW">현재 비밀번호</label>
-                <input id="currentPW" name="curPw" type="password" placeholder="비밀번호를 입력하세요" oninput="checkCurrentPW(this.value)" onchange="confirmCurrentPW()">
-                <label for="newPW">새로운 비밀번호</label>
-                <input id="newPW" name="pw" type="password" placeholder="비밀번호를 입력하세요" oninput="checkNewPW(this.value)" onchange="confirmNewPW()">
-                <label for="confirmPW">새로운 비밀번호 확인</label>
-                <input id="confirmPW" type="password" placeholder="비밀번호를 입력하세요" oninput="checkConfirmPW(this.value)" onchange="completePWC()">
-                <input type="submit" value="변경하기" id="changePW">
-            </form>
-        </div>
-    </div> -->
+
+    <script>
+        let now = new Date(); //날짜, 시간 객체
+        let year = now.getFullYear();
+        let month = now.getMonth()+1;
+        let date = now.getDate();
+        let hour = now.getHours(); //24시간제
+        let min = now.getMinutes();
+        let sec = now.getSeconds();
+
+        navigator.geolocation.getCurrentPosition(Sucess, Error);
+        function Sucess(position){
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            document.getElementsByClassName('loc')[0].setAttribute('value',latitude);
+            document.getElementsByClassName('loc')[1].setAttribute('value',longitude);
+        }
+
+        function Error(position){
+            document.getElementsByClassName('loc')[0].setAttribute('value','nodata');
+            document.getElementsByClassName('loc')[1].setAttribute('value','nodata');
+        }
+
+
+        document.getElementsByClassName('time')[0].setAttribute('value',year);
+        document.getElementsByClassName('time')[1].setAttribute('value',month);
+        document.getElementsByClassName('time')[2].setAttribute('value',date);
+        document.getElementsByClassName('time')[3].setAttribute('value',hour);
+        document.getElementsByClassName('time')[4].setAttribute('value',min);
+        document.getElementsByClassName('time')[5].setAttribute('value',sec);
+
+    </script>
+
 </body>
 </html>

@@ -75,13 +75,15 @@ public class WeatherController {
 
         modelAndView.setViewName("weather");
 
+        System.out.println("weather(get) "+elementForm.getHour()+" "+elementForm.getMin());
+
         return modelAndView;
     }
 
     /* 현재 위치의 날씨 구하기 */
     @PostMapping("/weather")
-//    public Object createWeather(@RequestBody ElementForm elementForm){
-    public ModelAndView createWeather(@RequestBody ElementForm elementForm){
+    public Object createWeather(@RequestBody ElementForm elementForm){
+//    public ModelAndView createWeather(@RequestBody ElementForm elementForm){
         Location location = new Location();
         HttpSession session = request.getSession();
         CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
@@ -194,10 +196,12 @@ public class WeatherController {
         session.setAttribute("minmax-temp",temp);
         session.setAttribute("element",elementForm);    // 임시 추가
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/weather");
+//        ModelAndView modelAndView = new ModelAndView("redirect:/weather");
+//
+//        return modelAndView;
+        System.out.println("weather(post) "+elementForm.getHour()+" "+elementForm.getMin());
 
-        return modelAndView;
-//        return currentWeather;
+        return elementForm;
     }
 
     @PostMapping("/saveWeather")
