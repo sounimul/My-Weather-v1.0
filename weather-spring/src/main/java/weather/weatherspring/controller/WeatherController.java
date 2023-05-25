@@ -41,10 +41,12 @@ public class WeatherController {
         CurrentWeather cw=new CurrentWeather();
         BasicWeather pfw = new BasicWeather();
         Temperature t = new Temperature();
+        ElementForm ef = new ElementForm();
 
         // session으로부터 uid 가져와 modelAndView에 저장
         Long uid=(Long) session.getAttribute("uid");
-        modelAndView.addObject("username",memberService.findMember(uid).get().getNickname());
+        modelAndView.addObject("uid",uid);
+//        modelAndView.addObject("username",memberService.findMember(uid).get().getNickname());
 
         // session으로부터 주소 가져와 modelAndView에 저장
         String ad = (String) session.getAttribute("address");
@@ -66,6 +68,11 @@ public class WeatherController {
         if (temp==null) modelAndView.addObject("minmax",t);
         else modelAndView.addObject("minmax",temp);
 
+        // 현재 날짜, 시간
+        ElementForm elementForm = (ElementForm) session.getAttribute("element");
+        if(elementForm==null) modelAndView.addObject("element",ef);
+        else modelAndView.addObject("element",elementForm);
+
         modelAndView.setViewName("weather");
 
         return modelAndView;
@@ -73,6 +80,7 @@ public class WeatherController {
 
     /* 현재 위치의 날씨 구하기 */
     @PostMapping("/weather")
+//    public Object createWeather(@RequestBody ElementForm elementForm){
     public ModelAndView createWeather(@RequestBody ElementForm elementForm){
         Location location = new Location();
         HttpSession session = request.getSession();
@@ -184,16 +192,18 @@ public class WeatherController {
         session.setAttribute("current-weather",currentWeather);
         session.setAttribute("pf-weather",pfWeather);
         session.setAttribute("minmax-temp",temp);
+        session.setAttribute("element",elementForm);    // 임시 추가
 
         ModelAndView modelAndView = new ModelAndView("redirect:/weather");
 
         return modelAndView;
+//        return currentWeather;
     }
 
     @PostMapping("/saveWeather")
-    public String saveWeather(@RequestBody RecordForm recordForm){
+    public String saveWeather(@RequestBody Record record){
         HttpSession session = request.getSession();
-        Record record = new Record();
+
 
 
         return "redirect:/weather";
