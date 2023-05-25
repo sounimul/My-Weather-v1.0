@@ -172,6 +172,7 @@ public class MemberController {
         session.setAttribute("current-weather",currentWeather);
         session.setAttribute("pf-weather",pfWeather);
         session.setAttribute("minmax-temp",temp);
+        session.setAttribute("element",elementForm);
 
         return "redirect:/weather";
     }
