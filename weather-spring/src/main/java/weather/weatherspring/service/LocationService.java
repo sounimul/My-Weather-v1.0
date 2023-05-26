@@ -81,9 +81,41 @@ public class LocationService {
     }
 
     /* 위치를 중기육상예보 구역으로 변환 */
+    public String getAreaCode(String ad){
+        String[] gangwon_east={"강릉", "동해", "속초", "삼척", "태백", "고성", "양양"};
+        String[] gangwon_west={"철원", "화천", "양구", "인제", "춘천", "홍천", "횡성", "원주", "평창", "영월", "정선"};
 
+        if (ad.startsWith("서울") | ad.startsWith("인천") | ad.startsWith("경기도"))
+            return "11B00000";
+        else if (ad.startsWith("대전") | ad.startsWith("세종") | ad.startsWith("충청남도"))
+            return "11C20000";
+        else if (ad.startsWith("충청북도"))
+            return "11C10000";
+        else if (ad.startsWith("광주") | ad.startsWith("전라남도"))
+            return "11F20000";
+        else if (ad.startsWith("전라북도"))
+            return"11F10000";
+        else if (ad.startsWith("대구") | ad.startsWith("경상북도"))
+            return"11H10000";
+        else if (ad.startsWith("부산") | ad.startsWith("울산") | ad.startsWith("경상남도"))
+            return "11H20000";
+        else if (ad.startsWith("제주도"))
+            return "11G00000";
+        else if (ad.startsWith("강원도")){
+            // 강원도 영동
+            for(String loc:gangwon_east){
+                if (ad.startsWith("강원도 "+loc))
+                    return "11D20000";
+            }
+            // 강원도 영서
+            for(String loc:gangwon_west){
+                if(ad.startsWith("강원도 "+loc))
+                    return "11D10000";
+            }
 
-    /* 위치를 중기기온예보 구역으로 변환 */
+        }
+        return "11B00000";
+    }
 
 
 }
