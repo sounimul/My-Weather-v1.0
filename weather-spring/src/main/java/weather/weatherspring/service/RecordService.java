@@ -1,14 +1,10 @@
 package weather.weatherspring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.entity.Search;
+import weather.weatherspring.domain.Record;
+import weather.weatherspring.domain.RecordId;
 import weather.weatherspring.repository.RecordRepository;
-import weather.weatherspring.repository.RecordSpecification;
 
 import java.util.List;
 
@@ -22,6 +18,24 @@ public class RecordService {
         this.recordRepository = recordRepository;
     }
 
+    /* record 저장 */
+    public Record saveRecord(Record record){
+        RecordId recordId = new RecordId();
+        recordId.setUid(record.getUid());
+        recordId.setRdate(record.getRdate());
+        validateDuplicateRecord(recordId);
+        return recordRepository.save(record);
+    }
+
+    /* 중복 pk 체크 */
+    private void validateDuplicateRecord(RecordId recordId){
+        recordRepository.findByPk(recordId)
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 기록입니다.");
+                });
+    }
+
+    /* record 리스트 조회 */
     public List<Record> findRecordList(Long uid){
         return recordRepository.findAll(uid);
     }

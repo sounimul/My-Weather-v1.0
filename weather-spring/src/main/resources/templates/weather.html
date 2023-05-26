@@ -200,18 +200,12 @@
                                 <div th:text="|${element.month}월 ${element.date}일 ${element.hour}시 ${element.min}분|">4월 24일 월요일</div>
                                 <div th:text="${ad}">대구광역시 달서구 월성 1동</div>
                             </div>
-                            <input type="hidden" name="uid" th:value="${uid}">
-<!--                            <input type="hidden" name="rdate" th:value="">-->
-<!--                            <input type="hidden" name="rmd" th:value="|${element.month}월 ${element.date}일|">-->
-                            <input type="hidden" name="address" th:value="${ad}">
-                            <input type="hidden" name="wmsg" th:value="${current.icon}">
                         </header>
                         <div class="fwDetails">
                             <div class="fwTemp">
                                 <div class="saveTempInfo">
                                     <span class="material-symbols-outlined">device_thermostat</span>
                                     <span th:text="|${current.t1h}℃|">25°C</span>
-                                    <input type="hidden" name="temperature" th:value="${current.t1h}">
                                 </div>
                                 <select name="saveTempComment" id="">
                                     <option value="">기온 어때요?</option>
@@ -223,7 +217,7 @@
                                     <option value="pleasantly cool">선선해요</option>
                                     <option value="chilly">쌀쌀해요</option>
                                     <option value="cold">추워요</option>
-                                    <option value="feezing cold">매우 추워요</option>
+                                    <option value="freezing cold">매우 추워요</option>
                                 </select>
                             </div>
 
@@ -231,7 +225,6 @@
                                 <div class="saveHumidInfo">
                                     <span class="material-symbols-outlined">water_drop</span>
                                     <span th:text="|${current.reh}%|">60%</span>
-                                    <input type="hidden" name="humidity" th:value="${current.reh}">
                                 </div>
                                 <select name="saveHumidComment" id="">
                                     <option value="">습도 어때요?</option>
@@ -245,7 +238,6 @@
                                 <div class="saveRainInfo">
                                     <span class="material-symbols-outlined">rainy</span>
                                     <span th:text="|${current.rn1}mm|">2.5mm</span>
-                                    <input type="hidden" name="precipitation" th:value="${current.rn1}">
                                 </div>
                                 <select name="saveRainComment" id="">
                                     <option value="">비는 어떻게 와요?</option>
@@ -258,7 +250,8 @@
                             </div>
                         </div>
                     </article>
-                    <input type="button" value="저장" id="save">
+                    <button type="submit" id="save">저장</button>
+<!--                    <input type="button" value="저장" id="save">-->
                 </form>
             </div>
 

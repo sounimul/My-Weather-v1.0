@@ -1,6 +1,9 @@
 package weather.weatherspring.domain;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 @Entity     // JPA가 관리하는 entity
 @Table(name="weather_record")
@@ -8,8 +11,8 @@ import jakarta.persistence.*;
 public class Record {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Uuid")
     private Long uid;
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Rdate")
-    private String rdate;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Rdate") @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime rdate;
     private String rmd;
     @Column(name="Address")
     private String ad;
@@ -31,11 +34,11 @@ public class Record {
         this.uid = uid;
     }
 
-    public String getRdate() {
+    public LocalDateTime getRdate() {
         return rdate;
     }
 
-    public void setRdate(String rdate) {
+    public void setRdate(LocalDateTime rdate) {
         this.rdate = rdate;
     }
 

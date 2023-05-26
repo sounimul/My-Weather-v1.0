@@ -4,16 +4,23 @@ import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.Location;
+import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.*;
 import weather.weatherspring.service.LocationService;
-import weather.weatherspring.service.MemberService;
+import weather.weatherspring.service.RecordService;
 import weather.weatherspring.service.WeatherService;
 
 import java.io.IOException;
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 public class WeatherController {
@@ -24,12 +31,12 @@ public class WeatherController {
     @Autowired
     private final WeatherService weatherService;
     @Autowired
-    private final MemberService memberService;
+    private final RecordService recordService;
 
-    public WeatherController(LocationService locationService, WeatherService weatherService, MemberService memberService) {
+    public WeatherController(LocationService locationService, WeatherService weatherService, RecordService recordService) {
         this.locationService = locationService;
         this.weatherService = weatherService;
-        this.memberService = memberService;
+        this.recordService = recordService;
     }
 
     /* weather view */
@@ -46,7 +53,6 @@ public class WeatherController {
         // session으로부터 uid 가져와 modelAndView에 저장
         Long uid=(Long) session.getAttribute("uid");
         modelAndView.addObject("uid",uid);
-//        modelAndView.addObject("username",memberService.findMember(uid).get().getNickname());
 
         // session으로부터 주소 가져와 modelAndView에 저장
         String ad = (String) session.getAttribute("address");
@@ -83,7 +89,6 @@ public class WeatherController {
     /* 현재 위치의 날씨 구하기 */
     @PostMapping("/weather")
     public Object createWeather(@RequestBody ElementForm elementForm){
-//    public ModelAndView createWeather(@RequestBody ElementForm elementForm){
         Location location = new Location();
         HttpSession session = request.getSession();
         CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
@@ -196,21 +201,117 @@ public class WeatherController {
         session.setAttribute("minmax-temp",temp);
         session.setAttribute("element",elementForm);    // 임시 추가
 
-//        ModelAndView modelAndView = new ModelAndView("redirect:/weather");
-//
-//        return modelAndView;
         System.out.println("weather(post) "+elementForm.getHour()+" "+elementForm.getMin());
 
         return elementForm;
     }
 
     @PostMapping("/saveWeather")
-    public String saveWeather(@RequestBody Record record){
+    public ResponseEntity<?> saveWeather(RecordForm recordForm) throws Exception{
+        // uid, rdate, rmd, ad, wmsg, temp, humid, precip 은 session에서 받아오기
+        // tfeel, hfeel, pfeel은 @RequestBody로 받아오기
         HttpSession session = request.getSession();
+        Record record = new Record();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        /* 시간, 위치, 날씨 정보(session) */
+        ElementForm elementForm = (ElementForm) session.getAttribute("element");
+        CurrentWeather current = (CurrentWeather) session.getAttribute("current-weather");
 
+        String rdate = elementForm.getYear() + String.format("-%02d",elementForm.getMonth()) + String.format("-%02d",elementForm.getDate())
+                + String.format(" %02d",elementForm.getHour()) + String.format(":%02d",elementForm.getMin()) + String.format(":%02d",elementForm.getSec());
+        String rmd = elementForm.getMonth() + "월 " + elementForm.getDate() + "일";
 
-        return "redirect:/weather";
+        record.setUid((Long) session.getAttribute("uid"));
+        record.setRdate(LocalDateTime.parse(rdate, formatter));
+        record.setRmd(rmd);
+        record.setAd((String) session.getAttribute("address"));
+        record.setWmsg(current.getIcon());
+        record.setTemp(Double.parseDouble(current.getT1h()));
+        record.setHumid(Integer.parseInt(current.getReh()));
+        record.setPrecip(Double.parseDouble(current.getRn1()));
+
+        /* 체감 날씨 기록(<form>) */
+        // 1. 기온 체감
+        switch (recordForm.getSaveTempComment()){
+            case "melting":
+                record.setTfeel("무더워요");
+                break;
+            case "hot":
+                record.setTfeel("더워요");
+                break;
+            case "warm":
+                record.setTfeel("따뜻해요");
+                break;
+            case "mild":
+                record.setTfeel("포근해요");
+                break;
+            case "cool":
+                record.setTfeel("시원해요");
+                break;
+            case "pleasantly cool":
+                record.setTfeel("선선해요");
+                break;
+            case "chilly":
+                record.setTfeel("쌀쌀해요");
+                break;
+            case "cold":
+                record.setTfeel("추워요");
+                break;
+            case "freezing cold":
+                record.setTfeel("매우 추워요");
+                break;
+            default:
+                record.setTfeel("-");
+        }
+        // 2. 습도 체감
+        switch(recordForm.getSaveHumidComment()){
+            case "humid":
+                record.setHfeel("습해요");
+                break;
+            case "fresh":
+                record.setHfeel("쾌적해요");
+                break;
+            case "dry":
+                record.setHfeel("건조해요");
+                break;
+            default:
+                record.setHfeel("-");
+        }
+        // 3. 강수 체감
+        switch(recordForm.getSaveRainComment()){
+            case "no":
+                record.setPfeel("안와요");
+                break;
+            case "light":
+                record.setPfeel("약한 비");
+                break;
+            case "rain":
+                record.setPfeel("보통 비");
+                break;
+            case "heavy":
+                record.setPfeel("강한 비");
+                break;
+            case "shower":
+                record.setPfeel("쏟아져요");
+                break;
+            default:
+                record.setPfeel("-");
+        }
+
+        System.out.println(record.getRdate());
+        System.out.println(record.getAd());
+        System.out.println(record.getTfeel());
+        System.out.println(record.getHfeel());
+        System.out.println(record.getPfeel());
+
+        // 체감 날씨 Record 저장
+        recordService.saveRecord(record);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/weather"));
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+
     }
 
 }

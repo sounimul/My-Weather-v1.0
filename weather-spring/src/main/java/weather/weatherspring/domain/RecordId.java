@@ -1,19 +1,25 @@
 package weather.weatherspring.domain;
 
+import jakarta.persistence.Column;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class RecordId implements Serializable {
+    @Column(name="Uuid")
     private Long uid;
-    private String rdate;
+    @Column(name="Rdate")
+    private LocalDateTime rdate;
 
     // 기본 생성자 선언
     public RecordId() { }
 
-    public RecordId(Long uid, String rdate) {
+    public RecordId(Long uid, LocalDateTime rdate) {
         this.uid = uid;
         this.rdate = rdate;
     }
+
     // equals() 구현
     @Override
     public boolean equals(Object o){
@@ -27,4 +33,21 @@ public class RecordId implements Serializable {
     public int hashCode(){
         return Objects.hash(uid,rdate);
     }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
+
+    public LocalDateTime getRdate() {
+        return rdate;
+    }
+
+    public void setRdate(LocalDateTime rdate) {
+        this.rdate = rdate;
+    }
+
 }
