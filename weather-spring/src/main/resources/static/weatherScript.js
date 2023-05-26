@@ -170,6 +170,50 @@ function getClock(){
     hour = now.getHours(); //24시간제
     min = now.getMinutes();
 
+    /* 5일 요일 */
+    if(day===2) { //화
+        futureDay1.innerText = day_arr[3];
+        futureDay2.innerText = day_arr[4];
+        futureDay3.innerText = day_arr[5];
+        futureDay4.innerText = day_arr[6];
+        futureDay5.innerText = day_arr[1];
+    }
+    else if(day===3) { //수
+        futureDay1.innerText = day_arr[4];
+        futureDay2.innerText = day_arr[5];
+        futureDay3.innerText = day_arr[6];
+        futureDay4.innerText = day_arr[0];
+        futureDay5.innerText = day_arr[1];
+    }
+    else if(day===4) { //목
+        futureDay1.innerText = day_arr[5];
+        futureDay2.innerText = day_arr[6];
+        futureDay3.innerText = day_arr[0];
+        futureDay4.innerText = day_arr[1];
+        futureDay5.innerText = day_arr[2];
+    }
+    else if(day===5) { //금
+        futureDay1.innerText = day_arr[6];
+        futureDay2.innerText = day_arr[0];
+        futureDay3.innerText = day_arr[1];
+        futureDay4.innerText = day_arr[2];
+        futureDay5.innerText = day_arr[3];
+    }
+    else if(day===6) { //토
+        futureDay1.innerText = day_arr[0];
+        futureDay2.innerText = day_arr[1];
+        futureDay3.innerText = day_arr[2];
+        futureDay4.innerText = day_arr[3];
+        futureDay5.innerText = day_arr[4];
+    }
+    else { //나머지
+        futureDay1.innerText = day_arr[day+1];
+        futureDay2.innerText = day_arr[day+2];
+        futureDay3.innerText = day_arr[day+3];
+        futureDay4.innerText = day_arr[day+4];
+        futureDay5.innerText = day_arr[day+5];
+    }
+
     // console.log(hour, min);
 
     if(min<10) clock.innerText = `${month+1}월 ${date}일 ${day_arr[day]}요일 ${hour}시 0${min}분`;
