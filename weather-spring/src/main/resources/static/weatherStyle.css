@@ -251,6 +251,7 @@ button {
     border: 8px solid var(--point-color);
     /* text-align: center; */
     display: flex;
+    /* flex-direction: column; */
     justify-content: space-around;
     align-items: center;
 }
@@ -259,13 +260,34 @@ button {
     font-size: 30px;
     color: var(--point-color);
     font-weight: 900;
+    height: 80px;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
 }
 
-#currentTemp{
+.currentTemp {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: right;
+    height: 80px;
+}
+
+.stdTime {
+    /* border: 1px solid black; */
+    font-size: 14px;
+    text-align: right;
+}
+
+#nowTemp{
     font-size: 30px;
     font-weight: 900;
     color: var(--point-color);
+    /* border: 1px solid black; */
 }
+
 
 /* 1시간 후 날씨 */
 .future {

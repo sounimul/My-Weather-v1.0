@@ -12,8 +12,8 @@
     <script src="../weatherScript.js" defer></script>
     
     <!-- 프론트 CSS/스크립트 -->
-<!--   <link rel="stylesheet" href="../static/weatherStyle.css">-->
-<!--   <script src="../static/weatherScript.js" defer> </script>-->
+  <!-- <link rel="stylesheet" href="../static/weatherStyle.css">
+  <script src="../static/weatherScript.js" defer> </script> -->
     
     <!-- 날씨 아이콘 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -73,9 +73,19 @@
                                 </div>
                             </div>
                             <div class="now">
-                                <div id="currentExp" th:text="${current.status}"></div>
-                                <div id="currentTemp" th:text="|${current.t1h}℃|"></div>
+                                <div id="currentExp" th:text="${current.status}">맑음</div>
+                                <div class="currentTemp">
+                                    <div class="stdTime">기준시간</div>
+                                    <div id="nowTemp" th:text="|${current.t1h}℃|">24.58</div>
+                                </div>
                             </div>
+                            <!-- <div class="now">
+                                <div class="stdTime">기준시간</div>
+                                <div class="currentInfo">
+                                    <div id="currentExp" th:text="${current.status}">맑음</div>
+                                    <div id="nowTemp" th:text="|${current.t1h}℃|">24.58</div>
+                                </div>
+                            </div> -->
                             <div class="future">
                                 <div id="futureHour"></div>
                                 <div class="futureInfo">
