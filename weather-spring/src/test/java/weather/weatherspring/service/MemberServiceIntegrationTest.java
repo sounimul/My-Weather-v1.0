@@ -33,7 +33,7 @@ public class MemberServiceIntegrationTest {
         Long saveUid = memberService.join(member);
 
         // Then
-        Member findMember = memberService.findOne(member).get();
+        Member findMember = memberRepository.findByUid(saveUid).get();
         assertThat(member.getId()).isEqualTo(findMember.getId());
 
     }

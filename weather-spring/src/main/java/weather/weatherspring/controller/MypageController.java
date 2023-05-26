@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import weather.weatherspring.domain.Member;
+import weather.weatherspring.domain.Record;
 import weather.weatherspring.entity.MemberForm;
 import weather.weatherspring.entity.Search;
 import weather.weatherspring.service.MemberService;
