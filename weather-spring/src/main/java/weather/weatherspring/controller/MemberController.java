@@ -83,6 +83,9 @@ public class MemberController {
         JsonNode address=locationService.getAddress(elementForm).block();
         location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
 
+        // 주소 -> 중기예보구역 코드
+        String areaCode= locationService.getAreaCode(location.getAd());
+
         // 단기예보 - 오늘 최고, 최저기온
         JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
         // 단기예보 - 2일치 예보

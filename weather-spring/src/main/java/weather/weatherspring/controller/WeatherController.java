@@ -110,6 +110,9 @@ public class WeatherController {
         JsonNode address=locationService.getAddress(elementForm).block();
         location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
 
+        // 주소 -> 중기예보구역 코드
+        String areaCode= locationService.getAreaCode(location.getAd());
+
         // 단기예보 - 오늘 최고, 최저기온
         JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
         // 단기예보 - 2일치 예보
@@ -144,7 +147,7 @@ public class WeatherController {
 
         // 1시간 전 기온, 날씨 - 초단기예보
         pfWeather.setPpty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
-        pfWeather.setPsky(srtFcst2.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
+        pfWeather.setPsky(srtFcst2.get( "response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
         pfWeather.setPt1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
         if (pfWeather.getPpty().equals("0")) wtype.setWcode("SKY_"+pfWeather.getPsky());
         else wtype.setWcode("PTY_"+pfWeather.getPpty());
