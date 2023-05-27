@@ -1,12 +1,14 @@
 package weather.weatherspring.entity;
 
-public class Temperature {
+public class MidWeather {
     private String tmx="";
     private String tmn="";
     private String[] fcstTmx={"",""};
     private String[] fcstTmn={"",""};
     private String[] minName={"",""};
     private String[] maxName={"",""};
+    private String[] weather = {"","","","","",""};
+    private String[] icon = {"","","","","",""};
 
     public String getTmx() {
         return tmx;
@@ -54,5 +56,21 @@ public class Temperature {
 
     public void setMaxName(String[] maxName) {
         this.maxName = maxName;
+    }
+
+    public String[] getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String[] weather) {
+        this.weather = weather;
+    }
+
+    public String[] getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String[] icon) {
+        this.icon = icon;
     }
 }

@@ -20,6 +20,7 @@ public class WeatherService {
     private static final String KMA_SRT_NCST_URL="/VilageFcstInfoService_2.0/getUltraSrtNcst";        // 초단기실황
     private static final String KMA_SRT_FCST_URL="/VilageFcstInfoService_2.0/getUltraSrtFcst";          // 초단기예보
     private static final String KMA_VGE_FCST_URL="/VilageFcstInfoService_2.0/getVilageFcst";          // 단기예보
+    private static final String KMA_MIDLAND_FCST_URL="/MidFcstInfoService/getMidLandFcst";
     private static final String DATA_API_KEY="gyaHQw8o7B6FzRy3woK7FUM4bVAm%2FSplTe8Rf8%2FQ%2BJSMJtOKUWKqFrVmz9uTwN9xIy%2BJJ7ryeRHFbI1LrKVQQQ%3D%3D";
     private final WebClient.Builder kmaWebClientBuilder;
     private final WeatherRepository weatherRepository;
@@ -234,19 +235,64 @@ public class WeatherService {
                 .bodyToMono(JsonNode.class);
     }
 
+    /* 중기예보 API 호출 */
+    public Mono<JsonNode> getMidForecast(ElementForm elementForm, String regId){
+        String base_url4=KMA_API_BASE_URL+KMA_MIDLAND_FCST_URL;    // 중기 육상 예보
+
+        // UriBuild 설정을 해주는 DefaultUriBuilderFactory class의 인스턴스 생성
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(base_url4);
+        // 인코딩 mode 설정
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
+
+        WebClient kmaWebClient4 = kmaWebClientBuilder
+                .uriBuilderFactory(factory)
+                .baseUrl(base_url4)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        /* 날짜, 시간 계산 */
+        String datetime=calDate(elementForm,5);
+
+        // 0 ~ 5시
+        if(elementForm.getHour()>=0 & elementForm.getHour()<6)
+            datetime = datetime + "1800";
+        // 6 ~ 17시
+        else if (elementForm.getHour()>=6 & elementForm.getHour()<18)
+            datetime = datetime + "0600";
+        // 18 ~ 23시
+        else if (elementForm.getHour()>=18 & elementForm.getHour()<24)
+            datetime = datetime + "1800";
+
+        String finalDatetime = datetime;
+
+        return kmaWebClient4.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("serviceKey",DATA_API_KEY)
+                        .queryParam("numOfRows","50")
+                        .queryParam("pageNo","1")
+                        .queryParam("dataType","JSON")
+                        .queryParam("regId", regId)
+                        .queryParam("tmFc", finalDatetime)
+                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(JsonNode.class);
+
+    }
+
     public String calDate(ElementForm ef, int h){   // h : 날짜가 바뀌는 시간
         int[] enddate={31,28,31,30,31,30,31,31,30,31,30,31};    // 월의 마지막 날
         if(ef.getYear()%4==0) enddate[1]=29;           // 윤년인 경우 2월 29일까지
 
         String date="";
 
-        // 년이 바뀔 때 - 1월 1일 h(0~1)시
+        // 년이 바뀔 때 - 1월 1일 h시 이전
         if(ef.getMonth()==1 & ef.getDate()==1 & ef.getHour()<=h)
             date = (ef.getYear() - 1) + "1231";
-        // 월이 바뀔 때 - 1일 h(0~1)시
+        // 월이 바뀔 때 - 1일 h시 이전
         else if(ef.getDate()==1 & ef.getHour()<=h)
             date = ef.getYear() + String.format("%02d", ef.getMonth() - 1) + enddate[ef.getMonth() - 2];
-        // 일이 바뀔 때 - h(0~1)시
+        // 일이 바뀔 때 - h시 이전
         else if(ef.getHour()<=h)
             date = ef.getYear() + String.format("%02d", ef.getMonth()) + String.format("%02d", ef.getDate() - 1);
         // 날짜가 바뀌지 않을 때
@@ -258,6 +304,19 @@ public class WeatherService {
 
     public Optional<Wtype> findWtype(String wcode){
         return weatherRepository.findByWcode(wcode);
+    }
+
+    public String getIcon(String wea){
+        String icon="";
+        if(wea.equals("맑음")) icon="sunny";
+        else if(wea.equals("구름많음")) icon="partly_cloudy_day";
+        else if(wea.equals("흐림")) icon="cloudy";
+        else if(wea.equals("구름많고 비") | wea.equals("흐리고 비")) icon="rainy";
+        else if(wea.equals("구름많고 눈") | wea.equals("흐리고 눈")) icon="weather_snowy";
+        else if(wea.equals("구름많고 비/눈") | wea.equals("흐리고 비/눈")) icon="weather_mix";
+        else if(wea.equals("구름많고 소나기") | wea.equals("흐리고 소나기")) icon="rainy_heavy";
+
+        return icon;
     }
 
 

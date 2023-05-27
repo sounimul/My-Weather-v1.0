@@ -111,8 +111,8 @@
                     <td class="tdh">최고기온</td>
                 </tr>
                 <tr>
-                    <td id="infoLow" th:text="|${minmax.tmn}℃|"></td>
-                    <td id="infoHigh" th:text="|${minmax.tmx}℃|"></td>
+                    <td id="infoLow" th:text="|${mid.tmn}℃|"></td>
+                    <td id="infoHigh" th:text="|${mid.tmx}℃|"></td>
                 </tr>
                 <tr>
                     <td class="tdh">습도</td>
@@ -131,12 +131,12 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                            <div class="lowTemp" th:text="|${minmax.fcstTmn[0]}℃|"></div>
-                            <div class="lowExp"><span class="material-symbols-outlined" th:text="${minmax.minName[0]}"></span></div>
+                            <div class="lowTemp" th:text="|${mid.fcstTmn[0]}℃|"></div>
+                            <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.minName[0]}"></span></div>
                         </div>
                         <div class="high">
-                            <div class="highTemp" th:text="|${minmax.fcstTmx[0]}℃|"></div>
-                            <div class="highExp"><span class="material-symbols-outlined" th:text="${minmax.maxName[0]}"></span></div>
+                            <div class="highTemp" th:text="|${mid.fcstTmx[0]}℃|"></div>
+                            <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.maxName[0]}"></span></div>
                         </div>
                     </div>
                 </li>
@@ -144,25 +144,12 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                            <div class="lowTemp" th:text="|${minmax.fcstTmn[0]}℃|"></div>
-                            <div class="lowExp"><span class="material-symbols-outlined" th:text="${minmax.minName[1]}"></span></div>
+                            <div class="lowTemp" th:text="|${mid.fcstTmn[0]}℃|"></div>
+                            <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.minName[1]}"></span></div>
                         </div>
                         <div class="high">
-                            <div class="highTemp" th:text="|${minmax.fcstTmx[0]}℃|"></div>
-                            <div class="highExp"><span class="material-symbols-outlined" th:text="${minmax.maxName[1]}"></span></div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="futureDayInfo">
-                        <div class="futureDay"></div>
-                        <div class="low">
-                            <!-- <div class="lowTemp"></div> -->
-                            <div class="lowExp"><span class="material-symbols-outlined"></span></div>
-                        </div>
-                        <div class="high">
-                            <!-- <div class="highTemp"></div> -->
-                            <div class="highExp"><span class="material-symbols-outlined"></span></div>
+                            <div class="highTemp" th:text="|${mid.fcstTmx[0]}℃|"></div>
+                            <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.maxName[1]}"></span></div>
                         </div>
                     </div>
                 </li>
@@ -171,11 +158,11 @@
                         <div class="futureDay"></div>
                         <div class="low">
                             <!-- <div class="lowTemp"></div> -->
-                            <div class="lowExp"><span class="material-symbols-outlined"></span></div>
+                            <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[0]}"></span></div>
                         </div>
                         <div class="high">
                             <!-- <div class="highTemp"></div> -->
-                            <div class="highExp"><span class="material-symbols-outlined"></span></div>
+                            <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[1]}"></span></div>
                         </div>
                     </div>
                 </li>
@@ -184,11 +171,24 @@
                         <div class="futureDay"></div>
                         <div class="low">
                             <!-- <div class="lowTemp"></div> -->
-                            <div class="lowExp"><span class="material-symbols-outlined"></span></div>
+                            <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[2]}"></span></div>
                         </div>
                         <div class="high">
                             <!-- <div class="highTemp"></div> -->
-                            <div class="highExp"><span class="material-symbols-outlined"></span></div>
+                            <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[3]}"></span></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="futureDayInfo">
+                        <div class="futureDay"></div>
+                        <div class="low">
+                            <!-- <div class="lowTemp"></div> -->
+                            <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[4]}"></span></div>
+                        </div>
+                        <div class="high">
+                            <!-- <div class="highTemp"></div> -->
+                            <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[5]}"></span></div>
                         </div>
                     </div>
                 </li>

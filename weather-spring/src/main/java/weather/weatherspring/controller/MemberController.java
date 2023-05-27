@@ -60,7 +60,7 @@ public class MemberController {
         CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
         BasicWeather pfWeather = new BasicWeather();            // 1시간 전후 날씨
         Wtype wtype = new Wtype();      // 하늘상태 + 강수형태
-        Temperature temp = new Temperature();   // 최고, 최저기온
+        MidWeather midWeather = new MidWeather();   // 3-5일치 날씨예보
 
         /*
         로그인
@@ -74,18 +74,25 @@ public class MemberController {
         /*
         날씨 받아오기
         */
+
+        /*
+        주소 처리
+         */
         // 위도, 경도 -> 기상청 x,y좌표
         elementForm=locationService.getXY(elementForm);
         location.setXcoor(elementForm.getXcoor());
         location.setYcoor(elementForm.getYcoor());
 
-        // 위도, 경도 -> 주소
+        // 위도,경도 -> 주소
         JsonNode address=locationService.getAddress(elementForm).block();
         location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
 
         // 주소 -> 중기예보구역 코드
         String areaCode= locationService.getAreaCode(location.getAd());
 
+        /*
+        날씨 예보 받아오고 처리
+         */
         // 단기예보 - 오늘 최고, 최저기온
         JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
         // 단기예보 - 2일치 예보
@@ -97,6 +104,7 @@ public class MemberController {
         // 초단기예보 - 1시간 전 날씨
         JsonNode srtFcst2=weatherService.getForecast3(elementForm,-1).block();
         // 중기예보 - 3~5일 최고, 최저기온 및 날씨
+        JsonNode midFcst=weatherService.getMidForecast(elementForm, areaCode).block();
 
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
         currentWeather.setPty(srtNcst.get("response").get("body").get("items").get("item").get(0).get("obsrValue").asText());   // 현재 강수상태
@@ -120,7 +128,7 @@ public class MemberController {
 
         // 1시간 전 기온, 날씨 - 초단기예보
         pfWeather.setPpty(srtFcst2.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText());
-        pfWeather.setPsky(srtFcst2.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
+        pfWeather.setPsky(srtFcst2.get( "response").get("body").get("items").get("item").get(18).get("fcstValue").asText());
         pfWeather.setPt1h(srtFcst2.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText());
         if (pfWeather.getPpty().equals("0")) wtype.setWcode("SKY_"+pfWeather.getPsky());
         else wtype.setWcode("PTY_"+pfWeather.getPpty());
@@ -129,8 +137,8 @@ public class MemberController {
         // 오늘의 최고, 최저기온
         for(int i=0;i<290;i++){
             String cate=vilFcst.get("response").get("body").get("items").get("item").get(i).get("category").asText();
-            if(cate.equals("TMN")) temp.setTmn(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
-            else if(cate.equals("TMX")) temp.setTmx(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
+            if(cate.equals("TMN")) midWeather.setTmn(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
+            else if(cate.equals("TMX")) midWeather.setTmx(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
         }
 
         // 2일치 최고, 최저기온, 날씨
@@ -167,14 +175,37 @@ public class MemberController {
             }
             if(j==2&k==2) break;
         }
-        temp.setFcstTmx(fcstTmx); temp.setFcstTmn(fcstTmn);
-        temp.setMaxName(maxName); temp.setMinName(minName);
+        midWeather.setFcstTmx(fcstTmx); midWeather.setFcstTmn(fcstTmn);
+        midWeather.setMaxName(maxName); midWeather.setMinName(minName);
+
+        // 3 ~ 5일 중기예보(날씨)
+        String[] wea3days = {"","","","","",""};
+        String[] icon3days = {"","","","","",""};
+        if(elementForm.getHour()<6) {    // 4,5,6일 후 자료 가져오기
+            wea3days[0] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
+            wea3days[1] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
+            wea3days[2] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
+            wea3days[3] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
+            wea3days[4] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf6Am").asText();
+            wea3days[5] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf6Pm").asText();
+        } else{     // 3,4,5일 후 자료 가져오기
+            wea3days[0] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf3Am").asText();
+            wea3days[1] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf3Pm").asText();
+            wea3days[2] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
+            wea3days[3] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
+            wea3days[4] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
+            wea3days[5] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
+        }
+        for (int i=0; i<6; i++)
+            icon3days[i]= weatherService.getIcon(wea3days[i]);
+        midWeather.setWeather(wea3days);
+        midWeather.setIcon(icon3days);
 
         // 위치정보, 날씨 정보 session에 저장
         session.setAttribute("address",location.getAd());
         session.setAttribute("current-weather",currentWeather);
         session.setAttribute("pf-weather",pfWeather);
-        session.setAttribute("minmax-temp",temp);
+        session.setAttribute("mid-weather",midWeather);
         session.setAttribute("element",elementForm);
 
         return "redirect:/weather";
