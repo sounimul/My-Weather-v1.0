@@ -23,6 +23,9 @@ public class RecordServiceIntegrationTest {
     @Autowired
     RecordRepository recordRepository;
 
+    @Autowired
+    LocationService locationService;
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Test
@@ -92,6 +95,5 @@ public class RecordServiceIntegrationTest {
         // Then
 
     }
-
 
 }
