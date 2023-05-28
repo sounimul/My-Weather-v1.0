@@ -107,8 +107,8 @@
             <h2 class="forecastSubTitle">오늘의 날씨</h2>
             <table class="info">
                 <tr>
-                    <td class="tdh">최저기온</td>
-                    <td class="tdh">최고기온</td>
+                    <td class="tdh">일 최저기온</td>
+                    <td class="tdh">일 최고기온</td>
                 </tr>
                 <tr>
                     <td id="infoLow" th:text="|${mid.tmn}℃|"></td>
@@ -116,7 +116,7 @@
                 </tr>
                 <tr>
                     <td class="tdh">습도</td>
-                    <td class="tdh">강수</td>
+                    <td class="tdh">1시간 강수량</td>
                 </tr>
                 <tr>
                     <td id="infoHumidity" th:text="|${current.reh} %|"></td>
@@ -157,11 +157,11 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                            <!-- <div class="lowTemp"></div> -->
+                             <div class="lowTemp">오전</div>
                             <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[0]}"></span></div>
                         </div>
                         <div class="high">
-                            <!-- <div class="highTemp"></div> -->
+                             <div class="highTemp">오후</div>
                             <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[1]}"></span></div>
                         </div>
                     </div>
@@ -170,11 +170,11 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                            <!-- <div class="lowTemp"></div> -->
+                             <div class="lowTemp">오전</div>
                             <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[2]}"></span></div>
                         </div>
                         <div class="high">
-                            <!-- <div class="highTemp"></div> -->
+                             <div class="highTemp">오후</div>
                             <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[3]}"></span></div>
                         </div>
                     </div>
@@ -183,11 +183,11 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                            <!-- <div class="lowTemp"></div> -->
+                             <div class="lowTemp">오전</div>
                             <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[4]}"></span></div>
                         </div>
                         <div class="high">
-                            <!-- <div class="highTemp"></div> -->
+                             <div class="highTemp">오후</div>
                             <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[5]}"></span></div>
                         </div>
                     </div>
