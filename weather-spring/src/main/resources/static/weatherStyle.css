@@ -81,7 +81,7 @@ button {
 
 #openMenu {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     height: 60px;
     width: 60px;
@@ -130,6 +130,8 @@ button {
     background-color: transparent;
     border: var(--element-color) 1.5px solid;
     border-radius: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /* main center(Today Weather) */
@@ -277,7 +279,7 @@ button {
 
 .stdTime {
     /* border: 1px solid black; */
-    font-size: 14px;
+    font-size: 12px;
     text-align: right;
 }
 
@@ -544,7 +546,7 @@ tbody {
     align-items: center;
 }
 
-.saveForm input[type="button"]{
+.saveForm input[type="button"], #save{
     width: 100px;
     height: 40px;
     background-color: transparent;
