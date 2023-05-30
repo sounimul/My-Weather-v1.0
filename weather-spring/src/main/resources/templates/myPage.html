@@ -8,11 +8,12 @@
     <title>My page</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <!-- <link rel="stylesheet" href="../myPageStyle.css">
-    <script src="../myPageScript.js" defer></script> -->
+    <link rel="stylesheet" href="../myPageStyle.css">
+    <script src="../myPageScript.js" defer></script>
     <!-- 프론트 CSS/스크립트 -->
-   <link rel="stylesheet" href="../static/myPageStyle.css">
-   <script src="../static/myPageScript.js" defer></script>
+<!--   <link rel="stylesheet" href="../static/myPageStyle.css">-->
+<!--   <script src="../static/myPageScript.js" defer></script>-->
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
@@ -106,48 +107,6 @@
 
 
                 <ul class="fwList">                    
-                    <li class="fwItemWrapper">
-                        <article class="fwItem" th:each="record : ${records}">
-                            <header class="fwHeader">
-                                <h4 th:text="${record.rmd}">4월 26일</h4>
-                                <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
-                                <span class="material-symbols-outlined" onclick="pop(this)">more_horiz</span>
-                            </header>
-                            <div class="fwDetails">
-                                <p class="fwTemp">
-                                    <span class="material-symbols-outlined">device_thermostat</span>
-                                    <span th:text="|${record.temp}°C|">20°C</span>
-                                    <span th:text="${record.tfeel}">네글자용</span>
-                                </p>
-                                <p class="fwHumidity">
-                                    <span class="material-symbols-outlined">water_drop</span>
-                                    <span th:text="|${record.humid}%|">20%</span>
-                                    <span th:text="${record.hfeel}">네글자용</span>
-                                </p>
-                                <p class="fwRain">
-                                    <span class="material-symbols-outlined">rainy</span>
-                                    <span th:text="|${record.precip}mm|">5mm</span>
-                                    <span th:text="${record.pfeel}">네글자용</span>
-                                </p>
-                            </div>
-                        </article>
-
-                        <div class="saveDetailWrapper">
-                            <div class="saveDetail">
-                                <h4>상세정보</h4>
-                                <div class="saveDetailInfo">
-                                    <span><b>날짜</b></span> <span>2023.04.30</span>
-                                    <br>
-                                    <span><b>지역</b></span> <span>대구 달서구</span>
-                                </div>
-                                <div class="saveDetailBtn">
-                                    <button id="saveDetailClose" onclick="closeDetails(this)">닫기</button>
-                                    <button id="saveDetailDelete">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
                     <li class="fwItemWrapper">
                         <article class="fwItem" th:each="record : ${records}">
                             <header class="fwHeader">
