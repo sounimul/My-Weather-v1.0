@@ -10,8 +10,10 @@ import weather.weatherspring.repository.RecordRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.OPTIONAL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -45,10 +47,11 @@ public class RecordServiceIntegrationTest {
         record.setPfeel("안와요");
 
         // When
-        Record savedRecord = recordService.saveRecord(record);
+        Optional<Record> savedRecord = recordService.saveRecord(record);
+//        Record savedRecord = recordService.saveRecord(record);
         RecordId recordId = new RecordId();
-        recordId.setUid(savedRecord.getUid());
-        recordId.setRdate(savedRecord.getRdate());
+        recordId.setUid(savedRecord.get().getUid());
+        recordId.setRdate(savedRecord.get().getRdate());
 
         // Then
         Record findRecord = recordRepository.findByPk(recordId).get();
@@ -87,12 +90,14 @@ public class RecordServiceIntegrationTest {
 
         // When
         recordService.saveRecord(record);
-        IllegalStateException e = assertThrows(IllegalStateException.class,
-                () -> recordService.saveRecord(record2));
-
-        assertThat(e.getMessage()).isEqualTo("이미 존재하는 기록입니다.");
+        Optional<Record> savedRecord = recordService.saveRecord(record2);
+//        IllegalStateException e = assertThrows(IllegalStateException.class,
+//                () -> recordService.saveRecord(record2));
+//
+//        assertThat(e.getMessage()).isEqualTo("이미 존재하는 기록입니다.");
 
         // Then
+        assertThat(savedRecord).isEmpty();
 
     }
 

@@ -73,6 +73,8 @@ public class MemberController {
         // 로그인 실패
         if(member2.isEmpty()){
             System.out.println("아이디 또는 비밀번호가 정확하지 않습니다.");
+            request.setAttribute("msg","아이디 또는 비밀번호가 정확하지 않습니다.");
+            request.setAttribute("url","/");
             return "alert";
         }
 
