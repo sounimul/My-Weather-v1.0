@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @RestController
 public class WeatherController {
@@ -247,6 +248,7 @@ public class WeatherController {
         HttpSession session = request.getSession();
         Record record = new Record();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        HttpHeaders headers = new HttpHeaders();
 
         /* 시간, 위치, 날씨 정보(session) */
         ElementForm elementForm = (ElementForm) session.getAttribute("element");
@@ -340,12 +342,28 @@ public class WeatherController {
         System.out.println(record.getPfeel());
 
         // 체감 날씨 Record 저장
-        recordService.saveRecord(record);
+        Optional<Record> savedRecord = recordService.saveRecord(record);
+        if(savedRecord.isEmpty()){
+            System.out.println("해당 날짜, 시간의 기록이 이미 존재합니다.");
+            headers.setLocation(URI.create("/alert"));
+        }
+        else{
+            headers.setLocation(URI.create("/weather"));
+        }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/weather"));
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 
+    }
+
+    @GetMapping("/alert")
+    public ModelAndView alertRecord(){
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("msg","해당 날짜, 시간의 기록이 이미 존재합니다.");
+        modelAndView.addObject("url","/weather");
+
+        modelAndView.setViewName("alert");
+        return modelAndView;
     }
 
 }

@@ -7,6 +7,7 @@ import weather.weatherspring.domain.RecordId;
 import weather.weatherspring.repository.RecordRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public class RecordService {
@@ -19,20 +20,23 @@ public class RecordService {
     }
 
     /* record 저장 */
-    public Record saveRecord(Record record){
+    public Optional<Record> saveRecord(Record record){
         RecordId recordId = new RecordId();
         recordId.setUid(record.getUid());
         recordId.setRdate(record.getRdate());
-        validateDuplicateRecord(recordId);
-        return recordRepository.save(record);
+
+        // Record 중복 아이디,시간 체크
+        Optional<Record> valid=Optional.empty();
+        if(validateDuplicateRecord(recordId).isPresent()){
+            return valid;
+        }
+        // 중복되지 않을 때
+        return Optional.of(recordRepository.save(record));
     }
 
     /* 중복 pk 체크 */
-    private void validateDuplicateRecord(RecordId recordId){
-        recordRepository.findByPk(recordId)
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 기록입니다.");
-                });
+    private Optional<Record> validateDuplicateRecord(RecordId recordId){
+        return recordRepository.findByPk(recordId);
     }
 
     /* record 리스트 조회 */
