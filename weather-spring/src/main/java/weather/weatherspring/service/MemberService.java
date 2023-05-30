@@ -7,6 +7,7 @@ import weather.weatherspring.entity.MemberForm;
 import weather.weatherspring.repository.MemberRepository;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Transactional
 public class MemberService {
@@ -35,17 +36,16 @@ public class MemberService {
 
     /* id -> 회원 조회 (로그인 시) */
     public Optional<Member> findOne(Member member) {
+        AtomicReference<Optional<Member>> found= new AtomicReference<>(memberRepository.findById(member.getId()));
         memberRepository.findById(member.getId())
-                .ifPresentOrElse(m -> {
+                .ifPresent(m -> {
                     if(!m.getPw().equals(member.getPw())) {
-                        throw new IllegalStateException("비밀번호가 일치하지 않습니다");
-                    }else if(m.getAvail().equals('N')){
-                        throw new IllegalStateException("탈퇴한 사용자입니다.");
+                        found.set(Optional.empty());
+                    }else if(m.getAvail().equals("N")){
+                        found.set(Optional.empty());
                     }
-                },() -> {
-                    throw new IllegalStateException("존재하지 않는 회원입니다.");
                 });
-        return memberRepository.findById(member.getId());
+        return found.get();
     }
 
     public Optional<Member> findMember(Long uid){

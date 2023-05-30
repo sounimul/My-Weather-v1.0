@@ -30,8 +30,4 @@ public class JpaMemberRepository implements MemberRepository{
         return result.stream().findAny();
     }
 
-    public Optional<Member> findByName(String nickname) {
-        return Optional.empty();
-    }
-
 }

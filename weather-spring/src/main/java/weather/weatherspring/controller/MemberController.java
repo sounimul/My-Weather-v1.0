@@ -2,6 +2,7 @@ package weather.weatherspring.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import weather.weatherspring.service.LocationService;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.WeatherService;
 
+import java.io.PrintWriter;
 import java.util.Optional;
 
 @Controller
@@ -68,8 +70,16 @@ public class MemberController {
         member.setId(form.getUserid());
         member.setPw(form.getPw());
         Optional<Member> member2 = memberService.findOne(member);
+        // 로그인 실패
+        if(member2.isEmpty()){
+            System.out.println("아이디 또는 비밀번호가 정확하지 않습니다.");
+            return "alert";
+        }
+
+        // 로그인 성공 시 아래 코드 수행
         // 로그인에 성공한 Member 객체를 세션에 저장
         session.setAttribute("uid",member2.get().getUid());
+
 
         /*
         날씨 받아오기
