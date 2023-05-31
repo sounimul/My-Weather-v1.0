@@ -12,8 +12,8 @@
     <script src="../weatherScript.js" defer></script>
     
     <!-- 프론트 CSS/스크립트 -->
-<!--  <link rel="stylesheet" href="../static/weatherStyle.css">-->
-<!--  <script src="../static/weatherScript.js" defer> </script>-->
+    <!-- <link rel="stylesheet" href="../static/weatherStyle.css"> -->
+    <!-- <script src="../static/weatherScript.js" defer> </script> -->
     
     <!-- 날씨 아이콘 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -157,11 +157,11 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                             <div class="lowTemp">오전</div>
+                             <div class="timeLabel">오전</div>
                             <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[0]}"></span></div>
                         </div>
                         <div class="high">
-                             <div class="highTemp">오후</div>
+                             <div class="timeLabel">오후</div>
                             <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[1]}"></span></div>
                         </div>
                     </div>
@@ -170,11 +170,11 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                             <div class="lowTemp">오전</div>
+                             <div class="timeLabel">오전</div>
                             <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[2]}"></span></div>
                         </div>
                         <div class="high">
-                             <div class="highTemp">오후</div>
+                             <div class="timeLabel">오후</div>
                             <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[3]}"></span></div>
                         </div>
                     </div>
@@ -183,11 +183,11 @@
                     <div class="futureDayInfo">
                         <div class="futureDay"></div>
                         <div class="low">
-                             <div class="lowTemp">오전</div>
+                             <div class="timeLabel">오전</div>
                             <div class="lowExp"><span class="material-symbols-outlined" th:text="${mid.icon[4]}"></span></div>
                         </div>
                         <div class="high">
-                             <div class="highTemp">오후</div>
+                             <div class="timeLabel">오후</div>
                             <div class="highExp"><span class="material-symbols-outlined" th:text="${mid.icon[5]}"></span></div>
                         </div>
                     </div>
@@ -280,6 +280,7 @@
                     <input type="radio" name="reviewStar" value="s4" id="rate4"><label for="rate4"><span class="material-symbols-outlined" id="grade4">grade</span></label>
                     <input type="radio" name="reviewStar" value="s5" id="rate5"><label for="rate5"><span class="material-symbols-outlined" id="grade5">grade</span></label>
                 </div>
+                <textarea placeholder="최대 100자" name="comment" id="comment" cols="35" rows="6" maxlength="100"></textarea>
                 <input type="submit" value="저장" id="sendFeedback">
             </form>
             <button id="feedbackClose"><span class="material-symbols-outlined">close</span></button>
