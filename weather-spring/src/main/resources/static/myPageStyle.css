@@ -506,7 +506,7 @@ select {
 .saveDetail {
     background-color: #F3ECAE;
     color: black;
-    width: 300px;
+    width: 350px;
     height: 200px;
     padding: 20px;
 
@@ -517,13 +517,19 @@ select {
 }
 
 .saveDetailInfo {
-    width: 250px;
+    width: 300px;
+}
+
+.saveDetailInfo span{
+    display: inline-block;
+    line-height: 28px;
 }
 
 .saveDetail h4 {
     width: 100%;
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    margin-top: 10px;
     border-bottom: #4C623B 1px solid;
 }
 
@@ -542,5 +548,5 @@ select {
 }
 
 .saveDetailBtn {
-    margin-top: 20px;
+    margin-top: 10px;
 }
