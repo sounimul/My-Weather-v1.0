@@ -233,7 +233,7 @@ setInterval(getClock,1000); // 1분마다 시간 새로고침
 
 /* 메뉴 */
 document.querySelector('#openMenu').addEventListener('click',()=>{
-    if(document.querySelector('.menu').style.display==='none'){
+    if(document.querySelector('.menu').style.display==='none' || document.querySelector('.menu').style.display===''){
     document.querySelector('.menu').style.display = 'flex';
     document.querySelector('#openMenu').style.border = 'none';
     document.querySelector('#openMenuIcon').innerText = 'minimize';
