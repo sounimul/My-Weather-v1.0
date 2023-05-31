@@ -34,6 +34,10 @@ public class MemberService {
                 });
     }
 
+    public Optional<Member> validateDuplicateId(String id){
+        return memberRepository.findById(id);
+    }
+
     /* id -> 회원 조회 (로그인 시) */
     public Optional<Member> findOne(Member member) {
         AtomicReference<Optional<Member>> found= new AtomicReference<>(memberRepository.findById(member.getId()));

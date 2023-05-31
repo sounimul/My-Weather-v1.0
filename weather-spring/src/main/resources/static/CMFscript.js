@@ -1,33 +1,60 @@
-let id = document.getElementById("userid");
+const id = document.getElementById("userid");
+const mail = document.getElementById("useridEmail");
 let pw = document.getElementById("pw");
 let pwc = document.getElementById("pwCheck");
 
-const id_arr = ['a','b','c'];
-
 function checkID(){
     //console.log('사용자가 원하는 아이디', id.value);
-
-    if(id.value.length===0) {
+    // const user = id.value+ '@' +mail.value;
+    // console.log(user);
+    if(id.value.length===0 || mail.value.length===0) {
         alert('아이디를 입력해 주세요');
     }
-    else if(id_arr.includes(id.value)) {
-        alert("이미 있는 아이디입니다.");
-        id.value = '';
+    else{
+        // Ajax 요청 생성하여 서버로 user 전송
+        $.ajax({
+            url:"/checkId",
+            type:"POST",
+            data:{
+                id:id.value,
+                mail:mail.value
+            },
+            success:function (data){
+                console.log("서버로 위치 정보를 전송했습니다."+data);
+                if(data===""){
+                    alert("이미 있는 아이디입니다.");
+                    id.value = '';
+                }else{
+                    alert('등록 가능한 아이디입니다.');
+                    /*자바스크립트 내 확인용 저장*/
+                    //id.value += '   ✔️'; //표시 기능, 값이 변경되어 불가, 체크 공간 구현하면 가능
+                    id.style.borderBottom = 'none';
+                    id.style.color = "green";
+                    id.setAttribute('readonly', true); //수정 불가
+                }
 
-        return false;
+            },
+            error:function(xhr, status, error){
+                console.error("서버로 위치 정보 전송하지 못하였습니다.");
+            }
+        });
     }
-
-    else {
-        alert('등록 가능한 아이디입니다.');
-        /*자바스크립트 내 확인용 저장*/
-        id_arr.push(id.value);
-        console.log(id_arr);
-        //id.value += '   ✔️'; //표시 기능, 값이 변경되어 불가, 체크 공간 구현하면 가능
-        id.style.borderBottom = 'none';
-        id.style.color = "green";
-        id.setAttribute('readonly', true); //수정 불가
-        return true;
-    }
+    // else if(id_arr.includes(id.value)) {
+    //     alert("이미 있는 아이디입니다.");
+    //     id.value = '';
+    //
+    //     return false;
+    // }
+    //
+    // else {
+    //     alert('등록 가능한 아이디입니다.');
+    //     /*자바스크립트 내 확인용 저장*/
+    //     //id.value += '   ✔️'; //표시 기능, 값이 변경되어 불가, 체크 공간 구현하면 가능
+    //     id.style.borderBottom = 'none';
+    //     id.style.color = "green";
+    //     id.setAttribute('readonly', true); //수정 불가
+    //     return true;
+    // }
 }
 
 function checkPW(){

@@ -6,8 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import weather.weatherspring.domain.Location;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.domain.Wtype;
@@ -229,6 +228,23 @@ public class MemberController {
         session.invalidate();
 
         return "redirect:/";
+    }
+
+    @PostMapping("/checkId")
+    @ResponseBody
+    public Object checkId(@RequestParam("id") String id, @RequestParam("mail") String mail){
+        String user = id+"@"+mail;
+        System.out.println(user);
+
+        Optional<Member> member = memberService.validateDuplicateId(user);
+
+        if(member.isPresent()){
+            System.out.println("중복된 아이디입니다");
+            return "";
+        }
+        System.out.println("사용 가능한 아이디입니다");
+
+        return user;
     }
 
 }
