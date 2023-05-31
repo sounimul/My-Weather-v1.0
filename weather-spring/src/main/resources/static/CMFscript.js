@@ -39,22 +39,7 @@ function checkID(){
             }
         });
     }
-    // else if(id_arr.includes(id.value)) {
-    //     alert("이미 있는 아이디입니다.");
-    //     id.value = '';
-    //
-    //     return false;
-    // }
-    //
-    // else {
-    //     alert('등록 가능한 아이디입니다.');
-    //     /*자바스크립트 내 확인용 저장*/
-    //     //id.value += '   ✔️'; //표시 기능, 값이 변경되어 불가, 체크 공간 구현하면 가능
-    //     id.style.borderBottom = 'none';
-    //     id.style.color = "green";
-    //     id.setAttribute('readonly', true); //수정 불가
-    //     return true;
-    // }
+
 }
 
 function checkPW(){
@@ -159,5 +144,16 @@ function emailChange(){
         document.getElementById('useridEmail').value = select.options[select.selectedIndex].value;
         document.getElementById('useridEmail').style.backgroundColor = 'transparent';
         document.getElementById('useridEmail').style.border = 'none';
+    }
+}
+
+function check(){
+    if(id.style.color==='green'){
+        alert('회원가입이 완료되었습니다.');
+        return true;
+    }
+    else {
+        alert("id 중복 확인이 필요합니다.");
+        return false;
     }
 }
