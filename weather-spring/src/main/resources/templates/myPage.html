@@ -107,8 +107,8 @@
 
 
                 <ul class="fwList">                    
-                    <li class="fwItemWrapper">
-                        <article class="fwItem" th:each="record : ${records}">
+                    <li class="fwItemWrapper" th:each="record : ${records}">
+                        <article class="fwItem" >
                             <header class="fwHeader">
                                 <h4 th:text="${record.rmd}">4월 26일</h4>
                                 <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
@@ -137,9 +137,9 @@
                             <div class="saveDetail">
                                 <h4>상세정보</h4>
                                 <div class="saveDetailInfo">
-                                    <span><b>날짜</b></span> <span>2023.04.30</span>
+                                    <span><b>날짜</b></span> <span th:text="${record.rdate}">2023.04.30</span>
                                     <br>
-                                    <span><b>지역</b></span> <span>대구 달서구</span>
+                                    <span><b>지역</b></span> <span th:text="${record.ad}">대구 달서구</span>
                                 </div>
                                 <div class="saveDetailBtn">
                                     <button id="saveDetailClose" onclick="closeDetails(this)">닫기</button>
