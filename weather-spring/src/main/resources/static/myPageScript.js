@@ -356,14 +356,6 @@ document.querySelector('#closeChangePF').addEventListener('click',()=>{
 //     document.querySelector('.saveDetailWrapper').style.display = 'flex';
 // })
 
-document.querySelector('#saveDetailClose').addEventListener('click',()=>{
-    document.querySelector('.saveDetailWrapper').style.display = 'none';
-})
-
-document.querySelector('#saveDetailDelete').addEventListener('click',()=>{
-    console.log('삭제');
-})
-
 /* 좋아하는 날씨 변경 */
 document.querySelector('#fw').addEventListener('change',()=>{
     document.querySelector('#currentFw').innerText = document.querySelector('#fw').value;
@@ -377,7 +369,7 @@ document.querySelector('.rIcon').addEventListener('click',()=>{
 })
 
 function pop(a){
-    console.log(a.parentElement.parentElement.parentElement);
+    // console.log(a.parentElement.parentElement.parentElement);
     const ele= a.parentElement.parentElement.parentElement;
     ele.childNodes[3].style.display = 'flex';
 }
@@ -387,17 +379,14 @@ function closeDetails(b){
     b.parentElement.parentElement.parentElement.style.display = 'none';
 }
 
-{/* <div class="saveDetailWrapper">
-<div class="saveDetail">
-    <h4>상세정보</h4>
-    <div class="saveDetailInfo">
-        <span><b>날짜</b></span> <span>2023.04.30</span>
-        <br>
-        <span><b>지역</b></span> <span>대구 달서구</span>
-    </div>
-    <div class="saveDetailBtn">
-        <button id="saveDetailClose">닫기</button>
-        <button id="saveDetailDelete">삭제</button>
-    </div>
-</div>
-</div> */}
+function confirmDelete(c){
+    const answer = confirm('정말 삭제하시겠습니까?'); //true, false
+    
+    if(answer){ //삭제 O
+
+    }else { //삭제 X
+
+    }
+
+    c.parentElement.parentElement.parentElement.style.display = 'none'; //팝업 닫기
+}
