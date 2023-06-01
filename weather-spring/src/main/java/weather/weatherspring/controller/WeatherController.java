@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import weather.weatherspring.domain.Location;
+import weather.weatherspring.entity.Location;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.*;
