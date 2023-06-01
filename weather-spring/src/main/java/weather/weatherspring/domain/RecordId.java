@@ -1,6 +1,7 @@
 package weather.weatherspring.domain;
 
 import jakarta.persistence.Column;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.Objects;
 public class RecordId implements Serializable {
     @Column(name="Uuid")
     private Long uid;
-    @Column(name="Rdate")
+    @Column(name="Rdate") @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime rdate;
 
     // 기본 생성자 선언

@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import weather.weatherspring.repository.*;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
+import weather.weatherspring.service.ReviewService;
 
 import javax.sql.DataSource;
 
@@ -49,7 +50,15 @@ public class SpringConfig {
         return new JpaRecordRepository(em);
     }
 
+    @Bean
+    public ReviewService reviewService(){
+        return new ReviewService(reviewRepository());
+    }
 
+    @Bean
+    public ReviewRepository reviewRepository(){
+        return new JpaReviewRepository(em);
+    }
 
     @Bean
     public WebClient.Builder kakaoWebClientBuilder(){

@@ -2,12 +2,11 @@ package weather.weatherspring.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import weather.weatherspring.domain.Location;
+import weather.weatherspring.entity.Location;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.*;
@@ -15,7 +14,6 @@ import weather.weatherspring.service.LocationService;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.WeatherService;
 
-import java.io.PrintWriter;
 import java.util.Optional;
 
 @Controller
