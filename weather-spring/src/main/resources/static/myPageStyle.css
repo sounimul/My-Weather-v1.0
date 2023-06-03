@@ -296,16 +296,16 @@ select {
     display: none;
     /* display: flex; */
     position: absolute;
-    background-color: transparent;
-    width: 100%;
-    height: 740px;
+    background-color: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(5px);
 }
 
 .changePF {
-    background-color: #F3ECAE;
+    background-color: #fff;
     width: 500px;
     height: 440px;
     padding: 20px;
@@ -494,7 +494,7 @@ select {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: transparent;
+    background-color: rgba(0,0,0,0.5);
     width: 100vw;
     height: 100vh;
     justify-content: center;
@@ -504,7 +504,7 @@ select {
 }
 
 .saveDetail {
-    background-color: #F3ECAE;
+    background-color: #fff;
     color: black;
     width: 350px;
     height: 200px;
