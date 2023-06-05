@@ -6,10 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.RecordId;
@@ -113,8 +110,8 @@ public class MypageController {
         }
     }
 
-//    @GetMapping("/deleteRecord")
     @DeleteMapping("/deleteRecord")
+    @ResponseBody
     public Object deleteRecord(@RequestParam("uuid") Long uid, @RequestParam("rdate") LocalDateTime rdate){
         RecordId recordId = new RecordId();
 
@@ -125,7 +122,6 @@ public class MypageController {
 
         recordService.deleteRecord(recordId);
 
-
-        return "redirect:/myPage";
+        return recordId;
     }
 }
