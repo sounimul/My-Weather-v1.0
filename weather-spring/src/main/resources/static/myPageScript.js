@@ -382,9 +382,10 @@ function closeDetails(b){
     b.parentElement.parentElement.parentElement.style.display = 'none';
 }
 
-function confirmDelete(c){
-    const uuid = document.querySelector('#recordIdUid').innerText;
-    const rdate = document.querySelector('#recordIdRdate').innerText;
+function confirmDelete(e){
+    
+    const uuid = e.parentElement.parentElement.childNodes[3].childNodes[11].innerText;
+    const rdate = e.parentElement.parentElement.childNodes[3].childNodes[3].innerText;
 
     console.log("uuid와 rdate");
     console.log(uuid);
