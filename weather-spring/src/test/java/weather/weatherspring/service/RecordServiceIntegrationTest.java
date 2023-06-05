@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.OPTIONAL;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.hamcrest.CoreMatchers.nullValue;
 
 @SpringBootTest
 @Transactional
@@ -24,9 +24,6 @@ public class RecordServiceIntegrationTest {
     RecordService recordService;
     @Autowired
     RecordRepository recordRepository;
-
-    @Autowired
-    LocationService locationService;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -48,14 +45,11 @@ public class RecordServiceIntegrationTest {
 
         // When
         Optional<Record> savedRecord = recordService.saveRecord(record);
-//        Record savedRecord = recordService.saveRecord(record);
-        RecordId recordId = new RecordId();
-        recordId.setUid(savedRecord.get().getUid());
-        recordId.setRdate(savedRecord.get().getRdate());
 
         // Then
-        Record findRecord = recordRepository.findByPk(recordId).get();
-        assertThat(record).isSameAs(findRecord);
+        Record findRecord = recordRepository.findByUidAndRdate(savedRecord.get().getUid(),savedRecord.get().getRdate()).get();
+        assertThat(record.getUid()).isEqualTo(findRecord.getUid());
+        assertThat(record.getRdate()).isEqualTo(findRecord.getRdate());
 
     }
 
@@ -98,6 +92,36 @@ public class RecordServiceIntegrationTest {
 
         // Then
         assertThat(savedRecord).isEmpty();
+
+    }
+
+    @Test
+    public void 날씨기록_삭제(){
+        // Given
+        Record record = new Record();
+        record.setUid(1L);
+        record.setRdate(LocalDateTime.parse("2023-05-26 17:00:21", formatter));
+        record.setRmd("5월 26일");
+        record.setAd("대구광역시 달서구 월성1동");
+        record.setWmsg("sunny");
+        record.setTemp(25.1);
+        record.setTfeel("따뜻해요");
+        record.setHumid(50);
+        record.setHfeel("쾌적해요");
+        record.setPrecip(0.0);
+        record.setPfeel("안와요");
+
+        RecordId recordId = new RecordId();
+        recordId.setUid(record.getUid());
+        recordId.setRdate(record.getRdate());
+
+        // When
+        recordService.saveRecord(record);
+        recordService.deleteRecord(recordId);
+
+        // Then
+        Optional<Record> record1 = recordRepository.findByUidAndRdate(recordId.getUid(),recordId.getRdate());
+        assertThat(record1).isEmpty();
 
     }
 

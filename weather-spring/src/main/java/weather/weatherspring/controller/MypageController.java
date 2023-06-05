@@ -6,17 +6,20 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.domain.Record;
+import weather.weatherspring.domain.RecordId;
 import weather.weatherspring.entity.MemberForm;
 import weather.weatherspring.entity.Search;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,5 +113,19 @@ public class MypageController {
         }
     }
 
+//    @GetMapping("/deleteRecord")
+    @DeleteMapping("/deleteRecord")
+    public Object deleteRecord(@RequestParam("uuid") Long uid, @RequestParam("rdate") LocalDateTime rdate){
+        RecordId recordId = new RecordId();
 
+        System.out.println("uid : "+uid+"/ rdate: "+rdate);
+
+        recordId.setUid(uid);
+        recordId.setRdate(rdate);
+
+        recordService.deleteRecord(recordId);
+
+
+        return "redirect:/myPage";
+    }
 }

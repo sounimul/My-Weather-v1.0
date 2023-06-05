@@ -6,6 +6,7 @@ import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.RecordId;
 import weather.weatherspring.repository.RecordRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,16 +33,25 @@ public class RecordService {
         }
         // 중복되지 않을 때
         return Optional.of(recordRepository.save(record));
+//        return Optional.of(springDataJpaRecordRepository.save(record));
     }
 
     /* 중복 pk 체크 */
     private Optional<Record> validateDuplicateRecord(RecordId recordId){
-        return recordRepository.findByPk(recordId);
+        return recordRepository.findByUidAndRdate(recordId.getUid(),recordId.getRdate());
+//        return springDataJpaRecordRepository.findByPk(recordId);
     }
 
     /* record 리스트 조회 */
     public List<Record> findRecordList(Long uid){
-        return recordRepository.findAll(uid);
+        return recordRepository.findByUid(uid);
+//        return springDataJpaRecordRepository.findAll(uid);
+    }
+
+    /* record 삭제 */
+    public void deleteRecord(RecordId recordId){
+        recordRepository.deleteByUidAndRdate(recordId.getUid(), recordId.getRdate());
+//        springDataJpaRecordRepository.deleteById(recordId);
     }
 
     /* id -> 회원의 기록 조회 */

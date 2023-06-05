@@ -10,7 +10,7 @@ import java.util.Objects;
 public class RecordId implements Serializable {
     @Column(name="Uuid")
     private Long uid;
-    @Column(name="Rdate") @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime rdate;
 
     // 기본 생성자 선언

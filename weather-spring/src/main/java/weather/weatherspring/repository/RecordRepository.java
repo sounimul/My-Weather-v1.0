@@ -1,17 +1,17 @@
 package weather.weatherspring.repository;
 
-import org.springframework.stereotype.Repository;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.RecordId;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface RecordRepository{
-    public Record save(Record record);
-    public Optional<Record> findByPk(RecordId recordId);
-    List<Record> findAll(Long uid);
+    Record save(Record record);
+    Optional<Record> findByUidAndRdate(Long uid, LocalDateTime rdate);
+    List<Record> findByUid(Long uid);
+    void deleteByUidAndRdate(Long uid, LocalDateTime rdate);
 //public interface RecordRepository extends JpaRepository<Record, RecordId>, JpaSpecificationExecutor<Record> {
 //    List<Record> findAll(Specification<Record> spec, Sort sort);
 }

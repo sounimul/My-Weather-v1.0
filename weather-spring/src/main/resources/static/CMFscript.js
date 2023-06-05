@@ -20,7 +20,7 @@ function checkID(){
                 mail:mail.value
             },
             success:function (data){
-                console.log("서버로 위치 정보를 전송했습니다."+data);
+                console.log("서버로 회원 정보를 전송했습니다."+data);
                 if(data===""){
                     alert("이미 있는 아이디입니다.");
                     id.value = '';
@@ -35,7 +35,7 @@ function checkID(){
 
             },
             error:function(xhr, status, error){
-                console.error("서버로 위치 정보 전송하지 못하였습니다.");
+                console.error("서버로 회원 정보를 전송하지 못하였습니다.");
             }
         });
     }
