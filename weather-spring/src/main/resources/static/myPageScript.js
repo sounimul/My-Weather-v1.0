@@ -401,15 +401,13 @@ function confirmDelete(c){
                 rdate:rdate
             },
             success:function (data){
-                location.href="/myPage";
+                location.replace("/myPage");
                 console.log("서버로 날씨 기록 정보를 전송했습니다.");
             },
             error:function(xhr, status, error){
                 console.error("서버로 날씨 기록 정보를 전송하지 못하였습니다.");
             }
-
-        })
-
+        });
     }else { //삭제 X
 
     }
