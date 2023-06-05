@@ -413,5 +413,5 @@ function confirmDelete(e){
 
     }
 
-    c.parentElement.parentElement.parentElement.style.display = 'none'; //팝업 닫기
+    // e.parentElement.parentElement.parentElement.style.display = 'none'; //팝업 닫기
 }
