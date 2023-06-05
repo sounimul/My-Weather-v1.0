@@ -3,15 +3,16 @@ package weather.weatherspring.domain;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity     // JPA가 관리하는 entity
 @Table(name="weather_record")
 @IdClass(RecordId.class)
-public class Record {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Uuid")
+public class Record implements Serializable {
+    @Id @Column(name="Uuid")
     private Long uid;
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Rdate") @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Id @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime rdate;
     private String rmd;
     @Column(name="Address")

@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 @IdClass(ReviewId.class)
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uuid;
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="Rdate") @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Id @Column(name="Rdate") @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime date;
     private int stars;
     private String comments;

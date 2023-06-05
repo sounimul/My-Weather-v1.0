@@ -6,6 +6,6 @@ import weather.weatherspring.domain.ReviewId;
 import java.util.Optional;
 
 public interface ReviewRepository {
-    public ReviewId save(Review review);
-    public Optional<Review> findById(ReviewId reviewId);
+    ReviewId save(Review review);
+    Optional<Review> findById(ReviewId reviewId);
 }

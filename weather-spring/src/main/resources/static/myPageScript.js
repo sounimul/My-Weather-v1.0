@@ -1,6 +1,9 @@
 /* 사용자가 좋아하는 날씨 */
 let weather = document.querySelector('#userFavorite').innerText;
 const wicon = document.getElementById("wicon");
+// const uuid = document.querySelector('#recordIdUid').innerText;
+// const rdate = document.querySelector('#recordIdRdate').innerText;
+
 //[userId, userNickname, fvWeather] = prompt('아이디/닉네임/좋아하는 날씨', 'id nickname sunny').split(' ');
 
 // [userId, userNickname, fvWeather] = ['id', 'nick', 'sunny'];
@@ -380,9 +383,32 @@ function closeDetails(b){
 }
 
 function confirmDelete(c){
+    const uuid = document.querySelector('#recordIdUid').innerText;
+    const rdate = document.querySelector('#recordIdRdate').innerText;
+
+    console.log("uuid와 rdate");
+    console.log(uuid);
+    console.log(rdate);
+
     const answer = confirm('정말 삭제하시겠습니까?'); //true, false
     
     if(answer){ //삭제 O
+        $.ajax({
+            url:"/deleteRecord",
+            type:"DELETE",
+            data:{
+                uuid:uuid,
+                rdate:rdate
+            },
+            success:function (data){
+                location.href="/myPage";
+                console.log("서버로 날씨 기록 정보를 전송했습니다.");
+            },
+            error:function(xhr, status, error){
+                console.error("서버로 날씨 기록 정보를 전송하지 못하였습니다.");
+            }
+
+        })
 
     }else { //삭제 X
 

@@ -18,10 +18,12 @@ import javax.sql.DataSource;
 public class SpringConfig {
     private final DataSource dataSource;
     private final EntityManager em;
+    private final RecordRepository recordRepository;
 
-    public SpringConfig(DataSource dataSource, EntityManager em) {
+    public SpringConfig(DataSource dataSource, EntityManager em, RecordRepository recordRepository) {
         this.dataSource = dataSource;
         this.em = em;
+        this.recordRepository = recordRepository;
     }
 
     @Bean
@@ -37,18 +39,18 @@ public class SpringConfig {
     @Bean
     public WeatherRepository weatherRepository(){ return new JpaWeatherRepository(em);}
 
+//    @Bean
+//    public RecordService recordService(){return new RecordService(recordRepository);}
+
     @Bean
-    public RecordService recordService(){return new RecordService(recordRepository());}
+    public RecordService recordService(){return new RecordService(recordRepository);}
+
 
 //    @Bean
 //    public RecordRepository recordRepository() {
 //        return new JpaSpecificationExecutor<Record>();
 //    }
 
-    @Bean
-    public RecordRepository recordRepository(){
-        return new JpaRecordRepository(em);
-    }
 
     @Bean
     public ReviewService reviewService(){

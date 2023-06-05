@@ -137,9 +137,11 @@
                             <div class="saveDetail">
                                 <h4>상세정보</h4>
                                 <div class="saveDetailInfo">
-                                    <span><b>날짜</b></span> <span th:text="${record.rdate}">2023.04.30</span>
+                                    <span><b>날짜</b></span> <span id="recordIdRdate" th:text="${record.rdate}">2023.04.30</span>
                                     <br>
                                     <span><b>지역</b></span> <span th:text="${record.ad}">대구 달서구</span>
+
+                                    <span id="recordIdUid" style="display: none" th:text="${record.uid}"></span>
                                 </div>
                                 <div class="saveDetailBtn">
                                     <button id="saveDetailClose" onclick="closeDetails(this)">닫기</button>
