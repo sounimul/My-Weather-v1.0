@@ -151,6 +151,14 @@
                         </div>
                     </li>
                 </ul>
+                <div class="pagination">
+                    <ul>
+                        <li th:each="page : ${#numbers.sequence(0,totalPage - 1)}">
+                            <a th:href="@{/myPage(temp=${temp},humid=${humid},prep=${prep},page=${pageStat.index})}" th:text="${pageStat.index + 1}"></a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
             <!-- <div class="tempFunction">
                 <button id="add">

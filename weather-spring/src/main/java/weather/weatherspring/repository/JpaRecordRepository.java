@@ -1,6 +1,8 @@
 package weather.weatherspring.repository;
 
 import jakarta.persistence.EntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import weather.weatherspring.domain.Record;
@@ -34,11 +36,11 @@ public class JpaRecordRepository implements RecordRepository{
     }
 
     /* 리스트 조회 */
-    public List<Record> findByUid(Long uid){
-        return em.createQuery("select r from Record r where r.uid = :uid order by r.rdate desc", Record.class)
-                .setParameter("uid",uid)
-                .getResultList();
-    }
+//    public List<Record> findByUid(Long uid){
+//        return em.createQuery("select r from Record r where r.uid = :uid order by r.rdate desc", Record.class)
+//                .setParameter("uid",uid)
+//                .getResultList();
+//    }
 
     public void deleteByUidAndRdate(Long uid, LocalDateTime rdate) {
         RecordId recordId = new RecordId();
@@ -48,9 +50,13 @@ public class JpaRecordRepository implements RecordRepository{
         em.remove(findByUidAndRdate(recordId.getUid(),recordId.getRdate()));
     }
 
-    public List<Record> findAll(Specification<Record> spec, Sort sort){
-        Long uid = -1L;
-        return findByUid(uid);
+//    public List<Record> findAll(Specification<Record> spec, Sort sort){
+//        Long uid = -1L;
+//        return findByUid(uid);
+//    }
+
+    public Page<Record> findAll(Specification<Record> spec, Pageable pageable){
+        return Page.empty();
     }
 
 }

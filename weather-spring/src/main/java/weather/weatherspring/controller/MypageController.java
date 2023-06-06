@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class MypageController {
     }
 
     @GetMapping("/myPage")
-    public String myPage(Model model, @RequestParam("temp") Optional<String> temp, @RequestParam("humid") Optional<String> humid, @RequestParam("prep") Optional<String> prep){
+    public String myPage(Model model, @RequestParam("temp") Optional<String> temp, @RequestParam("humid") Optional<String> humid, @RequestParam("prep") Optional<String> prep, @RequestParam(required = false, defaultValue = "0") int page){
         HttpSession session = request.getSession();
         Long uid=(Long) session.getAttribute("uid");
         Search search=new Search();
@@ -64,14 +65,18 @@ public class MypageController {
             prep = Optional.of("-1");
         }
 
-        List<Record> records = recordService.findRecords(uid,search);
+        Page<Record> records = recordService.findRecords(uid,search,page);
+        int totalPage = records.getTotalPages();
+        if(totalPage==0) totalPage = 1;
+
         Member member= memberService.findMember(uid).get();
 
         model.addAttribute("temp",temp.get());
         model.addAttribute("humid",humid.get());
         model.addAttribute("prep", prep.get());
         model.addAttribute("user",member);
-        model.addAttribute("records",records);
+        model.addAttribute("totalPage",totalPage);
+        model.addAttribute("records",records.getContent());
 
         return "myPage";
     }
