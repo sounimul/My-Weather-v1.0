@@ -1,5 +1,7 @@
 package weather.weatherspring.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,8 +14,10 @@ import java.util.List;
 
 
 public interface SpringDataJpaRecordRepository extends JpaRepository<Record, RecordId>, RecordRepository, JpaSpecificationExecutor<Record> {
+//    @Override
+//    List<Record> findAll(Specification<Record> spec, Sort sort);
     @Override
-    List<Record> findAll(Specification<Record> spec, Sort sort);
+    Page<Record> findAll(Specification<Record> spec, Pageable pageable);
     @Override
     void deleteByUidAndRdate(Long uid, LocalDateTime rdate);
 }

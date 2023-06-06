@@ -1,6 +1,9 @@
 package weather.weatherspring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,9 +47,9 @@ public class RecordService {
     }
 
     /* record 리스트 조회 */
-    public List<Record> findRecordList(Long uid){
-        return recordRepository.findByUid(uid);
-    }
+//    public List<Record> findRecordList(Long uid){
+//        return recordRepository.findByUid(uid);
+//    }
 
     /* record 삭제 */
     public void deleteRecord(RecordId recordId){
@@ -54,7 +57,7 @@ public class RecordService {
     }
 
     /* id -> 회원의 기록 조회 */
-    public List<Record> findRecords(Long uid, Search search){
+    public Page<Record> findRecords(Long uid, Search search,int page){
         Specification<Record> spec = Specification.where(RecordSpecification.equalUid(uid));
         if(search.getStartTemp() !=null && search.getEndTemp() != null)
             spec = spec.and(RecordSpecification.betweenWeather(search.getStartTemp(), search.getEndTemp(), "temp"));
@@ -63,8 +66,7 @@ public class RecordService {
         if(search.getStartPrep() != null && search.getEndPrep() != null)
             spec = spec.and(RecordSpecification.betweenWeather(search.getStartPrep(), search.getEndPrep(), "precip"));
 
-        Sort sort = Sort.by(Sort.Order.desc("rdate"));
-
-        return recordRepository.findAll(spec,sort);
+        Pageable pageable = PageRequest.of(page,6,Sort.by(Sort.Order.desc("rdate")));
+        return recordRepository.findAll(spec,pageable);
     }
 }
