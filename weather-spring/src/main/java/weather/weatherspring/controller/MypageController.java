@@ -58,12 +58,18 @@ public class MypageController {
                 search.setStartPrep(Double.parseDouble(value[0])); search.setEndPrep(Double.parseDouble(value[1]));
                 System.out.println("prep: "+search.getStartPrep()+" "+search.getEndPrep());
             }
+        }else{
+            temp = Optional.of("-1");
+            humid = Optional.of("-1");
+            prep = Optional.of("-1");
         }
 
-        List<Record> records = recordService.findRecordList(uid);
-//        List<Record> records = recordService.findRecordList(uid,search);
+        List<Record> records = recordService.findRecords(uid,search);
         Member member= memberService.findMember(uid).get();
 
+        model.addAttribute("temp",temp.get());
+        model.addAttribute("humid",humid.get());
+        model.addAttribute("prep", prep.get());
         model.addAttribute("user",member);
         model.addAttribute("records",records);
 

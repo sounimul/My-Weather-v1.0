@@ -1,6 +1,8 @@
 package weather.weatherspring.repository;
 
 import jakarta.persistence.EntityManager;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.RecordId;
 
@@ -44,6 +46,11 @@ public class JpaRecordRepository implements RecordRepository{
         recordId.setRdate(rdate);
         System.out.println("delete record");
         em.remove(findByUidAndRdate(recordId.getUid(),recordId.getRdate()));
+    }
+
+    public List<Record> findAll(Specification<Record> spec, Sort sort){
+        Long uid = -1L;
+        return findByUid(uid);
     }
 
 }
