@@ -61,38 +61,38 @@
                             <span class="material-symbols-outlined">device_thermostat</span>
                             <select name="temp" id="sTemp">
                                 <!-- value가 -1이면 검색 불가 -->
-                                <option value="-1" selected>기온</option>
-                                <option value="-999n-1">~ -1℃</option>
-                                <option value="0n4">0℃ ~ 4℃</option>
-                                <option value="5n8">5℃ ~ 8℃</option>
-                                <option value="9n11">9℃ ~ 11℃</option>
-                                <option value="12n16">12℃ ~ 16℃</option>
-                                <option value="17n19">17℃ ~ 19℃</option>
-                                <option value="20n22">20℃ ~ 22℃</option>
-                                <option value="23n27">23℃ ~ 27℃</option>
-                                <option value="28n999">28℃ ~</option>
+                                <option value="-1" th:selected="${temp} == '-1'">기온</option>
+                                <option value="-999n0" th:selected="${temp} == '-999n0'">~ -1℃</option>
+                                <option value="0n5" th:selected="${temp} == '0n5'">0℃ ~ 5℃</option>
+                                <option value="5n9" th:selected="${temp} == '5n9'">5℃ ~ 9℃</option>
+                                <option value="9n12" th:selected="${temp} == '9n12'">9℃ ~ 12℃</option>
+                                <option value="12n17" th:selected="${temp} == '12n17'">12℃ ~ 17℃</option>
+                                <option value="17n20" th:selected="${temp} == '17n20'">17℃ ~ 20℃</option>
+                                <option value="20n23" th:selected="${temp} == '20n23'">20℃ ~ 23℃</option>
+                                <option value="23n28" th:selected="${temp} == '23n28'">23℃ ~ 28℃</option>
+                                <option value="28n999" th:selected="${temp} == '28n999'">28℃ ~</option>
                             </select>
                             <span class="material-symbols-outlined">water_drop</span>
                             <select name="humid" id="sHumid">
-                                <option value="-1" selected>습도</option>
-                                <option value="0n10">0 ~ 10%</option>
-                                <option value="10n20">10 ~ 20%</option>
-                                <option value="20n30">20 ~ 30%</option>
-                                <option value="30n40">30 ~ 40%</option>
-                                <option value="40n50">40 ~ 50%</option>
-                                <option value="50n60">50 ~ 60%</option>
-                                <option value="60n70">60 ~ 70%</option>
-                                <option value="70n80">70 ~ 80%</option>
-                                <option value="80n90">80 ~ 90%</option>
-                                <option value="90n100">90 ~ 100%</option>
+                                <option value="-1" th:selected="${humid} == '-1'">습도</option>
+                                <option value="0n10" th:selected="${humid} == '0n10'">0 ~ 10%</option>
+                                <option value="10n20" th:selected="${humid} == '10n20'">10 ~ 20%</option>
+                                <option value="20n30" th:selected="${humid} == '20n30'">20 ~ 30%</option>
+                                <option value="30n40" th:selected="${humid} == '30n40'">30 ~ 40%</option>
+                                <option value="40n50" th:selected="${humid} == '40n50'">40 ~ 50%</option>
+                                <option value="50n60" th:selected="${humid} == '50n60'">50 ~ 60%</option>
+                                <option value="60n70" th:selected="${humid} == '60n70'">60 ~ 70%</option>
+                                <option value="70n80" th:selected="${humid} == '70n80'">70 ~ 80%</option>
+                                <option value="80n90" th:selected="${humid} == '80n90'">80 ~ 90%</option>
+                                <option value="90n100" th:selected="${humid} == '90n100'">90 ~ 100%</option>
                             </select>
                             <span class="material-symbols-outlined">rainy</span>
                             <select name="prep" id="sRain">
-                                <option value="-1" selected>강수량</option>
-                                <option value="0n3">~ 3mm</option>
-                                <option value="3n15">3 ~ 15mm</option>
-                                <option value="15n30">15mm ~ 30mm</option>
-                                <option value="30n999">30mm ~ </option>
+                                <option value="-1" th:selected="${prep} == '-1'">강수량</option>
+                                <option value="0n3" th:selected="${prep} == '0n3'">~ 3mm</option>
+                                <option value="3n15" th:selected="${prep} == '3n15'">3 ~ 15mm</option>
+                                <option value="15n30" th:selected="${prep} == '15n30'">15mm ~ 30mm</option>
+                                <option value="30n999" th:selected="${prep} == '30n999'">30mm ~ </option>
                             </select>
                         </div>
 
@@ -151,6 +151,14 @@
                         </div>
                     </li>
                 </ul>
+                <div class="pagination">
+                    <ul>
+                        <li th:each="page : ${#numbers.sequence(0,totalPage - 1)}">
+                            <a th:href="@{/myPage(temp=${temp},humid=${humid},prep=${prep},page=${pageStat.index})}" th:text="${pageStat.index + 1}"></a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
             <!-- <div class="tempFunction">
                 <button id="add">

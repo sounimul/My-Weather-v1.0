@@ -1,12 +1,18 @@
 package weather.weatherspring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.RecordId;
+import weather.weatherspring.entity.Search;
 import weather.weatherspring.repository.RecordRepository;
+import weather.weatherspring.repository.RecordSpecification;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,39 +39,34 @@ public class RecordService {
         }
         // 중복되지 않을 때
         return Optional.of(recordRepository.save(record));
-//        return Optional.of(springDataJpaRecordRepository.save(record));
     }
 
     /* 중복 pk 체크 */
     private Optional<Record> validateDuplicateRecord(RecordId recordId){
         return recordRepository.findByUidAndRdate(recordId.getUid(),recordId.getRdate());
-//        return springDataJpaRecordRepository.findByPk(recordId);
     }
 
     /* record 리스트 조회 */
-    public List<Record> findRecordList(Long uid){
-        return recordRepository.findByUid(uid);
-//        return springDataJpaRecordRepository.findAll(uid);
-    }
+//    public List<Record> findRecordList(Long uid){
+//        return recordRepository.findByUid(uid);
+//    }
 
     /* record 삭제 */
     public void deleteRecord(RecordId recordId){
         recordRepository.deleteByUidAndRdate(recordId.getUid(), recordId.getRdate());
-//        springDataJpaRecordRepository.deleteById(recordId);
     }
 
     /* id -> 회원의 기록 조회 */
-//    public List<Record> findRecordList(Long uid, Search search){
-//        Specification<Record> spec = Specification.where(RecordSpecification.equalUid(uid));
-//        if(search.getStartTemp() !=null && search.getEndTemp() != null)
-//            spec = spec.and(RecordSpecification.betweenWeather(search.getStartTemp(), search.getEndTemp(), "temp"));
-//        if(search.getStartHumid() != null && search.getEndHumid() != null)
-//            spec = spec.and(RecordSpecification.betweenHumid(search.getStartHumid(), search.getEndHumid()));
-//        if(search.getStartPrep() != null && search.getEndPrep() != null)
-//            spec = spec.and(RecordSpecification.betweenWeather(search.getStartPrep(), search.getEndPrep(), "precip"));
-//
-//        Sort sort = Sort.by(Sort.Order.desc("rdate"));
-//
-//        return recordRepository.findAll(spec,sort);
-//    }
+    public Page<Record> findRecords(Long uid, Search search,int page){
+        Specification<Record> spec = Specification.where(RecordSpecification.equalUid(uid));
+        if(search.getStartTemp() !=null && search.getEndTemp() != null)
+            spec = spec.and(RecordSpecification.betweenWeather(search.getStartTemp(), search.getEndTemp(), "temp"));
+        if(search.getStartHumid() != null && search.getEndHumid() != null)
+            spec = spec.and(RecordSpecification.betweenHumid(search.getStartHumid(), search.getEndHumid()));
+        if(search.getStartPrep() != null && search.getEndPrep() != null)
+            spec = spec.and(RecordSpecification.betweenWeather(search.getStartPrep(), search.getEndPrep(), "precip"));
+
+        Pageable pageable = PageRequest.of(page,6,Sort.by(Sort.Order.desc("rdate")));
+        return recordRepository.findAll(spec,pageable);
+    }
 }

@@ -1,14 +1,23 @@
 package weather.weatherspring.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.RecordId;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
-public interface SpringDataJpaRecordRepository extends JpaRepository<Record, RecordId>, RecordRepository {
+public interface SpringDataJpaRecordRepository extends JpaRepository<Record, RecordId>, RecordRepository, JpaSpecificationExecutor<Record> {
+//    @Override
+//    List<Record> findAll(Specification<Record> spec, Sort sort);
+    @Override
+    Page<Record> findAll(Specification<Record> spec, Pageable pageable);
     @Override
     void deleteByUidAndRdate(Long uid, LocalDateTime rdate);
 }

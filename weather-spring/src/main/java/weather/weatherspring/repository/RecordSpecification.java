@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
+import weather.weatherspring.domain.Record;
 
 @Transactional
 public class RecordSpecification{
@@ -19,6 +20,7 @@ public class RecordSpecification{
         };
     }
     // temp,precip between ? and ?
+    // weather : temp / precip
     public static Specification<Record> betweenWeather(Double startWeather, Double endWeather, String weather){
         return new Specification<Record>() {
             @Override
@@ -36,7 +38,4 @@ public class RecordSpecification{
             }
         };
     }
-
-
-
 }
