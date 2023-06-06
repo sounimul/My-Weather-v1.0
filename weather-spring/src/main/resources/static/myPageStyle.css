@@ -550,3 +550,21 @@ select {
 .saveDetailBtn {
     margin-top: 10px;
 }
+
+.pagination {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li a {
+    margin: 0 4px;
+}
