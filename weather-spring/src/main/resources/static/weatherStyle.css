@@ -167,6 +167,8 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    font-size: 1.2rem;
 }
 
 #refresh {
@@ -177,7 +179,7 @@ main {
     margin-left: 8px;
 
     position: absolute;
-    transform: translate(150px, 8px);
+    transform: translate(150px, 4px);
 }
 
 .temperature {
@@ -263,8 +265,8 @@ main {
 }
 
 #currentTemp{
-    width: 80px;
-    height: 80px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
 
     font-size: 26px;

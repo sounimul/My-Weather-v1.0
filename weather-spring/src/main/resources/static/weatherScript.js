@@ -47,7 +47,7 @@ function Icon(){
         default:
             fileName="cloud";
     }
-    wicon.setAttribute('src',`../static/${fileName}.svg`);
+    wicon.setAttribute('src',`../${fileName}.svg`);
 }
 
 const day_arr = ['일','월','화','수','목','금','토'];

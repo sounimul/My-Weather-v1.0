@@ -114,7 +114,7 @@ function confirmPWC(){
 }
 
 function changeImg(weather){
-    document.querySelector('#wicon').setAttribute('src',`../../static/${weather}.svg`);
+    document.querySelector('#wicon').setAttribute('src',`../../${weather}.svg`);
 }
 
 /* pwCondition */

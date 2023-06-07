@@ -9,12 +9,12 @@
     <title>My page</title>
 
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <!-- <link rel="stylesheet" href="../myPageStyle.css">
-    <script src="../myPageScript.js" defer></script> -->
+    <link rel="stylesheet" href="../myPageStyle.css">
+    <script src="../myPageScript.js" defer></script>
 
     <!-- 프론트 CSS/스크립트 -->
-    <link rel="stylesheet" href="../static/myPageStyle.css">
-    <script src="../static/myPageScript.js" defer></script>
+<!--    <link rel="stylesheet" href="../static/myPageStyle.css">-->
+<!--    <script src="../static/myPageScript.js" defer></script>-->
 
     <!-- 날씨 아이콘(구글 머티리얼) -->
     <link rel="stylesheet"
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    <a href="/" id="home"><span class="material-symbols-outlined">home</span></a>
+    <a id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></a>
 
     <div class="mainWrapper">
         <main>
@@ -44,7 +44,7 @@
                         <span id="pUuserNickname" th:text="${user.nickname}">weatherFairy</span>
                         <p class="saveInfo">
                             <span class="material-symbols-outlined" id="mark">bookmark</span>
-                            <span id="saveSum">5</span>
+                            <span id="saveSum" th:text="${totalNum}">5</span>
                         </p>
                         <span id="userFavorite" th:text="${user.fvweather}"></span>
                     </div>
@@ -53,7 +53,7 @@
                 <div class="fvWeatherIcon">
                     <div class="chairBack"></div>
                     <div class="chairSeat">
-                        <img id="wicon" src="../static/fvSunAndCloud.svg" alt="wicon">
+                        <img id="wicon" src="../fvCloudAndSun.svg" alt="wicon">
                     </div>
                     <div class="shadow"></div>
                 </div>
@@ -79,7 +79,6 @@
                                 </select>
                                 <span class="material-symbols-outlined">water_drop</span>
                                 <select name="humid" id="sHumid">
-                                    <option value="-1" selected>습도</option>
                                     <option value="-1" th:selected="${humid} == '-1'">습도</option>
                                     <option value="0n10" th:selected="${humid} == '0n10'">0 ~ 10%</option>
                                     <option value="10n20" th:selected="${humid} == '10n20'">10 ~ 20%</option>
@@ -101,12 +100,12 @@
                                     <option value="30n999" th:selected="${prep} == '30n999'">30mm ~ </option>
                                 </select>
                             </div>
-                            <span id="refresh">조건 초기화</span>
-                            <span id="search" class="material-symbols-outlined">search</span>
+                            <button id="search" type="submit"><span class="material-symbols-outlined">search</span></button>
                         </form>
+                        <span id="refresh" onClick="location.href='/myPage'">조건 초기화</span>
                     </div>
                     <header class="fwTitle">
-                        <p class="fwDay" th:text="${record.rmd}">날짜 / 장소</p>
+                        <p class="fwDay">날짜 / 장소</p>
                         <p class="fwExp">
                             <span class="fwExpT">날씨</span>
                         </p>
@@ -141,7 +140,7 @@
                                         <span th:text="|${record.precip}mm|">5mm</span>
                                     </p>
                                     <p class="expand">
-                                        <span class="material-symbols-outlined" id="expandBtn" onclick="expand(this)">expand_more</span>
+                                        <span class="material-symbols-outlined" id="expandBtn">expand_more</span>
                                     </p>
                                 </header>
                                 <div class="fwDetails">
@@ -158,8 +157,10 @@
                                     <p class="fwRainF">
                                         <span th:text="${record.pfeel}">네글자용</span>
                                     </p>
-                                    <p class="expand">
-                                        <span class="material-symbols-outlined" id="deleteBtn" onclick="confirmDelete(this)">remove</span>
+                                    <span id="recordIdUid" style="display: none" th:text="${record.uid}"></span>
+                                    <span id="recordIdRdate" th:text="${record.rdate}" style="display: none"></span>
+                                    <p class="delete" onclick="confirmDelete(this)">
+                                        <span class="material-symbols-outlined" id="deleteBtn">delete</span>
                                     </p>
                                 </div>
                             </article>
@@ -167,7 +168,7 @@
                     </ul>
                     <div class="pagination">
                         <ul>
-                            <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}"> 
+                            <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}" th:classappend="${page eq pageStat.current} ? 'currentPage' : ''">
                                 <a th:href="@{/myPage(temp=${temp}, humid=${humid}, prep=${prep}, page=${pageStat.index})}" th:text="${pageStat.index + 1}">1</a>
                             </li>
                         </ul>
@@ -184,7 +185,7 @@
                 <div class="idWrapper">
                     <span class="label">id</span>
                     <span id="userId" th:text="${user.id}">id_example</span>
-                    <a onclick="window.open('passwordChange.html', '비밀번호 변경', 'width=500px, height=700px'); return false"><button id="changePW">비밀번호 변경</button></a>
+                    <a onclick="window.open('/changePwform', '비밀번호 변경', 'width=500px, height=700px'); return false"><button id="changePW">비밀번호 변경</button></a>
                 </div>
                 <div class="nicknameWrapper">
                     <span class="label">nickname</span>

@@ -47,9 +47,9 @@ public class RecordService {
     }
 
     /* record 리스트 조회 */
-//    public List<Record> findRecordList(Long uid){
-//        return recordRepository.findByUid(uid);
-//    }
+    public List<Record> findRecordList(Long uid){
+        return recordRepository.findByUid(uid);
+    }
 
     /* record 삭제 */
     public void deleteRecord(RecordId recordId){
@@ -66,7 +66,7 @@ public class RecordService {
         if(search.getStartPrep() != null && search.getEndPrep() != null)
             spec = spec.and(RecordSpecification.betweenWeather(search.getStartPrep(), search.getEndPrep(), "precip"));
 
-        Pageable pageable = PageRequest.of(page,6,Sort.by(Sort.Order.desc("rdate")));
+        Pageable pageable = PageRequest.of(page,7,Sort.by(Sort.Order.desc("rdate")));
         return recordRepository.findAll(spec,pageable);
     }
 }

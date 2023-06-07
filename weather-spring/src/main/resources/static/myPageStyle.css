@@ -321,6 +321,7 @@ main {
     justify-content: center;
     align-items: center;
     background-color: var(--dark-color);
+    transform: translateX(-4px);
 
     cursor: pointer;
 }
@@ -338,7 +339,6 @@ main {
     margin: 5px 0;
 
     display: flex;
-    flex-direction: flex;
     justify-content: start;
     align-items: center;
     transform: translate(-13px);
@@ -356,17 +356,16 @@ main {
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
 
     overflow: auto;
     overflow-x: hidden;
-    transform: translateY(-24px);
+    transform: translateY(-16px);
 }
 
 .fwItemWrapper {
     width: 90%;
-    height: 80%;
 }
 
 /* List Scroll */
@@ -472,7 +471,7 @@ main {
     text-align: center;
 }
 
-.blank, .expand {
+.blank, .expand, .delete {
     width: 20px;
 }
 
@@ -663,4 +662,12 @@ main {
 
 .pagination li{
     margin: 0 4px;
+}
+
+.pagination a {
+    color: #000;
+}
+
+.currentPage a {
+    text-decoration: underline;
 }
