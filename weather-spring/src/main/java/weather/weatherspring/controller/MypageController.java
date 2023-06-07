@@ -80,7 +80,8 @@ public class MypageController {
         model.addAttribute("user",member);
         model.addAttribute("totalPage",totalPage);
         model.addAttribute("totalNum", totalNum);
-        model.addAttribute("records",records.getContent());
+        model.addAttribute("curPage",page);
+        model.addAttribute("records",records);
 
         return "myPage";
     }

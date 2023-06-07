@@ -168,7 +168,7 @@
                     </ul>
                     <div class="pagination">
                         <ul>
-                            <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}" th:classappend="${page eq pageStat.current} ? 'currentPage' : ''">
+                            <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}" th:classappend="${page == curPage} ? 'currentPage' : ''">
                                 <a th:href="@{/myPage(temp=${temp}, humid=${humid}, prep=${prep}, page=${pageStat.index})}" th:text="${pageStat.index + 1}">1</a>
                             </li>
                         </ul>
