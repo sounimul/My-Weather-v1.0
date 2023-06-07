@@ -256,7 +256,7 @@ public class WeatherController {
 
         String rdate = elementForm.getYear() + String.format("-%02d",elementForm.getMonth()) + String.format("-%02d",elementForm.getDate())
                 + String.format(" %02d",elementForm.getHour()) + String.format(":%02d",elementForm.getMin()) + String.format(":%02d",elementForm.getSec());
-        String rmd = elementForm.getMonth() + "월 " + elementForm.getDate() + "일";
+        String rmd = elementForm.getYear() + "년 " + elementForm.getMonth() + "월 " + elementForm.getDate() + "일 " + elementForm.getHour() + "시 " + elementForm.getMin() + "분";
 
         record.setUid((Long) session.getAttribute("uid"));
         record.setRdate(LocalDateTime.parse(rdate, formatter));

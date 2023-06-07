@@ -1,207 +1,220 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My page</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
     <!-- 백엔드 CSS/스크립트 확인 -->
     <link rel="stylesheet" href="../myPageStyle.css">
     <script src="../myPageScript.js" defer></script>
-    <!-- 프론트 CSS/스크립트 -->
-   <!-- <link rel="stylesheet" href="../static/myPageStyle.css">
-   <script src="../static/myPageScript.js" defer></script> -->
 
+    <!-- 프론트 CSS/스크립트 -->
+<!--    <link rel="stylesheet" href="../static/myPageStyle.css">-->
+<!--    <script src="../static/myPageScript.js" defer></script>-->
+
+    <!-- 날씨 아이콘(구글 머티리얼) -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
+
 <body>
-    <header class="GNB">
-        <a href="/logout"><button id="logOut"><span class="material-symbols-outlined">logout</span></button></a>
-        <button id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></button>
-<!--        <a href="/weather"><button id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></button></a>-->
-    </header>
+    <a id="home" onclick="getLoc()"><span class="material-symbols-outlined">home</span></a>
 
-    <div class="wrapper">
-        <section class="profile">
-                <div id="windowBorder">
-                    <div id="window">
-                            <div class="userInfo">
-                                <p>
-                                    <span class="infoTitle">ID</span>
-                                    <span id="userId" th:text="${user.id}"></span>
-                                </p>
-                                <p>
-                                    <span class="infoTitle">Nick Name</span>
-                                    <span id="pUuserNickname" th:text="${user.nickname}">weatherFairy</span>
-                                </p>
-                                <p>
-                                    <span id="userFavorite" th:text="${user.fvweather}"></span>
-                                    <span>를 좋아합니다.</span>
-                                </p>
-                                <div class="btnWrapper">
-                                    <button id="changePF">프로필 수정</button>
-                                    <a href="#" onclick="window.open('/changePwform', '비밀번호 변경', 'width=500px, height=700px'); return false"><button id="changePW">비밀번호 변경</button></a>
-                                </div>
-                            </div>
-                    </div>
-
-                    <div class="favoriteWeatherIcon">
-                        <img id="wicon" src="../seat.png" alt="wicon">
+    <div class="mainWrapper">
+        <main>
+            <section class="profile">
+                <div id="window">
+                    <div class="userInfo">
+                        <div class="btnWrapper">
+                            <button id=""><span class="material-symbols-outlined" id="changeProfile" onclick="">manage_accounts</span></button>
+                            <a href="/logout">
+                                <button id="">
+                                    <span class="material-symbols-outlined">logout</span>
+                                </button>
+                            </a>
+                        </div>
+                        <!-- <div id="profileImg"><span class="material-symbols-outlined">sunny</span></div> -->
+                        <span id="pUuserNickname" th:text="${user.nickname}">weatherFairy</span>
+                        <p class="saveInfo">
+                            <span class="material-symbols-outlined" id="mark">bookmark</span>
+                            <span id="saveSum" th:text="${totalNum}">5</span>
+                        </p>
+                        <span id="userFavorite" th:text="${user.fvweather}"></span>
                     </div>
                 </div>
-        </section>
-        <section class="favoriteWeather">
-            <h3>Weather Archiving </h3>
-            <div class="board">
-                <div class="searchBar">
-                    <form method="get" action="/myPage" class="searchForm">
-                        <div class="searchCondition">
+
+                <div class="fvWeatherIcon">
+                    <div class="chairBack"></div>
+                    <div class="chairSeat">
+                        <img id="wicon" src="../fvCloudAndSun.svg" alt="wicon">
+                    </div>
+                    <div class="shadow"></div>
+                </div>
+            </section>
+            <section class="fvWeather">
+                <h3>Weather Archiving</h3>
+                <div class="board">
+                    <div class="searchBar">
+                        <form method="get" action="/myPage" class="searchForm">
+                            <div class="searchCondition">
+                                <span class="material-symbols-outlined">device_thermostat</span>
+                                <select name="temp" id="sTemp">
+                                    <option value="-1" th:selected="${temp} == '-1'">기온</option>
+                                    <option value="-999n0" th:selected="${temp} == '-999n0'">~ -1℃</option>
+                                    <option value="0n5" th:selected="${temp} == '0n5'">0℃ ~ 5℃</option>
+                                    <option value="5n9" th:selected="${temp} == '5n9'">5℃ ~ 9℃</option>
+                                    <option value="9n12" th:selected="${temp} == '9n12'">9℃ ~ 12℃</option>
+                                    <option value="12n17" th:selected="${temp} == '12n17'">12℃ ~ 17℃</option>
+                                    <option value="17n20" th:selected="${temp} == '17n20'">17℃ ~ 20℃</option>
+                                    <option value="20n23" th:selected="${temp} == '20n23'">20℃ ~ 23℃</option>
+                                    <option value="23n28" th:selected="${temp} == '23n28'">23℃ ~ 28℃</option>
+                                    <option value="28n999" th:selected="${temp} == '28n999'">28℃ ~</option>
+                                </select>
+                                <span class="material-symbols-outlined">water_drop</span>
+                                <select name="humid" id="sHumid">
+                                    <option value="-1" th:selected="${humid} == '-1'">습도</option>
+                                    <option value="0n10" th:selected="${humid} == '0n10'">0 ~ 10%</option>
+                                    <option value="10n20" th:selected="${humid} == '10n20'">10 ~ 20%</option>
+                                    <option value="20n30" th:selected="${humid} == '20n30'">20 ~ 30%</option>
+                                    <option value="30n40" th:selected="${humid} == '30n40'">30 ~ 40%</option>
+                                    <option value="40n50" th:selected="${humid} == '40n50'">40 ~ 50%</option>
+                                    <option value="50n60" th:selected="${humid} == '50n60'">50 ~ 60%</option>
+                                    <option value="60n70" th:selected="${humid} == '60n70'">60 ~ 70%</option>
+                                    <option value="70n80" th:selected="${humid} == '70n80'">70 ~ 80%</option>
+                                    <option value="80n90" th:selected="${humid} == '80n90'">80 ~ 90%</option>
+                                    <option value="90n100" th:selected="${humid} == '90n100'">90 ~ 100%</option>
+                                </select>
+                                <span class="material-symbols-outlined">rainy</span>
+                                <select name="prep" id="sRain">
+                                    <option value="-1" th:selected="${prep} == '-1'">강수량</option>
+                                    <option value="0n3" th:selected="${prep} == '0n3'">~ 3mm</option>
+                                    <option value="3n15" th:selected="${prep} == '3n15'">3 ~ 15mm</option>
+                                    <option value="15n30" th:selected="${prep} == '15n30'">15mm ~ 30mm</option>
+                                    <option value="30n999" th:selected="${prep} == '30n999'">30mm ~ </option>
+                                </select>
+                            </div>
+                            <button id="search" type="submit"><span class="material-symbols-outlined">search</span></button>
+                        </form>
+                        <span id="refresh" onClick="location.href='/myPage'">조건 초기화</span>
+                    </div>
+                    <header class="fwTitle">
+                        <p class="fwDay">날짜 / 장소</p>
+                        <p class="fwExp">
+                            <span class="fwExpT">날씨</span>
+                        </p>
+                        <p class="fwTemp">
                             <span class="material-symbols-outlined">device_thermostat</span>
-                            <select name="temp" id="sTemp">
-                                <!-- value가 -1이면 검색 불가 -->
-                                <option value="-1" th:selected="${temp} == '-1'">기온</option>
-                                <option value="-999n0" th:selected="${temp} == '-999n0'">~ -1℃</option>
-                                <option value="0n5" th:selected="${temp} == '0n5'">0℃ ~ 5℃</option>
-                                <option value="5n9" th:selected="${temp} == '5n9'">5℃ ~ 9℃</option>
-                                <option value="9n12" th:selected="${temp} == '9n12'">9℃ ~ 12℃</option>
-                                <option value="12n17" th:selected="${temp} == '12n17'">12℃ ~ 17℃</option>
-                                <option value="17n20" th:selected="${temp} == '17n20'">17℃ ~ 20℃</option>
-                                <option value="20n23" th:selected="${temp} == '20n23'">20℃ ~ 23℃</option>
-                                <option value="23n28" th:selected="${temp} == '23n28'">23℃ ~ 28℃</option>
-                                <option value="28n999" th:selected="${temp} == '28n999'">28℃ ~</option>
-                            </select>
+                        </p>
+                        <p class="fwHumidity">
                             <span class="material-symbols-outlined">water_drop</span>
-                            <select name="humid" id="sHumid">
-                                <option value="-1" th:selected="${humid} == '-1'">습도</option>
-                                <option value="0n10" th:selected="${humid} == '0n10'">0 ~ 10%</option>
-                                <option value="10n20" th:selected="${humid} == '10n20'">10 ~ 20%</option>
-                                <option value="20n30" th:selected="${humid} == '20n30'">20 ~ 30%</option>
-                                <option value="30n40" th:selected="${humid} == '30n40'">30 ~ 40%</option>
-                                <option value="40n50" th:selected="${humid} == '40n50'">40 ~ 50%</option>
-                                <option value="50n60" th:selected="${humid} == '50n60'">50 ~ 60%</option>
-                                <option value="60n70" th:selected="${humid} == '60n70'">60 ~ 70%</option>
-                                <option value="70n80" th:selected="${humid} == '70n80'">70 ~ 80%</option>
-                                <option value="80n90" th:selected="${humid} == '80n90'">80 ~ 90%</option>
-                                <option value="90n100" th:selected="${humid} == '90n100'">90 ~ 100%</option>
-                            </select>
+                        </p>
+                        <p class="fwRain">
                             <span class="material-symbols-outlined">rainy</span>
-                            <select name="prep" id="sRain">
-                                <option value="-1" th:selected="${prep} == '-1'">강수량</option>
-                                <option value="0n3" th:selected="${prep} == '0n3'">~ 3mm</option>
-                                <option value="3n15" th:selected="${prep} == '3n15'">3 ~ 15mm</option>
-                                <option value="15n30" th:selected="${prep} == '15n30'">15mm ~ 30mm</option>
-                                <option value="30n999" th:selected="${prep} == '30n999'">30mm ~ </option>
-                            </select>
-                        </div>
-
-                        <button class="sIcon" type="submit">
-                            <span class="material-symbols-outlined">search</span>
-                        </button>
-                    </form>
-                    <button class="rIcon" onClick="location.href='/myPage'">
-                        <span class="material-symbols-outlined">refresh</span>
-                    </button>
-                </div>
-
-
-                <ul class="fwList">                    
-                    <li class="fwItemWrapper" th:each="record : ${records}">
-                        <article class="fwItem" >
-                            <header class="fwHeader">
-                                <h4 th:text="${record.rmd}">4월 26일</h4>
-                                <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
-                                <span class="material-symbols-outlined" onclick="pop(this)">more_horiz</span>
-                            </header>
-                            <div class="fwDetails">
-                                <p class="fwTemp">
-                                    <span class="material-symbols-outlined">device_thermostat</span>
-                                    <span th:text="|${record.temp}°C|">20°C</span>
-                                    <span th:text="${record.tfeel}">네글자용</span>
-                                </p>
-                                <p class="fwHumidity">
-                                    <span class="material-symbols-outlined">water_drop</span>
-                                    <span th:text="|${record.humid}%|">20%</span>
-                                    <span th:text="${record.hfeel}">네글자용</span>
-                                </p>
-                                <p class="fwRain">
-                                    <span class="material-symbols-outlined">rainy</span>
-                                    <span th:text="|${record.precip}mm|">5mm</span>
-                                    <span th:text="${record.pfeel}">네글자용</span>
-                                </p>
-                            </div>
-                        </article>
-
-                        <div class="saveDetailWrapper">
-                            <div class="saveDetail">
-                                <h4>상세정보</h4>
-                                <div class="saveDetailInfo">
-                                    <span><b>날짜</b></span> <span id="recordIdRdate" th:text="${record.rdate}">2023.04.30</span>
-                                    <br>
-                                    <span><b>지역</b></span> <span th:text="${record.ad}">대구 달서구</span>
-
+                        </p>
+                        <p class="expand">
+                            <span></span>
+                        </p>
+                    </header>
+                    <ul class="fwList">
+                        <li class="fwItemWrapper" th:each="record : ${records}">
+                            <article class="fwItem" onclick="expand(this)">
+                                <header class="fwHeader">
+                                    <p class="fwDay" th:text="${record.rmd}">2023년 4월 26일 수요일</p>
+                                    <p class="fwExp">
+                                        <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
+                                    </p>
+                                    <p class="fwTemp">
+                                        <span th:text="|${record.temp}°C|">20°C</span>
+                                    </p>
+                                    <p class="fwHumidity">
+                                        <span th:text="|${record.humid}%|">20%</span>
+                                    </p>
+                                    <p class="fwRain">
+                                        <span th:text="|${record.precip}mm|">5mm</span>
+                                    </p>
+                                    <p class="expand">
+                                        <span class="material-symbols-outlined" id="expandBtn">expand_more</span>
+                                    </p>
+                                </header>
+                                <div class="fwDetails">
+                                    <p class="fwLoc">대구광역시 달서구 월성 1동</p>
+                                    <p class="fwExp">
+                                        <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
+                                    </p>
+                                    <p class="fwTempF">
+                                        <span th:text="${record.tfeel}">네글자용</span>
+                                    </p>
+                                    <p class="fwHumidityF">
+                                        <span th:text="${record.hfeel}">네글자용</span>
+                                    </p>
+                                    <p class="fwRainF">
+                                        <span th:text="${record.pfeel}">네글자용</span>
+                                    </p>
                                     <span id="recordIdUid" style="display: none" th:text="${record.uid}"></span>
+                                    <span id="recordIdRdate" th:text="${record.rdate}" style="display: none"></span>
+                                    <p class="delete" onclick="confirmDelete(this)">
+                                        <span class="material-symbols-outlined" id="deleteBtn">delete</span>
+                                    </p>
                                 </div>
-                                <div class="saveDetailBtn">
-                                    <button id="saveDetailClose" onclick="closeDetails(this)">닫기</button>
-                                    <button id="saveDetailDelete" onclick="confirmDelete(this)">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="pagination">
-                    <ul>
-                        <li th:each="page : ${#numbers.sequence(0,totalPage - 1)}">
-                            <a th:href="@{/myPage(temp=${temp},humid=${humid},prep=${prep},page=${pageStat.index})}" th:text="${pageStat.index + 1}"></a>
+                            </article>
                         </li>
                     </ul>
+                    <div class="pagination">
+                        <ul>
+                            <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}" th:classappend="${page == curPage} ? 'currentPage' : ''">
+                                <a th:href="@{/myPage(temp=${temp}, humid=${humid}, prep=${prep}, page=${pageStat.index})}" th:text="${pageStat.index + 1}">1</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
-            </div>
-            <!-- <div class="tempFunction">
-                <button id="add">
-                    <span class="material-symbols-outlined">add</span>
-                </button>
-                <button id="remove">
-                    <span class="material-symbols-outlined">remove</span>
-                </button>
-            </div> -->
-        </section>
+            </section>
+        </main>
     </div>
-    <div class="changePFbackground">
+
+    <div id="changePFbackground">
         <div class="changePF">
-            <button id="closeChangePF"><span class="material-symbols-outlined">close</span></button>
             <h3>프로필</h3>
             <form class="profileInfo" action="/updateProfile" method="post">
                 <div class="idWrapper">
-                    <span>id</span>
-                    <span id="userId" th:text="${user.id}">user</span>
+                    <span class="label">id</span>
+                    <span id="userId" th:text="${user.id}">id_example</span>
+                    <a onclick="window.open('/changePwform', '비밀번호 변경', 'width=500px, height=700px'); return false"><button id="changePW">비밀번호 변경</button></a>
                 </div>
                 <div class="nicknameWrapper">
-                    <span>nickname</span>
-                    <span id="userNickname" th:text="${user.nickname}">날씨요정</span>
-                    <!-- <button id="changeNN">수정</button> -->
-                    <input type="text" name="nickname" th:value="${user.nickname}" placeholder="변경할 닉네임을 입력하세요" id="changeNN">
+                    <span class="label">nickname</span>
+                    <div class="userNickname">
+                        <span id="userNickname" th:text="${user.nickname}">날씨요정</span>
+                        <input id="changeNN" type="text" name="nickname" th:value="${user.nickname}" placeholder="변경할 닉네임을 입력하세요">
+                    </div>
                 </div>
                 <div class="fwWrapper">
-                    <span>좋아하는 계절</span>
-                    <span id="currentFw" th:text="${user.fvweather}">맑음</span>
-                    <select name="fvweather" id="fw">
-                        <option value="" th:selected="${user.fvweather} == ''">변경할 계절을 선택하세요.</option>
-                        <option value="맑음" th:selected="${user.fvweather} == '맑음'">맑음</option>
-                        <option value="구름 많음" th:selected="${user.fvweather} == '구름 많음'">구름 많음</option>
-                        <option value="흐림" th:selected="${user.fvweather} == '흐림'">흐림</option>
-                        <option value="비" th:selected="${user.fvweather} == '비'">비</option>
-                        <option value="눈" th:selected="${user.fvweather} == '눈'">눈</option>
-                    </select>
-                    <!-- <button id="changeFW">수정</button> -->
-                    <!-- <input type="text" name="fvweather" th:value="${user.fvweather}" placeholder="변경할 계절을 입력하세요" id="changeFW"> -->
+                    <span class="label">좋아하는 날씨</span>
+                    <div class="userFw">
+                        <span id="currentFw" th:text="${user.fvweather}">맑음</span>
+                        <select name="fvweather" id="fw">
+                            <option value="" th:selected="${user.fvweather} == ''">변경할 계절을 선택하세요.</option>
+                            <option value="맑음" th:selected="${user.fvweather} == '맑음'">맑음</option>
+                            <option value="구름 많음" th:selected="${user.fvweather} == '구름 많음'">구름 많음</option>
+                            <option value="흐림" th:selected="${user.fvweather} == '흐림'">흐림</option>
+                            <option value="비" th:selected="${user.fvweather} == '비'">비</option>
+                            <option value="눈" th:selected="${user.fvweather} == '눈'">눈</option>
+                        </select>
+                    </div>
                 </div>
-                <input type="submit" id="profileInfoChange" value="✓"> 
+                <div class="buttons">
+                    <input type="submit" value="변경">
+                    <button type="button" id="close">닫기</button>
+                </div>
             </form>
         </div>
     </div>
 </body>
+
 </html>

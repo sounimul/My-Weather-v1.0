@@ -68,6 +68,9 @@ public class MypageController {
         Page<Record> records = recordService.findRecords(uid,search,page);
         int totalPage = records.getTotalPages();
         if(totalPage==0) totalPage = 1;
+        int totalNum = recordService.findRecordList(uid).size();
+        System.out.println("총 기록 개수 : "+totalNum);
+
 
         Member member= memberService.findMember(uid).get();
 
@@ -76,7 +79,9 @@ public class MypageController {
         model.addAttribute("prep", prep.get());
         model.addAttribute("user",member);
         model.addAttribute("totalPage",totalPage);
-        model.addAttribute("records",records.getContent());
+        model.addAttribute("totalNum", totalNum);
+        model.addAttribute("curPage",page);
+        model.addAttribute("records",records);
 
         return "myPage";
     }

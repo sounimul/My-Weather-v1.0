@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface RecordRepository{
     Record save(Record record);
     Optional<Record> findByUidAndRdate(Long uid, LocalDateTime rdate);
-//    List<Record> findByUid(Long uid);
+    List<Record> findByUid(Long uid);
 //    List<Record> findAll(Specification<Record> spec, Sort sort);
     Page<Record> findAll(Specification<Record> spec, Pageable pageable);
     void deleteByUidAndRdate(Long uid, LocalDateTime rdate);

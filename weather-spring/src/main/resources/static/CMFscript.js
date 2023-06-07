@@ -4,10 +4,10 @@ let pw = document.getElementById("pw");
 let pwc = document.getElementById("pwCheck");
 
 function checkID(){
-    //console.log('사용자가 원하는 아이디', id.value);
+
     // const user = id.value+ '@' +mail.value;
     // console.log(user);
-    if(id.value.length===0 || mail.value.length===0) {
+    if(id.value.length===0 || mail.value.length===0 || mail.value=="주소 선택") {
         alert('아이디를 입력해 주세요');
     }
     else{
@@ -43,7 +43,6 @@ function checkID(){
 }
 
 function checkPW(){
-    //console.log('사용자가 원하는 비밀번호', pw.value);
     //8-20자리
     //영문 대소문자
     //숫자
@@ -115,21 +114,17 @@ function confirmPWC(){
 }
 
 function changeImg(weather){
-    document.querySelector('#wicon').setAttribute('src',`${weather}.png`);
+    document.querySelector('#wicon').setAttribute('src',`../../${weather}.svg`);
 }
 
-// function changeImg(weather){
-//     document.querySelector('#wicon').setAttribute('src',`../../static/${weather}.png`);
-// }
-
 /* pwCondition */
-document.querySelector('#pwCondition').addEventListener('mouseover',()=>{
-    document.querySelector('#pwConditionText').style.display = "flex";
-})
+// document.querySelector('#pwCondition').addEventListener('mouseover',()=>{
+//     document.querySelector('#pwConditionText').style.display = "flex";
+// })
 
-document.querySelector('#pwCondition').addEventListener('mouseout',()=>{
-    document.querySelector('#pwConditionText').style.display = "none";
-})
+// document.querySelector('#pwCondition').addEventListener('mouseout',()=>{
+//     document.querySelector('#pwConditionText').style.display = "none";
+// })
 
 function emailChange(){
     const select = document.getElementById('idEmail');

@@ -1,3 +1,15 @@
+/* 전체 */
+:root {
+    --light-color: #aecbe8;
+    --dark-color: #0066cc;
+}
+
+a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #000;
+}
+
 body {
     margin: 0;
     width: 100vw;
@@ -7,13 +19,13 @@ body {
     justify-content: center;
     align-items: center;
     
-    background-image: url("tile.png");      /* 경로수정정 */
+    background-image: url("tile.png");
     background-repeat: repeat;
 }
 
 input {
     border: none;
-    border-bottom: 1px solid #4C623B;
+    border-bottom: 1px solid var(--dark-color);
     padding-bottom: 10px;
     background-color: transparent;
 }
@@ -50,7 +62,7 @@ form {
 }
 
 h1 {
-    color: #4C623B;
+    color: var(--dark-color);
     padding-bottom: 50px;
     position: absolute;
     transform: translateY(-225px);
@@ -58,14 +70,18 @@ h1 {
 }
 
 #logIn {
-    background-color: #4C623B;
+    background-color: var(--dark-color);
     border: none;
     width: 80px;
     height: 80px;
     border-radius: 40px;
-    color: #F3ECAE;
+    color: var(--light-color);
     font-weight: 900;
     cursor: pointer;
+}
+
+#logIn:hover {
+    color: #fff;
 }
 
 #logIn span {
@@ -75,7 +91,7 @@ h1 {
 .doorBorder {
     width: 100vw;
     height: 150px;
-    background-color: #4C623B;
+    background-color: var(--dark-color);
     position: absolute;
 
     display: flex;
@@ -93,23 +109,18 @@ h1 {
     padding: 10px;
 }
 
-a {
-    text-decoration: none;
-    color: #4C623B;
-    font-size: 14px;
-    text-decoration: underline;
-}
-
 main {
     width: 400px;
     height: 160px;
-    background-color: #F3ECAE;
+    background-color: #fff;
     border-radius: 200px;
-    border: 30px solid #4C623B;
+    border: 30px solid var(--dark-color);
     display: flex;
     z-index: 1;
     padding: 50px;
     justify-content: center;
+
+    box-shadow: 0 0px 4px 3px rgba(0,0,0,0.1), inset 0 0px 4px 3px rgba(0,0,0,0.2);
 }
 
 .wrapper {
@@ -118,7 +129,7 @@ main {
 
 @media screen and (max-width:800px) {
     main {
-        border: 20px solid #4C623B;
+        border: 20px solid var(--dark-color);
         width: 380px;
         height: 100px;
     }
