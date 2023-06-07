@@ -15,7 +15,9 @@
 - 사용자는 날씨 기록을 가짐
 
 ## 2. ER diagram - INFO_LIST, CHOSSE 삭제
-![Weather_ER](https://user-images.githubusercontent.com/75112062/234793295-caddb51a-e51e-4dce-b4b9-364a9d5876bf.jpg)
+![image](https://github.com/sounimul/Project1/assets/75112062/9724b726-220a-46cc-b39c-dac0f4e9f793)
+
+
 
 
 
@@ -30,17 +32,9 @@
     - Y : 사용 가능
     - N : 사용 불가능 (사용자가 계정 삭제시)
 
-#### (2) REGION : 사용자가 날씨 조회/저장한 지역, Weak entity(USER가 없으면 REGION이 사라짐)
-- Address : Key attribute, 사용자가 검색하는 지역의 주소
-- Latitude : 검색한 주소의 위도
-- Longitude : 검색한 주소의 경도
-- X_coorinate : 검색한 위치의 X좌표(날씨 api를 사용하기 위해)
-- Y_coorinate : 검색한 위치의 Y좌표(날씨 api를 사용하기 위해)
-
-#### (3) WEATHER_RECORD : 날씨기록(날씨에 대한 의견), Weak entity(USER가 없으면 WEATHER_RECORD가 사라짐)
-- Date : Key attribute, 날씨를 기록할 날짜
-- Feeling : 체감 날씨 의견
-    - ex) 추움, 더움, 따뜻함 등
+#### (2) WEATHER_RECORD : 날씨기록(날씨에 대한 의견), Weak entity(USER가 없으면 WEATHER_RECORD가 사라짐)
+- Datetime : Key attribute, 날씨를 기록할 날짜
+- Date : 날씨 기록 날짜의 월,일
 - Address : 해당 날씨의 위치
 - Weather_code : 날씨 상태(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
 - Temp : 기온
@@ -48,44 +42,46 @@
 - Humidity : 습도
 - Humidity_feeling : 체감한 습도
 - Precipitation : 강수
-- Prep_feeling : 체감한 강수 정
+- Prep_feeling : 체감한 강수
 
-### (4) WTYPE : 날씨 종류
+#### (3) REVIEW : 웹사이트 리뷰, Weak entity(USER가 없으면 REVIEW가 사라짐)
+- Rdate : 리뷰를 작성한 날짜, 시간
+- Stars : 웹사이트 별점
+- Comment : 웹사이트에 대한 의견
+
+#### (4) WTYPE : 날씨 종류
 - Weather_code : 날씨 코드(SKY_1, SKY_3, SKY_4, PTY_1, PTY_2, PTY_3, PTY_4)
 - Description : 날씨 설명 (맑음, 구름 많음, 흐림, 비, 비 또는 눈, 눈, 소나기)
 - Icon_name : 날씨 아이콘 파일명
 
 ### Relationship
-#### (1) SAVE
-- USER는 REGION을 꼭 가지지 않아도 됨 (Partial participation)
-- REGION는 USER를 꼭 가져야함 (Total participation)
-- 1:N
-- 식별관계
 
-#### (2) WRITE
+#### (1) SAVE
 - USER는 WEATHER_RECORD를 꼭 가지지 않아도 됨 (Partial participation)
 - WEATHER_RECORD는 USER를 꼭 가져야함(Total participation)
 - 1:N
 - 식별관계
 
-#### (3) HAS1
-- REGION는 WEATHER_RECORD를 꼭 가져야함(Total participation)
-- WEATHER_RECORD는 REGION를 꼭 가져야함 (Total particicpation)
+#### (2) WRITE
+- USER는 REVIEW을 꼭 가지지 않아도 됨 (Partial participation)
+- REVIEW는 USER를 꼭 가져야함 (Total participation)
 - 1:N
+- 식별관계
 
-#### (4) HAS2
+#### (3) HAS2
 - WEATHER_TYPE은 WEATHER_RECORD를 꼭 가지지 않아도 됨(Partial participation)
-- WEATHER_RECORD응 WEATHER_TYPE을 꼭 가져야함(Total participation)
+- WEATHER_RECORD을 WEATHER_TYPE을 꼭 가져야함(Total participation)
 - 1:N
 
 
 
 ## 3. Relational diagram - CHOSSE, INFO_LIST 삭제
-![Weather_Relational](https://user-images.githubusercontent.com/75112062/234793815-966814d7-1bda-44f5-9ca1-08b925d4516a.jpg)
+![image](https://github.com/sounimul/Project1/assets/75112062/87b6de9a-6368-4f36-97a0-72b48c2f11be)
 
 
-#### REGION
-- Uuid, Address : primary key
+
+#### REVIEW
+- Uuid, Rdate : primary key
 - Uuid : USERLIST의 Uniq_id를 참조
 
 #### USERLIST (ER diagram의 USER)
@@ -93,7 +89,7 @@
 - User_id : unique
 
 #### WEATHER_RECORD
-- Uuid, Rdate : primary
+- Uuid, Rdate : primary key
 - Uuid : USERLIST의 Uniq_id를 참조
 - Wcode : WTYPE의 Wcode를 참조
 
