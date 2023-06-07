@@ -22,7 +22,7 @@ function Icon(){
         default:
             fileName="fvSun";
     }
-    wicon.setAttribute('src',`../static/${fileName}.svg`);
+    wicon.setAttribute('src',`../${fileName}.svg`);
 }
 Icon();
 
@@ -188,35 +188,23 @@ document.querySelector('#fw').addEventListener('change',()=>{
 })
 
 /* 조건 새로고침 */
-document.querySelector('#refresh').addEventListener('click',()=>{
-    document.querySelector('#sTemp').value = -1;
-    document.querySelector('#sHumid').value = -1;
-    document.querySelector('#sRain').value = -1;
-})
-
-function confirmDelete(c){
-    const answer = confirm('정말 삭제하시겠습니까?'); //true, false
-    
-    if(answer){ //삭제 O
-
-    }else { //삭제 X
-
-    }
-
-    // c.parentElement.parentElement.parentElement.style.display = 'none'; //팝업 닫기
-}
+// document.querySelector('#refresh').addEventListener('click',()=>{
+//     document.querySelector('#sTemp').value = -1;
+//     document.querySelector('#sHumid').value = -1;
+//     document.querySelector('#sRain').value = -1;
+// })
 
 // item expand
 function expand(e){
 
-    let expand = e.childNodes[3].style.display;
+    let expand = e.childNodes[1].childNodes[11].childNodes[1].innerText;
 
-    if(expand === 'none' || expand === ''){
-        e.childNodes[3].style.display = 'flex';
+    if(expand === 'expand_more'){
+        e.childNodes[3].style.display = "flex";
         e.childNodes[1].childNodes[11].childNodes[1].innerText = 'expand_less';
         e.style.height = '70px';
     }else {
-        e.childNodes[3].style.display = 'none';
+        e.childNodes[3].style.display = "none";
         e.childNodes[1].childNodes[11].childNodes[1].innerText = 'expand_more';
         e.style.height = '40px';
     }
@@ -226,8 +214,8 @@ function expand(e){
 /* delete confirm */
 function confirmDelete(e){
     
-    const uuid = e.parentElement.parentElement.childNodes[3].childNodes[11].innerText;
-    const rdate = e.parentElement.parentElement.childNodes[3].childNodes[3].innerText;
+    const uuid = e.parentElement.childNodes[11].innerText;
+    const rdate = e.parentElement.childNodes[13].innerText;
 
     console.log("uuid와 rdate");
     console.log(uuid);

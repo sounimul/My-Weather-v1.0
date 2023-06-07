@@ -8,12 +8,12 @@
     <title>메인페이지</title>
 
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <!-- <link rel="stylesheet" href="../weatherStyle.css"> -->
-    <!-- <script src="../weatherScript.js" defer></script> -->
+    <link rel="stylesheet" href="../weatherStyle.css">
+    <script src="../weatherScript.js" defer></script>
     
     <!-- 프론트 CSS/스크립트 -->
-    <link rel="stylesheet" href="../static/weatherStyle.css">
-    <script src="../static/weatherScript.js" defer> </script>
+<!--    <link rel="stylesheet" href="../static/weatherStyle.css">-->
+<!--    <script src="../static/weatherScript.js" defer> </script>-->
     
     <!-- 날씨 아이콘(구글 머티리얼) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -25,7 +25,7 @@
 <body>
     <!-- 모바일은 닫힌 버전 / 웹은 열린 버전 -->
     <header class="menuWrapper">
-        <button id="openMenu"><span class="material-symbols-rounded" id="openMenuIcon">menu</span></button> 
+        <button id="openMenu"><span class="material-symbols-rounded" id="openMenuIcon">menu</span></button>
         <ul class="menuBtn">
             <li>
                 <!-- 날씨 저장 -->
@@ -41,7 +41,7 @@
             </li>
             <li>
                 <!-- 설명 -->
-                <a href="intro.html"><button><span class="material-symbols-rounded">help</span></button></a>
+                <a href="#"><button><span class="material-symbols-rounded">help</span></button></a>
             </li>
         </ul>
     </header>
@@ -89,7 +89,7 @@
                 <div class="todayWeatherIcon">
                     <div class="chairBack"></div>
                     <div class="chairSeat">
-                        <img id="wicon" src="../static/cloudAndSun.svg" alt="wicon" onclick="">
+                        <img id="wicon" src="../cloudAndSun.svg" alt="wicon" onclick="">
                     </div>
                     <div class="shadow"></div>
                 </div>
@@ -320,11 +320,11 @@
             <h3>리뷰 남기기</h3>
             <form action="/review" method="post" class="feedbackForm">
                 <div class="starWrapper">
-                    <input type="radio" name="reviewStar" value="s1" id="rate1"><label for="rate1"><span class="material-symbols-outlined" id="grade1">cloudy</span></label>
-                    <input type="radio" name="reviewStar" value="s2" id="rate2"><label for="rate2"><span class="material-symbols-outlined" id="grade2">cloudy</span></label>
-                    <input type="radio" name="reviewStar" value="s3" id="rate3"><label for="rate3"><span class="material-symbols-outlined" id="grade3">cloudy</span></label>
-                    <input type="radio" name="reviewStar" value="s4" id="rate4"><label for="rate4"><span class="material-symbols-outlined" id="grade4">cloudy</span></label>
-                    <input type="radio" name="reviewStar" value="s5" id="rate5"><label for="rate5"><span class="material-symbols-outlined" id="grade5">cloudy</span></label>
+                    <input type="radio" name="reviewStar" value="1" id="rate1"><label for="rate1"><span class="material-symbols-outlined" id="grade1">cloudy</span></label>
+                    <input type="radio" name="reviewStar" value="2" id="rate2"><label for="rate2"><span class="material-symbols-outlined" id="grade2">cloudy</span></label>
+                    <input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3"><span class="material-symbols-outlined" id="grade3">cloudy</span></label>
+                    <input type="radio" name="reviewStar" value="4" id="rate4"><label for="rate4"><span class="material-symbols-outlined" id="grade4">cloudy</span></label>
+                    <input type="radio" name="reviewStar" value="5" id="rate5"><label for="rate5"><span class="material-symbols-outlined" id="grade5">cloudy</span></label>
                 </div>
                 <textarea id="comment" placeholder="최대 100자" name="comment" cols="35" rows="6" maxlength="100"></textarea>
                 <div class="buttons">

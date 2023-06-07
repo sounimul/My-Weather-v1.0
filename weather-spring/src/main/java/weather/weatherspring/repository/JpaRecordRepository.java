@@ -36,11 +36,11 @@ public class JpaRecordRepository implements RecordRepository{
     }
 
     /* 리스트 조회 */
-//    public List<Record> findByUid(Long uid){
-//        return em.createQuery("select r from Record r where r.uid = :uid order by r.rdate desc", Record.class)
-//                .setParameter("uid",uid)
-//                .getResultList();
-//    }
+    public List<Record> findByUid(Long uid){
+        return em.createQuery("select r from Record r where r.uid = :uid order by r.rdate desc", Record.class)
+                .setParameter("uid",uid)
+                .getResultList();
+    }
 
     public void deleteByUidAndRdate(Long uid, LocalDateTime rdate) {
         RecordId recordId = new RecordId();

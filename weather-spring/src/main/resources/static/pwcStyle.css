@@ -38,6 +38,7 @@ form {
     border-bottom: var(--dark-color) 1px solid;
     padding-top: 20px;
     margin-bottom: 20px;
+    padding-bottom: 8px;
 }
 
 .changePW input[type="password"]:focus {
