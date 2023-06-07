@@ -1,3 +1,9 @@
+/* 전체 */
+:root {
+    --light-color: #aecbe8;
+    --dark-color: #0066cc;
+}
+
 body {
     margin: 0;
 }
@@ -26,31 +32,45 @@ form {
     align-items: left;
 }
 
-.changePW input {
+.changePW input[type="password"] {
     background-color: transparent;
     border: none;
-    border-bottom: #4C623B 1px solid;
+    border-bottom: var(--dark-color) 1px solid;
     padding-top: 20px;
     margin-bottom: 20px;
 }
 
-.changePW input:focus {
+.changePW input[type="password"]:focus {
     outline: none;
 }
 
-.changPW label {
-    color: #4C623B;
+/* 버튼 */
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px;
+    margin-top: 24px;
 }
 
-#changePF ,#changePW{
-    margin-top: 20px;
-    margin: auto;
+.buttons input[type="submit"], .buttons button {
+    
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+
     width: 100px;
     height: 40px;
-    background-color: #4C623B;
-    border: none;
-    color: #F3ECAE;
-    border-radius: 20px;
-    padding: 5px;
-    cursor: pointer;
+    margin: 0 8px;
+    
+    border: 2px solid var(--light-color);
+    border-radius: 30px;
+
+    font-weight: 900;
+}
+
+.buttons input[type="submit"]:hover, .buttons button:hover {
+    background-color: var(--light-color);
 }

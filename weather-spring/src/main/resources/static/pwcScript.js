@@ -5,7 +5,6 @@ const confirmPW = document.querySelector('#confirmPW');
 
 /* 현재 비밀번호 */
 function checkCurrentPW(){
-    //console.log('사용자가 원하는 비밀번호', pw.value);
     //8-20자리
     //영문 대소문자
     //숫자
@@ -28,7 +27,6 @@ function confirmCurrentPW(){
 
     if(!regexPW.test(currentPW.value)) {
         currentPW.style.color = "red";
-        // currentPW.value = '';
         currentPW.style.borderBottom = "1px solid red"
         return false;
     }
@@ -39,12 +37,8 @@ function confirmCurrentPW(){
     }
 }
 
-// 맞는 비밀번호인지 확인 추가
-
-
 /* 새로운 비밀번호 */
 function checkNewPW(){
-    //console.log('사용자가 원하는 비밀번호', pw.value);
     //8-20자리
     //영문 대소문자
     //숫자
@@ -80,7 +74,6 @@ function confirmNewPW(){
 
 /* 새로운 비밀번호 재확인 */
 function checkConfirmPW(){
-    //console.log('사용자가 원하는 비밀번호', pw.value);
     //8-20자리
     //영문 대소문자
     //숫자
@@ -90,9 +83,7 @@ function checkConfirmPW(){
         confirmPW.style.color = "red";
         confirmPW.style.borderBottom = "1px solid red"
         return false;
-    }
-    
-    else {
+    } else {
         confirmPW.style.color = "green";
         confirmPW.style.borderBottom = "1px solid green"
         return true;
