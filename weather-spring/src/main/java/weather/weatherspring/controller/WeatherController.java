@@ -9,11 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import weather.weatherspring.domain.Member;
 import weather.weatherspring.entity.Location;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.*;
 import weather.weatherspring.service.LocationService;
+import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 import weather.weatherspring.service.WeatherService;
 
@@ -33,11 +35,14 @@ public class WeatherController {
     private final WeatherService weatherService;
     @Autowired
     private final RecordService recordService;
+    @Autowired
+    private final MemberService memberService;
 
-    public WeatherController(LocationService locationService, WeatherService weatherService, RecordService recordService) {
+    public WeatherController(LocationService locationService, WeatherService weatherService, RecordService recordService, MemberService memberService) {
         this.locationService = locationService;
         this.weatherService = weatherService;
         this.recordService = recordService;
+        this.memberService = memberService;
     }
 
     /* weather view */
@@ -53,7 +58,9 @@ public class WeatherController {
 
         // session으로부터 uid 가져와 modelAndView에 저장
         Long uid=(Long) session.getAttribute("uid");
-        modelAndView.addObject("uid",uid);
+        Member member = memberService.findMember(uid).get();
+        modelAndView.addObject("member",member);
+        System.out.println(member.getNickname() + "님, 좋아하는 날씨 " + member.getFvweather() + "입니다");
 
         // session으로부터 주소 가져와 modelAndView에 저장
         String ad = (String) session.getAttribute("address");
