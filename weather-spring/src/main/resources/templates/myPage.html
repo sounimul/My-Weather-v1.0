@@ -189,12 +189,12 @@
                     <span>좋아하는 계절</span>
                     <span id="currentFw" th:text="${user.fvweather}">맑음</span>
                     <select name="fvweather" id="fw">
-                        <option value="">변경할 계절을 선택하세요.</option>
-                        <option value="맑음">맑음</option>
-                        <option value="구름 많음">구름 많음</option>
-                        <option value="흐림">흐림</option>
-                        <option value="비">비</option>
-                        <option value="눈">눈</option>
+                        <option value="" th:selected="${user.fvweather} == ''">변경할 계절을 선택하세요.</option>
+                        <option value="맑음" th:selected="${user.fvweather} == '맑음'">맑음</option>
+                        <option value="구름 많음" th:selected="${user.fvweather} == '구름 많음'">구름 많음</option>
+                        <option value="흐림" th:selected="${user.fvweather} == '흐림'">흐림</option>
+                        <option value="비" th:selected="${user.fvweather} == '비'">비</option>
+                        <option value="눈" th:selected="${user.fvweather} == '눈'">눈</option>
                     </select>
                     <!-- <button id="changeFW">수정</button> -->
                     <!-- <input type="text" name="fvweather" th:value="${user.fvweather}" placeholder="변경할 계절을 입력하세요" id="changeFW"> -->

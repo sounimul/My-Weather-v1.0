@@ -22,10 +22,10 @@ function checkID(){
             success:function (data){
                 console.log("서버로 회원 정보를 전송했습니다."+data);
                 if(data===""){
-                    alert("이미 있는 아이디입니다.");
+                    alert("이미 존재하는 아이디입니다.");
                     id.value = '';
                 }else{
-                    alert('등록 가능한 아이디입니다.');
+                    alert('사용 가능한 아이디입니다.');
                     /*자바스크립트 내 확인용 저장*/
                     //id.value += '   ✔️'; //표시 기능, 값이 변경되어 불가, 체크 공간 구현하면 가능
                     id.style.borderBottom = 'none';

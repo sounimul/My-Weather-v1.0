@@ -27,6 +27,8 @@ public class ReviewController {
         HttpSession session = request.getSession();
         Review review = new Review();
 
+        if(reviewForm.getReviewStar()==0) reviewForm.setReviewStar(-1);
+
         review.setUuid((Long) session.getAttribute("uid"));
         review.setDate(LocalDateTime.now());
         review.setStars(reviewForm.getReviewStar());
