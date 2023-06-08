@@ -63,6 +63,7 @@ let sec = 0;
 function getClock(){
 
     now = new Date();
+    day = now.getDay();
     hour = now.getHours();
 
     /* 1시간 전후 시간 */
