@@ -6,6 +6,7 @@ import weather.weatherspring.domain.Member;
 import weather.weatherspring.entity.MemberForm;
 import weather.weatherspring.repository.MemberRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -54,6 +55,10 @@ public class MemberService {
 
     public Optional<Member> findMember(Long uid){
         return memberRepository.findByUid(uid);
+    }
+
+    public List<Member> findMembers(String avail){
+        return memberRepository.findAll(avail);
     }
 
     /* 비밀번호 변경 */
