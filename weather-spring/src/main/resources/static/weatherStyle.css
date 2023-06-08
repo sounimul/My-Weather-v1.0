@@ -364,6 +364,49 @@ main {
     filter : drop-shadow(0 2px 2px rgba(0,0,0,0.2));
 }
 
+/* 사용자가 좋아하는 날씨 표시 */
+#love {
+    font-variation-settings: 'FILL' 1;
+    color: red;
+    position: absolute;
+    font-size: 36px;
+    /* transform: translate(-8px, -64px); */
+    transform: translate(164px, -16px);
+    cursor: pointer;
+    display: none;
+}
+
+.myFvIcon {
+    padding: 16px;
+    border-radius: 10px;
+
+    background-color: #fff;
+
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+
+    position: absolute;
+    transform: translate(274px, 30px);
+
+    display: none;
+}
+
+.myFvIcon:after {
+    content:"";
+
+    border-top:0px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+
+    position:absolute;
+    top:-10px;
+}
+
+#love:hover ~.myFvIcon{
+    display: block;
+}
+
 /* forecast 400px > 350px */
 /* 예보 데이터 리스트 */
 .forecast li {

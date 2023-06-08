@@ -16,6 +16,7 @@ const futureDay5 = document.getElementsByClassName('futureDay')[4];
 const weather_arr = ['맑음','구름 많음','흐림','비','비 또는 눈','눈','소나기','빗방울','빗방울눈날림','눈날림'];
 
 function Icon(){
+
     switch (weather){
         case '맑음':
             fileName="sun";
@@ -47,7 +48,35 @@ function Icon(){
         default:
             fileName="cloud";
     }
-    wicon.setAttribute('src',`../${fileName}.svg`);
+    // wicon.setAttribute('src',`../${fileName}.svg`);
+
+
+    // 사용자가 좋아하는 날씨 표시
+    // const fvWeather = ;
+    
+    // front
+    // wicon.setAttribute('src',`../static/${fileName}.svg`);
+    // let fvWeather = 'shower';
+
+    // if(fvWeather === fileName) {
+    //     if(fileName==="cloud"){
+    //         document.querySelector("#love").style.transform = "translate(-70px, -16px)"
+    //         document.querySelector(".myFvIcon").style.transform = "translate(40px, 30px)"
+    //     }
+    //     else if(fileName === "rain"){
+    //         document.querySelector("#love").style.transform = "translate(-100px, -16px)"
+    //         document.querySelector(".myFvIcon").style.transform = "translate(10px, 30px)"
+    //     }
+    //     else if(fileName === "shower"){
+    //         document.querySelector("#love").style.transform = "translate(-80px, -16px)"
+    //         document.querySelector(".myFvIcon").style.transform = "translate(30px, 30px)"
+    //     } else {
+    //         document.querySelector("#love").style.transform = "translate(164px, -16px)"
+    //         document.querySelector(".myFvIcon").style.transform = "translate(274px, 30px)"
+    //     }
+
+    //     document.querySelector('#love').style.display = "block";
+    // }
 }
 
 const day_arr = ['일','월','화','수','목','금','토'];
