@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.domain.Record;
+import weather.weatherspring.domain.Review;
 import weather.weatherspring.entity.Search;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 import weather.weatherspring.service.ReviewService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,7 +91,48 @@ public class BoardController {
     }
 
     @GetMapping("/board/review")
-    public String reviewBoard(){
+    public String reviewBoard(Model model, @RequestParam(required = false, defaultValue = "0") int page){
+        // 별점 평균 계산
+        Double avgStar = 0.00;
+        Optional<Double> avg = reviewService.findAverage();
+        if(avg.isPresent()) avgStar = Math.round(avg.get()*100.00) / 100.00;
+
+        // 별점 통계
+        List<Object[]> countingStars = reviewService.findStarCount();
+        int[] countList = {0,0,0,0,0};
+        Integer[] intArray = new Integer[2];
+        int starCount=0;
+        int totalCount=0;
+        for (Object[] countingStar : countingStars){
+            // 0 : 별점 / 1 : 별점의 수
+            intArray[0] = Integer.parseInt(countingStar[0].toString());
+            intArray[1] = Integer.parseInt(countingStar[1].toString());
+
+            if(intArray[0]>0){
+                if(intArray[0] == 5) countList[4] = intArray[1];
+                else if(intArray[0] == 4) countList[3] = intArray[1];
+                else if(intArray[0] == 3) countList[2] = intArray[1];
+                else if(intArray[0] == 2) countList[1] = intArray[1];
+                else countList[0] = intArray[1];
+
+                starCount += intArray[1];
+            }
+            totalCount += intArray[1];
+        }
+
+        // 리뷰 목록
+        Page<Review> reviews = reviewService.findAllReview(page);
+        int totalPage = reviews.getTotalPages();
+        if (totalPage==0) totalPage=1;
+
+        model.addAttribute("avgStar",avgStar);
+        model.addAttribute("countList",countList);
+        model.addAttribute("starCount",starCount);
+        model.addAttribute("totalCount",totalCount);
+        model.addAttribute("totalPage",totalPage);
+        model.addAttribute("curPage",page);
+        model.addAttribute("reviews",reviews);
+
         return "/admin/reviewBoard";
     }
 }

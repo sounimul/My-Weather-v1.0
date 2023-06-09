@@ -1,10 +1,15 @@
 package weather.weatherspring.service;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import weather.weatherspring.domain.Review;
 import weather.weatherspring.domain.ReviewId;
 import weather.weatherspring.repository.ReviewRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public class ReviewService {
@@ -21,6 +26,18 @@ public class ReviewService {
     }
 
     /* 관리자 페이지 기능 */
+    /* 모든 리뷰 조회 */
+    public Page<Review> findAllReview(int page){
+        return reviewRepository.findAll(page);
+    }
+    /* 평균 별점 조회 */
+    public Optional<Double> findAverage(){
+        return reviewRepository.calAverage();
+    }
 
+    /* 별점 통계 조회 */
+    public List<Object[]> findStarCount(){
+        return reviewRepository.countStars();
+    }
 
 }

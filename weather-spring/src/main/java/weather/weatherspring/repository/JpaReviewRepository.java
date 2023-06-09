@@ -1,9 +1,15 @@
 package weather.weatherspring.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import weather.weatherspring.domain.Review;
 import weather.weatherspring.domain.ReviewId;
 
+import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 public class JpaReviewRepository implements  ReviewRepository{
@@ -30,9 +36,27 @@ public class JpaReviewRepository implements  ReviewRepository{
     }
 
     /* 관리자 페이지 - 별점, 리뷰 조회 */
-
+    public Page<Review> findAll(int page){
+        List<Review> reviews = em.createQuery("select r from Review r order by r.date desc",Review.class)
+                .getResultList();
+        PageRequest pageRequest = PageRequest.of(page,15);
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start+pageRequest.getPageSize()), reviews.size());
+        Page<Review> reviewPage = new PageImpl<>(reviews.subList(start,end),pageRequest,reviews.size());
+        return reviewPage;
+    }
 
     /* 관리자 페이지 - 별점 평균 조회 */
+    public Optional<Double> calAverage(){
+        List<Double> avgStar = em.createQuery("select avg(r.stars) from Review r where r.stars > 0",Double.class)
+                .getResultList();
+        return avgStar.stream().findAny();
+    }
 
-
+    /* 관리자 페이지 - 별점별 개수 조회 */
+    public List<Object[]> countStars(){
+        List<Object[]> reviews = em.createQuery("select r.stars, count(r.stars) from Review r group by r.stars order by r.stars desc",Object[].class)
+                .getResultList();
+        return reviews;
+    }
 }

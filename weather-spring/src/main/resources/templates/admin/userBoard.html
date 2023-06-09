@@ -34,14 +34,14 @@
             height: 100%;
             margin:0;
         }
-        ul{
+        ul.navbarWrap{
             background-color: midnightblue;
             width:200px;
             list-style-type: none;
             margin : 0;
             padding : 0;
         }
-        li a {
+        li a.navbar {
             display: block;
             color: white;
             padding: 30px;
@@ -51,9 +51,16 @@
             font-weight: bold;
         }
         li a.current{
+            display: block;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15pt;
+            font-weight: bold;
             background-color: cornflowerblue;
         }
-        li a:hover{
+        li a.navbar:hover{
             background-color: royalblue;
         }
         div.mainWrapper{
@@ -77,7 +84,6 @@
             background-color: lightgray;
             color: black;
         }
-
     </style>
 </head>
 <body>
@@ -86,11 +92,11 @@
     </header>
     <div class="containerWrap">
         <nav>
-            <ul>
-                <li><a href="/logout">HOME</a></li>
-                <li><a href="/board/user" class="current">사용자</a></li>
-                <li><a href="/board/record">날씨 기록</a></li>
-                <li><a href="/board/review">리뷰/별점</a></li>
+            <ul class="navbarWrap">
+                <li><a class="navbar" href="/logout">HOME</a></li>
+                <li><a class="current" href="/board/user">사용자</a></li>
+                <li><a class="navbar" href="/board/record" >날씨 기록</a></li>
+                <li><a class="navbar" href="/board/review">리뷰/별점</a></li>
             </ul>
         </nav>
         <div class="mainWrapper">
@@ -119,7 +125,7 @@
                     </tbody>
                 </table>
             </div>
-
+            <hr>
             <div>
                 <h2>탈퇴한 사용자</h2>
             </div>
