@@ -340,3 +340,4 @@ document.querySelector('#grade5').addEventListener('click',()=>{
     document.querySelector('#grade4').style['font-variation-settings'] = `${fill} ${1}`;
     document.querySelector('#grade5').style['font-variation-settings'] = `${fill} ${1}`;
 })
+

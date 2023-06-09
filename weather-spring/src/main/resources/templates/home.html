@@ -10,82 +10,101 @@
     <!-- 백엔드 CSS/스크립트 확인 -->
      <link rel="stylesheet" href="../homeStyle.css">
     <!-- 프론트 CSS/스크립트 확인 -->
-<!--    <link rel="stylesheet" href="../static/homeStyle.css">-->
+    <!-- <link rel="stylesheet" href="../static/homeStyle.css"> -->
 </head>
 <body>
-<h1>Welcome to Weather Page</h1>
-<div class="doorBorder">
-</div>
-<main>
-    <div class="wrapper">
-        <div class="loginInput">
-            <form action="/login" method="POST">
-                <!-- <form> -->
-                <div class="inputAccount">
-                    <div class="id">
-                        <div class="idLabel"><label for="userid">ID</label></div>
-                        <input type="text" id="userid" name="userid" placeholder="메일을 입력하세요">
-                    </div>
-
-                    <div class="password">
-                        <div class="passwordLabel"><label for="pw">PW </label></div>
-                        <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요">
-                    </div>
-                </div>
-                <input name="year" style="display: none" value="" class="time">
-                <input name="month" style="display: none" value="" class="time">
-                <input name="date" style="display: none" value="" class="time">
-                <input name="hour" style="display: none" value="" class="time">
-                <input name="min" style="display: none" value="" class="time">
-                <input name="sec" style="display: none" value="" class="time">
-
-                <input name="latitude" style="display: none" value="" class="loc">
-                <input name="longitude" style="display: none" value="" class="loc">
-
-                <div class="submit">
-                    <button type="submit" id="logIn"><span class="material-symbols-outlined">login</span></button>
-                </div>
-            </form>
+    <div class="loadBack">
+        <div class="loadingWrapper">
+            <div class="loadingImg">
+                <span>●</span>
+                <span>●</span>
+                <span>●</span>
+            </div>
+            <span class="loadingText">loading...</span>
         </div>
     </div>
-    <script>
-        let now = new Date(); //날짜, 시간 객체
-        let year = now.getFullYear();
-        let month = now.getMonth()+1;
-        let date = now.getDate();
-        let hour = now.getHours(); //24시간제
-        let min = now.getMinutes();
-        let sec = now.getSeconds();
+    <h1>Welcome to Weather Page</h1>
+    <div class="doorBorder">
+    </div>
+    <main>
+        <div class="wrapper">
+            <div class="loginInput">
+                <form action="/login" method="POST" onsubmit="return loading()">
+                    <!-- <form> -->
+                    <div class="inputAccount">
+                        <div class="id">
+                            <div class="idLabel"><label for="userid">ID</label></div>
+                            <input type="text" id="userid" name="userid" placeholder="메일을 입력하세요">
+                        </div>
 
-        navigator.geolocation.getCurrentPosition(Sucess, Error);
-        function Sucess(position){
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
+                        <div class="password">
+                            <div class="passwordLabel"><label for="pw">PW </label></div>
+                            <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요">
+                        </div>
+                    </div>
+                    <input name="year" style="display: none" value="" class="time">
+                    <input name="month" style="display: none" value="" class="time">
+                    <input name="date" style="display: none" value="" class="time">
+                    <input name="hour" style="display: none" value="" class="time">
+                    <input name="min" style="display: none" value="" class="time">
+                    <input name="sec" style="display: none" value="" class="time">
 
-            document.getElementsByClassName('loc')[0].setAttribute('value',latitude);
-            document.getElementsByClassName('loc')[1].setAttribute('value',longitude);
-        }
+                    <input name="latitude" style="display: none" value="" class="loc">
+                    <input name="longitude" style="display: none" value="" class="loc">
 
-        function Error(position){
-            document.getElementsByClassName('loc')[0].setAttribute('value','nodata');
-            document.getElementsByClassName('loc')[1].setAttribute('value','nodata');
-        }
+                    <div class="submit">
+                        <button type="submit" id="logIn"><span class="material-symbols-outlined">login</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            let now = new Date(); //날짜, 시간 객체
+            let year = now.getFullYear();
+            let month = now.getMonth()+1;
+            let date = now.getDate();
+            let hour = now.getHours(); //24시간제
+            let min = now.getMinutes();
+            let sec = now.getSeconds();
+
+            navigator.geolocation.getCurrentPosition(Sucess, Error);
+            function Sucess(position){
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                document.getElementsByClassName('loc')[0].setAttribute('value',latitude);
+                document.getElementsByClassName('loc')[1].setAttribute('value',longitude);
+            }
+
+            function Error(position){
+                document.getElementsByClassName('loc')[0].setAttribute('value','nodata');
+                document.getElementsByClassName('loc')[1].setAttribute('value','nodata');
+            }
 
 
-        document.getElementsByClassName('time')[0].setAttribute('value',year);
-        document.getElementsByClassName('time')[1].setAttribute('value',month);
-        document.getElementsByClassName('time')[2].setAttribute('value',date);
-        document.getElementsByClassName('time')[3].setAttribute('value',hour);
-        document.getElementsByClassName('time')[4].setAttribute('value',min);
-        document.getElementsByClassName('time')[5].setAttribute('value',sec);
+            document.getElementsByClassName('time')[0].setAttribute('value',year);
+            document.getElementsByClassName('time')[1].setAttribute('value',month);
+            document.getElementsByClassName('time')[2].setAttribute('value',date);
+            document.getElementsByClassName('time')[3].setAttribute('value',hour);
+            document.getElementsByClassName('time')[4].setAttribute('value',min);
+            document.getElementsByClassName('time')[5].setAttribute('value',sec);
 
-        setTimeout("location.reload()",300000);
-    </script>
+            setTimeout("location.reload()",300000);
 
-</main>
-<div class="move">
-    <!-- <p><a href="">아이디/비밀번호 찾기</a></p> -->
-    <p><a href="/joinForm">회원가입</a></p>
-</div>
+            function check(){
+                document.querySelector('.loadBack').style.display = "flex";
+                return true;
+            }
+
+            window.onload = function loading(){
+                document.querySelector('.loadBack').style.display = "none";
+            };
+        </script>
+
+    </main>
+    <div class="move">
+        <!-- <p><a href="">아이디/비밀번호 찾기</a></p> -->
+        <p><a href="/joinForm">회원가입</a></p>
+    </div>
 </body>
 </html>
