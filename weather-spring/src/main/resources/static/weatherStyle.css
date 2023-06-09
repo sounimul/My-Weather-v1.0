@@ -159,27 +159,39 @@ main {
 }
 
 .nowInfo{
+    width: 100%;
+
     display: flex;
 }
 
 .infoDetail {
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    font-size: 1.2rem;
 }
 
+#location {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4px;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* #stdTime {
+    font-size: 0.8rem;
+} */
+
 #refresh {
-    color: var(--dark-color);
     background-color: transparent;
     border: none;
 
-    margin-left: 8px;
-
-    position: absolute;
-    transform: translate(150px, 4px);
+    transform: translate(4px, 1px);
 }
 
 .temperature {
@@ -190,7 +202,6 @@ main {
     box-shadow: 0 0px 4px 2px rgba(0,0,0,0.2);
     
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
@@ -208,7 +219,7 @@ main {
 }
 
 .pastInfo, .futureInfo {
-    width: 80px;
+    width: 90px;
 
     display: flex;
     justify-content: space-between;
@@ -216,15 +227,26 @@ main {
 }
 
 #pastHour, #futureHour {
-    margin-bottom: 5px;
+    font-size: 13px;
+    margin-bottom: 4px;
 }
 
 #pastWeatherIcon, #futureWeatherIcon {
     font-size: 24px;
+    font-weight: 300;
+    font-variation-settings: 'FILL' 1;
 }
 
 #pastTemp, #futureTemp {
-    font-size: 20px;
+    border-radius: 50%;
+
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -265,11 +287,11 @@ main {
 }
 
 #currentTemp{
-    width: 88px;
-    height: 88px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
 
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
 
     background-color: var(--dark-color);
@@ -340,6 +362,49 @@ main {
 #wicon {
     transform: translateY(-280px);
     filter : drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+}
+
+/* 사용자가 좋아하는 날씨 표시 */
+#love {
+    font-variation-settings: 'FILL' 1;
+    color: red;
+    position: absolute;
+    font-size: 36px;
+    /* transform: translate(-8px, -64px); */
+    transform: translate(164px, -16px);
+    cursor: pointer;
+    display: none;
+}
+
+.myFvIcon {
+    padding: 16px;
+    border-radius: 10px;
+
+    background-color: #fff;
+
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+
+    position: absolute;
+    transform: translate(274px, 30px);
+
+    display: none;
+}
+
+.myFvIcon:after {
+    content:"";
+
+    border-top:0px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+
+    position:absolute;
+    top:-10px;
+}
+
+#love:hover ~.myFvIcon{
+    display: block;
 }
 
 /* forecast 400px > 350px */
@@ -431,9 +496,11 @@ dt {
     background-image: linear-gradient(135deg, rgba(255,255,255,0.3) , transparent , rgba(255,255,255,0.3) );
 }
 
+.todayDetail dt span{
+    font-weight: 280;
+}
+
 #infoStdTitle {
-    /* width: 300px; */
-    
     display: flex;
     justify-content: left;
     align-items: center;
@@ -441,29 +508,45 @@ dt {
     margin-top: 16px;
 
     cursor: pointer;
-    transform: translateX(-70px);
+    transform: translateX(-80px);
+
+    font-size: 14px;
+    color: #545454;
 }
 
-#infoStdTitle span{
+#iconTitle {
+    transform: translateX(-90px);
+    
+}
+
+#infoStdTitle span {
     margin-left: 4px;
+    font-size: 20px;
 }
 
 #infoStdWrapper {
-    width: 160px;
-    height: 120px;
-    border-radius: 20px;
-    padding: 10px;
+    width: 268px;
+    height: 64px;
+    border-radius: 10px;
+    padding: 8px;
 
-    background-color: var(--dark-color);
-    color: #fff;
+    background-color: #f8fbff;
+    box-shadow: 0 0 6px 2px rgba(0,0,0,0.1);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    position: absolute;
+    transform: translateY(120px);
+    display: none;
+}
+#infoStdWrapper section {
+    height: 100%;
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: start;
-    position: absolute;
-    transform: translate(90px, 130px);
-
-    display: none;
 }
 
 .infoStd {
@@ -473,11 +556,12 @@ dt {
 }
 
 .infoStd span:nth-child(1){
-    width: 24px;
+    font-weight: 200;
 }
 
 .infoStd span:nth-child(2){
-    margin-left: 16px;
+    margin-left: 8px;
+    font-size: 14px;
 }
 
 /* 주간예보 */

@@ -12,12 +12,17 @@
     <script src="../weatherScript.js" defer></script>
     
     <!-- 프론트 CSS/스크립트 -->
-<!--    <link rel="stylesheet" href="../static/weatherStyle.css">-->
-<!--    <script src="../static/weatherScript.js" defer> </script>-->
+<!--   <link rel="stylesheet" href="../static/weatherStyle.css">-->
+<!--   <script src="../static/weatherScript.js" defer> </script>-->
     
     <!-- 날씨 아이콘(구글 머티리얼) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+        <!-- 폰트 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -29,7 +34,7 @@
         <ul class="menuBtn">
             <li>
                 <!-- 날씨 저장 -->
-                <button id="saveWeather"><span class="material-symbols-rounded">favorite</span></button>
+                <button id="saveWeather"><span class="material-symbols-rounded">bookmark</span></button>
             </li>
             <li>
                 <!-- 마이페이지 -->
@@ -48,38 +53,40 @@
 
     <div class="mainWrapper">
         <main class="main">
-    
             <section class="todayWeatherWrapper">
                 <div class="todayWeatherBorder">
                     <div class="todayWeather">
                         <div class="nowInfoWrapper">
                             <div class="nowInfo">
                                 <div class="infoDetail">
-                                    <span id="location" th:text="${ad}">서울특별시 동작구 신대방제2동</span>
-                                    <div class="stdTime" th:text="|${element.hour}시 ${element.min}분 기준|">8시 20분 기준</div>
+                                    <div id="location" th:text="${ad}">
+                                        동작구 신대방제2동 
+                                        <button id="refresh" onclick="getLoc()">
+                                            <span class="material-symbols-outlined">refresh</span>
+                                        </button>
+                                    </div>
+                                    <div id="stdTime" th:text="|${element.hour}시 ${element.min}분 기준|">8시 20분 기준</div>
                                 </div>
                             </div>
-                            <button id="refresh" onclick="getLoc()">
-                                <span class="material-symbols-outlined">refresh</span>
-                            </button>
+
                         </div>
                         <div class="temperature">
                             <div class="past">
                                 <div id="pastHour"></div>
                                 <div class="pastInfo">
+                                    <span id="pastTemp" th:text="|${pastfuture.pt1h}℃|">12.4 ℃</span>
                                     <span class="material-symbols-outlined" id="pastWeatherIcon" th:text="${pastfuture.picon}">cloudy</span>
-                                    <span id="pastTemp" th:text="|${pastfuture.pt1h}℃|">12℃</span>
                                 </div>
                             </div>
                             <div class="now">
-                                <div id="currentTemp" th:text="|${current.t1h}℃|">12 <span>℃</span> </div>
-                                <div id="currentExp" th:text="${current.status}">구름 많음</div>
+                                <div id="currentTemp" th:text="|${current.t1h}℃|">12.4<span>℃</span> </div>
+                                <div id="currentExp" th:text="${current.status}">비</div>
                             </div>
                             <div class="future">
                                 <div id="futureHour"></div>
                                 <div class="futureInfo">
+                                    <span id="futureTemp" th:text="|${pastfuture.ft1h}℃|">12.4 ℃</span>
                                     <span class="material-symbols-outlined" id="futureWeatherIcon" th:text="${pastfuture.ficon}">rainy</span>
-                                    <span id="futureTemp" th:text="|${pastfuture.ft1h}℃|">12℃</span>
                                 </div>
                             </div>
                         </div>
@@ -89,9 +96,17 @@
                 <div class="todayWeatherIcon">
                     <div class="chairBack"></div>
                     <div class="chairSeat">
-                        <img id="wicon" src="../cloudAndSun.svg" alt="wicon" onclick="">
+                        <img id="wicon" src="../cloud.svg" alt="wicon" onclick="">
                     </div>
                     <div class="shadow"></div>
+                    <span class="material-symbols-outlined" id="love">favorite</span>
+                    <div class="myFvIcon">
+                        <div class="text">
+                            <span>nickname</span>
+                            님이 가장 좋아하는 날씨에요! <br> 
+                            오늘도 좋은 하루 보내세요
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -140,22 +155,27 @@
                             </ul>
                             <span id="infoStdTitle">시간별 예보기준<span class="material-symbols-outlined">info</span></span>
                             <div id="infoStdWrapper">
-                                <div class="infoStd">
-                                    <span class="material-symbols-outlined">thermometer_loss</span>
-                                    <span>일 최저기온</span>
-                                </div>  
-                                <div class="infoStd">
-                                    <span class="material-symbols-outlined">thermometer_gain</span>
-                                    <span>일 최고기온</span>
-                                </div>
-                                <div class="infoStd">
-                                    <span class="material-symbols-outlined">water_drop</span>
-                                    <span>습도(정시)</span>
-                                </div>
-                                <div class="infoStd"> 
-                                    <span class="material-symbols-outlined">rainy</span>
-                                    <span>1시간 강수량</span>
-                                </div>  
+                                <section>
+                                    <div class="infoStd">
+                                        <span class="material-symbols-outlined">thermometer_loss</span>
+                                        <span>일 최저기온</span>
+                                    </div>  
+                                    <div class="infoStd">
+                                        <span class="material-symbols-outlined">thermometer_gain</span>
+                                        <span>일 최고기온</span>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="infoStd">
+                                        <span class="material-symbols-outlined">water_drop</span>
+                                        <!-- 수정 -->
+                                        <span>정시기준 습도</span> 
+                                    </div>
+                                    <div class="infoStd"> 
+                                        <span class="material-symbols-outlined">rainy</span>
+                                        <span>1시간 강수량</span> 
+                                    </div>      
+                                </section>
                             </div>
                         </div>
                     </div>
