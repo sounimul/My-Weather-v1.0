@@ -38,4 +38,13 @@ public class RecordSpecification{
             }
         };
     }
+    // uid가 1초과인것 (관리자 uid가 아닌 것)
+    public static Specification<Record> greaterUid(Long uid){
+        return new Specification<Record>() {
+            @Override
+            public Predicate toPredicate(Root<Record> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.greaterThan(root.get("uid"),uid);
+            }
+        };
+    }
 }

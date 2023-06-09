@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,14 +34,14 @@
             height: 100%;
             margin:0;
         }
-        ul{
+        ul.navbarWrap{
             background-color: midnightblue;
             width:200px;
             list-style-type: none;
             margin : 0;
             padding : 0;
         }
-        li a {
+        li a.navbar {
             display: block;
             color: white;
             padding: 30px;
@@ -50,15 +51,85 @@
             font-weight: bold;
         }
         li a.current{
+            display: block;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15pt;
+            font-weight: bold;
             background-color: cornflowerblue;
         }
-        li a:hover{
+        li a.navbar:hover{
             background-color: royalblue;
         }
         div.mainWrapper{
             margin: 0;
             margin-left: 230px;
-            padding: 30px 20px 20px 20px
+            padding: 20px 25px 10px 10px;
+            height : 94%;
+        }
+        div.searchBar{
+            margin-top : 25px;
+            margin-left:50px;
+            margin-right:25px;
+            float:right;
+            /*float:left;*/
+            font-size:10pt;
+        }
+        form.searchForm{
+            float:left;
+        }
+        div.searchCondition{
+            float:left;
+        }
+        .searchButton{
+            float:left;
+            margin-left:5px;
+            margin-right:5px;
+        }
+        table{
+            width : 100%;
+        }
+        table, th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        tr {
+            height : 30px;
+        }
+        thead {
+            background-color: lightgray;
+            color: black;
+        }
+        .pagination {
+            width: 90%;
+            padding:0;
+            margin:0;
+
+            transform: translateY(-16px);
+        }
+
+        .pagination ul {
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination li{
+            margin: 0 4px;
+            list-style: none;
+        }
+
+        .pagination a {
+            color: #000;
+        }
+
+        .currentPage a {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -68,16 +139,104 @@
 </header>
 <div class="containerWrap">
     <nav>
-        <ul>
-            <li><a href="/logout">HOME</a></li>
-            <li><a href="/board/user">사용자</a></li>
-            <li><a href="/board/record" class="current">날씨 기록</a></li>
-            <li><a href="/board/review">리뷰/별점</a></li>
+        <ul class="navbarWrap">
+            <li><a class="navbar" href="/logout">HOME</a></li>
+            <li><a class="navbar" href="/board/user">사용자</a></li>
+            <li><a class="current" href="/board/record" >날씨 기록</a></li>
+            <li><a class="navbar" href="/board/review">리뷰/별점</a></li>
         </ul>
     </nav>
     <div class="mainWrapper">
-        <h2>날씨 기록 리스트</h2>
+        <h2 style="float:left; margin-right:30px;">전체 날씨기록 목록</h2>
+        <div class="searchBar">
+            <form method="get" action="/board/record" class="searchForm">
+                <div class="searchCondition">
+                    <span>기온</span>
+                    <select name="temp" id="sTemp">
+                        <option value="-1" th:selected="${temp} == '-1'">기온</option>
+                        <option value="-999n0" th:selected="${temp} == '-999n0'">~ -1℃</option>
+                        <option value="0n5" th:selected="${temp} == '0n5'">0℃ ~ 5℃</option>
+                        <option value="5n9" th:selected="${temp} == '5n9'">5℃ ~ 9℃</option>
+                        <option value="9n12" th:selected="${temp} == '9n12'">9℃ ~ 12℃</option>
+                        <option value="12n17" th:selected="${temp} == '12n17'">12℃ ~ 17℃</option>
+                        <option value="17n20" th:selected="${temp} == '17n20'">17℃ ~ 20℃</option>
+                        <option value="20n23" th:selected="${temp} == '20n23'">20℃ ~ 23℃</option>
+                        <option value="23n28" th:selected="${temp} == '23n28'">23℃ ~ 28℃</option>
+                        <option value="28n999" th:selected="${temp} == '28n999'">28℃ ~</option>
+                    </select>
+                    <span>습도</span>
+                    <select name="humid" id="sHumid">
+                        <option value="-1" th:selected="${humid} == '-1'">습도</option>
+                        <option value="0n10" th:selected="${humid} == '0n10'">0 ~ 10%</option>
+                        <option value="10n20" th:selected="${humid} == '10n20'">10 ~ 20%</option>
+                        <option value="20n30" th:selected="${humid} == '20n30'">20 ~ 30%</option>
+                        <option value="30n40" th:selected="${humid} == '30n40'">30 ~ 40%</option>
+                        <option value="40n50" th:selected="${humid} == '40n50'">40 ~ 50%</option>
+                        <option value="50n60" th:selected="${humid} == '50n60'">50 ~ 60%</option>
+                        <option value="60n70" th:selected="${humid} == '60n70'">60 ~ 70%</option>
+                        <option value="70n80" th:selected="${humid} == '70n80'">70 ~ 80%</option>
+                        <option value="80n90" th:selected="${humid} == '80n90'">80 ~ 90%</option>
+                        <option value="90n100" th:selected="${humid} == '90n100'">90 ~ 100%</option>
+                    </select>
+                    <span>강수</span>
+                    <select name="prep" id="sRain">
+                        <option value="-1" th:selected="${prep} == '-1'">강수량</option>
+                        <option value="0n3" th:selected="${prep} == '0n3'">~ 3mm</option>
+                        <option value="3n15" th:selected="${prep} == '3n15'">3 ~ 15mm</option>
+                        <option value="15n30" th:selected="${prep} == '15n30'">15mm ~ 30mm</option>
+                        <option value="30n999" th:selected="${prep} == '30n999'">30mm ~ </option>
+                    </select>
+                </div>
+                <button id="search" class="searchButton" type="submit">search</button>
+            </form>
+            <button id="refresh" onClick="location.href='/board/record'">조건 초기화</button>
+        </div>
+        <p></p><br><br><br><br><br>
+
+        <div style="height:82%; overflow:scroll;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Uuid</th>
+                        <th>Datetime</th>
+                        <th>날짜</th>
+                        <th>주소</th>
+                        <th>날씨</th>
+                        <th>기온</th>
+                        <th>체감 기온</th>
+                        <th>습도</th>
+                        <th>체감 습도</th>
+                        <th>강수</th>
+                        <th>체감 강수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="record : ${records}">
+                        <td th:text="${record.uid}">2</td>
+                        <td th:text="${record.rdate}">2023-06-07T18:23:05</td>
+                        <td th:text="${record.rmd}">2023년 6월 7일 18시 23분</td>
+                        <td th:text="${record.ad}">대구광역시 달서구 상인동</td>
+                        <td th:text="${record.wmsg}">partly_cloudy_day</td>
+                        <td th:text="|${record.temp}°C|">27.3</td>
+                        <td th:text="${record.tfeel}">따뜻해요</td>
+                        <td th:text="|${record.humid}%|">50</td>
+                        <td th:text="${record.hfeel}">쾌적해요</td>
+                        <td th:text="|${record.precip}mm|">0.0</td>
+                        <td th:text="${record.pfeel}">안와요</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <ul>
+                <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}" th:classappend="${page == curPage} ? 'currentPage' : ''">
+                    <a th:href="@{/board/record(temp=${temp}, humid=${humid}, prep=${prep}, page=${pageStat.index})}" th:text="${pageStat.index + 1}">1</a>
+                </li>
+            </ul>
+        </div>
     </div>
+
 </div>
 
 </body>

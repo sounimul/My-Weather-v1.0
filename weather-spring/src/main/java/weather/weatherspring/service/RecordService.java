@@ -69,4 +69,18 @@ public class RecordService {
         Pageable pageable = PageRequest.of(page,7,Sort.by(Sort.Order.desc("rdate")));
         return recordRepository.findAll(spec,pageable);
     }
+
+    public Page<Record> findAllRecords(Search search, int page){
+        Specification<Record> spec = Specification.where(RecordSpecification.greaterUid(1L));
+
+        if(search.getStartTemp() !=null && search.getEndTemp() != null)
+            spec = spec.and(RecordSpecification.betweenWeather(search.getStartTemp(), search.getEndTemp(), "temp"));
+        if(search.getStartHumid() != null && search.getEndHumid() != null)
+            spec = spec.and(RecordSpecification.betweenHumid(search.getStartHumid(), search.getEndHumid()));
+        if(search.getStartPrep() != null && search.getEndPrep() != null)
+            spec = spec.and(RecordSpecification.betweenWeather(search.getStartPrep(), search.getEndPrep(), "precip"));
+
+        Pageable pageable = PageRequest.of(page,20,Sort.by(Sort.Order.desc("rdate")));
+        return recordRepository.findAll(spec,pageable);
+    }
 }
