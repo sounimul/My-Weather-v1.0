@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 대시보드</title>
+    <style>
+        body {
+            margin : 0;
+        }
+        header {
+            margin: 0;
+            padding: 0;
+            position: sticky;
+            height: 80px;
+            top: 0;
+            background-color: #aecbe8;
+        }
+        header h1 {
+            padding: 10px 20px;
+            margin: 0;
+            text-align: center;
+        }
+        div.containerWrap{
+            position:absolute;
+            margin:0;
+            width: 100%;
+            height:91.3vh;
+        }
+        div nav{
+            position: absolute;
+            background-color: midnightblue;
+            width:200px;
+            height: 100%;
+            margin:0;
+        }
+        ul.navbarWrap{
+            background-color: midnightblue;
+            width:200px;
+            list-style-type: none;
+            margin : 0;
+            padding : 0;
+        }
+        li a.navbar {
+            display: block;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15pt;
+            font-weight: bold;
+        }
+        li a.current{
+            display: block;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15pt;
+            font-weight: bold;
+            background-color: cornflowerblue;
+        }
+        li a.navbar:hover{
+            background-color: royalblue;
+        }
+        div.mainWrapper{
+            margin: 0;
+            margin-left: 230px;
+            padding: 20px 25px 20px 10px;
+            height : 94%;
+        }
+        table{
+            width : 100%;
+        }
+        table, th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        tr {
+            height : 30px;
+        }
+        thead,th {
+            background-color: lightgray;
+            color: black;
+        }
+        .pagination {
+            width: 90%;
+            padding:0;
+            margin:0;
+            transform: translateY(-16px);
+        }
+
+        .pagination ul {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination li{
+            margin: 0 4px;
+            list-style: none;
+        }
+
+        .pagination a {
+            color: #000;
+        }
+        .currentPage a {
+            font-weight: bold;
+        }
+        .starWrapper{
+            margin-right:20px;
+            float: left;
+        }
+        .starNum{
+            width:10%;
+            background-color: lightyellow;
+        }
+        .starWrapper h3{
+            margin:10px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+</head>
+<body>
+<header>
+    <h1>COHO 날씨 웹사이트</h1>
+</header>
+<div class="containerWrap">
+    <nav>
+        <ul class="navbarWrap">
+            <li><a class="navbar" href="/logout">HOME</a></li>
+            <li><a class="navbar" href="/board/user">사용자</a></li>
+            <li><a class="navbar" href="/board/record" >날씨 기록</a></li>
+            <li><a class="current" href="/board/review">리뷰/별점</a></li>
+        </ul>
+    </nav>
+    <div class="mainWrapper">
+        <div>
+            <h2>별점</h2>
+        </div>
+        <div style="height:17%; width:100%;">
+            <div class="starWrapper" style="width:20%;">
+                <h3>평균 별점</h3>
+                <span class="material-symbols-rounded" style="font-size: 55px; color: #FBC02D">star</span>
+                <span style="font-size: 40px;" th:text="${avgStar}">4.5</span>
+            </div>
+            <div class="starWrapper" style="width:70%; margin-right:0px;">
+                <h3>별점 통계</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>별점</th>
+                            <th>5</th>
+                            <th>4</th>
+                            <th>3</th>
+                            <th>2</th>
+                            <th>1</th>
+                            <th>총 별점</th>
+                            <th>총 리뷰</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>수</th>
+                            <td class="starNum" th:text="${countList[4]}">10</td>
+                            <td class="starNum" th:text="${countList[3]}">8</td>
+                            <td class="starNum" th:text="${countList[2]}">5</td>
+                            <td class="starNum" th:text="${countList[1]}">1</td>
+                            <td class="starNum" th:text="${countList[0]}">1</td>
+                            <td th:text="${starCount}">25</td>
+                            <td th:text="${totalCount}">30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div >
+        </div>
+        <hr>
+        <div>
+            <h2>전체 리뷰</h2>
+        </div>
+        <div style="height:63%; overflow:scroll;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>unique id</th>
+                        <th>Datetime</th>
+                        <th>별점</th>
+                        <th>리뷰</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="review : ${reviews}">
+                        <td th:text="${review.uuid}">2</td>
+                        <td th:text="${review.date}">2023-06-01T17:45:06</td>
+                        <td th:text="${review.stars}">5</td>
+                        <td th:text="${review.comments}">만족합니다! 미세먼지 등의 기타 정보들도 있으면 좋겠습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <ul>
+                <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}" th:classappend="${page == curPage} ? 'currentPage' : ''">
+                    <a th:href="@{/board/review(temp=${temp}, humid=${humid}, prep=${prep}, page=${pageStat.index})}" th:text="${pageStat.index + 1}">1</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -30,4 +30,11 @@ public class JpaMemberRepository implements MemberRepository{
         return result.stream().findAny();
     }
 
+    public List<Member> findAll(String avail){
+        List<Member> result = em.createQuery("select m from Member m where m.avail = :avail order by m.uid asc",Member.class)
+                .setParameter("avail",avail)
+                .getResultList();
+        return result;
+    }
+
 }

@@ -39,6 +39,4 @@ public class ReviewController {
         return "redirect:/weather";
     }
 
-
-
 }
