@@ -80,7 +80,7 @@ public class RecordService {
         if(search.getStartPrep() != null && search.getEndPrep() != null)
             spec = spec.and(RecordSpecification.betweenWeather(search.getStartPrep(), search.getEndPrep(), "precip"));
 
-        Pageable pageable = PageRequest.of(page,20,Sort.by(Sort.Order.desc("rdate")));
+        Pageable pageable = PageRequest.of(page,17,Sort.by(Sort.Order.desc("rdate")));
         return recordRepository.findAll(spec,pageable);
     }
 }
