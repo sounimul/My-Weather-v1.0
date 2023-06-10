@@ -188,10 +188,14 @@ main {
 } */
 
 #refresh {
+    color: var(--dark-color);
     background-color: transparent;
     border: none;
 
-    transform: translate(4px, 1px);
+    margin-left: 8px;
+
+    position: absolute;
+    transform: translate(68px, 16px);
 }
 
 .temperature {

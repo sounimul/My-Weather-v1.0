@@ -48,7 +48,7 @@ function Icon(){
         default:
             fileName="cloud";
     }
-    // wicon.setAttribute('src',`../${fileName}.svg`);
+    wicon.setAttribute('src',`../${fileName}.svg`);
 
 
     // 사용자가 좋아하는 날씨 표시
@@ -203,10 +203,10 @@ function getLoc(){
 /* 함수 호출 */
 Icon();
 getClock();
-document.querySelector('#refresh').addEventListener('click',()=>{
-    // console.log('위치 새로고침');
-    getLoc();
-})
+// document.querySelector('#refresh').addEventListener('click',()=>{
+//     // console.log('위치 새로고침');
+//     getLoc();
+// })
 
 /* 버튼 기능 */
 /* 메뉴 */
