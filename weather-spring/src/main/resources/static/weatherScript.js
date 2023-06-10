@@ -48,7 +48,7 @@ function Icon(){
         default:
             fileName="cloud";
     }
-    // wicon.setAttribute('src',`../${fileName}.svg`);
+    wicon.setAttribute('src',`../${fileName}.svg`);
 
 
     // 사용자가 좋아하는 날씨 표시
@@ -152,6 +152,8 @@ function getClock(){
 /* 위치 새로고침 */
 function getLoc(){
 
+    document.querySelector('.loadBack').style.display = "flex";
+
     now = new Date();
     navigator.geolocation.getCurrentPosition(Sucess, Error);
     year = now.getFullYear();
@@ -203,10 +205,10 @@ function getLoc(){
 /* 함수 호출 */
 Icon();
 getClock();
-document.querySelector('#refresh').addEventListener('click',()=>{
-    // console.log('위치 새로고침');
-    getLoc();
-})
+// document.querySelector('#refresh').addEventListener('click',()=>{
+//     // console.log('위치 새로고침');
+//     getLoc();
+// })
 
 /* 버튼 기능 */
 /* 메뉴 */
@@ -341,3 +343,6 @@ document.querySelector('#grade5').addEventListener('click',()=>{
     document.querySelector('#grade5').style['font-variation-settings'] = `${fill} ${1}`;
 })
 
+window.onload = function reset(){
+    document.querySelector('.loadBack').style.display = "none";
+};

@@ -28,6 +28,16 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
+    <div class="loadBack">
+        <div class="loadingWrapper">
+            <div class="loadingImg">
+                <span>●</span>
+                <span>●</span>
+                <span>●</span>
+            </div>
+            <span class="loadingText">loading...</span>
+        </div>
+    </div>
     <!-- 모바일은 닫힌 버전 / 웹은 열린 버전 -->
     <header class="menuWrapper">
         <button id="openMenu"><span class="material-symbols-rounded" id="openMenuIcon">menu</span></button>
@@ -61,11 +71,14 @@
                                 <div class="infoDetail">
                                     <div id="location" th:text="${ad}">
                                         동작구 신대방제2동 
-                                        <button id="refresh" onclick="getLoc()">
-                                            <span class="material-symbols-outlined">refresh</span>
-                                        </button>
+<!--                                        <button id="refresh" onclick="getLoc()">-->
+<!--                                            <span class="material-symbols-outlined">refresh</span>-->
+<!--                                        </button>-->
                                     </div>
-                                    <div id="stdTime" th:text="|${element.hour}시 ${element.min}분 기준|">8시 20분 기준</div>
+                                    <div id="stdTime" th:text="|${element.hour}시 ${element.min}분 기준|">23시 20분 기준</div>
+                                    <button id="refresh" onclick="getLoc()">
+                                        <span class="material-symbols-outlined">refresh</span>
+                                    </button>
                                 </div>
                             </div>
 

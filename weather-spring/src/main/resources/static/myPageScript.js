@@ -36,6 +36,9 @@ let min = 0;
 let sec = 0;
 
 function getLoc(){
+
+    document.querySelector('.loadBack').style.display = "flex";
+
     now = new Date();
     console.log('위치 시작');
     navigator.geolocation.getCurrentPosition(Sucess, Error);
@@ -245,3 +248,7 @@ function confirmDelete(e){
 
     // e.parentElement.parentElement.parentElement.style.display = 'none'; //팝업 닫기
 }
+
+window.onload = function reset(){
+    document.querySelector('.loadBack').style.display = "none";
+};
