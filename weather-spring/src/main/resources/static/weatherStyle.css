@@ -15,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    /*overflow: hidden;*/
+    /* overflow: hidden; */
     overflow: auto;
     overflow-y: hidden;
 }
@@ -88,10 +88,13 @@ button:hover, a:hover, li:hover {
 
 /* main */
 .mainWrapper {
-    width: 1366px;
+    /* width: 1366px; */
     /*height: 768px;*/
-    height: 700px;
+    /* height: 700px; */
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -206,7 +209,8 @@ main {
 }
 
 .temperature {
-    /*width: 610px;*/
+    /* width: 610px; */
+    width: 560px;
     height: 70px;
     
     background-color: var(--dark-color);
@@ -295,7 +299,7 @@ main {
 }
 
 #currentExp{
-    width: 90px;
+    width: 80px;
     font-size: 24px;
     font-weight: 900;
     color: var(--dark-color);
@@ -912,199 +916,6 @@ select:focus {
     resize: none;
 }
 
-/* 모바일 버전 */
-    /* @media (min-width: 320px) and (max-width: 540px) */
-    @media (max-width: 540px){
-
-    body {
-        overflow: auto;
-        padding-top: 78px;
-        display: block;
-    }
-
-    /* 메뉴 */
-    /* .menuWrapper > .menu > .menuBtn > button, a */
-    /* 숨김 버전 */
-    #openMenu {
-        display: block;
-        height: 44px;
-        width: 44px;
-        margin: 8px 0;
-        border-radius: 60px;
-
-        color: var(--light-color);
-        background-color: var(--dark-color);
-        box-shadow: 0 0 12px 4px rgba(0,0,0,0.1);
-    }
-
-    #openMenu:hover {
-        color: #fee;
-    }
-
-    .menuWrapper {
-        width: 54px;
-        height: 248px; /* 176 */
-
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-
-        z-index: 11;
-    }
-    
-    .menuBtn {
-        width: 54px;
-        height: 180px;
-        border-radius: 60px;
-
-        flex-direction: column;
-        align-items: center;
-        display: none;
-
-        background-color: transparent;
-    }
-    
-    /* 메뉴 버튼 */
-     .menuBtn button {
-        height: 44px;
-        width: 44px;
-        margin: 8px 0;
-    }
-    
-    .menuBtn button:hover {
-        height: 44px;
-        width: 44px;
-    }
-    
-    
-    /* mainWrapper(320px) > main(300px)
-    /* main */
-    .mainWrapper {
-        width: 100%;
-        height: auto;
-        /* border: 1px solid red; */
-        padding: 0;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .main {
-        width: 320px;
-        height: auto;
-        padding: 0;
-        flex-direction: column;
-    }
-    
-    /* main center(Today Weather) */
-    /* .todayWeatherWrapper > .todayWeatherBorder > .todayWeather > .nowInfo > /#clock, #location / .temperature > .past, .now, .future */
-    .todayWeatherWrapper {
-        width: 320px;
-        height: auto;
-        z-index: 1;
-        margin-top: 24px;
-    }
-    
-    .todayWeatherBorder {
-        width: 300px;
-        height: 260px;
-    }
-    
-    .todayWeather {
-        width: 260px; 
-        height: 220px;
-    }
-
-    #refresh {
-        transform: translate(80px, 12px);
-    }
-
-    .temperature {
-        width: 100%;
-        height: 40px;
-        justify-content: center;
-    }
-    
-    /* 날씨 정보 */
-    .past, .future {
-        display: none;
-    }
-    
-    /* 현재 날씨 */
-    .now {
-        width: 200px;
-        height: 80px;
-        justify-content: space-around;
-    }
-    
-    #currentExp{
-        font-size: 16px;
-    }
-    
-    #currentTemp{
-        font-size: 18px;
-        width: 60px;
-        height: 60px;
-    }
-
-    .chairSeat{
-        width: 80%;
-        height: 45px;
-    }
-    
-    .shadow {
-        width: 80%;
-    }
-    
-    /* forecast 350px */
-    .forecastWrapper{
-        width: 320px;
-        height: auto;
-        padding: 0;
-        margin-top: 54px;
-        padding-bottom: 16px;
-    }
-    
-    .forecast {
-        width: 300px;
-    }
-
-    /* Save pop-up */
-
-    .fvSaveWrapper{
-        position: absolute;
-        top: 0;
-    }
-    .fvSave {
-        width: 300px;
-    }
-
-    .fwTemp, .fwHumid, .fwRain{
-        width: 240px;
-    }
-
-    .popup input[submit]:focus, .popup button:focus{
-        background-color: var(--light-color);
-    }
-    
-    /* feedback pop-up */
-    .feedbackWrapper {
-        position: absolute;
-        top: 0;
-    }
-    
-    .feedback {
-        width: 300px;
-    }
-
-    .feedbackForm label span{
-        font-size: 2.5rem;    
-    }
-   
-}
-
 /* loading */
 .loadBack {
     width: 100%;
@@ -1132,6 +943,8 @@ select:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    
 }
 
 .loadingImg{
@@ -1172,4 +985,284 @@ select:focus {
     100% {
         transform: translateY(0px);
     }
+}
+
+
+/* 튜토리얼 추가 */
+
+.tutorialWrapper{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+
+    position: absolute;
+
+    display: none;
+}
+
+.next {
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #fff;
+    background-color: var(--dark-color);
+
+    position: absolute;
+    transform: translate(600px,20px);
+}
+
+.aboutTime {
+    width: 100%;
+    height: 100%;
+}
+
+#aboutitem1, #aboutitem2{
+    position: absolute;
+
+    display: none;
+}
+
+.aboutCharacter {
+    width: 100%;
+    height: 100%;
+
+    display: none;
+}
+
+#aboutitem2 {
+    width: 800px;
+    height: 240px;
+    margin-top: 0;
+}
+
+.aboutSave {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#aboutitem3 {
+    position: absolute;
+    width: 54px;    
+    height: 54px;
+    border-radius: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--light-color);
+    background-color: var(--dark-color);
+}
+
+#aboutitem3:hover {
+    color: #fee;
+    height: 58px;
+    width: 58px;
+    transform: translate(-2px, -2px);
+}
+
+.tutorialInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background-color: #fff;
+    /* border: 1px solid #fff; */
+    transform: translate(400px);
+    display: none;
+}
+
+#smyPage {
+    width: 54px;    
+    height: 54px;
+    border-radius: 60px;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--light-color);
+    background-color: var(--dark-color);
+    border: none;
+
+    position: absolute;
+
+    display: none;
+}
+
+#smyPage:hover {
+    color: #fff;
+}
+
+#moveBefore, #moveAfter {
+    position: fixed;
+    color: #fff;
+    font-weight: 900;
+}
+
+#moveBefore span, #moveAfter span{
+    font-size: 36px;
+}
+
+#moveBefore {
+    transform: translate(-325px,48px);
+}
+
+#moveAfter {
+    transform: translate(330px,48px);
+}
+
+#tutoicon {
+    transform: translateY(-280px);
+    filter : drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+}
+
+#iconText {
+    color: #fff;
+    transform: translateY(40px);
+}
+
+#aboutSaveText {
+    display: inline-block;
+    color: #fff;
+    font-weight: 700;
+    position: fixed;
+}
+
+.myFvIcon {
+    position: absolute;
+    transform: translate(265px, 30px);
+
+    /* background-color: #42b0f4; */
+    /* background-color: var(--light-color); */
+    /* background-color: orange; */
+    /* background-image: linear-gradient(90deg, #42b0f4, var(--light-color), #e87813); */
+    /* border: 2px solid white; */
+    background-color: #fff;
+    /* background-color: rgba(7, 98, 255, 0.5); */
+    /* color: #fff; */
+    padding: 16px;
+    /* border-radius: 20rem; */
+    border-radius: 10px;
+    font-weight: 400;
+
+    /* box-shadow: 0 0px 4px 2px rgba(0,0,0,0.2); */
+    /* border: 4px solid var(--dark-color); */
+    font-size: 14px;
+    /* font-family: 'Gamja Flower', cursive; */
+    font-family: 'Noto Sans KR', sans-serif;
+    display: none;
+
+}
+
+.myFvIcon:after {
+    border-top:0px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+    content:"";
+    position:absolute;
+    top:-10px;
+    /* left:100px; */
+   }
+
+   #closeTuto {
+    color: #fff;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+
+    width: 120px;
+    height: 40px;
+    font-weight: 400;
+   }
+
+   .Title {
+    background-image: none;
+    box-shadow: none;
+    border: none;
+
+    transform: translateY(8px);
+   }
+
+   /* .week h3 {
+    margin-bottom: 0;
+   } */
+
+   .Title .dayTitle {
+    font-weight: 400;
+    font-size: 14px;
+    width: 32px;
+   }
+
+   #love {
+    font-variation-settings: 'FILL' 1;
+    color: red;
+    position: absolute;
+    font-size: 36px;
+    /* transform: translate(-8px, -64px); */
+    transform: translate(164px, -16px);
+    cursor: pointer;
+   }
+
+   #tutolove {
+    font-variation-settings: 'FILL' 1;
+    color: red;
+    position: absolute;
+    font-size: 36px;
+    /* transform: translate(-8px, -64px); */
+    transform: translate(164px, -16px);
+    cursor: pointer;
+   }
+
+   .tutoMyFvIcon {
+    position: absolute;
+    transform: translate(265px, 30px);
+
+    /* background-color: #42b0f4; */
+    /* background-color: var(--light-color); */
+    /* background-color: orange; */
+    /* background-image: linear-gradient(90deg, #42b0f4, var(--light-color), #e87813); */
+    /* border: 2px solid white; */
+    background-color: #fff;
+    /* background-color: rgba(7, 98, 255, 0.5); */
+    /* color: #fff; */
+    padding: 16px;
+    /* border-radius: 20rem; */
+    border-radius: 10px;
+    font-weight: 400;
+
+    /* box-shadow: 0 0px 4px 2px rgba(0,0,0,0.2); */
+    /* border: 4px solid var(--dark-color); */
+    font-size: 14px;
+    /* font-family: 'Gamja Flower', cursive; */
+    font-family: 'Noto Sans KR', sans-serif;
+    display: none;
+    z-index: 1;
+
+}
+
+.tutoMyFvIcon:after {
+    border-top:0px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+    content:"";
+    position:absolute;
+    top:-10px;
+    /* left:100px; */
+   }
+
+#loadImg {
+    /* width: 500px; */
+    background-color: transparent;
+}
+
+#moveMyPage {
+    position: fixed;
+    color: white;
+    display: none;
 }

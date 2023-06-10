@@ -21,6 +21,8 @@ body {
     align-items: center;
 
     background-color: var(--light-color);
+
+    overflow: hidden;
 }
 
 main {
