@@ -39,7 +39,7 @@ public class JpaReviewRepository implements  ReviewRepository{
     public Page<Review> findAll(int page){
         List<Review> reviews = em.createQuery("select r from Review r order by r.date desc",Review.class)
                 .getResultList();
-        PageRequest pageRequest = PageRequest.of(page,15);
+        PageRequest pageRequest = PageRequest.of(page,13);
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start+pageRequest.getPageSize()), reviews.size());
         Page<Review> reviewPage = new PageImpl<>(reviews.subList(start,end),pageRequest,reviews.size());

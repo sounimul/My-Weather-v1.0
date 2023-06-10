@@ -273,7 +273,7 @@ document.querySelector('#saveWeatherClose').addEventListener('click',()=>{
     document.querySelectorAll('select')[1].value = '';
     document.querySelectorAll('select')[2].value = '';
 
-    document.querySelector('.tutorialInfo').style.display = 'none'; //추가 
+    // document.querySelector('.tutorialInfo').style.display = 'none'; //추가
     document.querySelector('#scloseTuto ').style.display = 'none';
 })
 
@@ -417,10 +417,9 @@ document.querySelector('.next').addEventListener('click',()=>{
 
         document.querySelector('#aboutitem2').style.display = 'flex';
 
-        const image = document.querySelector('#tutoicon').src.split('/').at(-1);
-        let ind = imgs.indexOf(image);;
-
+        let ind = text.indexOf(weather);
         document.querySelector('#iconText').innerText = text[ind];
+        document.querySelector("#tutoicon").setAttribute('src',`${imgs[ind]}`);
 
     } else if(num===2){
         document.querySelector('.next').style.display = 'none';
@@ -439,7 +438,7 @@ document.querySelector('.next').addEventListener('click',()=>{
         document.querySelector('#aboutitem3').style.left = `${clientRect.left}px`;
 
         document.querySelector('#aboutSaveText').style.top = `${clientRect.top +16}px`;
-        document.querySelector('#aboutSaveText').style.left = `${clientRect.left-150}px`;
+        document.querySelector('#aboutSaveText').style.left = `${clientRect.left-170}px`;
         // document.querySelector('.next').style.top = `${clientRect.top}px`;
         // document.querySelector('.next').style.left = `${clientRect.left}px`;
 
@@ -459,7 +458,7 @@ document.querySelector('#aboutitem3').addEventListener('click',()=>{
     // document.querySelector('#aboutitem3').style.display = 'none';
     document.querySelector('.tutorialWrapper').style.display = 'none';
     document.querySelector('.fvSaveWrapper').style.display = 'flex';
-    document.querySelector('.tutorialInfo').style.display = 'flex';
+    // document.querySelector('.tutorialInfo').style.display = 'flex';
     // document.querySelector('#smyPage').style.display = "flex";
     // document.querySelector('#moveMyPage').style.display = 'inline';
 
@@ -472,7 +471,7 @@ document.querySelector('#aboutitem3').addEventListener('click',()=>{
 
 
     document.querySelector('#moveMyPage').style.top = `${clientRect.top + 68}px`;
-    document.querySelector('#moveMyPage').style.left = `${clientRect.left - 46}px`;
+    document.querySelector('#moveMyPage').style.left = `${clientRect.left - 36}px`;
 })
 
 document.querySelector('#smyPage').addEventListener('click',()=>{
@@ -485,7 +484,7 @@ document.querySelector('#smyPage').addEventListener('click',()=>{
     document.querySelector('#aboutitem3').style.display = 'none';
     document.querySelector('.tutorialWrapper').style.display = 'none';
     document.querySelector('.fvSaveWrapper').style.display = 'none';
-    document.querySelector('.tutorialInfo').style.display = 'none';
+    // document.querySelector('.tutorialInfo').style.display = 'none';
     document.querySelector('#smyPage').style.display = "none";
 })
 
@@ -555,8 +554,7 @@ window.addEventListener('resize',(e)=>{
 
 function move(e){
 
-    const img = e.parentElement.childNodes[3].childNodes[1].src.split('/').at(-1);
-    let index = imgs.indexOf(img);
+    let index = text.indexOf(document.querySelector("#iconText").innerHTML); //index
 
     const button = e.childNodes[1].innerText;
     if(button==='arrow_forward_ios'){
@@ -573,8 +571,9 @@ function move(e){
         }
     }
 
-    e.parentElement.childNodes[3].childNodes[1].setAttribute('src',`../static/${imgs[index]}`);
-    e.parentElement.childNodes[15].innerText = text[index];
+    // e.parentElement.childNodes[3].childNodes[1].setAttribute('src',`../static/${imgs[index]}`);
+    document.querySelector("#tutoicon").setAttribute('src',`${imgs[index]}`);
+    document.querySelector("#iconText").innerText = text[index];
 
     if(index===0){
         document.querySelector("#tutolove").style.transform = "translate(-70px, -16px)"
@@ -617,7 +616,7 @@ document.querySelector("#scloseTuto").addEventListener("click",()=>{
     // document.querySelector('.aboutTime').style.display = 'none';
     // document.querySelector('.aboutCharacter').style.display = 'none';
     // document.querySelector('.aboutSave').style.display = 'none';
-    document.querySelector('.tutorialInfo').style.display = 'none';
+    // document.querySelector('.tutorialInfo').style.display = 'none';
     // document.querySelector('#smyPage').style.display = 'none';
     // document.querySelector('#moveMyPage').style.display = 'none';
     document.querySelector('.fvSaveWrapper').style.display = 'none';
@@ -626,7 +625,7 @@ document.querySelector("#scloseTuto").addEventListener("click",()=>{
     document.querySelectorAll('select')[1].value = '';
     document.querySelectorAll('select')[2].value = '';
 
-    document.querySelector('.tutorialInfo').style.display = 'none'; //추가 
+    // document.querySelector('.tutorialInfo').style.display = 'none'; //추가
     document.querySelector('#scloseTuto ').style.display = 'none';
     
     document.querySelector('.tutorialWrapper').style.display = 'none';
@@ -663,7 +662,7 @@ document.querySelector("#smyPage").addEventListener("click",()=>{
 
     console.log('tuto close');
     num=0;
-    document.querySelector('.tutorialInfo').style.display = 'none';
+    // document.querySelector('.tutorialInfo').style.display = 'none';
     document.querySelector('#smyPage').style.display = 'none';
     document.querySelector('#moveMyPage').style.display = 'none';
     document.querySelector('.fvSaveWrapper').style.display = 'none';
@@ -672,7 +671,7 @@ document.querySelector("#smyPage").addEventListener("click",()=>{
     document.querySelectorAll('select')[1].value = '';
     document.querySelectorAll('select')[2].value = '';
 
-    document.querySelector('.tutorialInfo').style.display = 'none'; //추가 
+    // document.querySelector('.tutorialInfo').style.display = 'none'; //추가
     document.querySelector('#scloseTuto ').style.display = 'none';
     
     document.querySelector('.tutorialWrapper').style.display = 'none';
