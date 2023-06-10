@@ -48,8 +48,14 @@ function Icon(){
         default:
             fileName="cloud";
     }
-    wicon.setAttribute('src',`../${fileName}.svg`);
-    // wicon.setAttribute('src',`../static/${fileName}.svg`);
+
+    if(weather === "비 또는 눈" || weather === "구름 많음" ){
+        document.querySelector("#currentExp").style.width = "120px";
+    } else if(weather === "비" || weather === "눈"){
+        document.querySelector("#currentExp").style["margin-right"] = "4px";
+    }
+    // wicon.setAttribute('src',`../${fileName}.svg`); // 백엔드
+    wicon.setAttribute('src',`../static/${fileName}.svg`);   // 프론트엔드
 
     // 사용자가 좋아하는 날씨 표시
     const fvWeather = document.querySelector('#fvweather').innerHTML;
