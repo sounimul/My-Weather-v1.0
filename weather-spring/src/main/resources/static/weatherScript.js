@@ -48,24 +48,30 @@ function Icon(){
         default:
             fileName="cloud";
     }
-    // wicon.setAttribute('src',`../${fileName}.svg`);
-    wicon.setAttribute('src',`../static/${fileName}.svg`);
+
+    if(weather === "비 또는 눈" || weather === "구름 많음" ){
+        document.querySelector("#currentExp").style.width = "120px";
+    } else if(weather === "비" || weather === "눈"){
+        document.querySelector("#currentExp").style["margin-right"] = "4px";
+    }
+    // wicon.setAttribute('src',`../${fileName}.svg`); // 백엔드
+    wicon.setAttribute('src',`../static/${fileName}.svg`);   // 프론트엔드
 
     // 사용자가 좋아하는 날씨 표시
-    const fvWeather = "shower";
+    const fvWeather = document.querySelector('#fvweather').innerHTML;
     
     // let fvWeather = 'shower';
 
-    if(fvWeather === fileName) {
-        if(fileName==="cloud"){
+    if(fvWeather === weather) {
+        if(weather==="cloud"){
             document.querySelector("#love").style.transform = "translate(-70px, -16px)"
             document.querySelector(".myFvIcon").style.transform = "translate(40px, 30px)"
         }
-        else if(fileName === "rain"){
+        else if(weather === "rain"){
             document.querySelector("#love").style.transform = "translate(-100px, -16px)"
             document.querySelector(".myFvIcon").style.transform = "translate(10px, 30px)"
         }
-        else if(fileName === "shower"){
+        else if(weather === "shower"){
             document.querySelector("#love").style.transform = "translate(-80px, -16px)"
             document.querySelector(".myFvIcon").style.transform = "translate(30px, 30px)"
         } else {

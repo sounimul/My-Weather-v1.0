@@ -8,8 +8,8 @@
     <title>메인페이지</title>
 
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <!-- <link rel="stylesheet" href="../weatherStyle.css"> -->
-    <!-- <script src="../weatherScript.js" defer></script> -->
+<!--     <link rel="stylesheet" href="../weatherStyle.css">-->
+<!--     <script src="../weatherScript.js" defer></script>-->
     
     <!-- 프론트 CSS/스크립트 -->
   <link rel="stylesheet" href="../static/weatherStyle.css">
@@ -93,7 +93,7 @@
                             </div>
                             <div class="now">
                                 <div id="currentTemp" th:text="|${current.t1h}℃|">12.4<span>℃</span> </div>
-                                <div id="currentExp" th:text="${current.status}">비</div>
+                                <div id="currentExp" th:text="${current.status}">빗방울눈날림</div>
                             </div>
                             <div class="future">
                                 <div id="futureHour"></div>
@@ -115,9 +115,10 @@
                     <span class="material-symbols-outlined" id="love">favorite</span>
                     <div class="myFvIcon">
                         <div class="text">
-                            <span>nickname</span>
+                            <span th:text="${member.nickname}">nickname</span>
                             님이 가장 좋아하는 날씨에요! <br> 
                             오늘도 좋은 하루 보내세요
+                            <span id="fvweather" style="display: none;" th:text="${member.fvweather}"></span>
                         </div>
                     </div>
                 </div>
@@ -199,12 +200,13 @@
                                 <!-- +1 -->
                                 <li>
                                     <div class="futureDay"></div>
-                                    <div class="low">
+                                    <div class="low templ">
                                         <dd th:text="|${mid.fcstTmn[0]}℃|">4℃</dd>
                                         <dd><span class="material-symbols-outlined" th:text="${mid.minName[0]}">sunny</span></dd>
                                     </div>
-                                    
-                                    <div class="high">
+                                    <span class="slash"> / </span>
+                                    <div class="high temph">
+<!--                                    <span>/</span>-->
                                         <dd th:text="|${mid.fcstTmx[0]}℃|">14℃</dd>
                                         <dd><span class="material-symbols-outlined" th:text="${mid.maxName[0]}">sunny</span></dd>
                                     </div>
@@ -212,12 +214,12 @@
                                 <!-- +2 -->
                                 <li>
                                     <div class="futureDay"></div>
-                                    <div class="low">
+                                    <div class="low templ">
                                         <dd th:text="|${mid.fcstTmn[0]}℃|">4℃</dd> <!-- 인덱스 확인 -->
                                         <dd><span class="material-symbols-outlined" th:text="${mid.minName[1]}">sunny</span></dd>
                                     </div>
-                                    
-                                    <div class="high">
+                                    <span class="slash"> / </span>
+                                    <div class="high temph">
                                         <dd th:text="|${mid.fcstTmx[0]}℃|">14℃</dd> <!-- 인덱스 확인 -->
                                         <dd><span class="material-symbols-outlined" th:text="${mid.maxName[1]}">sunny</span></dd>
                                     </div>
@@ -231,7 +233,7 @@
                                         <dd>오전</dd>
                                         <dd><span class="material-symbols-outlined" th:text="${mid.icon[0]}">sunny</span></dd>
                                     </div>
-                                    
+                                    <span class="slash"> / </span>
                                     <div class="high">
                                         <!-- <dd>14℃</dd> -->
                                         <dd>오후</dd>
@@ -246,7 +248,7 @@
                                         <dd>오전</dd>
                                         <dd><span class="material-symbols-outlined" th:text="${mid.icon[2]}">sunny</span></dd>
                                     </div>
-                                    
+                                    <span class="slash"> / </span>
                                     <div class="high">
                                         <!-- <dd>14℃</dd> -->
                                         <dd>오후</dd>
@@ -261,7 +263,7 @@
                                         <dd>오전</dd>
                                         <dd><span class="material-symbols-outlined" th:text="${mid.icon[4]}">sunny</span></dd>
                                     </div>
-                                    
+                                    <span class="slash"> / </span>
                                     <div class="high">
                                         <!-- <dd>14℃</dd> -->
                                         <dd>오후</dd>

@@ -15,7 +15,9 @@ body {
     justify-content: center;
     align-items: center;
 
-    overflow: hidden;
+    /*overflow: hidden;*/
+    overflow: auto;
+    overflow-y: hidden;
 }
 
 a {
@@ -50,7 +52,8 @@ button:hover, a:hover, li:hover {
     width: 268px;
     height: 64px;
     position: fixed;
-    top: 24px;
+    /*top: 24px;*/
+    top: 12px;
     right: 24px;
 }
 
@@ -86,8 +89,8 @@ button:hover, a:hover, li:hover {
 /* main */
 .mainWrapper {
     width: 1366px;
-    height: 768px;
-
+    /*height: 768px;*/
+    height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,14 +113,16 @@ main {
 /* todayWeather 800px > 650px */
 .todayWeatherWrapper {
     width: 800px;
-    height: 700px;
-
-    /* border: 5px solid black; */
+    /*height: 700px;*/
+    height: 600px;
+     /*border: 5px solid black;*/
 }
 
 .todayWeatherBorder {
-    width: 650px;
-    height: 360px;
+    /*width: 650px;*/
+    /*height: 360px;*/
+    width: 600px;
+    height: 320px;
     border-radius: 70px;
 
     background-color: #D9D9D9;
@@ -129,8 +134,10 @@ main {
 }
 
 .todayWeather {
-    width: 610px;
-    height: 320px;
+    /*width: 610px;*/
+    /*height: 320px;*/
+    width: 560px;
+    height: 280px;
     border-radius: 60px;
 
     background-image: url("tile.png"); 
@@ -199,7 +206,7 @@ main {
 }
 
 .temperature {
-    width: 610px;
+    /*width: 610px;*/
     height: 70px;
     
     background-color: var(--dark-color);
@@ -271,8 +278,10 @@ main {
 
 /* 현재 날씨 */
 .now {
-    width: 300px;
-    height: 120px;
+    /*width: 300px;*/
+    /*height: 120px;*/
+    width: 275px;
+    height: 100px;
     border-radius: 100px;
 
     background-color: #fff;
@@ -280,14 +289,18 @@ main {
     border: 8px solid var(--dark-color);
 
     display: flex;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
+    justify-content: space-between;
     align-items: center;
 }
 
 #currentExp{
+    width: 90px;
     font-size: 24px;
     font-weight: 900;
     color: var(--dark-color);
+    margin-right: 18px;
+    text-align: center;
 }
 
 #currentTemp{
@@ -304,6 +317,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    margin-left: 8px;
 }
 
 #currentTemp span {
@@ -323,11 +338,12 @@ main {
     justify-content: start;
     align-items: center;
 
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .chairBack{
-    width: 80%;
+    /*width: 80%;*/
+    width: 75%;
     height: 140px;
     border-radius: 20px;
 
@@ -355,7 +371,7 @@ main {
     border-radius: 30%;
 
     background: transparent;
-    box-shadow: 0 70px 6px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 28px 4px 2px rgba(0,0,0,0.1);
 }
 
 #wicon:hover{
@@ -441,11 +457,11 @@ dt {
 
 .forecastWrapper{
     width: 400px;
-    height: 700px;
-
+    /*height: 700px;*/
+    height: 600px;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center;
 
     /* border: 5px solid black; */
 }
@@ -457,7 +473,7 @@ dt {
 
 /* 오늘 날씨 상세 정보 */
 .today {
-    padding: 16px 0;
+    padding-bottom: 8px;
 }
 
 .today h3 {
@@ -501,7 +517,7 @@ dt {
 }
 
 .todayDetail dt span{
-    font-weight: 280;
+    font-weight: 200;
 }
 
 #infoStdTitle {
@@ -570,7 +586,7 @@ dt {
 
 /* 주간예보 */
 .week {
-    padding: 16px 0;
+    padding: 8px 0 16px 0;
 }
 .week li {
     width: 100%;
@@ -578,7 +594,7 @@ dt {
     border-radius: 20px;
  
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .futureDay {
@@ -591,22 +607,48 @@ dt {
     /* color: var(--dark-color); */
 }
 
+.low, .high {
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.low {
+    margin-left: 30px;
+}
+
+.slash {
+    width: 30px;
+    color: #545454;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
 .low span, .high span {
     font-size: 24px;
     font-weight: 200;
 }
 
-.low dd:first-child, .high dd:first-child{
-    margin-bottom: 4px;
-
-    font-weight: 700;
+.low dd:first-child{
+    /*margin-right: 8px;*/
 }
 
-.low dd:first-child {
+.low dd:first-child, .high dd:first-child{
+    /*margin-bottom: 4px;*/
+    margin-right: 8px;
+    font-size: 0.8rem;
+    color: #545454;
+    /*font-weight: 700;*/
+}
+
+.templ dd:first-child {
     color: #0800e7;
 }
 
-.high dd:first-child {
+.temph dd:first-child {
     color: #e70010;
 }
 
@@ -641,7 +683,7 @@ dt {
 }
 
 .futureDays div {
-    width: 40px;
+    /*width: 40px;*/
 }
 
 /* pop-up 기본 스타일 */
@@ -1005,10 +1047,6 @@ select:focus {
         font-size: 18px;
         width: 60px;
         height: 60px;
-    }
-    
-    .todayWeatherIcon {
-        margin-top: 20px;
     }
 
     .chairSeat{
