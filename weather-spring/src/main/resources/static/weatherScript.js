@@ -152,6 +152,8 @@ function getClock(){
 /* 위치 새로고침 */
 function getLoc(){
 
+    document.querySelector('.loadBack').style.display = "flex";
+
     now = new Date();
     navigator.geolocation.getCurrentPosition(Sucess, Error);
     year = now.getFullYear();
@@ -341,3 +343,6 @@ document.querySelector('#grade5').addEventListener('click',()=>{
     document.querySelector('#grade5').style['font-variation-settings'] = `${fill} ${1}`;
 })
 
+window.onload = function reset(){
+    document.querySelector('.loadBack').style.display = "none";
+};
