@@ -8,12 +8,12 @@
     <title>메인페이지</title>
 
     <!-- 백엔드 CSS/스크립트 확인 -->
-    <!-- <link rel="stylesheet" href="../weatherStyle.css"> -->
-    <!-- <script src="../weatherScript.js" defer></script> -->
+     <link rel="stylesheet" href="../weatherStyle.css">
+     <script src="../weatherScript.js" defer></script>
     
     <!-- 프론트 CSS/스크립트 -->
-  <link rel="stylesheet" href="../static/weatherStyle.css">
-  <script src="../static/weatherScript.js" defer> </script>
+<!--  <link rel="stylesheet" href="../static/weatherStyle.css">-->
+<!--  <script src="../static/weatherScript.js" defer> </script>-->
     
     <!-- 날씨 아이콘(구글 머티리얼) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -115,9 +115,10 @@
                     <span class="material-symbols-outlined" id="love">favorite</span>
                     <div class="myFvIcon">
                         <div class="text">
-                            <span>nickname</span>
+                            <span th:text="${member.nickname}">nickname</span>
                             님이 가장 좋아하는 날씨에요! <br> 
                             오늘도 좋은 하루 보내세요
+                            <span id="fvweather" style="display: none;" th:text="${member.fvweather}"></span>
                         </div>
                     </div>
                 </div>
