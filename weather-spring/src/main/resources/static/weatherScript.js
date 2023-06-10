@@ -48,35 +48,33 @@ function Icon(){
         default:
             fileName="cloud";
     }
-    wicon.setAttribute('src',`../${fileName}.svg`);
-
+    // wicon.setAttribute('src',`../${fileName}.svg`);
+    wicon.setAttribute('src',`../static/${fileName}.svg`);
 
     // 사용자가 좋아하는 날씨 표시
-    // const fvWeather = ;
+    const fvWeather = "shower";
     
-    // front
-    // wicon.setAttribute('src',`../static/${fileName}.svg`);
     // let fvWeather = 'shower';
 
-    // if(fvWeather === fileName) {
-    //     if(fileName==="cloud"){
-    //         document.querySelector("#love").style.transform = "translate(-70px, -16px)"
-    //         document.querySelector(".myFvIcon").style.transform = "translate(40px, 30px)"
-    //     }
-    //     else if(fileName === "rain"){
-    //         document.querySelector("#love").style.transform = "translate(-100px, -16px)"
-    //         document.querySelector(".myFvIcon").style.transform = "translate(10px, 30px)"
-    //     }
-    //     else if(fileName === "shower"){
-    //         document.querySelector("#love").style.transform = "translate(-80px, -16px)"
-    //         document.querySelector(".myFvIcon").style.transform = "translate(30px, 30px)"
-    //     } else {
-    //         document.querySelector("#love").style.transform = "translate(164px, -16px)"
-    //         document.querySelector(".myFvIcon").style.transform = "translate(274px, 30px)"
-    //     }
+    if(fvWeather === fileName) {
+        if(fileName==="cloud"){
+            document.querySelector("#love").style.transform = "translate(-70px, -16px)"
+            document.querySelector(".myFvIcon").style.transform = "translate(40px, 30px)"
+        }
+        else if(fileName === "rain"){
+            document.querySelector("#love").style.transform = "translate(-100px, -16px)"
+            document.querySelector(".myFvIcon").style.transform = "translate(10px, 30px)"
+        }
+        else if(fileName === "shower"){
+            document.querySelector("#love").style.transform = "translate(-80px, -16px)"
+            document.querySelector(".myFvIcon").style.transform = "translate(30px, 30px)"
+        } else {
+            document.querySelector("#love").style.transform = "translate(164px, -16px)"
+            document.querySelector(".myFvIcon").style.transform = "translate(274px, 30px)"
+        }
 
-    //     document.querySelector('#love').style.display = "block";
-    // }
+        document.querySelector('#love').style.display = "block";
+    }
 }
 
 const day_arr = ['일','월','화','수','목','금','토'];
