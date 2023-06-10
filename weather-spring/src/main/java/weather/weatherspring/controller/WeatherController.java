@@ -89,8 +89,6 @@ public class WeatherController {
 
         modelAndView.setViewName("weather");
 
-        System.out.println("weather(get) "+elementForm.getHour()+" "+elementForm.getMin());
-
         return modelAndView;
     }
 
@@ -242,8 +240,6 @@ public class WeatherController {
         session.setAttribute("pf-weather",pfWeather);
         session.setAttribute("mid-weather",midWeather);
         session.setAttribute("element",elementForm);
-
-        System.out.println("weather(post) "+elementForm.getHour()+" "+elementForm.getMin());
 
         return elementForm;
     }
