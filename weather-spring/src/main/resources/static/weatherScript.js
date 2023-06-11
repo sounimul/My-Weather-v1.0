@@ -629,6 +629,8 @@ document.querySelector("#closeTuto").addEventListener("click",()=>{
     document.querySelector('.tutorialWrapper').style.display = 'none';
     document.querySelector('#tempMyPage').style.display = "none";
 
+    location.href="/weather";
+
     if(num===3){
         //저장 팝업 뜨면 저장 팝업 닫기
         //근데 저장 3단계는 버튼이랑 저장 팝업으로 나뉘는데
