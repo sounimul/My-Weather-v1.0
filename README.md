@@ -1,5 +1,7 @@
 # My Weather : 나만의 날씨
 ### 💡현재위치의 날씨를 조회하고 자신의 체감 날씨를 기록할 수 있는 웹사이트
+![image](https://github.com/sounimul/Project1/assets/75112062/9617094e-1239-4136-88e2-8d2fc598532e)
+![image](https://github.com/sounimul/Project1/assets/75112062/e315df3e-ed4d-4e55-8e99-d0c58a2bb059)
 
 
 
