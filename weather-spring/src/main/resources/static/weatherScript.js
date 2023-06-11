@@ -421,7 +421,7 @@ document.querySelector('.next').addEventListener('click',()=>{
 
         let ind = text.indexOf(weather);
         document.querySelector('#iconText').innerText = text[ind];
-        document.querySelector("#tutoicon").setAttribute('src',`${imgs[ind]}`);
+        document.querySelector("#tutoicon").setAttribute('src',`../${imgs[ind]}`);
 
     } else if(num===2){
         document.querySelector('.next').style.display = 'none';
