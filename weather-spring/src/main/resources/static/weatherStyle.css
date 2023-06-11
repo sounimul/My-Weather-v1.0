@@ -699,7 +699,7 @@ dt {
     padding: 16px;
 }
 
-.popup input[type="submit"], .popup button, #tutoSave {
+.popup input[type="submit"], .popup button, #tutoSave, #tutoSaveClose {
     
     /* submit 스타일 없애기 */
     background-color: transparent;
@@ -717,7 +717,7 @@ dt {
     font-weight: 900;
 }
 
-.popup input[type="submit"]:hover, .popup button:hover , #tutoSave:hover {
+.popup input[type="submit"]:hover, .popup button:hover , #tutoSave:hover, #tutoSaveClose:hover {
     background-color: var(--light-color);
 }
 
@@ -1325,7 +1325,7 @@ select:focus {
     font-size: 36px;
 } */
 
-#tutoSave {
+#tutoSave, #tutoSaveClose {
     z-index: 11111;
     position: absolute;
     top: 0;
