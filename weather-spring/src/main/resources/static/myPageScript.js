@@ -1,5 +1,6 @@
 /* 사용자가 좋아하는 날씨 */
 const wicon = document.getElementById("wicon");
+const weather = document.querySelector("#userFavorite").innerHTML;
 
 function Icon(){
     switch (weather){
@@ -23,7 +24,7 @@ function Icon(){
     }
     wicon.setAttribute('src',`../${fileName}.svg`);
 }
-// Icon();
+Icon();
 
 /* 날짜, 위치 받아오기 (날씨페이지 이동) */
 let now = new Date(); //날짜, 시간 객체
