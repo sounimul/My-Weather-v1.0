@@ -1,5 +1,4 @@
 /* 사용자가 좋아하는 날씨 */
-let weather = document.querySelector('#userFavorite').innerText;
 const wicon = document.getElementById("wicon");
 
 function Icon(){
@@ -24,7 +23,7 @@ function Icon(){
     }
     wicon.setAttribute('src',`../${fileName}.svg`);
 }
-Icon();
+// Icon();
 
 /* 날짜, 위치 받아오기 (날씨페이지 이동) */
 let now = new Date(); //날짜, 시간 객체
@@ -200,15 +199,17 @@ document.querySelector('#fw').addEventListener('change',()=>{
 // item expand
 function expand(e){
 
-    let expand = e.childNodes[1].childNodes[11].childNodes[1].innerText;
+    // let expand = e.childNodes[1].childNodes[11].childNodes[1].innerText;
+    let expand = e.childNodes[1].childNodes[11].innerText;
+
 
     if(expand === 'expand_more'){
         e.childNodes[3].style.display = "flex";
-        e.childNodes[1].childNodes[11].childNodes[1].innerText = 'expand_less';
+        e.childNodes[1].childNodes[11].innerText = 'expand_less';
         e.style.height = '70px';
     }else {
         e.childNodes[3].style.display = "none";
-        e.childNodes[1].childNodes[11].childNodes[1].innerText = 'expand_more';
+        e.childNodes[1].childNodes[11].innerText = 'expand_more';
         e.style.height = '40px';
     }
 

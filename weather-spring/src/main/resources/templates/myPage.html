@@ -13,8 +13,8 @@
     <script src="../myPageScript.js" defer></script>
 
     <!-- 프론트 CSS/스크립트 -->
-<!--    <link rel="stylesheet" href="../static/myPageStyle.css">-->
-<!--    <script src="../static/myPageScript.js" defer></script>-->
+   <!-- <link rel="stylesheet" href="../static/myPageStyle.css"> -->
+   <!-- <script src="../static/myPageScript.js" defer></script> -->
 
     <!-- 날씨 아이콘(구글 머티리얼) -->
     <link rel="stylesheet"
@@ -51,10 +51,10 @@
                             </a>
                         </div>
                         <!-- <div id="profileImg"><span class="material-symbols-outlined">sunny</span></div> -->
-                        <span id="pUuserNickname" th:text="${user.nickname}">weatherFairy</span>
+                        <span id="pUuserNickname" th:text="${user.nickname}">날씨 요정</span>
                         <p class="saveInfo">
                             <span class="material-symbols-outlined" id="mark">bookmark</span>
-                            <span id="saveSum" th:text="${totalNum}">5</span>
+                            <span id="saveSum" th:text="${totalNum}">1</span>
                         </p>
                         <span id="userFavorite" th:text="${user.fvweather}"></span>
                     </div>
@@ -63,7 +63,8 @@
                 <div class="fvWeatherIcon">
                     <div class="chairBack"></div>
                     <div class="chairSeat">
-                        <img id="wicon" src="../fvCloudAndSun.svg" alt="wicon">
+                        <!-- <img id="wicon" src="../fvCloudAndSun.svg" alt="wicon"> -->
+                        <img id="wicon" src="../static/fvSun.svg" alt="wicon">
                     </div>
                     <div class="shadow"></div>
                 </div>
@@ -114,58 +115,59 @@
                         </form>
                         <span id="refresh" onClick="location.href='/myPage'">조건 초기화</span>
                     </div>
-                    <header class="fwTitle">
-                        <p class="fwDay">날짜 / 장소</p>
-                        <p class="fwExp">
-                            <span class="fwExpT">날씨</span>
-                        </p>
-                        <p class="fwTemp">
-                            <span class="material-symbols-outlined">device_thermostat</span>
-                        </p>
-                        <p class="fwHumidity">
-                            <span class="material-symbols-outlined">water_drop</span>
-                        </p>
-                        <p class="fwRain">
-                            <span class="material-symbols-outlined">rainy</span>
-                        </p>
-                        <p class="expand">
-                            <span></span>
-                        </p>
-                    </header>
+                    <article class="fwItemTitle">
+                        <header class="fwTitle">
+                            <p class="fwDay">날짜 / 장소</p>
+                            <p class="fwExp">
+                                <span class="fwExpT">날씨</span>
+                            </p>
+                            <p class="fwTemp">
+                                <span class="material-symbols-outlined">device_thermostat</span>
+                            </p>
+                            <p class="fwHumidity">
+                                <span class="material-symbols-outlined">water_drop</span>
+                            </p>
+                            <p class="fwRain">
+                                <span class="material-symbols-outlined">rainy</span>
+                            </p>
+                            <p class="expand">
+                                <span></span>
+                            </p>
+                        </header>
+                    </article>
                     <ul class="fwList">
                         <li class="fwItemWrapper" th:each="record : ${records}">
                             <article class="fwItem" onclick="expand(this)">
                                 <header class="fwHeader">
-                                    <p class="fwDay" th:text="${record.rmd}">2023년 4월 26일 수요일</p>
+                                    <p class="fwDay" th:text="${record.rmd}">2023년 6월 10일 18시 49분</p>
                                     <p class="fwExp">
                                         <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
                                     </p>
                                     <p class="fwTemp">
-                                        <span th:text="|${record.temp}°C|">20°C</span>
+                                        <span th:text="|${record.temp}°C|">22.7°C</span>
                                     </p>
                                     <p class="fwHumidity">
-                                        <span th:text="|${record.humid}%|">20%</span>
+                                        <span th:text="|${record.humid}%|">56%</span>
                                     </p>
                                     <p class="fwRain">
-                                        <span th:text="|${record.precip}mm|">5mm</span>
+                                        <span th:text="|${record.precip}mm|">0.0mm</span>
                                     </p>
-                                    <p class="expand">
                                         <span class="material-symbols-outlined" id="expandBtn">expand_more</span>
                                     </p>
                                 </header>
                                 <div class="fwDetails">
-                                    <p class="fwLoc" th:text="${record.ad}">대구광역시 달서구 월성 1동</p>
+                                    <p class="fwLoc" th:text="${record.ad}">서울특별시 동작구 신대방제2동</p>
                                     <p class="fwExp">
                                         <span class="material-symbols-outlined" th:text="${record.wmsg}">sunny</span>
                                     </p>
                                     <p class="fwTempF">
-                                        <span th:text="${record.tfeel}">네글자용</span>
+                                        <span th:text="${record.tfeel}">포근해요</span>
                                     </p>
                                     <p class="fwHumidityF">
-                                        <span th:text="${record.hfeel}">네글자용</span>
+                                        <span th:text="${record.hfeel}">쾌적해요</span>
                                     </p>
                                     <p class="fwRainF">
-                                        <span th:text="${record.pfeel}">네글자용</span>
+                                        <span th:text="${record.pfeel}">안와요</span>
                                     </p>
                                     <span id="recordIdUid" style="display: none" th:text="${record.uid}"></span>
                                     <span id="recordIdRdate" th:text="${record.rdate}" style="display: none"></span>

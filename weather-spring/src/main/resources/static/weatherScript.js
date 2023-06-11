@@ -360,6 +360,8 @@ window.onload = function reset(){
 let num = 0;
 
 let target = {};
+let item = {};
+
 let clientRect = 0;
 
 const imgs = ["cloud.svg","cloudAndSun.svg","rain.svg","shower.svg","snow.svg","sun.svg",]
@@ -443,7 +445,7 @@ document.querySelector('.next').addEventListener('click',()=>{
         // document.querySelector('.next').style.left = `${clientRect.left}px`;
 
         // document.querySelector('#aboutitem2').style.display = 'flex';
-        document.querySelector('#scloseTuto ').style.display = 'block';
+        // document.querySelector('#scloseTuto ').style.display = 'block';
 
         // 튜토리얼 마이 페이지 버튼 보이게 하기
 
@@ -454,44 +456,62 @@ document.querySelector('#aboutitem3').addEventListener('click',()=>{
     // 기록지 닫기 할 때 num = 0 처리해야 함, 또한 튜토리얼 종료할 때
     // num=0;
     num = 4;
+
+    // 단계 종료
     document.querySelector('.aboutSave').style.display = 'none';
-    // document.querySelector('#aboutitem3').style.display = 'none';
-    document.querySelector('.tutorialWrapper').style.display = 'none';
+    document.querySelector('#aboutitem3').style.display = 'none';
+    document.querySelector('#aboutSaveText').style.display = 'none';
+
+
+    // 새 단계 시작
     document.querySelector('.fvSaveWrapper').style.display = 'flex';
-    // document.querySelector('.tutorialInfo').style.display = 'flex';
-    // document.querySelector('#smyPage').style.display = "flex";
-    // document.querySelector('#moveMyPage').style.display = 'inline';
+    document.querySelector('#tutoSave').style.display = 'block';
+
 
     // 튜토리얼 시 저장 할 때 마이페이지 보이게 하기
-    target = document.querySelector('#myPage'); // 요소의 id 값이 target이라 가정
+    // target = document.querySelector('#myPage'); // 요소의 id 값이 target이라 가정
+    // clientRect = target.getBoundingClientRect("#about4"); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+
+    // document.querySelector('#smyPage').style.top = `${clientRect.top}px`;
+    // document.querySelector('#smyPage').style.left = `${clientRect.left}px`;
+
+
+    // document.querySelector('#moveMyPage').style.top = `${clientRect.top + 68}px`;
+    // document.querySelector('#moveMyPage').style.left = `${clientRect.left - 36}px`;
+
+    // 기록 저장 가상 버튼
+    target = document.querySelector('#about4'); // 요소의 id 값이 target이라 가정
+    item = document.querySelector('#tutoSave');
     clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
 
-    document.querySelector('#smyPage').style.top = `${clientRect.top}px`;
-    document.querySelector('#smyPage').style.left = `${clientRect.left}px`;
-
-
-    document.querySelector('#moveMyPage').style.top = `${clientRect.top + 68}px`;
-    document.querySelector('#moveMyPage').style.left = `${clientRect.left - 36}px`;
+    item.style.top = `${clientRect.top}px`;
+    item.style.left = `${clientRect.left-8}px`;
 })
 
 document.querySelector('#smyPage').addEventListener('click',()=>{
 
     console.log('튜토리얼 마이 페이지 이동 버튼 누름');
 
-    num = 4;
+    num = 0;
 
     document.querySelector('.aboutSave').style.display = 'none';
     document.querySelector('#aboutitem3').style.display = 'none';
-    document.querySelector('.tutorialWrapper').style.display = 'none';
+    // document.querySelector('.tutorialWrapper').style.display = 'none';
     document.querySelector('.fvSaveWrapper').style.display = 'none';
     // document.querySelector('.tutorialInfo').style.display = 'none';
     document.querySelector('#smyPage').style.display = "none";
+
+    // document.querySelector('#tutoSave').style.display = "none";
+
+    // document.querySelector('#tutoSave').style.top = "px";
+    // document.querySelector('#tutoSave').style.left = "px";
+
 })
 
 window.addEventListener('resize',(e)=>{
 
     if(document.querySelector(".tutorialWrapper").style.display === 'block'){
-        let item = {};
+        
 
         console.log(num);
         if(num===1){
@@ -503,6 +523,9 @@ window.addEventListener('resize',(e)=>{
         }else if(num===3) {
             target = document.querySelector('#saveWeather');
             item = document.querySelector('#aboutitem3');
+        }else if(num===4){
+            target = document.querySelector('#about4');
+            item = document.querySelector('#tutoSave');
         }
     
         clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
@@ -515,6 +538,9 @@ window.addEventListener('resize',(e)=>{
         if(num===2){
             document.querySelector('.next').style.top = `${clientRect.top-40}px`;
             document.querySelector('.next').style.left = `${clientRect.left+120}px`;
+        }if(num===4){
+            item.style.top = `${clientRect.top}px`;
+            item.style.left = `${clientRect.left-8}px`;
         }
         else {
             document.querySelector('.next').style.top = `${clientRect.top}px`;
@@ -601,6 +627,7 @@ document.querySelector("#closeTuto").addEventListener("click",()=>{
     document.querySelector('.aboutSave').style.display = 'none';
 
     document.querySelector('.tutorialWrapper').style.display = 'none';
+    document.querySelector('#tempMyPage').style.display = "none";
 
     if(num===3){
         //저장 팝업 뜨면 저장 팝업 닫기
@@ -609,28 +636,28 @@ document.querySelector("#closeTuto").addEventListener("click",()=>{
     }
 })
 
-document.querySelector("#scloseTuto").addEventListener("click",()=>{
+// document.querySelector("#scloseTuto").addEventListener("click",()=>{
 
-    console.log('tuto close');
-    num=0;
-    // document.querySelector('.aboutTime').style.display = 'none';
-    // document.querySelector('.aboutCharacter').style.display = 'none';
-    // document.querySelector('.aboutSave').style.display = 'none';
-    // document.querySelector('.tutorialInfo').style.display = 'none';
-    // document.querySelector('#smyPage').style.display = 'none';
-    // document.querySelector('#moveMyPage').style.display = 'none';
-    document.querySelector('.fvSaveWrapper').style.display = 'none';
+//     console.log('tuto close');
+//     num=0;
+//     // document.querySelector('.aboutTime').style.display = 'none';
+//     // document.querySelector('.aboutCharacter').style.display = 'none';
+//     // document.querySelector('.aboutSave').style.display = 'none';
+//     // document.querySelector('.tutorialInfo').style.display = 'none';
+//     // document.querySelector('#smyPage').style.display = 'none';
+//     // document.querySelector('#moveMyPage').style.display = 'none';
+//     document.querySelector('.fvSaveWrapper').style.display = 'none';
     
-    document.querySelectorAll('select')[0].value = '';
-    document.querySelectorAll('select')[1].value = '';
-    document.querySelectorAll('select')[2].value = '';
+//     document.querySelectorAll('select')[0].value = '';
+//     document.querySelectorAll('select')[1].value = '';
+//     document.querySelectorAll('select')[2].value = '';
 
-    // document.querySelector('.tutorialInfo').style.display = 'none'; //추가
-    document.querySelector('#scloseTuto ').style.display = 'none';
+//     // document.querySelector('.tutorialInfo').style.display = 'none'; //추가
+//     document.querySelector('#scloseTuto ').style.display = 'none';
     
-    document.querySelector('.tutorialWrapper').style.display = 'none';
+//     document.querySelector('.tutorialWrapper').style.display = 'none';
 
-})
+// })
 
 document.querySelector("#love").addEventListener('mouseover',()=>{
     document.querySelector(".myFvIcon").style.display = 'flex';
@@ -651,12 +678,12 @@ document.querySelector("#tutolove").addEventListener('mouseout',()=>{
     document.querySelector(".tutoMyFvIcon").style.display = 'none';
 })
 
-document.querySelector("#smoveMypage").addEventListener("click",()=>{
+// document.querySelector("#smoveMypage").addEventListener("click",()=>{
 
-    document.querySelector('#smyPage').style.display = "flex";
-    document.querySelector('#moveMyPage').style.display = "inline";
+//     document.querySelector('#smyPage').style.display = "flex";
+//     document.querySelector('#moveMyPage').style.display = "inline";
 
-})
+// })
 
 document.querySelector("#smyPage").addEventListener("click",()=>{
 
@@ -673,13 +700,45 @@ document.querySelector("#smyPage").addEventListener("click",()=>{
 
     // document.querySelector('.tutorialInfo').style.display = 'none'; //추가
     document.querySelector('#scloseTuto ').style.display = 'none';
+    document.querySelector('#tutoSave').style.display = 'none';
     
     document.querySelector('.tutorialWrapper').style.display = 'none';
 })
 
-document.querySelector("#moveMyPage").addEventListener('click',()=>{
+// document.querySelector("#moveMyPage").addEventListener('click',()=>{
     
-    document.querySelector("#smyPageBtn").style.display = "none";
-    document.querySelector("#moveMyPage").style.display = "none";
+//     document.querySelector("#smyPageBtn").style.display = "none";
+//     document.querySelector("#moveMyPage").style.display = "none";
+
+// })
+
+document.querySelector("#tutoSave").addEventListener('click',()=>{
+    alert('가상 저장 버튼 누름');
+
+    document.querySelector('.fvSaveWrapper').style.display = 'none';
+    document.querySelector('#tutoSave').style.display = 'none';
+
+    document.querySelector('#smyPage').style.display = "flex";
+    document.querySelector('#moveMyPage').style.display = "inline";
+
+    /* 위치 지정 */
+    // 튜토리얼 내 저장버튼 누르면 마이페이지 버튼이랑 텍스트 보이게 하기
+    target = document.querySelector('#myPage'); // 요소의 id 값이 target이라 가정
+    clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+    item = document.querySelector('#smyPage');
+    console.log(item);
+
+    item.style.top = `${clientRect.top}px`;
+    item.style.left = `${clientRect.left}px`;
+
+    document.querySelector('#moveMyPage').style.top = `${clientRect.top + 68}px`;
+    document.querySelector('#moveMyPage').style.left = `${clientRect.left - 36}px`;
+
+})
+
+document.querySelector('#smyPage').addEventListener('click',()=>{
+    alert("임시 저장 버튼");
+    // document.querySelector('#tempMyPage').style.display = "block";
+    document.querySelector('.aboutAfterSave').style.display = "block";
 
 })

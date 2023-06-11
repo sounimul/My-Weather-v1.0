@@ -291,9 +291,9 @@ main {
 }
 
 .searchForm {
-    width: 80%;
+    width: 70%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -333,7 +333,7 @@ main {
 }
 
 .fwTitle {
-    width: 600px;
+    width: 650px;
     height: 40px;
     border-radius: 10px;
     margin: 5px 0;
@@ -386,8 +386,22 @@ main {
 }
 
 /* Item Style */
+.fwTitle {
+    width: 680px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 5px 0;
+
+    background-color: rgba(255,255,255,0.3);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(4px);
+}
+
 .fwItem {
-    width: 650px;
+    width: 680px;
     height: 40px;
     border-radius: 10px;
     margin: 5px 0;
@@ -405,7 +419,7 @@ main {
 }
 
 .fwHeader {
-    width: 600px;
+    width: 650px;
     height: 24px;
     margin-bottom: 5px;
     padding-top: 8px;
@@ -432,7 +446,7 @@ main {
 }
 
 .fwDetails {
-    width: 600px;
+    width: 650px;
     height: 24px;
 
     display: flex;
@@ -443,16 +457,16 @@ main {
 }
 
 .fwDay {
-    width: 260px;
+    width: 290px;
     text-align: center;
 }
 
 .fwLoc {
-    width: 260px;
+    width: 290px;
     text-align: center;
 }
 .fwExp{
-    width: 80px;
+    width: 40px;
     text-align: center;
 }
 
@@ -462,12 +476,12 @@ main {
     font-size: 20px;
 }
 .fwTemp, .fwHumidity, .fwRain {
-    width: 120px;
+    width: 100px;
     text-align: center;
 }
 
 .fwTempF, .fwHumidityF, .fwRainF {
-    width: 120px;
+    width: 100px;
     text-align: center;
 }
 

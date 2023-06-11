@@ -70,12 +70,9 @@
                             <div class="nowInfo">
                                 <div class="infoDetail">
                                     <div id="location" th:text="${ad}">
-                                        동작구 신대방제2동 
-<!--                                        <button id="refresh" onclick="getLoc()">-->
-<!--                                            <span class="material-symbols-outlined">refresh</span>-->
-<!--                                        </button>-->
+                                        서울특별시 동작구 신대방제2동
                                     </div>
-                                    <div id="stdTime" th:text="|${element.hour}시 ${element.min}분 기준|">23시 20분 기준</div>
+                                    <div id="stdTime" th:text="|${element.hour}시 ${element.min}분 기준|">18시 49분 기준</div>
                                     <button id="refresh" onclick="getLoc()">
                                         <span class="material-symbols-outlined">refresh</span>
                                     </button>
@@ -87,18 +84,18 @@
                             <div class="past">
                                 <div id="pastHour"></div>
                                 <div class="pastInfo">
-                                    <span id="pastTemp" th:text="|${pastfuture.pt1h}℃|">12.4 ℃</span>
-                                    <span class="material-symbols-outlined" id="pastWeatherIcon" th:text="${pastfuture.picon}">cloudy</span>
+                                    <span id="pastTemp" th:text="|${pastfuture.pt1h}℃|">23.4 ℃</span>
+                                    <span class="material-symbols-outlined" id="pastWeatherIcon" th:text="${pastfuture.picon}">sunny</span>
                                 </div>
                             </div>
                             <div class="now">
-                                <div id="currentTemp" th:text="|${current.t1h}℃|">12.4<span>℃</span> </div>
-                                <div id="currentExp" th:text="${current.status}">빗방울눈날림</div>
+                                <div id="currentTemp" th:text="|${current.t1h}℃|">22.7<span>℃</span> </div>
+                                <div id="currentExp" th:text="${current.status}">맑음</div>
                             </div>
                             <div class="future">
                                 <div id="futureHour"></div>
                                 <div class="futureInfo">
-                                    <span id="futureTemp" th:text="|${pastfuture.ft1h}℃|">12.4 ℃</span>
+                                    <span id="futureTemp" th:text="|${pastfuture.ft1h}℃|">21.6 ℃</span>
                                     <span class="material-symbols-outlined" id="futureWeatherIcon" th:text="${pastfuture.ficon}">rainy</span>
                                 </div>
                             </div>
@@ -109,7 +106,8 @@
                 <div class="todayWeatherIcon" id="about2">
                     <div class="chairBack"></div>
                     <div class="chairSeat">
-                        <img id="wicon" src="../cloud.svg" alt="wicon" onclick="">
+                        <!-- <img id="wicon" src="../cloud.svg" alt="wicon" onclick=""> -->
+                        <img id="wicon" src="../static/sun" alt="wicon" onclick="">
                     </div>
                     <div class="shadow"></div>
                     <span class="material-symbols-outlined" id="love">favorite</span>
@@ -288,15 +286,15 @@
                         <header class="fwInfoWrapper">
                             <div class="material-symbols-outlined" th:text="${current.icon}">sunny</div>
                             <div class="fwInfo">
-                                <div th:text="|${element.month}월 ${element.date}일 ${element.hour}시 ${element.min}분|">4월 24일 월요일</div>
-                                <div th:text="${ad}">대구광역시 달서구 월성 1동</div>
+                                <div th:text="|${element.month}월 ${element.date}일 ${element.hour}시 ${element.min}분|">2023년 6월 10일 18시 49분</div>
+                                <div th:text="${ad}">서울특별시 동작구 신대방제2동</div>
                             </div>
                         </header>
                         <div class="fwDetails">
                             <div class="fwTemp">
                                 <div class="saveTempInfo">
                                     <span class="material-symbols-outlined">device_thermostat</span>
-                                    <span th:text="|${current.t1h}℃|">25°C</span>
+                                    <span th:text="|${current.t1h}℃|">22.7°C</span>
                                 </div>
                                 <select name="saveTempComment" required>
                                     <option value="">기온 어때요?</option>
@@ -315,7 +313,7 @@
                             <div class="fwHumid">
                                 <div class="saveHumidInfo">
                                     <span class="material-symbols-outlined">water_drop</span>
-                                    <span th:text="|${current.reh}%|">60%</span>
+                                    <span th:text="|${current.reh}%|">56%</span>
                                 </div>
                                 <select name="saveHumidComment" required>
                                     <option value="">습도 어때요?</option>
@@ -328,7 +326,7 @@
                             <div class="fwRain">
                                 <div class="saveRainInfo">
                                     <span class="material-symbols-outlined">rainy</span>
-                                    <span th:text="|${current.rn1}mm|">2.5mm</span>
+                                    <span th:text="|${current.rn1}mm|">0.0mm</span>
                                 </div>
                                 <select name="saveRainComment" required>
                                     <option value="">비는 어떻게 와요?</option>
@@ -342,7 +340,7 @@
                         </div>
                     </article>
                     <div class="buttons">
-                        <input type="submit" value="저장" class="submit">
+                        <input type="submit" value="저장" class="submit" id="about4">
                         <button type="button" class="close" id="saveWeatherClose">닫기</button>
                     </div>
                 </form>
@@ -356,8 +354,7 @@
 <!--            <span><a id="smoveMypage">마이페이지에서 저장된 목록 확인하기</a></span>-->
 <!--            <span><a id="scloseTuto">튜토리얼 종료하기</a></span>-->
 <!--        </div>-->
-        <a href="/myPage" id="smyPageBtn"><button id="smyPage"><span class="material-symbols-rounded">account_circle</span></button></a>
-        <span id="moveMyPage">마이페이지 이동하기</span>
+
     </div>
 
     <div class="feedbackWrapper popup">
@@ -440,6 +437,30 @@
                 <button id="aboutitem3"><span class="material-symbols-rounded">bookmark</span></button>
                 <span id="aboutSaveText">날씨 저장하기  click-></span>
             </div>
+
+            <!--  -->
+            <!-- <div class="aboutAfterSaveWrapper"> -->
+                <!-- <div class="aboutAfterSave">
+                        <div class="imgWrapper">
+                            <button id="moveBeforeImg" onclick="moveImg(this)">
+                                <span class="material-symbols-outlined">arrow_back_ios</span>
+                            </button>
+                            <img src="../static/saveImg.png" alt="">
+                            <button id="moveAfterImg" onclick="moveImg(this)">
+                                <span class="material-symbols-outlined">arrow_forward_ios</span>
+                            </button>
+                        </div>
+                        <div class="explain"> 날씨 버튼을 눌러 기록지를 켠다</div>
+                </div> -->
+                <button id="tutoSave">저장</button>
+
+                <button id="smyPage"><span class="material-symbols-rounded">account_circle</span></button>
+                <span id="moveMyPage">마이페이지 이동하기</span>
+
+                <div class="aboutAfterSave">
+                    <img id="tempMyPage" src="../static/mypageImg.png" alt="">
+                </div>
+            <!-- </div> -->
             <button class="next">다음</button>
         </div>
 </body>

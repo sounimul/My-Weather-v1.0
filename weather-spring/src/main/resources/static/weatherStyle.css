@@ -699,7 +699,7 @@ dt {
     padding: 16px;
 }
 
-.popup input[type="submit"], .popup button {
+.popup input[type="submit"], .popup button, #tutoSave {
     
     /* submit 스타일 없애기 */
     background-color: transparent;
@@ -717,7 +717,7 @@ dt {
     font-weight: 900;
 }
 
-.popup input[type="submit"]:hover, .popup button:hover {
+.popup input[type="submit"]:hover, .popup button:hover , #tutoSave:hover {
     background-color: var(--light-color);
 }
 
@@ -1265,4 +1265,81 @@ select:focus {
     position: fixed;
     color: white;
     display: none;
+}
+
+ 
+.aboutAfterSave {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    display: none;
+}
+
+/*
+.aboutAfterSave {
+    width: 1200px;
+    height: 600px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #fff;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    display: none;
+    
+}
+
+.imgWrapper {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.imgWrapper img {
+    height: 400px;
+}
+
+.explain {
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#moveBeforeImg span, #moveAfterImg span{
+    font-size: 36px;
+} */
+
+#tutoSave {
+    z-index: 11111;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    display: none;
+}
+
+#tempMyPage {
+    /* display:none;  */
+    width: 1200px;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
