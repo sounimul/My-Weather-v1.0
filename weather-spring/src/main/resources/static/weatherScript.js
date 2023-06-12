@@ -364,13 +364,8 @@ let item = {};
 
 let clientRect = 0;
 
-const imgs = ["cloud.svg","cloudAndSun.svg","rain.svg","shower.svg","snow.svg","sun.svg",]
-const text = ["흐림",
-"구름 많음",
-"비",
-"소나기",
-"눈",
-"맑음",]
+const imgs = ['sun','cloudAndSun','cloud','shower','snow','snow','rain','rain','snow'];
+const text = ['맑음','구름 많음','흐림','비','비 또는 눈','눈', '빗방울','빗방울눈날림','눈날림'];
 
 document.querySelector('#tutorial').addEventListener('click',()=>{
     const answer = confirm('튜토리얼을 보시겠습니까?');
@@ -421,8 +416,8 @@ document.querySelector('.next').addEventListener('click',()=>{
 
         let ind = text.indexOf(weather);
         document.querySelector('#iconText').innerText = text[ind];
-        document.querySelector("#tutoicon").setAttribute('src',`${imgs[ind]}`);
-
+        document.querySelector("#tutoicon").setAttribute('src',`${imgs[ind]}.svg`);
+        // document.querySelector("#tutoicon").setAttribute('src',`../static/${imgs[ind]}.svg`);
     } else if(num===2){
         document.querySelector('.next').style.display = 'none';
         console.log('3번째');
@@ -592,7 +587,7 @@ function move(e){
 
     const button = e.childNodes[1].innerText;
     if(button==='arrow_forward_ios'){
-        if(index<5){
+        if(index<8){
             index++;
         }else {
             index = 0;
@@ -601,21 +596,21 @@ function move(e){
         if(index>0){
             index--;
         }else {
-            index = 5;
+            index = 8;
         }
     }
 
-    // e.parentElement.childNodes[3].childNodes[1].setAttribute('src',`../static/${imgs[index]}`);
-    document.querySelector("#tutoicon").setAttribute('src',`${imgs[index]}`);
+    document.querySelector("#tutoicon").setAttribute('src',`${imgs[index]}.svg`);
+    // document.querySelector("#tutoicon").setAttribute('src',`../static/${imgs[index]}.svg`);
     document.querySelector("#iconText").innerText = text[index];
 
     if(index===0){
         document.querySelector("#tutolove").style.transform = "translate(-70px, -16px)"
         document.querySelector(".tutoMyFvIcon").style.transform = "translate(31px, 30px)"
     }
-    else if(index===2){
-        document.querySelector("#tutolove").style.transform = "translate(-100px, -16px)"
-        document.querySelector(".tutoMyFvIcon").style.transform = "translate(1px, 30px)"
+    else if(index===2 || index===6 || index===7){
+        document.querySelector("#tutolove").style.transform = "translate(-85px, -16px)"
+        document.querySelector(".tutoMyFvIcon").style.transform = "translate(16px, 30px)"
     }
     else if(index===3){
         document.querySelector("#tutolove").style.transform = "translate(-80px, -16px)"
