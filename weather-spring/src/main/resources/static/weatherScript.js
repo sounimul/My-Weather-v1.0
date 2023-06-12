@@ -466,6 +466,7 @@ document.querySelector('#aboutitem3').addEventListener('click',()=>{
     // 새 단계 시작
     document.querySelector('.fvSaveWrapper').style.display = 'flex';
     document.querySelector('#tutoSave').style.display = 'block';
+    document.querySelector('#tutoSaveClose').style.display = 'block';
 
 
     // 튜토리얼 시 저장 할 때 마이페이지 보이게 하기
@@ -482,6 +483,13 @@ document.querySelector('#aboutitem3').addEventListener('click',()=>{
     // 기록 저장 가상 버튼
     target = document.querySelector('#about4'); // 요소의 id 값이 target이라 가정
     item = document.querySelector('#tutoSave');
+    clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+
+    item.style.top = `${clientRect.top}px`;
+    item.style.left = `${clientRect.left-8}px`;
+
+    target = document.querySelector('#saveWeatherClose'); // 요소의 id 값이 target이라 가정
+    item = document.querySelector('#tutoSaveClose');
     clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
 
     item.style.top = `${clientRect.top}px`;
@@ -719,6 +727,34 @@ document.querySelector("#tutoSave").addEventListener('click',()=>{
 
     document.querySelector('.fvSaveWrapper').style.display = 'none';
     document.querySelector('#tutoSave').style.display = 'none';
+    document.querySelector('#tutoSaveClose').style.display = 'none';
+
+
+    document.querySelector('#smyPage').style.display = "flex";
+    document.querySelector('#moveMyPage').style.display = "inline";
+
+    /* 위치 지정 */
+    // 튜토리얼 내 저장버튼 누르면 마이페이지 버튼이랑 텍스트 보이게 하기
+    target = document.querySelector('#myPage'); // 요소의 id 값이 target이라 가정
+    clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+    item = document.querySelector('#smyPage');
+    console.log(item);
+
+    item.style.top = `${clientRect.top}px`;
+    item.style.left = `${clientRect.left}px`;
+
+    document.querySelector('#moveMyPage').style.top = `${clientRect.top + 68}px`;
+    document.querySelector('#moveMyPage').style.left = `${clientRect.left - 36}px`;
+
+})
+
+document.querySelector("#tutoSaveClose").addEventListener('click',()=>{
+    // alert('가상 저장 버튼 누름');
+
+    document.querySelector('.fvSaveWrapper').style.display = 'none';
+    document.querySelector('#tutoSave').style.display = 'none';
+    document.querySelector('#tutoSaveClose').style.display = 'none';
+
 
     document.querySelector('#smyPage').style.display = "flex";
     document.querySelector('#moveMyPage').style.display = "inline";
