@@ -44,7 +44,7 @@
 |날씨페이지 화면|튜토리얼 화면|
 |![image](https://github.com/sounimul/Project1/assets/75112062/9617094e-1239-4136-88e2-8d2fc598532e)|![image](https://github.com/sounimul/Project1/assets/75112062/35b85850-a643-4c06-b1e3-adb4fd9b828c)|
 |날씨 저장 기능|리뷰 저장 기능|
-|![image](https://github.com/sounimul/Project1/assets/75112062/fbd32f77-9ec3-4d92-9cfe-2507123406f9)|![image](https://github.com/sounimul/Project1/assets/75112062/1823a980-d122-495f-846b-04169ab72f5f)|
+|![image](https://github.com/sounimul/Project1/assets/75112062/fbd32f77-9ec3-4d92-9cfe-2507123406f9)|![image](https://github.com/sounimul/Project1/assets/75112062/64176121-a512-4c71-9f79-c7228ebc5e35)|
 |마이페이지 화면|관리자 페이지 화면|
 |![image](https://github.com/sounimul/Project1/assets/75112062/e315df3e-ed4d-4e55-8e99-d0c58a2bb059)|![image](https://github.com/sounimul/Project1/assets/75112062/5fd8ffc2-a80b-4818-b53f-414d4fb4722e)|
 
