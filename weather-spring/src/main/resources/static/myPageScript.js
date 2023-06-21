@@ -82,7 +82,35 @@ function getLoc(){
 
     function Error(position){
         console.log('위치 실패');
-        document.getElementById('location').innerText = `위치 비동의`
+        // document.getElementById('location').innerText = `위치 비동의`
+        const latitude = 37.5665;
+        const longitude = 126.9780;
+
+        // 1개의 $ajax로 날짜,시간,위도,경도를 서버로 전송하기 위해
+        // // Ajax 요청 생성하여 서버로 위치 정보를 전송
+        $.ajax({
+            url:"/weather",
+            type:"POST",
+            data:JSON.stringify({
+                latitude:latitude,
+                longitude:longitude,
+                year:year,
+                month:month+1,
+                date:date,
+                hour:hour,
+                min:min,
+                sec:sec
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
+                location.href="/weather";
+                console.log("서버로 위치 정보를 전송했습니다.");
+            },
+            error: function(xhr, status, error){
+                console.error("서버로 위치 정보 전송하지 못하였습니다.");
+            }
+        });
     }
 }
 
