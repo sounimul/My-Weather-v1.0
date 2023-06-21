@@ -15,7 +15,7 @@ public class HomeController {
     /* '/joinForm으로 접속 시 회원가입창으로 */
     @GetMapping("/joinForm")
     public String joinPage(){
-        return "/members/createMemberForm";
+        return "members/createMemberForm";
     }
 
 }
