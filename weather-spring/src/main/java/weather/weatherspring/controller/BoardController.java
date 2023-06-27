@@ -45,7 +45,7 @@ public class BoardController {
         model.addAttribute("users",members);
         model.addAttribute("delUsers",deletedMembers);
 
-        return "/admin/userBoard";
+        return "admin/userBoard";
     }
 
     @GetMapping("/board/record")
@@ -87,7 +87,7 @@ public class BoardController {
         model.addAttribute("curPage",page);
         model.addAttribute("records",records);
 
-        return "/admin/recordBoard";
+        return "admin/recordBoard";
     }
 
     @GetMapping("/board/review")
@@ -133,6 +133,6 @@ public class BoardController {
         model.addAttribute("curPage",page);
         model.addAttribute("reviews",reviews);
 
-        return "/admin/reviewBoard";
+        return "admin/reviewBoard";
     }
 }
