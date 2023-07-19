@@ -12,7 +12,7 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-public class JpaReviewRepository implements  ReviewRepository{
+public class JpaReviewRepository implements ReviewRepository{
 
     private final EntityManager em;
 
@@ -48,9 +48,9 @@ public class JpaReviewRepository implements  ReviewRepository{
 
     /* 관리자 페이지 - 별점 평균 조회 */
     public Optional<Double> calAverage(){
-        List<Double> avgStar = em.createQuery("select avg(r.stars) from Review r where r.stars > 0",Double.class)
-                .getResultList();
-        return avgStar.stream().findAny();
+        Optional<Double> avgStar = Optional.ofNullable(em.createQuery("select avg(r.stars) from Review r where r.stars > 0", Double.class)
+                .getSingleResult());
+        return avgStar;
     }
 
     /* 관리자 페이지 - 별점별 개수 조회 */
