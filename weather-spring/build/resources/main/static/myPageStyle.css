@@ -1,0 +1,757 @@
+/* 전체 */
+:root {
+    --light-color: #aecbe8;
+    --dark-color: #0066cc;
+}
+
+/* 기본 스타일 제거 */
+a {
+    text-decoration: none;
+}
+
+ul, li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+}
+
+button:hover, a:hover, li:hover {
+    cursor: pointer;
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--light-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+/* 메뉴 오픈 버전 */
+#home{
+    background-color: var(--dark-color);
+    width: 54px;
+    height: 54px;
+    border-radius: 30px;
+    color: var(--light-color);
+    font-weight: 900;
+    
+    position: fixed; /* 하단 버튼 고정 */
+    top: 24px;
+    right: 24px;
+}
+
+#home span {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home:hover{
+    color: #fff;
+    height: 58px;
+    width: 58px;
+}
+
+/* .mainWrapper(1366px) > main(1200px) > section .profile(350px), section .fvWeather(800px) */
+/* Layout */
+.mainWrapper {
+    width: 1366px;
+    height: 768px;
+
+    background-color: transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    width: 1200px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* 개인 프로필 .profile */
+.profile {
+    width: 350px;
+    height: 600px;    
+    border-radius: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 저장한 날씨 .fvWeather */
+.fvWeather {
+    width: 800px;
+    height: 600px;
+    border-radius: 20px;
+
+    box-shadow: 0 0 6px 2px rgba(0,0,0,0.1);
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.2) 20%, transparent 80%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .profile(350px, 600px) */
+/* 사용자 정보 */
+#window {
+    border: 10px solid #F0F0F0;
+    border-radius: 60px;
+    width: 280px;
+    height: 340px;
+
+    background-image: url("tile.png");
+    background-position-x: 3px;
+    
+    box-shadow: inset 0 0px 5px 3px rgba(0,0,0,0.2), 0 0px 4px 2px rgba(0,0,0,0.2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userInfo {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.btnWrapper button, .btnWrapper a {
+    margin: 0 10px;
+}
+
+.btnWrapper a {
+    margin-right: 8px;
+}
+
+/* #profileImg {
+    width: 54px;
+    height: 54px;
+    background-color: var(--dark-color);
+    color: #fff;
+    border-radius: 27px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profileImg img {
+    width: 100%;
+} */
+
+#pUuserNickname {
+    font-weight: 900;
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+.saveInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#mark {
+    cursor: pointer;
+}
+
+#mark:hover{
+    font-variation-settings: 'FILL' 1;
+    color: var(--dark-color);
+}
+
+#mark:hover + span {
+    color: var(--dark-color);
+    font-weight: 900;
+}
+
+#userFavorite {
+    display: none;
+}
+
+/* 좋아하는 날씨 캐릭터 */
+.fvWeatherIcon {
+    width: 100%;
+    height: 240px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+}
+
+.chairBack{
+    width: 90%;
+    height: 140px;
+    border-radius: 20px;
+
+    background-color: #D9D9D9;
+    box-shadow: 0 -2px 5px 2px rgba(0,0,0,0.1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chairSeat{
+    width: 90%;
+    height: 60px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    background-color: #C3C3C3;
+    box-shadow: 0 5px 10px 3px rgba(0,0,0,0.2);
+}
+
+.shadow {
+    width: 90%;
+    height: 20px;
+    border-radius: 30%;
+
+    background: transparent;
+    box-shadow: 0 50px 6px 4px rgba(0,0,0,0.1);
+}
+
+#wicon {
+    width: 110%;
+    transform: translate(-10px,-268px);
+}
+
+#wicon:hover{
+    filter: drop-shadow(0 5px 2px #fee);
+}
+
+/* .fvWeather */
+.board {
+    width: 100%;
+    height: 550px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* 조건 검색창 */
+.searchBar {
+    width: 100%;
+    background-color: rgba(255,255,255,0.5);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchForm {
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.searchCondition {
+    border-radius: 30px;
+    color: var(--dark-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fvWeather select {
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 0 10px;
+}
+
+#search {
+    height: 58px;
+    width: 58px;
+    color: var(--light-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-color);
+    transform: translateX(-4px);
+
+    cursor: pointer;
+}
+
+#refresh {
+    cursor: pointer;
+    transform: translateX(-4px);
+    text-decoration: underline;
+}
+
+.fwTitle {
+    width: 650px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 5px 0;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    transform: translate(-13px);
+}
+
+.fwTitle .fwExp span{
+    font-size: 16px;
+}
+
+/* List */
+/* Layout */
+.fwList {
+    width: 750px;
+    height: 360px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    overflow: auto;
+    overflow-x: hidden;
+    transform: translateY(-16px);
+}
+
+.fwItemWrapper {
+    width: 90%;
+}
+
+/* List Scroll */
+.fwList::-webkit-scrollbar {
+    width: 12px;  /* 스크롤바의 너비 */
+}
+
+.fwList::-webkit-scrollbar-thumb {
+    height: 10%; /* 스크롤바의 길이 */
+    background: var(--dark-color); /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+.fwList::-webkit-scrollbar-track {
+    background: rgba(0, 102, 204, .1);  /*스크롤바 뒷 배경 색상*/
+    border-radius: 10px;
+}
+
+/* Item Style */
+.fwTitle {
+    width: 680px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 5px 0;
+
+    background-color: rgba(255,255,255,0.3);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(4px);
+}
+
+.fwItem {
+    width: 680px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 5px 0;
+
+    background-color: rgba(255,255,255,0.3);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.fwItem:hover {
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.3) , transparent , rgba(255,255,255,0.5) );
+}
+
+.fwHeader {
+    width: 650px;
+    height: 24px;
+    margin-bottom: 5px;
+    padding-top: 8px;
+
+
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.fwItem p {
+    margin: 0;
+    padding: 0;
+
+    display: inline-block;
+}
+
+.fwItemp span {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    display: inline;
+}
+
+.fwDetails {
+    width: 650px;
+    height: 24px;
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    display: none;
+}
+
+.fwDay {
+    width: 290px;
+    text-align: center;
+}
+
+.fwLoc {
+    width: 290px;
+    text-align: center;
+}
+.fwExp{
+    width: 40px;
+    text-align: center;
+}
+
+.fwExp span {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+.fwTemp, .fwHumidity, .fwRain {
+    width: 100px;
+    text-align: center;
+}
+
+.fwTempF, .fwHumidityF, .fwRainF {
+    width: 100px;
+    text-align: center;
+}
+
+.blank, .expand, .delete {
+    width: 20px;
+}
+
+.fwDetails .fwExp {
+    visibility: hidden;
+}
+
+/* pop-up */
+/* 프로필 수정 */
+#changePFbackground {
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.changePF {
+    background-color: #F0F0F0;
+    width: 500px;
+    height: 460px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.changePF h3 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #4C623B;
+}
+
+.profileInfo {
+    width: 90%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.label {
+    font-weight: 900;
+}
+
+/* id */
+.idWrapper {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.idWrapper span:nth-child(1) {
+    display: inline-block;
+    width: 130px;
+    text-align: left;
+}
+
+.idWrapper span:nth-child(2) {
+    display: inline-block;
+    text-align: left;
+}
+
+/* 비밀번호 변경 버튼 */
+#changePW {
+    border: 2px solid var(--dark-color);
+    color: var(--dark-color);
+    padding: 4px 8px;
+    margin-left: 54px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-radius: 30px;
+}
+
+#changePW:hover {
+    color: #fff;
+    background-color: var(--dark-color);
+}
+
+/* nickname */
+.nicknameWrapper {
+    display: flex;
+    margin: 16px 0;
+}
+
+.nicknameWrapper span:nth-child(1) {
+    width: 130px;
+}
+
+.userNickname {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+#changeNN {
+    border: none;
+    width: 200px;
+    border-bottom: 2px solid var(--dark-color);
+    background-color: transparent;
+    padding-bottom: 10px;
+    margin-top: 16px;
+    outline: none;
+}
+
+/* fw */
+.fwWrapper {
+    display: flex;
+    margin: 16px 0;
+}
+
+.userFw {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.fwWrapper span:nth-child(1){
+    width: 130px;
+    text-align: left;
+}
+
+#fw {
+    padding-bottom: 10px;
+    background-color: transparent;
+    border: none;
+    margin-top: 16px;
+    border-bottom: 2px solid var(--dark-color);
+}
+
+#fw:focus {
+    outline: none;
+}
+
+/* 버튼 */
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.buttons input[type="submit"], .buttons button {
+    
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    width: 100px;
+    height: 40px;
+    margin: 0 8px;
+    
+    border: 2px solid var(--light-color);
+    border-radius: 30px;
+
+    font-weight: 900;
+}
+
+.buttons input[type="submit"]:hover, .buttons button:hover {
+    background-color: var(--light-color);
+}
+
+.pagination {
+    width: 100%;
+
+    transform: translateY(-16px);
+}
+
+.pagination ul {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li{
+    margin: 0 4px;
+}
+
+.pagination a {
+    color: #000;
+}
+
+.currentPage a {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* loading */
+.loadBack {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    /* background-color: transparent; */
+    position: fixed;
+    z-index: 11111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.loadingWrapper {
+    width: 100px;
+    height: 100px;
+    padding: 12px;
+    border-radius: 50%;
+
+    background-color: var(--dark-color);
+    box-shadow: 0 0px 4px 2px rgba(0,0,0,0.2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingImg{
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingImg span{
+    font-size: 10px;
+    margin: 0 2px;
+    animation: upDown 1.8s infinite;
+
+    animation: upDown 2s infinite ease;
+    color: #fff;
+    font-variation-settings: 'FILL' 1;
+}
+
+.loadingImg span:nth-child(2){
+    animation-delay: 0.3s;
+}
+
+.loadingImg span:nth-child(3){
+    animation-delay: 0.6s;
+}
+
+.loadingText{
+    color: #fff;
+}
+
+@keyframes upDown {
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}

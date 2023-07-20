@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <!-- 백엔드 CSS/스크립트 확인 -->
+    <link rel="stylesheet" href="../../CMFstyle.css">
+    <script src="../../CMFscript.js" defer></script>
+    <!-- 프론트 CSS/스크립트 확인 -->
+<!--    <link rel="stylesheet" href="../../static/CMFstyle.css">-->
+<!--    <script src="../../static/CMFscript.js" defer></script>-->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <a href="/"><button id="home"><span class="material-symbols-outlined">home</span></button></a>
+
+        <div class="formWrapper">
+            <h1>회원가입</h1>
+            <form action="/join" method="post" onsubmit="return check()">
+                <div class="formGroup">
+                    <div class="container">
+                        <div class="idLabel">
+                            <label for="userid"><span class="material-symbols-outlined">mail</span>메일</label>
+                            <button type="button" onclick="checkID()" id="idCheck">중복확인</button>
+                        </div>
+                        <div class="idInput">
+                            <input type="id" id="userid" name="emailLocal" placeholder="메일 주소를 입력하세요" required>
+                            <span>@</span>
+                            <input type="id" id="useridEmail" name="emailDomain" disabled required>
+                            <select name="emailDomain" id="idEmail" onchange="emailChange()">
+                                <option>주소 선택</option>
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="kakao.com">kakao.com</option>
+                                <option value="">직접입력</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <label for="pw"><span class="material-symbols-outlined">lock</span>비밀번호</label>
+                        <!-- <span id="pwCondition">i</span> -->
+                        <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요" oninput="checkPW(this.value)" onchange="confirmPW()" required>
+                        <!-- <div id="pwConditionText">
+                        <span>비밀번호 조건</span>
+                        <span>- 영문 대소문자 각각 1개 이상</span>
+                        <span>- 숫자, 특수문자를 포함</span>
+                        <span>- 최소 8자리, 최대 20자리</span>
+                        </div> -->
+                    </div>
+
+                    <div class="container">
+                        <label for="pwCheck"><span class="material-symbols-outlined">lock</span>비밀번호 확인</label>
+                        <input type="password" id="pwCheck" name="pwCheck" placeholder="비밀번호를 입력하세요" oninput="doublecheckPW(this.value)" onchange="confirmPWC()" required>
+                    </div>
+
+                    <div class="container">
+                        <label for="nickname"><span class="material-symbols-outlined">face</span>닉네임 </label>
+                        <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" required>
+                    </div>
+
+                    <div class="container">
+                        <label for="fvweather"><span class="material-symbols-outlined">favorite</span>좋아하는 날씨 </label>
+                        <div class="select" id="fvweather">
+                            <input type="radio" name="fvweather" value="맑음" onclick="changeImg('fvSun')"> 맑음
+                            <input type="radio" name="fvweather" value="구름 많음" onclick="changeImg('fvCloudAndSun')"> 구름많음
+                            <input type="radio" name="fvweather" value="흐림" onclick="changeImg('fvCloud')"> 흐림
+                            <input type="radio" name="fvweather" value="비" onclick="changeImg('fvRain')"> 비
+                            <input type="radio" name="fvweather" value="눈" onclick="changeImg('fvSnow')"> 눈
+                        </div>
+                    </div>
+                </div>
+                <div class="btnContainer">
+                    <button type="submit" id="done"><span class="material-symbols-outlined">done</span></button>
+                </div>
+            </form>
+        </div>
+
+        <aside>
+            <section class="profile">
+                <div id="window">
+                    <div id="pwConditionText">
+                        <span>비밀번호 조건</span>
+                        <span>- 영문 대소문자 각각 1개 이상</span>
+                        <span>- 숫자, 특수문자를 포함</span>
+                        <span>- 최소 8자리, 최대 20자리</span>
+                    </div>
+                </div>
+
+                <div class="todayWeatherIcon">
+                    <div class="chairBack"></div>
+                    <div class="chairSeat">
+                        <img id="wicon" src="../../fvSun.svg" alt="wicon">
+                    </div>
+                    <div class="shadow"></div>
+                </div>
+            </section>
+        </aside>
+    </main>
+</body>
+</html>
