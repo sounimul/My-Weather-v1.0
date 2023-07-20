@@ -1,0 +1,211 @@
+/* 전체 */
+:root {
+    --light-color: #aecbe8;
+    --dark-color: #0066cc;
+}
+
+a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #000;
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-image: url("tile.png");
+    background-repeat: repeat;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid var(--dark-color);
+    padding-bottom: 10px;
+    background-color: transparent;
+}
+
+input:focus {
+    outline: none;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.id {
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+}
+
+.password {
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+    margin-right: 50px;
+}
+
+h1 {
+    color: var(--dark-color);
+    padding-bottom: 50px;
+    position: absolute;
+    transform: translateY(-225px);
+    
+}
+
+#logIn {
+    background-color: var(--dark-color);
+    border: none;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    color: var(--light-color);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+#logIn:hover {
+    color: #fff;
+}
+
+#logIn span {
+    font-size: 36px;
+}
+
+.doorBorder {
+    width: 100vw;
+    height: 150px;
+    background-color: var(--dark-color);
+    position: absolute;
+
+    display: flex;
+    justify-content: right;
+}
+
+.move {
+    padding: 30px;
+    position: absolute;
+    transform: translateY(200px);
+    display: flex;
+}
+
+.move p {
+    padding: 10px;
+}
+
+main {
+    width: 400px;
+    height: 160px;
+    background-color: #fff;
+    border-radius: 200px;
+    border: 30px solid var(--dark-color);
+    display: flex;
+    z-index: 1;
+    padding: 50px;
+    justify-content: center;
+
+    box-shadow: 0 0px 4px 3px rgba(0,0,0,0.1), inset 0 0px 4px 3px rgba(0,0,0,0.2);
+}
+
+.wrapper {
+    padding: 20px;
+}
+
+@media screen and (max-width:800px) {
+    main {
+        border: 20px solid var(--dark-color);
+        width: 380px;
+        height: 100px;
+    }
+    .doorBorder {
+        height: 100px;
+    }
+    .id, .password {
+        margin-right: 20px;
+    }
+}
+
+/* loading */
+.loadBack {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    /* background-color: transparent; */
+    position: fixed;
+    z-index: 11111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.loadingWrapper {
+    width: 100px;
+    height: 100px;
+    padding: 12px;
+    border-radius: 50%;
+
+    background-color: var(--dark-color);
+    box-shadow: 0 0px 4px 2px rgba(0,0,0,0.2);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingImg{
+    width: 50px;
+    height: 50px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingImg span{
+    font-size: 10px;
+    margin: 0 2px;
+    animation: upDown 1.8s infinite;
+
+    animation: upDown 2s infinite ease;
+    color: #fff;
+    font-variation-settings: 'FILL' 1;
+}
+
+.loadingImg span:nth-child(2){
+    animation-delay: 0.3s;
+}
+
+.loadingImg span:nth-child(3){
+    animation-delay: 0.6s;
+}
+
+.loadingText{
+    color: #fff;
+}
+
+@keyframes upDown {
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}

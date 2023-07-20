@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 대시보드</title>
+    <style>
+        body {
+            margin : 0;
+        }
+        header {
+            margin: 0;
+            padding: 0;
+            position: sticky;
+            height: 80px;
+            top: 0;
+            background-color: #aecbe8;
+        }
+        header h1 {
+            padding: 10px 20px;
+            margin: 0;
+            text-align: center;
+        }
+        div.containerWrap{
+            position:absolute;
+            margin:0;
+            width: 100%;
+            height:89.3vh;
+        }
+        div nav{
+            position: absolute;
+            background-color: midnightblue;
+            width:200px;
+            height: 100%;
+            margin:0;
+        }
+        ul.navbarWrap{
+            background-color: midnightblue;
+            width:200px;
+            list-style-type: none;
+            margin : 0;
+            padding : 0;
+        }
+        li a.navbar {
+            display: block;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15pt;
+            font-weight: bold;
+        }
+        li a.current{
+            display: block;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15pt;
+            font-weight: bold;
+            background-color: cornflowerblue;
+        }
+        li a.navbar:hover{
+            background-color: royalblue;
+        }
+        div.mainWrapper{
+            margin: 0;
+            margin-left: 230px;
+            padding: 20px 25px 20px 10px;
+            height : 88%;
+        }
+        table{
+            width : 100%;
+            font-size: 10pt;
+        }
+        table, th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        tr {
+            height : 25px;
+        }
+        thead {
+            background-color: lightgray;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>COHO 날씨 웹사이트</h1>
+    </header>
+    <div class="containerWrap">
+        <nav>
+            <ul class="navbarWrap">
+                <li><a class="navbar" href="/logout">HOME</a></li>
+                <li><a class="current" href="/board/user">사용자</a></li>
+                <li><a class="navbar" href="/board/record" >날씨 기록</a></li>
+                <li><a class="navbar" href="/board/review">리뷰/별점</a></li>
+            </ul>
+        </nav>
+        <div class="mainWrapper">
+            <div>
+                <h2>사용자 목록</h2>
+            </div>
+            <div style="height:55%; overflow:scroll;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>unique id</th>
+                            <th>이메일</th>
+                            <th>비밀번호</th>
+                            <th>닉네임</th>
+                            <th>좋아하는 날씨</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.uid}">2</td>
+                            <td th:text="${user.id}">happy@naver.com</td>
+                            <td th:text="${user.pw}">Happy12345!</td>
+                            <td th:text="${user.nickname}">해피</td>
+                            <td th:text="${user.fvweather}">구름 많음</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div>
+                <h2>탈퇴한 사용자</h2>
+            </div>
+
+            <div style="height:25%; overflow:scroll;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>unique id</th>
+                            <th>이메일</th>
+                            <th>비밀번호</th>
+                            <th>닉네임</th>
+                            <th>좋아하는 날씨</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="dUser : ${delUsers}">
+                            <td th:text="${dUser.uid}">2</td>
+                            <td th:text="${dUser.id}">happy@naver.com</td>
+                            <td th:text="${dUser.pw}">Happy12345!</td>
+                            <td th:text="${dUser.nickname}">해피</td>
+                            <td th:text="${dUser.fvweather}">구름 많음</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>
