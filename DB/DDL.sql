@@ -1,7 +1,8 @@
--- MySQL 버전
-CREATE DATABASE WEATHER DEFAULT CHARSET=utf8 collate=utf8_bin;
+-- MariaDB
+-- CREATE DATABASE weather DEFAULT CHARSET=utf8 collate=utf8_bin;
+CREATE DATABASE weather;
 
-USE WEATHER;
+-- USE WEATHER;
 
 -- USER
 CREATE TABLE userlist(
