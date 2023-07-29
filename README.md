@@ -3,6 +3,8 @@
 > 사이드 프로젝트
 > 
 > 개발기간 : 2023.02 ~ 2023.06
+>
+> 링크 : https://myweather.kro.kr/
 <br></br>
 ## 팀 소개
 - **한상경(sounimul)** : https://github.com/sounimul
@@ -35,6 +37,8 @@
     <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> 
 
 - **IDE** : VS Code, IntelliJ IDEA (gradle 7.6)
+
+- **배포** : Cloud Type
 
 <br></br>
 ## 화면 구성
