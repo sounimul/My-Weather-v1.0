@@ -107,10 +107,22 @@ public class MypageController {
         HttpSession session = request.getSession();
         Long uid=(Long) session.getAttribute("uid");
         response.setContentType("text/html; charset=utf-8");
-
         try{
             PrintWriter w = response.getWriter();
-            if(memberService.updatePw(uid,pwForm)){
+            // 새로운 비밀번호 != 새로운 비밀번호 확인
+            if(!pwForm.getPw().equals(pwForm.getCheckPw())){
+                w.write("<script>alert('새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.');history.go(-1);</script>");
+                w.flush();
+                w.close();
+            }
+            // 기존 비밀번호 == 새로운 비밀번호
+            else if(pwForm.getPw().equals(pwForm.getCurPw())) {
+                w.write("<script>alert('기존 비밀번호와 새로운 비밀번호가 일치합니다.');history.go(-1);</script>");
+                w.flush();
+                w.close();
+            }
+            // 비밀번호 변경
+            else if(memberService.updatePw(uid,pwForm)){
                 w.write("<script>alert('비밀번호가 변경되었습니다.');window.close();</script>");
                 w.flush();
                 w.close();
