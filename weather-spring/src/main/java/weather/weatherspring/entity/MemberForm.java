@@ -11,7 +11,7 @@ public class MemberForm {
     private String nickname;
     private String fvweather;
     private String curPw;
-
+    private String checkPw;
     public String getEmailLocal() {
         return emailLocal;
     }
@@ -66,5 +66,13 @@ public class MemberForm {
 
     public void setCurPw(String curPw) {
         this.curPw = curPw;
+    }
+
+    public String getCheckPw() {
+        return checkPw;
+    }
+
+    public void setCheckPw(String checkPw) {
+        this.checkPw = checkPw;
     }
 }
