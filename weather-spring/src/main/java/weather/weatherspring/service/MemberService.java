@@ -83,4 +83,12 @@ public class MemberService {
         return Optional.ofNullable(member);
     }
 
+    /* 사용자 권한 변경 */
+    public Long updateUserAuth(Long uid){
+        Member member = memberRepository.findByUid(uid).get();
+        member.setAvail("N");
+        member = memberRepository.save(member);
+        return member.getUid();
+    }
+
 }
