@@ -1,6 +1,7 @@
 package weather.weatherspring.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ import weather.weatherspring.entity.ElementForm;
 public class LocationService {
     private final WebClient.Builder kakaoWebClientBuilder;
     private static final String KAKAO_API_BASE_URL="https://dapi.kakao.com";
-    private static final String KAKAO_API_KEY="018a2a8e391ab5140cb2641061a56e11";
+    @Value("${KAKAO_API_KEY}")
+    private String KAKAO_API_KEY;
 
     public LocationService(WebClient.Builder kakaoWebClientBuilder) {
         this.kakaoWebClientBuilder = kakaoWebClientBuilder;

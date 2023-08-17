@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="weather.weatherspring.service.MemberServiceIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-08-11T09:36:08" hostname="DESKTOP-L9NHMFJ" time="1.778">
+  <properties/>
+  <testcase name="회원탈퇴_권한변경()" classname="weather.weatherspring.service.MemberServiceIntegrationTest" time="1.778"/>
+  <system-out><![CDATA[18:35:58.639 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [MemberServiceIntegrationTest]: using SpringBootContextLoader
+18:35:58.656 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [weather.weatherspring.service.MemberServiceIntegrationTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:35:58.658 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [weather.weatherspring.service.MemberServiceIntegrationTest]: MemberServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:35:58.752 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [MemberServiceIntegrationTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer, WebTestClientContextCustomizer]
+18:35:59.010 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\Users\LG\Git\COHO\myweather_mariaDB\My-Weather-v1.0\weather-spring\build\classes\java\main\weather\weatherspring\WeatherSpringApplication.class]
+18:35:59.015 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration weather.weatherspring.WeatherSpringApplication for test class weather.weatherspring.service.MemberServiceIntegrationTest
+18:35:59.335 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [MemberServiceIntegrationTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+18:35:59.339 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [MemberServiceIntegrationTest], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.2)
+
+2023-08-11T18:36:00.220+09:00  INFO 19540 --- [    Test worker] w.w.s.MemberServiceIntegrationTest       : Starting MemberServiceIntegrationTest using Java 17.0.6 with PID 19540 (started by LG in C:\Users\LG\Git\COHO\myweather_mariaDB\My-Weather-v1.0\weather-spring)
+2023-08-11T18:36:00.224+09:00  INFO 19540 --- [    Test worker] w.w.s.MemberServiceIntegrationTest       : No active profile set, falling back to 1 default profile: "default"
+2023-08-11T18:36:01.840+09:00  INFO 19540 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-11T18:36:02.197+09:00  INFO 19540 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 323 ms. Found 1 JPA repository interfaces.
+2023-08-11T18:36:03.145+09:00  INFO 19540 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-11T18:36:03.349+09:00  INFO 19540 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-08-11T18:36:03.774+09:00  WARN 19540 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-08-11T18:36:04.147+09:00  INFO 19540 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-08-11T18:36:04.350+09:00  INFO 19540 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@76af51d6
+2023-08-11T18:36:04.354+09:00  INFO 19540 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-08-11T18:36:04.443+09:00  INFO 19540 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-08-11T18:36:05.834+09:00  INFO 19540 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-11T18:36:05.853+09:00  INFO 19540 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-11T18:36:07.256+09:00  WARN 19540 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-11T18:36:08.120+09:00  INFO 19540 --- [    Test worker] w.w.s.MemberServiceIntegrationTest       : Started MemberServiceIntegrationTest in 8.673 seconds (process running for 11.982)
+Hibernate: 
+    select
+        m1_0.uniq_id,
+        m1_0.available,
+        m1_0.fvweather,
+        m1_0.user_id,
+        m1_0.nickname,
+        m1_0.pw 
+    from
+        userlist m1_0 
+    where
+        m1_0.user_id=?
+Hibernate: 
+    insert 
+    into
+        userlist
+        (available, fvweather, user_id, nickname, pw) 
+    values
+        (?, ?, ?, ?, ?)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

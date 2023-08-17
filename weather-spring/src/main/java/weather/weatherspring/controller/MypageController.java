@@ -151,4 +151,15 @@ public class MypageController {
 
         return recordId;
     }
+
+    /* 회원 탈퇴 */
+    @GetMapping("/withdrawal")
+    public String deleteUser(){
+        HttpSession session = request.getSession();
+        Long uid=(Long) session.getAttribute("uid");
+
+        memberService.updateUserAuth(uid);
+
+        return "redirect:/";
+    }
 }
