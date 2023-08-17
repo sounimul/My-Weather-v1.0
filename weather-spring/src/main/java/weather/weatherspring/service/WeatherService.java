@@ -2,6 +2,7 @@ package weather.weatherspring.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class WeatherService {
     private static final String KMA_SRT_FCST_URL="/VilageFcstInfoService_2.0/getUltraSrtFcst";          // 초단기예보
     private static final String KMA_VGE_FCST_URL="/VilageFcstInfoService_2.0/getVilageFcst";          // 단기예보
     private static final String KMA_MIDLAND_FCST_URL="/MidFcstInfoService/getMidLandFcst";
-    private static final String DATA_API_KEY="gyaHQw8o7B6FzRy3woK7FUM4bVAm%2FSplTe8Rf8%2FQ%2BJSMJtOKUWKqFrVmz9uTwN9xIy%2BJJ7ryeRHFbI1LrKVQQQ%3D%3D";
+    @Value("${DATA_API_KEY}")
+    private String DATA_API_KEY;
     private final WebClient.Builder kmaWebClientBuilder;
     private final WeatherRepository weatherRepository;
 
