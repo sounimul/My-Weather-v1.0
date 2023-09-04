@@ -223,14 +223,6 @@ public class MemberController {
         return "redirect:/weather";
     }
 
-    @GetMapping("/logout")
-    public String logout(){
-        HttpSession session = request.getSession();
-        session.invalidate();
-
-        return "redirect:/";
-    }
-
     @PostMapping("/checkId")
     @ResponseBody
     public Object checkId(@RequestParam("id") String id, @RequestParam("mail") String mail){

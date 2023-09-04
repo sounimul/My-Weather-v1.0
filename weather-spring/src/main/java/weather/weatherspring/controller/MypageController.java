@@ -152,6 +152,15 @@ public class MypageController {
         return recordId;
     }
 
+    /* 로그아웃 */
+    @GetMapping("/logout")
+    public String logout(){
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:/";
+    }
+
     /* 회원 탈퇴 */
     @GetMapping("/withdrawal")
     public String deleteUser(){
