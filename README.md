@@ -8,6 +8,7 @@
 ## My Weather WebPage ver 1.1
 - 개발 기간 : 2023.07 ~
 - 웹사이트 성능, 버그 개선
+- 코드 리팩토링
 <br></br>
 ## 팀 COHO
 - **한상경(sounimul)** : 프론트엔드 https://github.com/sounimul
