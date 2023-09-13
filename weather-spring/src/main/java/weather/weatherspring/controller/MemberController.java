@@ -78,6 +78,7 @@ public class MemberController {
         // 로그인 성공 시 아래 코드 수행
         // 로그인에 성공한 Member 객체를 세션에 저장
         session.setAttribute("uid",member2.get().getUid());
+        session.setAttribute("auth",member2.get().getAvail());
 
         // 로그인한 아이디가 관리자일 경우
         if(member2.get().getAvail().equals("A"))
