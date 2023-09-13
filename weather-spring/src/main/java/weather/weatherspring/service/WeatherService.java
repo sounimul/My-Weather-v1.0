@@ -3,12 +3,14 @@ package weather.weatherspring.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.ElementForm;
 import weather.weatherspring.repository.WeatherRepository;
@@ -99,7 +101,6 @@ public class WeatherService {
         }
 
 
-
         String finalDate = date;
         String finalTime = time;
         String finalRow = row;
@@ -116,7 +117,8 @@ public class WeatherService {
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(JsonNode.class);
+                .bodyToMono(JsonNode.class)
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     /* 초단기실황 API 호출 */
@@ -170,7 +172,8 @@ public class WeatherService {
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(JsonNode.class);
+                .bodyToMono(JsonNode.class)
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     /* 초단기예보 API 호출 */
@@ -234,11 +237,14 @@ public class WeatherService {
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(JsonNode.class);
+                .bodyToMono(JsonNode.class)
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     /* 중기예보 API 호출 */
+    @Cacheable(value = "midForecast", key ="#elementForm.year.toString()+'-'+#elementForm.month.toString()+'-'+#elementForm.date.toString()+'-'+#regId")
     public Mono<JsonNode> getMidForecast(ElementForm elementForm, String regId){
+        System.out.println("중기예보 호출-api");
         String base_url4=KMA_API_BASE_URL+KMA_MIDLAND_FCST_URL;    // 중기 육상 예보
 
         // UriBuild 설정을 해주는 DefaultUriBuilderFactory class의 인스턴스 생성
@@ -278,7 +284,8 @@ public class WeatherService {
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(JsonNode.class);
+                .bodyToMono(JsonNode.class)
+                .subscribeOn(Schedulers.boundedElastic());
 
     }
 
