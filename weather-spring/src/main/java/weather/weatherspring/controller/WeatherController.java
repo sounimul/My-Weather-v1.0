@@ -3,12 +3,16 @@ package weather.weatherspring.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.hibernate.dialect.SybaseSqlAstTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple5;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.entity.Location;
 import weather.weatherspring.domain.Record;
@@ -23,6 +27,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -60,7 +65,7 @@ public class WeatherController {
         Long uid=(Long) session.getAttribute("uid");
         Member member = memberService.findMember(uid).get();
         modelAndView.addObject("member",member);
-        System.out.println(member.getNickname() + "님, 좋아하는 날씨 " + member.getFvweather() + "입니다");
+//        System.out.println(member.getNickname() + "님, 좋아하는 날씨 " + member.getFvweather() + "입니다");
 
         // session으로부터 주소 가져와 modelAndView에 저장
         String ad = (String) session.getAttribute("address");
@@ -126,6 +131,7 @@ public class WeatherController {
         /*
         날씨 예보 받아오고 처리
          */
+
         // 단기예보 - 오늘 최고, 최저기온
         JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
         // 단기예보 - 2일치 예보
@@ -136,7 +142,7 @@ public class WeatherController {
         JsonNode srtFcst=weatherService.getForecast3(elementForm,0).block();
         // 초단기예보 - 1시간 전 날씨
         JsonNode srtFcst2=weatherService.getForecast3(elementForm,-1).block();
-        // 중기예보 - 3~5일 최고, 최저기온 및 날씨
+        // 중기예보 - 3~5일 최고, 최저기온 및 날씨 (변동이 적음 -> 캐싱으로)
         JsonNode midFcst=weatherService.getMidForecast(elementForm, areaCode).block();
 
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
@@ -338,11 +344,11 @@ public class WeatherController {
                 record.setPfeel("-");
         }
 
-        System.out.println(record.getRdate());
-        System.out.println(record.getAd());
-        System.out.println(record.getTfeel());
-        System.out.println(record.getHfeel());
-        System.out.println(record.getPfeel());
+//        System.out.println(record.getRdate());
+//        System.out.println(record.getAd());
+//        System.out.println(record.getTfeel());
+//        System.out.println(record.getHfeel());
+//        System.out.println(record.getPfeel());
 
         // 체감 날씨 Record 저장
         Optional<Record> savedRecord = recordService.saveRecord(record);
