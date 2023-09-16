@@ -183,6 +183,54 @@ public class WeatherService {
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
+    /* 현재, 1시간후 날씨 */
+    public String[][] getCurFutFcst(ElementForm elementForm){
+        String[][] curFutFcst = {
+                {"","","","","","",""},
+                {"","","",""}};
+        Wtype wtype = new Wtype();
+
+        /* 날짜, 시간 계산 : 현재날씨, 1시간 뒤 날씨 */
+        String date="";
+        String time="";
+        // 날짜가 바뀔 때 (0시)
+        if(elementForm.getHour()==0){
+            date=calDate(elementForm,0);
+            time="2330";
+        }
+        // 날짜가 바뀌지 않을 때(1~23시)
+        else{
+            date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
+            time=String.format("%02d",elementForm.getHour()-1)+"30";
+        }
+
+        /* api 호출 */
+        // 초단기실황 api 호출 : 현재 날씨
+        JsonNode srtNcst = getForecast2(elementForm).block();
+        // 초단기예보 api 호출 : 현재 날씨 + 1시간 뒤 날씨
+        JsonNode srtFcst = getForecast3(elementForm,date,time).block();
+
+        /* 현재 날씨 - 초단기실황 + 초단기예보(현재 하늘상태) */
+        curFutFcst[0][0] = srtNcst.get("response").get("body").get("items").get("item").get(0).get("obsrValue").asText();   // pty - 현재 강수상태
+        curFutFcst[0][1] = srtNcst.get("response").get("body").get("items").get("item").get(1).get("obsrValue").asText();   // reh - 현재 습도
+        curFutFcst[0][2] = srtNcst.get("response").get("body").get("items").get("item").get(2).get("obsrValue").asText();   // rn1 - 현재 강수량
+        curFutFcst[0][3] = srtNcst.get("response").get("body").get("items").get("item").get(3).get("obsrValue").asText();   // t1h - 현재 기온
+        curFutFcst[0][4] = srtFcst.get("response").get("body").get("items").get("item").get(18).get("fcstValue").asText();  // sky - 현재 하늘상태
+        wtype.setWcode(curFutFcst[0][0].equals("0") ? "SKY_"+curFutFcst[0][4] : "PTY_"+curFutFcst[0][0]);
+        wtype = findWtype(wtype.getWcode()).get();
+        curFutFcst[0][5] = wtype.getMessage();
+        curFutFcst[0][6] = wtype.getWname();
+
+        /* 1시간 뒤 날씨 */
+        curFutFcst[1][0] = srtFcst.get("response").get("body").get("items").get("item").get(7).get("fcstValue").asText();   // pty
+        curFutFcst[1][1] = srtFcst.get("response").get("body").get("items").get("item").get(19).get("fcstValue").asText();  // sky
+        curFutFcst[1][2] = srtFcst.get("response").get("body").get("items").get("item").get(25).get("fcstValue").asText();  // t1h
+        wtype.setWcode(curFutFcst[1][0].equals("0") ? "SKY_"+curFutFcst[1][1] : "PTY_"+curFutFcst[1][0]);
+        curFutFcst[1][3] = findWtype(wtype.getWcode()).get().getWname();
+
+        return curFutFcst;
+    }
+
     /* 초단기실황 API 호출 */
     public Mono<JsonNode> getForecast2(ElementForm elementForm){
         String base_url2=KMA_API_BASE_URL+KMA_SRT_NCST_URL;    // 단기예보
@@ -237,8 +285,40 @@ public class WeatherService {
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
+    /* 1시간전 날씨 */
+    public String[] getPastFcst(ElementForm elementForm){
+        String[] pastFcst = {"","","",""};     // pty, sky, t1h, icon
+        Wtype wtype = new Wtype();
+
+        /* 날짜, 시간 계산 */
+        String date="";
+        String time="";
+        // 날짜가 바뀔 때 (0~1시)
+        if(elementForm.getHour()<=1){
+            date=calDate(elementForm,1);
+            time = (22 + elementForm.getHour()) + "30";
+        }
+        // 날짜가 바뀌지 않을 때 (2~23시)
+        else{
+            date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
+            time=String.format("%02d",elementForm.getHour()-2)+"30";
+        }
+
+        // 초단기예보 API 호출
+        JsonNode response = getForecast3(elementForm,date,time).block();
+
+        // 1시간 전 날씨 가져오기
+        pastFcst[0] = response.get("response").get("body").get("items").get("item").get(6).get("fcstValue").asText();   // ppty
+        pastFcst[1] = response.get( "response").get("body").get("items").get("item").get(18).get("fcstValue").asText(); // psky
+        pastFcst[2] = response.get("response").get("body").get("items").get("item").get(24).get("fcstValue").asText(); // pt1h
+        wtype.setWcode((pastFcst[0].equals("0") ? "SKY_"+pastFcst[1] : "PTY_"+pastFcst[0]));
+        pastFcst[3] = findWtype(wtype.getWcode()).get().getWname();
+
+        return pastFcst;
+    }
+
     /* 초단기예보 API 호출 */
-    public Mono<JsonNode> getForecast3(ElementForm elementForm,int num){
+    public Mono<JsonNode> getForecast3(ElementForm elementForm,String date, String time){
         String base_url3=KMA_API_BASE_URL+KMA_SRT_FCST_URL;    // 단기예보
 
         // UriBuild 설정을 해주는 DefaultUriBuilderFactory class의 인스턴스 생성
@@ -251,37 +331,6 @@ public class WeatherService {
                 .baseUrl(base_url3)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
-
-        /* 날짜, 시간 계산 */
-        String date="";
-        String time="";
-
-        // 현재 날씨 + 1시간 뒤 날씨
-        if(num==0){
-            // 날짜가 바뀔 때 (0시)
-            if(elementForm.getHour()==0){
-                date=calDate(elementForm,0);
-                time="2330";
-            }
-            // 날짜가 바뀌지 않을 때(1~23시)
-            else{
-                date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
-                time=String.format("%02d",elementForm.getHour()-1)+"30";
-            }
-        }
-        // 1시간 전 날씨
-        else {
-            // 날짜가 바뀔 때 (0~1시)
-            if(elementForm.getHour()<=1){
-                date=calDate(elementForm,1);
-                time = (22 + elementForm.getHour()) + "30";
-            }
-            // 날짜가 바뀌지 않을 때 (2~23시)
-            else{
-                date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate());
-                time=String.format("%02d",elementForm.getHour()-2)+"30";
-            }
-        }
 
         String finalDate = date;
         String finalTime = time;
