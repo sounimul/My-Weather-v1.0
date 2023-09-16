@@ -7,7 +7,7 @@ HELP.md
 
 ## application properties ##
 #application.properties
-**/src/main/resources/application-API-KEY.properties
+application-API-KEY.properties
 
 ### STS ###
 .apt_generated
