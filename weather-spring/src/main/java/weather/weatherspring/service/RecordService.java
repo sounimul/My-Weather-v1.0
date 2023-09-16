@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.domain.Record;
-import weather.weatherspring.domain.RecordId;
-import weather.weatherspring.entity.Search;
+import weather.weatherspring.entity.Record;
+import weather.weatherspring.entity.RecordId;
+import weather.weatherspring.domain.Search;
 import weather.weatherspring.repository.RecordRepository;
 import weather.weatherspring.repository.RecordSpecification;
 

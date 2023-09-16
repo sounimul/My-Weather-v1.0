@@ -1,6 +1,4 @@
-package weather.weatherspring.entity;
-
-import jakarta.persistence.Column;
+package weather.weatherspring.domain;
 
 public class RecordForm {
     private String saveTempComment;

@@ -1,4 +1,4 @@
-package weather.weatherspring.entity;
+package weather.weatherspring.domain;
 
 public class Search {
     private Double startTemp;

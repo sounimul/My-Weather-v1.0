@@ -6,7 +6,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.domain.Record;
+import weather.weatherspring.entity.Record;
 
 @Transactional
 public class RecordSpecification{

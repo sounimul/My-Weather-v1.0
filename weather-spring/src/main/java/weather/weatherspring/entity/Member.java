@@ -1,7 +1,6 @@
-package weather.weatherspring.domain;
+package weather.weatherspring.entity;
 
 import jakarta.persistence.*;
-import org.springframework.lang.NonNull;
 
 @Entity     // JPA가 관리하는 entity
 @Table(name="userlist")

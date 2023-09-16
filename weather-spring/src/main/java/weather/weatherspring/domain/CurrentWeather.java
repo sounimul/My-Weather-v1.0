@@ -1,4 +1,4 @@
-package weather.weatherspring.entity;
+package weather.weatherspring.domain;
 
 public class CurrentWeather {
     private String t1h="";     // 기온

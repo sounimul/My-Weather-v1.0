@@ -8,11 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import weather.weatherspring.domain.Member;
-import weather.weatherspring.domain.Record;
-import weather.weatherspring.domain.RecordId;
-import weather.weatherspring.entity.MemberForm;
-import weather.weatherspring.entity.Search;
+import weather.weatherspring.entity.Member;
+import weather.weatherspring.entity.Record;
+import weather.weatherspring.entity.RecordId;
+import weather.weatherspring.domain.MemberForm;
+import weather.weatherspring.domain.Search;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 

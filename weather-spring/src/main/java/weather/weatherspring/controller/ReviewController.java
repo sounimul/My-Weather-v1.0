@@ -5,8 +5,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import weather.weatherspring.domain.Review;
-import weather.weatherspring.entity.ReviewForm;
+import weather.weatherspring.entity.Review;
+import weather.weatherspring.domain.ReviewForm;
 import weather.weatherspring.service.ReviewService;
 
 import java.time.LocalDateTime;
