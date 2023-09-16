@@ -67,7 +67,7 @@ public class MypageController {
         Page<Record> records = recordService.findRecords(uid,search,page);
         int totalPage = records.getTotalPages();
         if(totalPage==0) totalPage = 1;
-        int totalNum = records.getNumberOfElements();
+        int totalNum = (int) records.getTotalElements();
         System.out.println("총 기록 개수 : "+totalNum);
 
 
