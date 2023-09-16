@@ -1,14 +1,12 @@
 package weather.weatherspring.repository;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import weather.weatherspring.domain.Review;
-import weather.weatherspring.domain.ReviewId;
+import weather.weatherspring.entity.Review;
+import weather.weatherspring.entity.ReviewId;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

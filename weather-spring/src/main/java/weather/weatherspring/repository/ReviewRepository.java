@@ -1,8 +1,8 @@
 package weather.weatherspring.repository;
 
 import org.springframework.data.domain.Page;
-import weather.weatherspring.domain.Review;
-import weather.weatherspring.domain.ReviewId;
+import weather.weatherspring.entity.Review;
+import weather.weatherspring.entity.ReviewId;
 
 import java.util.List;
 import java.util.Optional;

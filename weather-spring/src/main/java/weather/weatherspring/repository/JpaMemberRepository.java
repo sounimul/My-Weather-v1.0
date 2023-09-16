@@ -1,7 +1,7 @@
 package weather.weatherspring.repository;
 
 import jakarta.persistence.EntityManager;
-import weather.weatherspring.domain.Member;
+import weather.weatherspring.entity.Member;
 
 import java.util.List;
 import java.util.Optional;

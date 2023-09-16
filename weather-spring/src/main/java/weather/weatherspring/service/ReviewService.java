@@ -1,11 +1,10 @@
 package weather.weatherspring.service;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.domain.Review;
-import weather.weatherspring.domain.ReviewId;
+import weather.weatherspring.entity.Review;
+import weather.weatherspring.entity.ReviewId;
 import weather.weatherspring.repository.ReviewRepository;
 
 import java.util.List;

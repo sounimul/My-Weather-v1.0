@@ -3,10 +3,9 @@ package weather.weatherspring.repository;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import weather.weatherspring.domain.Record;
-import weather.weatherspring.domain.RecordId;
+import weather.weatherspring.entity.Record;
+import weather.weatherspring.entity.RecordId;
 
 import java.time.LocalDateTime;
 import java.util.List;

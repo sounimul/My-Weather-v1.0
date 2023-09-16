@@ -8,11 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import weather.weatherspring.domain.Member;
-import weather.weatherspring.domain.Record;
-import weather.weatherspring.domain.RecordId;
-import weather.weatherspring.entity.MemberForm;
-import weather.weatherspring.entity.Search;
+import weather.weatherspring.entity.Member;
+import weather.weatherspring.entity.Record;
+import weather.weatherspring.entity.RecordId;
+import weather.weatherspring.domain.MemberForm;
+import weather.weatherspring.domain.Search;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 
@@ -67,7 +67,6 @@ public class MypageController {
         Page<Record> records = recordService.findRecords(uid,search,page);
         int totalPage = records.getTotalPages();
         if(totalPage==0) totalPage = 1;
-//        int totalNum = recordService.findRecordList(uid).size();
         int totalNum = records.getNumberOfElements();
         System.out.println("총 기록 개수 : "+totalNum);
 
@@ -111,28 +110,18 @@ public class MypageController {
         try{
             PrintWriter w = response.getWriter();
             // 새로운 비밀번호 != 새로운 비밀번호 확인
-            if(!pwForm.getPw().equals(pwForm.getCheckPw())){
+            if(!pwForm.getPw().equals(pwForm.getCheckPw()))
                 w.write("<script>alert('새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.');history.go(-1);</script>");
-                w.flush();
-                w.close();
-            }
             // 기존 비밀번호 == 새로운 비밀번호
-            else if(pwForm.getPw().equals(pwForm.getCurPw())) {
+            else if(pwForm.getPw().equals(pwForm.getCurPw()))
                 w.write("<script>alert('기존 비밀번호와 새로운 비밀번호가 일치합니다.');history.go(-1);</script>");
-                w.flush();
-                w.close();
-            }
             // 비밀번호 변경
-            else if(memberService.updatePw(uid,pwForm)){
+            else if(memberService.updatePw(uid,pwForm))
                 w.write("<script>alert('비밀번호가 변경되었습니다.');window.close();</script>");
-                w.flush();
-                w.close();
-            }
-            else{
+            else
                 w.write("<script>alert('기존 비밀번호가 일치하지 않습니다.');history.go(-1);</script>");
-                w.flush();
-                w.close();
-            }
+            w.flush();
+            w.close();
         } catch (Exception e){
             e.printStackTrace();
         }

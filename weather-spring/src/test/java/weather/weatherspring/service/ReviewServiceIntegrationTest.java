@@ -1,12 +1,11 @@
 package weather.weatherspring.service;
 
-import org.aspectj.lang.annotation.Around;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.domain.Review;
-import weather.weatherspring.domain.ReviewId;
+import weather.weatherspring.entity.Review;
+import weather.weatherspring.entity.ReviewId;
 import weather.weatherspring.repository.ReviewRepository;
 
 import java.time.LocalDateTime;

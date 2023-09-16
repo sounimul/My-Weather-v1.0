@@ -2,9 +2,8 @@ package weather.weatherspring.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import weather.weatherspring.domain.Record;
+import weather.weatherspring.entity.Record;
 
 import java.time.LocalDateTime;
 import java.util.List;

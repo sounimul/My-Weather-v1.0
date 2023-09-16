@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.domain.Record;
-import weather.weatherspring.domain.RecordId;
+import weather.weatherspring.entity.Record;
+import weather.weatherspring.entity.RecordId;
 import weather.weatherspring.repository.RecordRepository;
 
 import java.time.LocalDateTime;

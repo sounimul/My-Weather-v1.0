@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.domain.Member;
-import weather.weatherspring.entity.MemberForm;
+import weather.weatherspring.entity.Member;
 import weather.weatherspring.repository.MemberRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
