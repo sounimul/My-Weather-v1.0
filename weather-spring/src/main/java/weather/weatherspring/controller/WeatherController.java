@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.Member;
-import weather.weatherspring.entity.Location;
 import weather.weatherspring.domain.Record;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.*;
@@ -23,7 +22,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -52,41 +50,27 @@ public class WeatherController {
 
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession();
-        CurrentWeather cw=new CurrentWeather();
-        BasicWeather pfw = new BasicWeather();
-        ElementForm ef = new ElementForm();
-        MidWeather mw = new MidWeather();
 
         // session으로부터 uid 가져와 modelAndView에 저장
         Long uid=(Long) session.getAttribute("uid");
         Member member = memberService.findMember(uid).get();
         modelAndView.addObject("member",member);
-//        System.out.println(member.getNickname() + "님, 좋아하는 날씨 " + member.getFvweather() + "입니다");
-
-        // session으로부터 주소 가져와 modelAndView에 저장
-        String ad = (String) session.getAttribute("address");
-        if(ad==null) modelAndView.addObject("ad","");
-        else modelAndView.addObject("ad",ad);
 
         // session으로부터 현재날씨 가져와 modelAndView에 저장
         CurrentWeather currentWeather = (CurrentWeather) session.getAttribute("current-weather");
-        if(currentWeather==null) modelAndView.addObject("current",cw);
-        else modelAndView.addObject("current",currentWeather);
+        modelAndView.addObject("current",(currentWeather==null ? new CurrentWeather() : currentWeather));
 
         // session으로부터 1시간 전후 날씨 가져와 modelAndView에 저장
         BasicWeather pfWeather = (BasicWeather) session.getAttribute("pf-weather");
-        if (pfWeather==null) modelAndView.addObject("pastfuture",pfw);
-        else modelAndView.addObject("pastfuture",pfWeather);
+        modelAndView.addObject("pastfuture", (pfWeather==null ? new BasicWeather() : pfWeather));
 
         // session으로부터 중기날씨예보 가져와 modelAndView에 저장
         MidWeather midWeather = (MidWeather) session.getAttribute("mid-weather");
-        if (midWeather==null) modelAndView.addObject("mid",mw);
-        else modelAndView.addObject("mid",midWeather);
+        modelAndView.addObject("mid",(midWeather==null ? new MidWeather() : midWeather));
 
         // 현재 날짜, 시간
         ElementForm elementForm = (ElementForm) session.getAttribute("element");
-        if(elementForm==null) modelAndView.addObject("element",ef);
-        else modelAndView.addObject("element",elementForm);
+        modelAndView.addObject("element",(elementForm==null ? new ElementForm() : elementForm));
 
         modelAndView.setViewName("weather");
 
@@ -96,33 +80,23 @@ public class WeatherController {
     /* 현재 위치의 날씨 구하기 */
     @PostMapping("/weather")
     public Object createWeather(@RequestBody ElementForm elementForm){
-        Location location = new Location();
         HttpSession session = request.getSession();
         CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
         BasicWeather pfWeather = new BasicWeather();            // 1시간 전후 날씨
         Wtype wtype = new Wtype();      // 하늘상태 + 강수형태
         MidWeather midWeather = new MidWeather();   // 5일치 날씨예보
 
-        //session에서 id 가져오기
-        Long uid=(Long) session.getAttribute("uid");
-        location.setUid(uid);
-        location.setLatitude(elementForm.getLatitude());
-        location.setLongitude(elementForm.getLongitude());
 
         /*
         주소 처리
          */
         // 위도, 경도 -> 기상청 x,y좌표
         elementForm=locationService.getXY(elementForm);
-        location.setXcoor(elementForm.getXcoor());
-        location.setYcoor(elementForm.getYcoor());
-
-        // 위도,경도 -> 주소
-        JsonNode address=locationService.getAddress(elementForm).block();
-        location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
-
+        // 위도,경도를 행정구역으로 변환하는 카카오 api 호출
+        elementForm.setAd(locationService.getAddress(elementForm));
         // 주소 -> 중기예보구역 코드
-        String areaCode= locationService.getAreaCode(location.getAd());
+        String areaCode= locationService.getAreaCode(elementForm.getAd());
+
 
         /*
         날씨 예보 받아오고 처리
@@ -139,7 +113,8 @@ public class WeatherController {
         // 초단기예보 - 1시간 전 날씨
         JsonNode srtFcst2=weatherService.getForecast3(elementForm,-1).block();
         // 중기예보 - 3~5일 최고, 최저기온 및 날씨 (변동이 적음 -> 캐싱으로)
-        JsonNode midFcst=weatherService.getMidForecast(elementForm, areaCode).block();
+        String[][] midFcst = weatherService.getMidForecast(elementForm,areaCode);
+
 
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
         currentWeather.setPty(srtNcst.get("response").get("body").get("items").get("item").get(0).get("obsrValue").asText());   // 현재 강수상태
@@ -214,30 +189,10 @@ public class WeatherController {
         midWeather.setMaxName(maxName); midWeather.setMinName(minName);
 
         // 3 ~ 5일 중기예보(날씨)
-        String[] wea3days = {"","","","","",""};
-        String[] icon3days = {"","","","","",""};
-        if(elementForm.getHour()<6) {    // 4,5,6일 후 자료 가져오기
-            wea3days[0] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
-            wea3days[1] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
-            wea3days[2] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
-            wea3days[3] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
-            wea3days[4] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf6Am").asText();
-            wea3days[5] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf6Pm").asText();
-        } else{     // 3,4,5일 후 자료 가져오기
-            wea3days[0] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf3Am").asText();
-            wea3days[1] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf3Pm").asText();
-            wea3days[2] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
-            wea3days[3] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
-            wea3days[4] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
-            wea3days[5] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
-        }
-        for (int i=0; i<6; i++)
-            icon3days[i]= weatherService.getIcon(wea3days[i]);
-        midWeather.setWeather(wea3days);
-        midWeather.setIcon(icon3days);
+        midWeather.setWeather(midFcst[0]);
+        midWeather.setIcon(midFcst[1]);
 
         // 위치정보, 날씨 정보 session에 저장
-        session.setAttribute("address",location.getAd());
         session.setAttribute("current-weather",currentWeather);
         session.setAttribute("pf-weather",pfWeather);
         session.setAttribute("mid-weather",midWeather);
@@ -266,13 +221,13 @@ public class WeatherController {
         record.setUid((Long) session.getAttribute("uid"));
         record.setRdate(LocalDateTime.parse(rdate, formatter));
         record.setRmd(rmd);
-        record.setAd((String) session.getAttribute("address"));
+        record.setAd(elementForm.getAd());
         record.setWmsg(current.getIcon());
         record.setTemp(Double.parseDouble(current.getT1h()));
         record.setHumid(Integer.parseInt(current.getReh()));
         record.setPrecip(Double.parseDouble(current.getRn1()));
 
-        /* 체감 날씨 기록(<form>) */
+        /* 체감 날씨 기록(<form>) -> 다형성으로 */
         // 1. 기온 체감
         switch (recordForm.getSaveTempComment()){
             case "melting":
@@ -339,12 +294,6 @@ public class WeatherController {
             default:
                 record.setPfeel("-");
         }
-
-//        System.out.println(record.getRdate());
-//        System.out.println(record.getAd());
-//        System.out.println(record.getTfeel());
-//        System.out.println(record.getHfeel());
-//        System.out.println(record.getPfeel());
 
         // 체감 날씨 Record 저장
         Optional<Record> savedRecord = recordService.saveRecord(record);

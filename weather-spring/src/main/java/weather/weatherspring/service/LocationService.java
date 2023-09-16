@@ -23,7 +23,7 @@ public class LocationService {
     }
 
     /* 위도와 경도를 통해 행정구역 정보를 가져옴 */
-    public Mono<JsonNode> getAddress(ElementForm elementForm){
+    public String getAddress(ElementForm elementForm){
         WebClient kakaoWebClient = kakaoWebClientBuilder
                 .baseUrl(KAKAO_API_BASE_URL)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -32,23 +32,20 @@ public class LocationService {
 
         String apiUrl = String.format("/v2/local/geo/coord2regioncode.json?x=%s&y=%s",elementForm.getLongitude(),elementForm.getLatitude());
 
-        return kakaoWebClient.get()
+        Mono<JsonNode> response = kakaoWebClient.get()
                 .uri(apiUrl)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(JsonNode.class);
 
+        return response.block().get("documents").get(1).get("address_name").asText();
+        // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
     }
 
     /* 위도와 경도를 기상청 x,y좌표로 변환 */
     public ElementForm getXY(ElementForm elementForm){
         /* 단기예보 지도 정보 */
-//        double RE = 6371.00877; // 지도반경
         double GRID = 5.0; // 격자간격 (km)
-//        double SLAT1 = 30.0; // 표준위도 1
-//        double SLAT2 = 60.0; // 표준위도 2
-//        double OLON = 126.0; // 기준점 경도
-//        double OLAT = 38.0; // 기준점 위도
         double XO = 210/GRID; // 기준점 X좌표
         double YO = 675/GRID; // 기준점 Y좌표
 
@@ -114,7 +111,6 @@ public class LocationService {
                 if(ad.startsWith("강원도 "+loc))
                     return "11D10000";
             }
-
         }
         return "11B00000";
     }

@@ -40,11 +40,11 @@ public class MemberService {
     }
 
     /* id -> 회원 조회 (로그인 시) */
-    public Optional<Member> findOne(Member member) {
-        AtomicReference<Optional<Member>> found= new AtomicReference<>(memberRepository.findById(member.getId()));
-        memberRepository.findById(member.getId())
+    public Optional<Member> findOne(String id,String pw) {
+        AtomicReference<Optional<Member>> found= new AtomicReference<>(memberRepository.findById(id));
+        memberRepository.findById(id)
                 .ifPresent(m -> {
-                    if(!m.getPw().equals(member.getPw())) {
+                    if(!m.getPw().equals(pw)) {
                         found.set(Optional.empty());
                     }else if(m.getAvail().equals("N")){
                         found.set(Optional.empty());

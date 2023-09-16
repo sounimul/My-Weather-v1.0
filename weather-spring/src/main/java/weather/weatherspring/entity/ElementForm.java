@@ -1,6 +1,7 @@
 package weather.weatherspring.entity;
 
 public class ElementForm {
+    private String ad;
     private Double latitude;
     private Double longitude;
     private Long xcoor;
@@ -11,6 +12,14 @@ public class ElementForm {
     private int hour;
     private int min;
     private int sec;
+
+    public String getAd() {
+        return ad;
+    }
+
+    public void setAd(String ad) {
+        this.ad = ad;
+    }
 
     public Double getLatitude() {
         return latitude;

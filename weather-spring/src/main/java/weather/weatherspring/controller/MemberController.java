@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import weather.weatherspring.entity.Location;
 import weather.weatherspring.domain.Member;
 import weather.weatherspring.domain.Wtype;
 import weather.weatherspring.entity.*;
@@ -54,54 +53,43 @@ public class MemberController {
     @PostMapping("/login")
     public String login(MemberForm form, ElementForm elementForm) throws Exception{
         HttpSession session = request.getSession();
-        Member member = new Member();
-        Location location = new Location();
         CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
         BasicWeather pfWeather = new BasicWeather();            // 1시간 전후 날씨
         Wtype wtype = new Wtype();      // 하늘상태 + 강수형태
         MidWeather midWeather = new MidWeather();   // 3-5일치 날씨예보
 
+
         /*
         로그인
         */
-        member.setId(form.getUserid());
-        member.setPw(form.getPw());
-        Optional<Member> member2 = memberService.findOne(member);
+        // 입력한 아이디, 비밀번호로 회원 확인하기
+        Optional<Member> member = memberService.findOne(form.getUserid(),form.getPw());
         // 로그인 실패
-        if(member2.isEmpty()){
+        if(member.isEmpty()){
             System.out.println("아이디 또는 비밀번호가 정확하지 않습니다.");
             request.setAttribute("msg","아이디 또는 비밀번호가 정확하지 않습니다.");
             request.setAttribute("url","/");
             return "alert";
         }
 
-        // 로그인 성공 시 아래 코드 수행
-        // 로그인에 성공한 Member 객체를 세션에 저장
-        session.setAttribute("uid",member2.get().getUid());
-        session.setAttribute("auth",member2.get().getAvail());
-
-        // 로그인한 아이디가 관리자일 경우
-        if(member2.get().getAvail().equals("A"))
+        // 로그인 성공
+        session.setAttribute("uid",member.get().getUid());
+        session.setAttribute("auth",member.get().getAvail());
+        // 로그인한 아이디가 관리자일 경우 관리자 페이지로 이동
+        if(member.get().getAvail().equals("A"))
             return "redirect:/board/user";
 
-        /*
-        날씨 받아오기
-        */
 
         /*
         주소 처리
          */
         // 위도, 경도 -> 기상청 x,y좌표
         elementForm=locationService.getXY(elementForm);
-        location.setXcoor(elementForm.getXcoor());
-        location.setYcoor(elementForm.getYcoor());
-
-        // 위도,경도 -> 주소
-        JsonNode address=locationService.getAddress(elementForm).block();
-        location.setAd(address.get("documents").get(1).get("address_name").asText());   // get(0) : 법정동, get(1) : 행정동 -> 기상청은 행정동이 기준
-
+        // 위도,경도를 행정구역으로 변환하는 카카오 api 호출
+        elementForm.setAd(locationService.getAddress(elementForm));
         // 주소 -> 중기예보구역 코드
-        String areaCode= locationService.getAreaCode(location.getAd());
+        String areaCode= locationService.getAreaCode(elementForm.getAd());
+
 
         /*
         날씨 예보 받아오고 처리
@@ -117,7 +105,13 @@ public class MemberController {
         // 초단기예보 - 1시간 전 날씨
         JsonNode srtFcst2=weatherService.getForecast3(elementForm,-1).block();
         // 중기예보 - 3~5일 최고, 최저기온 및 날씨
-        JsonNode midFcst=weatherService.getMidForecast(elementForm, areaCode).block();
+        String[][] midFcst = weatherService.getMidForecast(elementForm,areaCode);
+
+        // 리팩토링
+        // vilFcst => 오늘 최고, 최저기온
+        // vilFcst2 => 2일치 예보
+        // srtNcst, srtFcst => 현재시간 , srtFcst => 1시간 후 날씨 (서비스 내에서
+        // srtFcst2 => 1시간 전 날씨
 
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
         currentWeather.setPty(srtNcst.get("response").get("body").get("items").get("item").get(0).get("obsrValue").asText());   // 현재 강수상태
@@ -192,30 +186,10 @@ public class MemberController {
         midWeather.setMaxName(maxName); midWeather.setMinName(minName);
 
         // 3 ~ 5일 중기예보(날씨)
-        String[] wea3days = {"","","","","",""};
-        String[] icon3days = {"","","","","",""};
-        if(elementForm.getHour()<6) {    // 4,5,6일 후 자료 가져오기
-            wea3days[0] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
-            wea3days[1] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
-            wea3days[2] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
-            wea3days[3] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
-            wea3days[4] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf6Am").asText();
-            wea3days[5] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf6Pm").asText();
-        } else{     // 3,4,5일 후 자료 가져오기
-            wea3days[0] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf3Am").asText();
-            wea3days[1] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf3Pm").asText();
-            wea3days[2] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
-            wea3days[3] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
-            wea3days[4] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
-            wea3days[5] = midFcst.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
-        }
-        for (int i=0; i<6; i++)
-            icon3days[i]= weatherService.getIcon(wea3days[i]);
-        midWeather.setWeather(wea3days);
-        midWeather.setIcon(icon3days);
+        midWeather.setWeather(midFcst[0]);
+        midWeather.setIcon(midFcst[1]);
 
         // 위치정보, 날씨 정보 session에 저장
-        session.setAttribute("address",location.getAd());
         session.setAttribute("current-weather",currentWeather);
         session.setAttribute("pf-weather",pfWeather);
         session.setAttribute("mid-weather",midWeather);

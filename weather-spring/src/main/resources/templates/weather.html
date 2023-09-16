@@ -70,7 +70,7 @@
                         <div class="nowInfoWrapper">
                             <div class="nowInfo">
                                 <div class="infoDetail">
-                                    <div id="location" th:text="${ad}">
+                                    <div id="location" th:text="${element.ad}">
                                         서울특별시 동작구 신대방제2동
                                     </div>
                                     <div id="stdTime" th:text="|${element.hour}시 ${element.min}분 기준|">18시 49분 기준</div>
@@ -288,7 +288,7 @@
                             <div class="material-symbols-outlined" th:text="${current.icon}">sunny</div>
                             <div class="fwInfo">
                                 <div th:text="|${element.month}월 ${element.date}일 ${element.hour}시 ${element.min}분|">2023년 6월 10일 18시 49분</div>
-                                <div th:text="${ad}">서울특별시 동작구 신대방제2동</div>
+                                <div th:text="${element.ad}">서울특별시 동작구 신대방제2동</div>
                             </div>
                         </header>
                         <div class="fwDetails">

@@ -136,7 +136,6 @@ public class WeatherService {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-
         /* 날짜,시간 계산
         * 40분을 기준으로 실황 API가 발표됨 */
         String date="";
@@ -243,7 +242,7 @@ public class WeatherService {
 
     /* 중기예보 API 호출 */
     @Cacheable(value = "midForecast", key ="#elementForm.year.toString()+'-'+#elementForm.month.toString()+'-'+#elementForm.date.toString()+'-'+#regId")
-    public Mono<JsonNode> getMidForecast(ElementForm elementForm, String regId){
+    public String[][] getMidForecast(ElementForm elementForm, String regId){
         System.out.println("중기예보 호출-api");
         String base_url4=KMA_API_BASE_URL+KMA_MIDLAND_FCST_URL;    // 중기 육상 예보
 
@@ -259,21 +258,11 @@ public class WeatherService {
                 .build();
 
         /* 날짜, 시간 계산 */
-        String datetime=calDate(elementForm,5);
-
-        // 0 ~ 5시
-        if(elementForm.getHour()>=0 & elementForm.getHour()<6)
-            datetime = datetime + "1800";
-        // 6 ~ 17시
-        else if (elementForm.getHour()>=6 & elementForm.getHour()<18)
-            datetime = datetime + "0600";
-        // 18 ~ 23시
-        else if (elementForm.getHour()>=18 & elementForm.getHour()<24)
-            datetime = datetime + "1800";
+        String datetime=calDate(elementForm,5) + ((elementForm.getHour()>=6 & elementForm.getHour()<18) ? "0600" : "1800");
 
         String finalDatetime = datetime;
 
-        return kmaWebClient4.get()
+        JsonNode response = kmaWebClient4.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("serviceKey",DATA_API_KEY)
                         .queryParam("numOfRows","50")
@@ -285,14 +274,35 @@ public class WeatherService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .subscribeOn(Schedulers.boundedElastic());
+                .subscribeOn(Schedulers.boundedElastic())
+                .block();
 
+        String[][] mid3days = new String[2][6];
+
+        if(elementForm.getHour()<6){    // 4,5,6일 후 자료 가져오기
+            mid3days[0][0] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
+            mid3days[0][1] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
+            mid3days[0][2] = response.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
+            mid3days[0][3] = response.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
+            mid3days[0][4] = response.get("response").get("body").get("items").get("item").get(0).get("wf6Am").asText();
+            mid3days[0][5] = response.get("response").get("body").get("items").get("item").get(0).get("wf6Pm").asText();
+        } else{     // 3,4,5일 후 자료 가져오기
+            mid3days[0][0] = response.get("response").get("body").get("items").get("item").get(0).get("wf3Am").asText();
+            mid3days[0][1] = response.get("response").get("body").get("items").get("item").get(0).get("wf3Pm").asText();
+            mid3days[0][2] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
+            mid3days[0][3] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
+            mid3days[0][4] = response.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
+            mid3days[0][5] = response.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
+        }
+        for (int i=0; i<6; i++)
+            mid3days[1][i]= getIcon(mid3days[0][i]);
+
+        return mid3days;
     }
 
     public String calDate(ElementForm ef, int h){   // h : 날짜가 바뀌는 시간
         int[] enddate={31,28,31,30,31,30,31,31,30,31,30,31};    // 월의 마지막 날
         if(ef.getYear()%4==0) enddate[1]=29;           // 윤년인 경우 2월 29일까지
-
         String date="";
 
         // 년이 바뀔 때 - 1월 1일 h시 이전
