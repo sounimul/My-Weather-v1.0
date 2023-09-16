@@ -1,11 +1,8 @@
 package weather.weatherspring;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.reactive.function.client.WebClient;
 import weather.weatherspring.repository.*;
 import weather.weatherspring.service.MemberService;
@@ -39,18 +36,8 @@ public class SpringConfig {
     @Bean
     public WeatherRepository weatherRepository(){ return new JpaWeatherRepository(em);}
 
-//    @Bean
-//    public RecordService recordService(){return new RecordService(recordRepository);}
-
     @Bean
     public RecordService recordService(){return new RecordService(recordRepository);}
-
-
-//    @Bean
-//    public RecordRepository recordRepository() {
-//        return new JpaSpecificationExecutor<Record>();
-//    }
-
 
     @Bean
     public ReviewService reviewService(){

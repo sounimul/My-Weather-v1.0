@@ -15,8 +15,6 @@ import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 import weather.weatherspring.service.ReviewService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
