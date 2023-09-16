@@ -6,7 +6,7 @@ HELP.md
 !**/src/test/**/build/
 
 ## application properties ##
-application.properties
+#application.properties
 application-API-KEY.properties
 
 ### STS ###
