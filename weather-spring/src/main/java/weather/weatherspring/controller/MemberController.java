@@ -95,9 +95,9 @@ public class MemberController {
         날씨 예보 받아오고 처리
          */
         // 단기예보 - 오늘 최고, 최저기온
-        JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
+        String[] tmnTmx = weatherService.getMaxMinTemp(elementForm);
         // 단기예보 - 2일치 예보
-        JsonNode vilFcst2=weatherService.getForecast(elementForm,1).block();
+        String[][] twoDayFcst = weatherService.getTwoDayFcst(elementForm);
         // 초단기실황 - 현재 날씨
         JsonNode srtNcst=weatherService.getForecast2(elementForm).block();
         // 초단기예보 - 현재 날씨 + 1시간 뒤 날씨
@@ -108,10 +108,8 @@ public class MemberController {
         String[][] midFcst = weatherService.getMidForecast(elementForm,areaCode);
 
         // 리팩토링
-        // vilFcst => 오늘 최고, 최저기온
-        // vilFcst2 => 2일치 예보
-        // srtNcst, srtFcst => 현재시간 , srtFcst => 1시간 후 날씨 (서비스 내에서
-        // srtFcst2 => 1시간 전 날씨
+        // srtNcst, srtFcst => 현재시간(currentWeather) , srtFcst => 1시간 후 날씨(pfWeather)
+        // srtFcst2 => 1시간 전 날씨(pfWeather)
 
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
         currentWeather.setPty(srtNcst.get("response").get("body").get("items").get("item").get(0).get("obsrValue").asText());   // 현재 강수상태
@@ -142,48 +140,14 @@ public class MemberController {
         pfWeather.setPicon(weatherService.findWtype(wtype.getWcode()).get().getWname());
 
         // 오늘의 최고, 최저기온
-        for(int i=0;i<290;i++){
-            String cate=vilFcst.get("response").get("body").get("items").get("item").get(i).get("category").asText();
-            if(cate.equals("TMN")) midWeather.setTmn(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
-            else if(cate.equals("TMX")) midWeather.setTmx(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
-        }
+        midWeather.setTmx(tmnTmx[0]);
+        midWeather.setTmn(tmnTmx[1]);
 
         // 2일치 최고, 최저기온, 날씨
-        String[] fcstTmx={"",""}; String[] fcstTmn={"",""};
-        String[] minName={"",""}; String[] maxName={"",""};
-        String p=""; String s="";
-        String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
-        int j=0,k=0;
-        int total=vilFcst2.get("response").get("body").get("totalCount").asInt();
-        for(int i=0;i<870;i++){
-            if (i>=total) break;
-            String date=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstDate").asText();
-            // 오늘 날짜 pass
-            if(date.equals(todaydate)) continue;
-            // 카테고리 확인
-            String cate=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("category").asText();
-            // 카테고리가 pty, sky -> 일단 저장
-            if(cate.equals("PTY")) p=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-            else if(cate.equals("SKY")) s=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-            //최저, 최고 기온 찾기
-            if(cate.equals("TMN")){
-                fcstTmn[j]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-                if (p.equals("0")) wtype.setWcode("SKY_"+s);
-                else wtype.setWcode("PTY_"+p);
-                minName[j] = weatherService.findWtype(wtype.getWcode()).get().getWname();
-                j++;
-            }
-            else if(cate.equals("TMX")){
-                fcstTmx[k]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-                if (p.equals("0")) wtype.setWcode("SKY_"+s);
-                else wtype.setWcode("PTY_"+p);
-                maxName[k] = weatherService.findWtype(wtype.getWcode()).get().getWname();
-                k++;
-            }
-            if(j==2&k==2) break;
-        }
-        midWeather.setFcstTmx(fcstTmx); midWeather.setFcstTmn(fcstTmn);
-        midWeather.setMaxName(maxName); midWeather.setMinName(minName);
+        midWeather.setFcstTmx(twoDayFcst[0]);
+        midWeather.setFcstTmn(twoDayFcst[1]);
+        midWeather.setMaxName(twoDayFcst[2]);
+        midWeather.setMinName(twoDayFcst[3]);
 
         // 3 ~ 5일 중기예보(날씨)
         midWeather.setWeather(midFcst[0]);

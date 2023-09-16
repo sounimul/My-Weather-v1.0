@@ -103,9 +103,9 @@ public class WeatherController {
          */
 
         // 단기예보 - 오늘 최고, 최저기온
-        JsonNode vilFcst=weatherService.getForecast(elementForm,0).block();
+        String[] tmnTmx = weatherService.getMaxMinTemp(elementForm);
         // 단기예보 - 2일치 예보
-        JsonNode vilFcst2=weatherService.getForecast(elementForm,1).block();
+        String[][] twoDayFcst = weatherService.getTwoDayFcst(elementForm);
         // 초단기실황 - 현재 날씨
         JsonNode srtNcst=weatherService.getForecast2(elementForm).block();
         // 초단기예보 - 현재 날씨 + 1시간 뒤 날씨
@@ -145,48 +145,14 @@ public class WeatherController {
         pfWeather.setPicon(weatherService.findWtype(wtype.getWcode()).get().getWname());
 
         // 오늘의 최고, 최저기온
-        for(int i=0;i<290;i++){
-            String cate=vilFcst.get("response").get("body").get("items").get("item").get(i).get("category").asText();
-            if(cate.equals("TMN")) midWeather.setTmn(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
-            else if(cate.equals("TMX")) midWeather.setTmx(vilFcst.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText());
-        }
+        midWeather.setTmx(tmnTmx[0]);
+        midWeather.setTmn(tmnTmx[1]);
 
         // 2일치 최고, 최저기온, 날씨
-        String[] fcstTmx={"",""}; String[] fcstTmn={"",""};
-        String[] minName={"",""}; String[] maxName={"",""};
-        String p=""; String s="";
-        String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
-        int j=0,k=0;
-        int total=vilFcst2.get("response").get("body").get("totalCount").asInt();
-        for(int i=0;i<870;i++){
-            if (i>=total) break;
-            String date=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstDate").asText();
-            // 오늘 날짜 pass
-            if(date.equals(todaydate)) continue;
-            // 카테고리 확인
-            String cate=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("category").asText();
-            // 카테고리가 pty, sky -> 일단 저장
-            if(cate.equals("PTY")) p=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-            else if(cate.equals("SKY")) s=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-            //최저, 최고 기온 찾기
-            if(cate.equals("TMN")){
-                fcstTmn[j]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-                if (p.equals("0")) wtype.setWcode("SKY_"+s);
-                else wtype.setWcode("PTY_"+p);
-                minName[j] = weatherService.findWtype(wtype.getWcode()).get().getWname();
-                j++;
-            }
-            else if(cate.equals("TMX")){
-                fcstTmx[k]=vilFcst2.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
-                if (p.equals("0")) wtype.setWcode("SKY_"+s);
-                else wtype.setWcode("PTY_"+p);
-                maxName[k] = weatherService.findWtype(wtype.getWcode()).get().getWname();
-                k++;
-            }
-            if(j==2&k==2) break;
-        }
-        midWeather.setFcstTmx(fcstTmx); midWeather.setFcstTmn(fcstTmn);
-        midWeather.setMaxName(maxName); midWeather.setMinName(minName);
+        midWeather.setFcstTmx(twoDayFcst[0]);
+        midWeather.setFcstTmn(twoDayFcst[1]);
+        midWeather.setMaxName(twoDayFcst[2]);
+        midWeather.setMinName(twoDayFcst[3]);
 
         // 3 ~ 5일 중기예보(날씨)
         midWeather.setWeather(midFcst[0]);
@@ -216,94 +182,27 @@ public class WeatherController {
 
         String rdate = elementForm.getYear() + String.format("-%02d",elementForm.getMonth()) + String.format("-%02d",elementForm.getDate())
                 + String.format(" %02d",elementForm.getHour()) + String.format(":%02d",elementForm.getMin()) + String.format(":%02d",elementForm.getSec());
-        String rmd = elementForm.getYear() + "년 " + elementForm.getMonth() + "월 " + elementForm.getDate() + "일 " + elementForm.getHour() + "시 " + elementForm.getMin() + "분";
 
         record.setUid((Long) session.getAttribute("uid"));
         record.setRdate(LocalDateTime.parse(rdate, formatter));
-        record.setRmd(rmd);
+        record.setRmd(elementForm.getYear() + "년 " + elementForm.getMonth() + "월 " + elementForm.getDate() + "일 " + elementForm.getHour() + "시 " + elementForm.getMin() + "분");
         record.setAd(elementForm.getAd());
         record.setWmsg(current.getIcon());
         record.setTemp(Double.parseDouble(current.getT1h()));
         record.setHumid(Integer.parseInt(current.getReh()));
         record.setPrecip(Double.parseDouble(current.getRn1()));
 
-        /* 체감 날씨 기록(<form>) -> 다형성으로 */
+        /* 체감 날씨 기록(<form>)*/
         // 1. 기온 체감
-        switch (recordForm.getSaveTempComment()){
-            case "melting":
-                record.setTfeel("무더워요");
-                break;
-            case "hot":
-                record.setTfeel("더워요");
-                break;
-            case "warm":
-                record.setTfeel("따뜻해요");
-                break;
-            case "mild":
-                record.setTfeel("포근해요");
-                break;
-            case "cool":
-                record.setTfeel("시원해요");
-                break;
-            case "pleasantly cool":
-                record.setTfeel("선선해요");
-                break;
-            case "chilly":
-                record.setTfeel("쌀쌀해요");
-                break;
-            case "cold":
-                record.setTfeel("추워요");
-                break;
-            case "freezing cold":
-                record.setTfeel("매우 추워요");
-                break;
-            default:
-                record.setTfeel("-");
-        }
+        record.setTfeel(recordService.getTemps(recordForm.getSaveTempComment()));
         // 2. 습도 체감
-        switch(recordForm.getSaveHumidComment()){
-            case "humid":
-                record.setHfeel("습해요");
-                break;
-            case "fresh":
-                record.setHfeel("쾌적해요");
-                break;
-            case "dry":
-                record.setHfeel("건조해요");
-                break;
-            default:
-                record.setHfeel("-");
-        }
+        record.setHfeel(recordService.getHumidity(recordForm.getSaveHumidComment()));
         // 3. 강수 체감
-        switch(recordForm.getSaveRainComment()){
-            case "no":
-                record.setPfeel("안와요");
-                break;
-            case "light":
-                record.setPfeel("약한 비");
-                break;
-            case "rain":
-                record.setPfeel("보통 비");
-                break;
-            case "heavy":
-                record.setPfeel("강한 비");
-                break;
-            case "shower":
-                record.setPfeel("쏟아져요");
-                break;
-            default:
-                record.setPfeel("-");
-        }
+        record.setPfeel(recordService.getPrecip(recordForm.getSaveRainComment()));
 
         // 체감 날씨 Record 저장
         Optional<Record> savedRecord = recordService.saveRecord(record);
-        if(savedRecord.isEmpty()){
-            System.out.println("해당 날짜, 시간의 기록이 이미 존재합니다.");
-            headers.setLocation(URI.create("/alert"));
-        }
-        else{
-            headers.setLocation(URI.create("/weather"));
-        }
+        headers.setLocation(URI.create(savedRecord.isEmpty() ? "/alert" : "/weather"));
 
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 

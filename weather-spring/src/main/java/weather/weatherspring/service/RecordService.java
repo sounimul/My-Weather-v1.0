@@ -83,4 +83,59 @@ public class RecordService {
         Pageable pageable = PageRequest.of(page,17,Sort.by(Sort.Order.desc("rdate")));
         return recordRepository.findAll(spec,pageable);
     }
+
+    public String getTemps(String temp){
+        // 1. 기온 체감
+        switch (temp){
+            case "melting":
+                return "무더워요";
+            case "hot":
+                return "더워요";
+            case "warm":
+                return "따뜻해요";
+            case "mild":
+                return "포근해요";
+            case "cool":
+                return "시원해요";
+            case "pleasantly cool":
+                return "선선해요";
+            case "chilly":
+                return "쌀쌀해요";
+            case "cold":
+                return "추워요";
+            case "freezing cold":
+                return "매우 추워요";
+        }
+        return "-";
+    }
+
+    public String getHumidity(String humid){
+        // 2. 습도 체감
+        switch(humid){
+            case "humid":
+                return "습해요";
+            case "fresh":
+                return "쾌적해요";
+            case "dry":
+                return "건조해요";
+        }
+        return "-";
+    }
+
+    public String getPrecip(String rain){
+        // 3. 강수 체감
+        switch(rain){
+            case "no":
+                return "안와요";
+            case "light":
+                return "약한 비";
+            case "rain":
+                return "보통 비";
+            case "heavy":
+                return "강한 비";
+            case "shower":
+                return "쏟아져요";
+        }
+        return "-";
+    }
 }

@@ -35,8 +35,121 @@ public class WeatherService {
         this.weatherRepository = weatherRepository;
     }
 
+    /* 최고, 최저 기온 */
+    public String[] getMaxMinTemp(ElementForm elementForm){
+        String[] tmnTmx = {"",""};
+
+        /* 날짜, 시간 계산 */
+        int[] enddate={31,28,31,30,31,30,31,31,30,31,30,31};    // 월의 마지막 날
+        if(elementForm.getYear()%4==0) enddate[1]=29;           // 윤년인 경우 2월 29일까지
+        String date="";
+        String time="2300";
+        String row="290";
+        // 년이 바뀔 때 - 1월 1일
+        if(elementForm.getMonth()==1 & elementForm.getDate()==1)
+            date = (elementForm.getYear() - 1) + "1231";
+            // 월이 바뀔 때 - 1일
+        else if(elementForm.getDate()==1)
+            date = elementForm.getYear() + String.format("%02d", elementForm.getMonth() - 1) + enddate[elementForm.getMonth() - 2];
+            // 년,월이 바뀌지 않을 때
+        else
+            date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate()-1);
+
+        // 단기예보 API 호출
+        JsonNode response = getForecast(elementForm,date,time,row).block();
+
+        for(int i=0;i<290;i++){
+            String cate=response.get("response").get("body").get("items").get("item").get(i).get("category").asText();
+            if(cate.equals("TMN"))
+                tmnTmx[1] = response.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+            else if(cate.equals("TMX"))
+                tmnTmx[0] = response.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+        }
+
+        return tmnTmx;
+    }
+
+    /* 1~2일 예보 */
+    public String[][] getTwoDayFcst(ElementForm elementForm){
+        Wtype wtype = new Wtype();      // 하늘상태 + 강수형태
+
+        /* 날짜, 시간 계산 */
+        int[] enddate={31,28,31,30,31,30,31,31,30,31,30,31};    // 월의 마지막 날
+        if(elementForm.getYear()%4==0) enddate[1]=29;           // 윤년인 경우 2월 29일까지
+        String date="";
+        String time="";
+        String row="870";
+        // 0~1시
+        if(elementForm.getHour()>=0 & elementForm.getHour()<2){
+            // 년이 바뀔 때 - 1월 1일
+            if(elementForm.getMonth()==1 & elementForm.getDate()==1)
+                date = (elementForm.getYear() - 1) + "1231";
+                // 월이 바뀔 때 - 1일
+            else if(elementForm.getDate()==1)
+                date = elementForm.getYear() + String.format("%02d", elementForm.getMonth() - 1) + enddate[elementForm.getMonth() - 2];
+                // 년,월이 바뀌지 않을 때
+            else
+                date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate()-1);
+            time = "2300";
+        }
+        // 2~23시
+        else{
+            date = elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
+            if(elementForm.getHour()>=2 & elementForm.getHour()<5) time="0200";
+            else if(elementForm.getHour()>=5 & elementForm.getHour()<8) time="0500";
+            else if(elementForm.getHour()>=8 & elementForm.getHour()<11) time="0800";
+            else if(elementForm.getHour()>=11 & elementForm.getHour()<14) time="1100";
+            else if(elementForm.getHour()>=14 & elementForm.getHour()<17) time="1400";
+            else if(elementForm.getHour()>=17 & elementForm.getHour()<20) time="1700";
+            else if(elementForm.getHour()>=20 & elementForm.getHour()<23) time="2000";
+            else time="2300";
+        }
+
+        // 단기예보 API 호출
+        JsonNode response = getForecast(elementForm,date,time,row).block();
+
+        // 2일치 최고, 최저기온, 날씨
+        String[][] twoDayFcst = {{"",""},{"",""},{"",""},{"",""}};  // fcstTmx(0), fcstTmn(1), maxName(2), minName(3)
+        String p=""; String s="";
+        String todaydate=elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
+        int j=0,k=0;
+        int total=response.get("response").get("body").get("totalCount").asInt();
+        for(int i=0;i<870;i++){
+            if (i >= total)
+                break;
+            // 오늘 날짜 pass
+            if(response.get("response").get("body").get("items").get("item").get(i).get("fcstDate").asText().equals(todaydate))
+                continue;
+            // 카테고리 확인
+            String cate = response.get("response").get("body").get("items").get("item").get(i).get("category").asText();
+            // 카테고리가 pty, sky -> 일단 저장
+            if(cate.equals("PTY")) p = response.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+            else if(cate.equals("SKY")) s = response.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+            //최저, 최고 기온 찾기
+            if(cate.equals("TMN")){
+                twoDayFcst[1][j]=response.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+                if (p.equals("0")) wtype.setWcode("SKY_"+s);
+                else wtype.setWcode("PTY_"+p);
+                twoDayFcst[3][j] = findWtype(wtype.getWcode()).get().getWname();
+                j++;
+            }
+            else if(cate.equals("TMX")){
+                twoDayFcst[0][k]=response.get("response").get("body").get("items").get("item").get(i).get("fcstValue").asText();
+                if (p.equals("0")) wtype.setWcode("SKY_"+s);
+                else wtype.setWcode("PTY_"+p);
+                twoDayFcst[2][k] = findWtype(wtype.getWcode()).get().getWname();
+                k++;
+            }
+            if(j==2&k==2)
+                break;
+        }
+
+        return twoDayFcst;
+
+    }
+
     /* 단기예보 API 호출 */
-    public Mono<JsonNode> getForecast(ElementForm elementForm, int num){
+    public Mono<JsonNode> getForecast(ElementForm elementForm,String date, String time, String row){
         String base_url = KMA_API_BASE_URL+KMA_VGE_FCST_URL;    // 단기예보
 
         // UriBuild 설정을 해주는 DefaultUriBuilderFactory class의 인스턴스 생성
@@ -50,57 +163,6 @@ public class WeatherService {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-        /* 날짜, 시간 계산 */
-        int[] enddate={31,28,31,30,31,30,31,31,30,31,30,31};    // 월의 마지막 날
-        if(elementForm.getYear()%4==0) enddate[1]=29;           // 윤년인 경우 2월 29일까지
-        String date="";
-        String time="";
-        String row="0";
-        // 오늘 최고, 최저 기온
-        if(num==0){
-            row="290";
-            // 년이 바뀔 때 - 1월 1일
-            if(elementForm.getMonth()==1 & elementForm.getDate()==1)
-                date = (elementForm.getYear() - 1) + "1231";
-            // 월이 바뀔 때 - 1일
-            else if(elementForm.getDate()==1)
-                date = elementForm.getYear() + String.format("%02d", elementForm.getMonth() - 1) + enddate[elementForm.getMonth() - 2];
-            // 년,월이 바뀌지 않을 때
-            else
-                date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate()-1);
-            time="2300";
-        }
-        // 3일치 최고, 최저 기온 및 날씨
-        else{
-            row="870";
-            // 0~1시
-            if(elementForm.getHour()>=0 & elementForm.getHour()<2){
-                // 년이 바뀔 때 - 1월 1일
-                if(elementForm.getMonth()==1 & elementForm.getDate()==1)
-                    date = (elementForm.getYear() - 1) + "1231";
-                // 월이 바뀔 때 - 1일
-                else if(elementForm.getDate()==1)
-                    date = elementForm.getYear() + String.format("%02d", elementForm.getMonth() - 1) + enddate[elementForm.getMonth() - 2];
-                // 년,월이 바뀌지 않을 때
-                else
-                    date=elementForm.getYear()+String.format("%02d",elementForm.getMonth())+String.format("%02d",elementForm.getDate()-1);
-                time = "2300";
-            }
-            // 2~23시
-            else{
-                date = elementForm.getYear() + String.format("%02d",elementForm.getMonth()) + String.format("%02d",elementForm.getDate());
-                if(elementForm.getHour()>=2 & elementForm.getHour()<5) time="0200";
-                else if(elementForm.getHour()>=5 & elementForm.getHour()<8) time="0500";
-                else if(elementForm.getHour()>=8 & elementForm.getHour()<11) time="0800";
-                else if(elementForm.getHour()>=11 & elementForm.getHour()<14) time="1100";
-                else if(elementForm.getHour()>=14 & elementForm.getHour()<17) time="1400";
-                else if(elementForm.getHour()>=17 & elementForm.getHour()<20) time="1700";
-                else if(elementForm.getHour()>=20 & elementForm.getHour()<23) time="2000";
-                else time="2300";
-            }
-        }
-
-
         String finalDate = date;
         String finalTime = time;
         String finalRow = row;
@@ -112,8 +174,8 @@ public class WeatherService {
                         .queryParam("dataType","JSON")
                         .queryParam("base_date", finalDate)
                         .queryParam("base_time", finalTime)
-                        .queryParam("nx",elementForm.getXcoor()+"")
-                        .queryParam("ny",elementForm.getYcoor()+"")
+                        .queryParam("nx",elementForm.getXcoor().toString())
+                        .queryParam("ny",elementForm.getYcoor().toString())
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
@@ -240,7 +302,7 @@ public class WeatherService {
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-    /* 중기예보 API 호출 */
+    /* 3~5일 중기예보 - 중기예보 API 호출 */
     @Cacheable(value = "midForecast", key ="#elementForm.year.toString()+'-'+#elementForm.month.toString()+'-'+#elementForm.date.toString()+'-'+#regId")
     public String[][] getMidForecast(ElementForm elementForm, String regId){
         System.out.println("중기예보 호출-api");
@@ -337,6 +399,5 @@ public class WeatherService {
 
         return icon;
     }
-
 
 }
