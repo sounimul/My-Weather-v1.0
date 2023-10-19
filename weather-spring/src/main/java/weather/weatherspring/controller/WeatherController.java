@@ -106,7 +106,7 @@ public class WeatherController {
         Map<String,JsonNode> response = new HashMap<>();
 
         // 단기예보 - 오늘 최고, 최저기온
-       weatherService.getForecast(elementForm,0).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("tmnTmx",e));
+        weatherService.getForecast(elementForm,0).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("tmnTmx",e));
         // 단기예보 - 2일치 예보
         weatherService.getForecast(elementForm,1).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("twoDayFcst",e));
         // 초단기실황 - 현재 날씨 / 초단기예보 - 현재날씨 + 1시간후 날씨
