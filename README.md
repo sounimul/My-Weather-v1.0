@@ -2,10 +2,10 @@
 > 사이드 프로젝트
 >
 > 링크 : https://myweather.kro.kr/
-## My Weather WebPage ver 1.0
+#### My Weather WebPage ver 1.0
 - 개발기간 : 2023.02 ~ 2023.06
 - 기능 구현
-## My Weather WebPage ver 1.1
+#### My Weather WebPage ver 1.1
 - 개발 기간 : 2023.07 ~
 - 웹사이트 성능, 버그 개선
 - 코드 리팩토링
