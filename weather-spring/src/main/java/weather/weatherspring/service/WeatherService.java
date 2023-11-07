@@ -117,7 +117,7 @@ public class WeatherService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .subscribeOn(Schedulers.parallel());
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     /* 초단기실황 API 호출 */
@@ -171,7 +171,7 @@ public class WeatherService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .subscribeOn(Schedulers.parallel());
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     /* 초단기예보 API 호출 */
@@ -235,7 +235,7 @@ public class WeatherService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .subscribeOn(Schedulers.parallel());
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     /* 3~5일 중기예보 - 중기예보 API 호출 */
@@ -272,7 +272,7 @@ public class WeatherService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .subscribeOn(Schedulers.parallel());
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     /* 최고, 최저기온 예보 데이터 변환 */
