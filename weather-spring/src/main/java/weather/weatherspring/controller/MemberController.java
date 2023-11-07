@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
 import weather.weatherspring.entity.Member;
 import weather.weatherspring.domain.*;
 import weather.weatherspring.service.LocationService;
@@ -102,16 +101,16 @@ public class MemberController {
         Map<String,JsonNode> response = new HashMap<>();
 
         // 단기예보 - 오늘 최고, 최저기온
-        weatherService.getForecast(elementForm,0).onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather"))).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("tmnTmx",e));
+        weatherService.getForecast(elementForm,0).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("tmnTmx",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
         // 단기예보 - 2일치 예보
-        weatherService.getForecast(elementForm,1).onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather"))).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("twoDayFcst",e));
+        weatherService.getForecast(elementForm,1).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("twoDayFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
         // 초단기실황 - 현재 날씨 / 초단기예보 - 현재날씨 + 1시간후 날씨
-        weatherService.getForecast2(elementForm).onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather"))).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("curFutFcst",e));
-        weatherService.getForecast3(elementForm,1).onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather"))).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("curWeather",e));
+        weatherService.getForecast2(elementForm).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("curFutFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
+        weatherService.getForecast3(elementForm,1).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("curWeather",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
         // 초단기예보 - 1시간 전 날씨
-        weatherService.getForecast3(elementForm,0).onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather"))).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("pastFcst",e));
+        weatherService.getForecast3(elementForm,0).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("pastFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
         // 중기예보 - 3~5일 최고, 최저기온 및 날씨
-        weatherService.getMidForecast(elementForm,areaCode).onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather"))).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("midFcst",e));
+        weatherService.getMidForecast(elementForm,areaCode).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("midFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
 
         try {
             cdl.await();
