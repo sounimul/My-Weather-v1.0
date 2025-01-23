@@ -381,15 +381,21 @@ public class WeatherService {
         String[][] mid3days = new String[2][6];
 
         if(elementForm.getHour()<6){    // 4,5,6일 후 자료 가져오기
-            mid3days[0][0] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
-            mid3days[0][1] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
+            // 기상청 API 변경으로 인한 임시 수정 코드
+            mid3days[0][0] = "";
+            mid3days[0][1] = "";
+//            mid3days[0][0] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
+//            mid3days[0][1] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
             mid3days[0][2] = response.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
             mid3days[0][3] = response.get("response").get("body").get("items").get("item").get(0).get("wf5Pm").asText();
             mid3days[0][4] = response.get("response").get("body").get("items").get("item").get(0).get("wf6Am").asText();
             mid3days[0][5] = response.get("response").get("body").get("items").get("item").get(0).get("wf6Pm").asText();
         } else{     // 3,4,5일 후 자료 가져오기
-            mid3days[0][0] = response.get("response").get("body").get("items").get("item").get(0).get("wf3Am").asText();
-            mid3days[0][1] = response.get("response").get("body").get("items").get("item").get(0).get("wf3Pm").asText();
+            // 기상청 API 변경으로 인한 임시 수정 코드
+            mid3days[0][0] = "";
+            mid3days[0][1] = "";
+//            mid3days[0][0] = response.get("response").get("body").get("items").get("item").get(0).get("wf3Am").asText();
+//            mid3days[0][1] = response.get("response").get("body").get("items").get("item").get(0).get("wf3Pm").asText();
             mid3days[0][2] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Am").asText();
             mid3days[0][3] = response.get("response").get("body").get("items").get("item").get(0).get("wf4Pm").asText();
             mid3days[0][4] = response.get("response").get("body").get("items").get("item").get(0).get("wf5Am").asText();
