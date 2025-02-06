@@ -102,12 +102,12 @@ public class LocationService {
             return "11G00000";
         else if (ad.startsWith("강원도")){
             // 강원도 영동
-            for(String loc:gangwon_east){
+            for (String loc : gangwon_east) {
                 if (ad.startsWith("강원도 "+loc))
                     return "11D20000";
             }
             // 강원도 영서
-            for(String loc:gangwon_west){
+            for (String loc : gangwon_west) {
                 if(ad.startsWith("강원도 "+loc))
                     return "11D10000";
             }

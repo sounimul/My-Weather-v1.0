@@ -64,11 +64,12 @@ public class MemberService {
         // 현재 uid의 객체 가져오기
         Member member=memberRepository.findByUid(uid).get();
         // 현재 비밀번호가 일치할 때
-        if(pwForm.getCurPw().equals(member.getPw())){
+        if (pwForm.getCurPw().equals(member.getPw())) {
             member.setPw(pwForm.getPw());
             memberRepository.save(member);
             return true;
-        }else return false;
+        } else
+            return false;
     }
 
     /* 프로필 변경 */
