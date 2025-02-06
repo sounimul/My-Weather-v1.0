@@ -93,7 +93,7 @@ public class WeatherController {
         주소 처리
          */
         // 위도, 경도 -> 기상청 x,y좌표
-        elementForm=locationService.getXY(elementForm);
+        elementForm=locationService.transformCoordinate(elementForm);
         // 위도,경도를 행정구역으로 변환하는 카카오 api 호출
         elementForm.setAd(locationService.getAddress(elementForm));
         // 주소 -> 중기예보구역 코드

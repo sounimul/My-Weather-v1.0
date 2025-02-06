@@ -43,7 +43,7 @@ public class LocationService {
     }
 
     /* 위도와 경도를 기상청 x,y좌표로 변환 */
-    public ElementForm getXY(ElementForm elementForm){
+    public ElementForm transformCoordinate(ElementForm elementForm){
         /* 단기예보 지도 정보 */
         double GRID = 5.0; // 격자간격 (km)
         double XO = 210/GRID; // 기준점 X좌표
