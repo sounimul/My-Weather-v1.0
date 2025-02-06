@@ -11,9 +11,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-import weather.weatherspring.entity.Wtype;
-import weather.weatherspring.domain.ElementForm;
-import weather.weatherspring.repository.WeatherRepository;
+import weather.weatherspring.domain.entity.Wtype;
+import weather.weatherspring.domain.dto.ElementForm;
+import weather.weatherspring.domain.repository.WeatherRepository;
 
 import java.util.Optional;
 

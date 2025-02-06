@@ -1,4 +1,4 @@
-package weather.weatherspring.domain;
+package weather.weatherspring.domain.dto;
 
 public class CurrentWeather {
     private String t1h="";     // 기온

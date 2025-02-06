@@ -1,4 +1,4 @@
-package weather.weatherspring.entity;
+package weather.weatherspring.domain.entity;
 
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;

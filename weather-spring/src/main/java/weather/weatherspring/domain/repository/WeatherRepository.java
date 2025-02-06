@@ -1,6 +1,6 @@
-package weather.weatherspring.repository;
+package weather.weatherspring.domain.repository;
 
-import weather.weatherspring.entity.Wtype;
+import weather.weatherspring.domain.entity.Wtype;
 
 import java.util.Optional;
 

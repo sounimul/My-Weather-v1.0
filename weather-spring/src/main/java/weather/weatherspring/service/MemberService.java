@@ -1,9 +1,9 @@
 package weather.weatherspring.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.entity.Member;
-import weather.weatherspring.domain.MemberForm;
-import weather.weatherspring.repository.MemberRepository;
+import weather.weatherspring.domain.entity.Member;
+import weather.weatherspring.domain.dto.MemberForm;
+import weather.weatherspring.domain.repository.MemberRepository;
 
 import java.util.List;
 import java.util.Optional;

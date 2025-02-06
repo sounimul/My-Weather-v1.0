@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.entity.Record;
-import weather.weatherspring.entity.RecordId;
-import weather.weatherspring.domain.Search;
-import weather.weatherspring.repository.RecordRepository;
-import weather.weatherspring.repository.RecordSpecification;
+import weather.weatherspring.domain.entity.Record;
+import weather.weatherspring.domain.entity.RecordId;
+import weather.weatherspring.domain.dto.Search;
+import weather.weatherspring.domain.repository.RecordRepository;
+import weather.weatherspring.domain.repository.RecordSpecification;
 
 import java.util.List;
 import java.util.Optional;

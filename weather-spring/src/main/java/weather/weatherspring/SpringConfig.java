@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
-import weather.weatherspring.repository.*;
+import weather.weatherspring.domain.repository.*;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 import weather.weatherspring.service.ReviewService;

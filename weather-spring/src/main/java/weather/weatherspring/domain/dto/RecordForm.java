@@ -1,4 +1,4 @@
-package weather.weatherspring.domain;
+package weather.weatherspring.domain.dto;
 
 public class RecordForm {
     private String saveTempComment;

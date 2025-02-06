@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.entity.Review;
-import weather.weatherspring.entity.ReviewId;
-import weather.weatherspring.repository.ReviewRepository;
+import weather.weatherspring.domain.entity.Review;
+import weather.weatherspring.domain.entity.ReviewId;
+import weather.weatherspring.domain.repository.ReviewRepository;
 
 import java.time.LocalDateTime;
 

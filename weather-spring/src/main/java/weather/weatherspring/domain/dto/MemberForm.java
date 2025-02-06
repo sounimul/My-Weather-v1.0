@@ -1,4 +1,4 @@
-package weather.weatherspring.domain;
+package weather.weatherspring.domain.dto;
 
 /* createMemberForm.html의 input 데이터를 전달 받을 폼 객체 */
 public class MemberForm {
