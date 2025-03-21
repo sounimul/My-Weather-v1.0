@@ -1,4 +1,4 @@
-package weather.weatherspring;
+package weather.weatherspring.config;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
