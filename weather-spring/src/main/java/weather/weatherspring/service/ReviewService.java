@@ -1,5 +1,6 @@
 package weather.weatherspring.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
+@RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
-
-    @Autowired
-    public ReviewService(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
 
     /* 리뷰 저장하기 */
     public ReviewId saveReview(Review review){

@@ -1,22 +1,11 @@
 package weather.weatherspring.domain.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ReviewForm {
     private int reviewStar;
     private String comment;
-
-    public int getReviewStar() {
-        return reviewStar;
-    }
-
-    public void setReviewStar(int reviewStar) {
-        this.reviewStar = reviewStar;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 }

@@ -3,6 +3,7 @@ package weather.weatherspring.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,24 +29,15 @@ import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 @RestController
+@RequiredArgsConstructor
 public class WeatherController {
     @Autowired
     private HttpServletRequest request;
-    @Autowired
-    private final LocationService locationService;
-    @Autowired
-    private final WeatherService weatherService;
-    @Autowired
-    private final RecordService recordService;
-    @Autowired
-    private final MemberService memberService;
 
-    public WeatherController(LocationService locationService, WeatherService weatherService, RecordService recordService, MemberService memberService) {
-        this.locationService = locationService;
-        this.weatherService = weatherService;
-        this.recordService = recordService;
-        this.memberService = memberService;
-    }
+    private final LocationService locationService;
+    private final WeatherService weatherService;
+    private final RecordService recordService;
+    private final MemberService memberService;
 
     /* weather view */
     @GetMapping("/weather")

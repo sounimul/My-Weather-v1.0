@@ -1,6 +1,7 @@
 package weather.weatherspring.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,17 +11,13 @@ import reactor.core.publisher.Mono;
 import weather.weatherspring.domain.dto.ElementForm;
 
 
-//@Transactional
 @Service
+@RequiredArgsConstructor
 public class LocationService {
     private final WebClient.Builder kakaoWebClientBuilder;
     private static final String KAKAO_API_BASE_URL="https://dapi.kakao.com";
     @Value("${KAKAO_API_KEY}")
     private String KAKAO_API_KEY;
-
-    public LocationService(WebClient.Builder kakaoWebClientBuilder) {
-        this.kakaoWebClientBuilder = kakaoWebClientBuilder;
-    }
 
     /* 위도와 경도를 통해 행정구역 정보를 가져옴 */
     public String getAddress(ElementForm elementForm){

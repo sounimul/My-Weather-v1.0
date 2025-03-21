@@ -3,6 +3,7 @@ package weather.weatherspring.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,18 +23,13 @@ import java.util.Optional;
 
 
 @Controller
+@RequiredArgsConstructor
 public class MypageController {
     @Autowired
     private HttpServletRequest request;
-    @Autowired
-    private final MemberService memberService;
-    @Autowired
-    private final RecordService recordService;
 
-    public MypageController(MemberService memberService, RecordService recordService) {
-        this.memberService = memberService;
-        this.recordService = recordService;
-    }
+    private final MemberService memberService;
+    private final RecordService recordService;
 
     @GetMapping("/myPage")
     public String myPage(Model model, @RequestParam("temp") Optional<String> temp, @RequestParam("humid") Optional<String> humid, @RequestParam("prep") Optional<String> prep, @RequestParam(required = false, defaultValue = "0") int page){

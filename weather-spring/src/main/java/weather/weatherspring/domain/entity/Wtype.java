@@ -1,9 +1,13 @@
 package weather.weatherspring.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table
+@Getter
+@Setter
 public class Wtype {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,28 +16,4 @@ public class Wtype {
     private String message;
 
     private String wname;
-
-    public String getWcode() {
-        return wcode;
-    }
-
-    public void setWcode(String wcode) {
-        this.wcode = wcode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getWname() {
-        return wname;
-    }
-
-    public void setWname(String wname) {
-        this.wname = wname;
-    }
 }

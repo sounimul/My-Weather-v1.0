@@ -1,5 +1,6 @@
 package weather.weatherspring.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,14 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
+@RequiredArgsConstructor
 public class RecordService {
 
     private final RecordRepository recordRepository;
-
-    @Autowired
-    public RecordService(RecordRepository recordRepository) {
-        this.recordRepository = recordRepository;
-    }
 
     /* record 저장 */
     public Optional<Record> saveRecord(Record record){

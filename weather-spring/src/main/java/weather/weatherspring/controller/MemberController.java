@@ -3,6 +3,7 @@ package weather.weatherspring.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,21 +21,14 @@ import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 @Controller
+@RequiredArgsConstructor
 public class MemberController {
     @Autowired
     private HttpServletRequest request;
-    @Autowired
-    private final MemberService memberService;
-    @Autowired
-    private final LocationService locationService;
-    @Autowired
-    private final WeatherService weatherService;
 
-    public MemberController(MemberService memberService, LocationService locationService, WeatherService weatherService) {
-        this.memberService = memberService;
-        this.locationService = locationService;
-        this.weatherService = weatherService;
-    }
+    private final MemberService memberService;
+    private final LocationService locationService;
+    private final WeatherService weatherService;
 
     @PostMapping("/join")
     public String create(MemberForm form){

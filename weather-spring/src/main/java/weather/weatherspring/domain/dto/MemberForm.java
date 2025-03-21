@@ -1,6 +1,11 @@
 package weather.weatherspring.domain.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /* createMemberForm.html의 input 데이터를 전달 받을 폼 객체 */
+@Getter
+@Setter
 public class MemberForm {
 
     // createMemberForm.html의 input name과 매칭되어 들어옴
@@ -12,67 +17,5 @@ public class MemberForm {
     private String fvweather;
     private String curPw;
     private String checkPw;
-    public String getEmailLocal() {
-        return emailLocal;
-    }
 
-    public void setEmailLocal(String emailLocal) {
-        this.emailLocal = emailLocal;
-    }
-
-    public String getEmailDomain() {
-        return emailDomain;
-    }
-
-    public void setEmailDomain(String emailDomain) {
-        this.emailDomain = emailDomain;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getPw() {
-        return pw;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getFvweather() {
-        return fvweather;
-    }
-
-    public void setFvweather(String fvweather) {
-        this.fvweather = fvweather;
-    }
-
-    public String getCurPw() {
-        return curPw;
-    }
-
-    public void setCurPw(String curPw) {
-        this.curPw = curPw;
-    }
-
-    public String getCheckPw() {
-        return checkPw;
-    }
-
-    public void setCheckPw(String checkPw) {
-        this.checkPw = checkPw;
-    }
 }
