@@ -1,4 +1,4 @@
-package weather.weatherspring.repository;
+package weather.weatherspring.domain.repository;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -6,7 +6,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.entity.Record;
+import weather.weatherspring.domain.entity.Record;
 
 @Transactional
 public class RecordSpecification{

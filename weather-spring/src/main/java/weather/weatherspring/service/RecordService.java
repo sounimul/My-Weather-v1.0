@@ -1,32 +1,30 @@
 package weather.weatherspring.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import weather.weatherspring.entity.Record;
-import weather.weatherspring.entity.RecordId;
-import weather.weatherspring.domain.Search;
-import weather.weatherspring.repository.RecordRepository;
-import weather.weatherspring.repository.RecordSpecification;
+import weather.weatherspring.domain.entity.Record;
+import weather.weatherspring.domain.entity.RecordId;
+import weather.weatherspring.domain.dto.Search;
+import weather.weatherspring.domain.repository.RecordRepository;
+import weather.weatherspring.domain.repository.RecordSpecification;
 
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
+@Service
+@RequiredArgsConstructor
 public class RecordService {
 
     private final RecordRepository recordRepository;
 
-    @Autowired
-    public RecordService(RecordRepository recordRepository) {
-        this.recordRepository = recordRepository;
-    }
-
     /* record 저장 */
+    @Transactional
     public Optional<Record> saveRecord(Record record){
         RecordId recordId = new RecordId();
         recordId.setUid(record.getUid());
@@ -52,6 +50,7 @@ public class RecordService {
     }
 
     /* record 삭제 */
+    @Transactional
     public void deleteRecord(RecordId recordId){
         recordRepository.deleteByUidAndRdate(recordId.getUid(), recordId.getRdate());
     }

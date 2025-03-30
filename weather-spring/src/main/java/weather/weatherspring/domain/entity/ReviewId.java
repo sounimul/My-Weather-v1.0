@@ -1,24 +1,24 @@
-package weather.weatherspring.entity;
+package weather.weatherspring.domain.entity;
 
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewId implements Serializable {
     private Long uuid;
     @Column(name="Rdate") @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime date;
-
-    // 기본 생성자 선언
-    public ReviewId(){ }
-
-    public ReviewId(Long uuid, LocalDateTime date) {
-        this.uuid = uuid;
-        this.date = date;
-    }
 
     // equals() 구현
     @Override
@@ -34,19 +34,4 @@ public class ReviewId implements Serializable {
         return Objects.hash(uuid,date);
     }
 
-    public Long getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(Long uuid) {
-        this.uuid = uuid;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
 }

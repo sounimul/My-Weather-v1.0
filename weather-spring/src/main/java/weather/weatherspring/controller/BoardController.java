@@ -1,16 +1,17 @@
 package weather.weatherspring.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import weather.weatherspring.entity.Member;
-import weather.weatherspring.entity.Record;
-import weather.weatherspring.entity.Review;
-import weather.weatherspring.domain.Search;
+import weather.weatherspring.domain.entity.Member;
+import weather.weatherspring.domain.entity.Record;
+import weather.weatherspring.domain.entity.Review;
+import weather.weatherspring.domain.dto.Search;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
 import weather.weatherspring.service.ReviewService;
@@ -19,21 +20,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
     @Autowired
     private HttpServletRequest request;
-    @Autowired
-    private final MemberService memberService;
-    @Autowired
-    private final RecordService recordService;
-    @Autowired
-    private final ReviewService reviewService;
 
-    public BoardController(MemberService memberService, RecordService recordService, ReviewService reviewService) {
-        this.memberService = memberService;
-        this.recordService = recordService;
-        this.reviewService = reviewService;
-    }
+    private final MemberService memberService;
+    private final RecordService recordService;
+    private final ReviewService reviewService;
 
     @GetMapping("/board/user")
     public String userBoard(Model model){

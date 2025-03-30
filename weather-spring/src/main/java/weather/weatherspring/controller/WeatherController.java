@@ -3,6 +3,7 @@ package weather.weatherspring.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-import weather.weatherspring.entity.Member;
-import weather.weatherspring.entity.Record;
-import weather.weatherspring.domain.*;
+import weather.weatherspring.domain.dto.*;
+import weather.weatherspring.domain.entity.Member;
+import weather.weatherspring.domain.entity.Record;
 import weather.weatherspring.service.LocationService;
 import weather.weatherspring.service.MemberService;
 import weather.weatherspring.service.RecordService;
@@ -28,24 +29,15 @@ import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 @RestController
+@RequiredArgsConstructor
 public class WeatherController {
     @Autowired
     private HttpServletRequest request;
-    @Autowired
-    private final LocationService locationService;
-    @Autowired
-    private final WeatherService weatherService;
-    @Autowired
-    private final RecordService recordService;
-    @Autowired
-    private final MemberService memberService;
 
-    public WeatherController(LocationService locationService, WeatherService weatherService, RecordService recordService, MemberService memberService) {
-        this.locationService = locationService;
-        this.weatherService = weatherService;
-        this.recordService = recordService;
-        this.memberService = memberService;
-    }
+    private final LocationService locationService;
+    private final WeatherService weatherService;
+    private final RecordService recordService;
+    private final MemberService memberService;
 
     /* weather view */
     @GetMapping("/weather")
@@ -84,16 +76,12 @@ public class WeatherController {
     @PostMapping("/weather")
     public Object createWeather(@RequestBody ElementForm elementForm){
         HttpSession session = request.getSession();
-        CurrentWeather currentWeather = new CurrentWeather();   // 현재 날씨
-        BasicWeather pfWeather = new BasicWeather();            // 1시간 전후 날씨
-        MidWeather midWeather = new MidWeather();   // 5일치 날씨예보
-
 
         /*
         주소 처리
          */
         // 위도, 경도 -> 기상청 x,y좌표
-        elementForm=locationService.getXY(elementForm);
+        elementForm=locationService.transformCoordinate(elementForm);
         // 위도,경도를 행정구역으로 변환하는 카카오 api 호출
         elementForm.setAd(locationService.getAddress(elementForm));
         // 주소 -> 중기예보구역 코드
@@ -127,43 +115,22 @@ public class WeatherController {
 
         String[][] curFutFcst = weatherService.jsonToCurFutFcst(response.get("curFutFcst"), response.get("curWeather"));
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
-        currentWeather.setPty(curFutFcst[0][0]);
-        currentWeather.setReh(curFutFcst[0][1]);
-        currentWeather.setRn1(curFutFcst[0][2]);
-        currentWeather.setT1h(curFutFcst[0][3]);
-        currentWeather.setSky(curFutFcst[0][4]);
-        currentWeather.setStatus(curFutFcst[0][5]);
-        currentWeather.setIcon(curFutFcst[0][6]);
-
-        // 1시간 후 기온,날씨 - 초단기예보
-        pfWeather.setFpty(curFutFcst[1][0]);
-        pfWeather.setFsky(curFutFcst[1][1]);
-        pfWeather.setFt1h(curFutFcst[1][2]);
-        pfWeather.setFicon(curFutFcst[1][3]);
+        CurrentWeather currentWeather = new CurrentWeather(curFutFcst[0]);   // 현재 날씨
 
         // 1시간 전 기온, 날씨 - 초단기예보
         String[] pastFcst = weatherService.jsonToPastFcst(response.get("pastFcst"));
-        pfWeather.setPpty(pastFcst[0]);
-        pfWeather.setPsky(pastFcst[1]);
-        pfWeather.setPt1h(pastFcst[2]);
-        pfWeather.setPicon(pastFcst[3]);
+        // 1시간 후 기온,날씨(초단기예보) + 1시간 전 기온,날씨 (초단계예보)
+        BasicWeather pfWeather = new BasicWeather(curFutFcst[1],pastFcst);            // 1시간 전후 날씨
 
         // 오늘의 최고, 최저기온
         String[] tmnTmx = weatherService.jsonToMaxMinTemp(response.get("tmnTmx"));
-        midWeather.setTmx(tmnTmx[0]);
-        midWeather.setTmn(tmnTmx[1]);
-
         // 2일치 최고, 최저기온, 날씨
         String[][] twoDayFcst = weatherService.jsonToTwoDayFcst(response.get("twoDayFcst"),elementForm);
-        midWeather.setFcstTmx(twoDayFcst[0]);
-        midWeather.setFcstTmn(twoDayFcst[1]);
-        midWeather.setMaxName(twoDayFcst[2]);
-        midWeather.setMinName(twoDayFcst[3]);
-
         // 3 ~ 5일 중기예보(날씨)
         String[][] midFcst = weatherService.jsonToMidFcst(elementForm,response.get("midFcst"));
-        midWeather.setWeather(midFcst[0]);
-        midWeather.setIcon(midFcst[1]);
+        // 5일치 날씨예보
+        MidWeather midWeather = new MidWeather(tmnTmx,twoDayFcst,midFcst);
+
 
         /* 위치정보, 날씨 정보 session에 저장 */
         session.setAttribute("current-weather",currentWeather);

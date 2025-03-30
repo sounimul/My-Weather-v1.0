@@ -1,6 +1,7 @@
 package weather.weatherspring.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,13 +12,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-import weather.weatherspring.entity.Wtype;
-import weather.weatherspring.domain.ElementForm;
-import weather.weatherspring.repository.WeatherRepository;
+import weather.weatherspring.domain.entity.Wtype;
+import weather.weatherspring.domain.dto.ElementForm;
+import weather.weatherspring.domain.repository.WeatherRepository;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class WeatherService {
     private static final String KMA_API_BASE_URL="http://apis.data.go.kr/1360000";
     private static final String KMA_SRT_NCST_URL="/VilageFcstInfoService_2.0/getUltraSrtNcst";        // 초단기실황
@@ -26,14 +28,9 @@ public class WeatherService {
     private static final String KMA_MIDLAND_FCST_URL="/MidFcstInfoService/getMidLandFcst";
     @Value("${DATA_API_KEY}")
     private String DATA_API_KEY;
-    private final WebClient.Builder kmaWebClientBuilder;
+    private final WebClient.Builder kmaWebClientBuilder = WebClient.builder();
     private final WeatherRepository weatherRepository;
 
-    @Autowired
-    public WeatherService(WebClient.Builder kmaWebClientBuilder, WeatherRepository weatherRepository) {
-        this.kmaWebClientBuilder = kmaWebClientBuilder;
-        this.weatherRepository = weatherRepository;
-    }
 
     /* 단기예보 API 호출 */
     public Mono<JsonNode> getForecast(ElementForm elementForm,int option){
