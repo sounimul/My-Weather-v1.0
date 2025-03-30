@@ -14,7 +14,7 @@ import weather.weatherspring.domain.dto.ElementForm;
 @Service
 @RequiredArgsConstructor
 public class LocationService {
-    private final WebClient.Builder kakaoWebClientBuilder;
+    private final WebClient.Builder kakaoWebClientBuilder = WebClient.builder();
     private static final String KAKAO_API_BASE_URL="https://dapi.kakao.com";
     @Value("${KAKAO_API_KEY}")
     private String KAKAO_API_KEY;

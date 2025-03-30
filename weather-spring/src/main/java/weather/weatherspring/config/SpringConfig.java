@@ -49,14 +49,4 @@ public class SpringConfig {
         return new JpaReviewRepository(em);
     }
 
-    @Bean
-    public WebClient.Builder kakaoWebClientBuilder(){
-        return WebClient.builder();
-    }
-
-    @Bean
-    public WebClient.Builder kmaWebClientBuilder(){
-        return WebClient.builder();
-    }
-
 }

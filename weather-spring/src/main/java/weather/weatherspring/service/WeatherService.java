@@ -28,7 +28,7 @@ public class WeatherService {
     private static final String KMA_MIDLAND_FCST_URL="/MidFcstInfoService/getMidLandFcst";
     @Value("${DATA_API_KEY}")
     private String DATA_API_KEY;
-    private final WebClient.Builder kmaWebClientBuilder;
+    private final WebClient.Builder kmaWebClientBuilder = WebClient.builder();
     private final WeatherRepository weatherRepository;
 
 
