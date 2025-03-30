@@ -24,25 +24,12 @@ public class SpringConfig {
     }
 
     @Bean
-    public MemberService memberService(){
-        return new MemberService(memberRepository());
-    }
-
-    @Bean
     public MemberRepository memberRepository(){
         return new JpaMemberRepository(em);
     }
 
     @Bean
     public WeatherRepository weatherRepository(){ return new JpaWeatherRepository(em);}
-
-    @Bean
-    public RecordService recordService(){return new RecordService(recordRepository);}
-
-    @Bean
-    public ReviewService reviewService(){
-        return new ReviewService(reviewRepository());
-    }
 
     @Bean
     public ReviewRepository reviewRepository(){

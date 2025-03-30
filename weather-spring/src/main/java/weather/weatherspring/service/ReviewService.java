@@ -1,8 +1,8 @@
 package weather.weatherspring.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import weather.weatherspring.domain.entity.Review;
 import weather.weatherspring.domain.entity.ReviewId;
@@ -11,12 +11,13 @@ import weather.weatherspring.domain.repository.ReviewRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
+@Service
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     /* 리뷰 저장하기 */
+    @Transactional
     public ReviewId saveReview(Review review){
         return reviewRepository.save(review);
     }

@@ -1,6 +1,7 @@
 package weather.weatherspring.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import weather.weatherspring.domain.entity.Member;
 import weather.weatherspring.domain.dto.MemberForm;
@@ -10,13 +11,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Transactional
+@Service
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
     /* 회원가입 */
+    @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);    // 멤버 중복 체크
         memberRepository.save(member);      // 멤버 저장(회원가입)
@@ -58,6 +60,7 @@ public class MemberService {
     }
 
     /* 비밀번호 변경 */
+    @Transactional
     public Boolean updatePw(Long uid, MemberForm pwForm){
         // 현재 uid의 객체 가져오기
         Member member=memberRepository.findByUid(uid).get();
@@ -71,6 +74,7 @@ public class MemberService {
     }
 
     /* 프로필 변경 */
+    @Transactional
     public Optional<Member> updateProfile(Long uid, MemberForm profileForm){
         // 현재 uid의 객체 가지고 오기
         Member member=memberRepository.findByUid(uid).get();
@@ -81,6 +85,7 @@ public class MemberService {
     }
 
     /* 사용자 권한 변경 */
+    @Transactional
     public Long updateUserAuth(Long uid){
         Member member = memberRepository.findByUid(uid).get();
         member.setAvail("N");
