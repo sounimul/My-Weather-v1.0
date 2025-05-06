@@ -9,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import weather.weatherspring.domain.dto.*;
 import weather.weatherspring.domain.entity.Member;
@@ -26,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -91,27 +90,25 @@ public class WeatherController {
         /*
         날씨 예보 받아오고 처리
          */
-        CountDownLatch cdl = new CountDownLatch(6);
-        Map<String,JsonNode> response = new HashMap<>();
+        CompletableFuture<JsonNode> future1 = weatherService.getForecast(elementForm, 0).toFuture();
+        CompletableFuture<JsonNode> future2 = weatherService.getForecast(elementForm, 1).toFuture();
+        CompletableFuture<JsonNode> future3 = weatherService.getForecast2(elementForm).toFuture();
+        CompletableFuture<JsonNode> future4 = weatherService.getForecast3(elementForm,1).toFuture();
+        CompletableFuture<JsonNode> future5 = weatherService.getForecast3(elementForm,0).toFuture();
+        CompletableFuture<JsonNode> future6 = weatherService.getMidForecast(elementForm,areaCode).toFuture();
 
-        // 단기예보 - 오늘 최고, 최저기온
-        weatherService.getForecast(elementForm,0).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("tmnTmx",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
-        // 단기예보 - 2일치 예보
-        weatherService.getForecast(elementForm,1).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("twoDayFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
-        // 초단기실황 - 현재 날씨 / 초단기예보 - 현재날씨 + 1시간후 날씨
-        weatherService.getForecast2(elementForm).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("curFutFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
-        weatherService.getForecast3(elementForm,1).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("curWeather",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
-        // 초단기예보 - 1시간 전 날씨
-        weatherService.getForecast3(elementForm,0).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("pastFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
-        // 중기예보 - 3~5일 최고, 최저기온 및 날씨
-        weatherService.getMidForecast(elementForm,areaCode).doOnTerminate(() -> cdl.countDown()).subscribe(e -> response.put("midFcst",e), error -> { throw new ResponseStatusException(HttpStatus.FOUND,"redirect:/weather");});
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(future1, future2, future3, future4, future5, future6);
 
-        try {
-            cdl.await();
-        }catch(InterruptedException e){
-            Thread.currentThread().interrupt();
-        }
-
+        Map<String, JsonNode> response = allFutures.thenApply(v -> {
+            Map<String,JsonNode> resultMap = new HashMap<>();
+            resultMap.put("tmnTmx",future1.join());
+            resultMap.put("twoDayFcst",future2.join());
+            resultMap.put("curFutFcst",future3.join());
+            resultMap.put("curWeather", future4.join());
+            resultMap.put("pastFcst", future5.join());
+            resultMap.put("midFcst", future6.join());
+            return resultMap;
+        }).join();
 
         String[][] curFutFcst = weatherService.jsonToCurFutFcst(response.get("curFutFcst"), response.get("curWeather"));
         //현재 시간 날씨 - 초단기실황 + 초단기예보(현재 하늘상태)
